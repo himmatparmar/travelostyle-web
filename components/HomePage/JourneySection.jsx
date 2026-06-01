@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function JourneySection() {
   return (
-    <section className="relative overflow-hidden py-[6vw] bg-[#f6f6f6]  w-[96vw] h-[54.15vw]">
+    <section className="relative overflow-hidden py-[6vw] bg-[#f6f6f6]  w-[96vw] h-[48.15vw]">
       <div className="absolute right-[-3vw] top-[-2vw] z-20 w-[55vw] rotate-[2deg]">
         <Image
           src="/Line.svg"
@@ -12,7 +12,7 @@ export default function JourneySection() {
           className="h-auto w-full"
         />
       </div>
-       <div className="absolute bottom-[1vw] left-[-6vw] z-[1] w-[22vw] rotate-[8deg]">
+       <div className="absolute bottom-[2vw] left-[-6vw] z-[1] w-[22vw] rotate-[8deg]">
         <Image
           src="/SmallLine.svg"
           alt="small-line"
