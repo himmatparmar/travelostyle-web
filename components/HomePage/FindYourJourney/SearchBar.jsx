@@ -1,8 +1,9 @@
-// src/components/HeroSection.tsx
+import TravelForm from "./TravelForm"
 
 export default function SearchBar() {
   return (
-    <section className="overflow-hidden border border-[#7C4DFF] ">
+    <section className="overflow-hidden border border-[#7C4DFF] w-full">
+     
       <div className="flex items-center justify-between bg-[#2E2787] px-14 py-2 text-[11px] text-white">
         <p>
           Speak to our travel advisor (773) 983-8067 | open 10am-7pm CST
@@ -13,7 +14,8 @@ export default function SearchBar() {
           <button>Contact Us</button>
         </div>
       </div>
-      <div className="bg-[#F6F6F6] px-14 py-5">
+       
+      <div className="bg-[#F6F6F6] px-14 py-2">
         <div className="flex items-center justify-between border-b border-gray-300 pb-4">
      
           <h1 className="text-[42px] font-light tracking-[2px] text-[#1A1A1A] font-taprom">
@@ -28,23 +30,8 @@ export default function SearchBar() {
             <button>Offers</button>
           </div>
         </div>
-        <div className="mt-5 flex items-center gap-3">
-          <select className="h-[42px] w-[300px] border border-[#BDBDBD] bg-white px-4 text-[13px] text-[#8C8C8C] outline-none">
-            <option>How do you want to travel?</option>
-          </select>
-
-          <select className="h-[42px] w-[300px] border border-[#BDBDBD] bg-white px-4 text-[13px] text-[#8C8C8C] outline-none">
-            <option>When do you want to travel?</option>
-          </select>
-
-          <select className="h-[42px] w-[300px] border border-[#BDBDBD] bg-white px-4 text-[13px] text-[#8C8C8C] outline-none">
-            <option>Where do you want to travel?</option>
-          </select>
-
-          <button className="h-[42px] rounded-full bg-[#2E2787] px-8 text-[14px] font-semibold text-white">
-            Find Your Journey
-          </button>
-        </div>
+        
+       <TravelForm/>
       </div>
       <div className="relative h-[720px]">
         <img
@@ -103,6 +90,7 @@ export default function SearchBar() {
           </div>
         </div>
       </div>
+     
     </section>
   );
 }

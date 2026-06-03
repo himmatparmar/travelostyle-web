@@ -1,0 +1,260 @@
+"use client";
+
+import { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
+
+const travelOptions = [
+  "Group Journey",
+  "Private Journey",
+  "Tailor-Made Journey",
+  "Cruises",
+  "Land & Rail Journeys",
+  "Private Jet Journeys",
+];
+
+const destinations = [
+  "Morocco",
+  "Orlando",
+  "Las Vegas",
+  "Cancun",
+  "India",
+  "Africa",
+  "Punta Cana",
+  "Florida",
+  "Chicago",
+  "Spain",
+];
+
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const durations = ["2-5 Days", "6-10 Days", "11-20 Days", "20+ Days"];
+
+export default function TravelForm() {
+  const [selectedType, setSelectedType] = useState("Private Journey");
+  const [activeDropdown, setActiveDropdown] = useState(null);
+
+  const [selectedDestinations, setSelectedDestinations] = useState([]);
+  const [selectedMonths, setSelectedMonths] = useState([]);
+  const [selectedDuration, setSelectedDuration] = useState("");
+
+  // Destination Select
+  const handleDestinationSelect = (destination) => {
+    setSelectedDestinations((prev) => {
+      if (prev.includes(destination)) {
+        return prev.filter((item) => item !== destination);
+      }
+      return [...prev, destination];
+    });
+  };
+
+  // Month Select
+  const handleMonthSelect = (month) => {
+    setSelectedMonths((prev) => {
+      if (prev.includes(month)) {
+        return prev.filter((item) => item !== month);
+      }
+      return [...prev, month];
+    });
+  };
+
+  const handleDurationSelect = (duration) => {
+    setSelectedDuration(duration);
+  };
+
+  return (
+    <div className="pt-3">
+      <div className="flex gap-4">
+        <button
+          onClick={() =>
+            setActiveDropdown(
+              activeDropdown === "travel" ? null : "travel"
+            )
+          }
+          className="flex h-[2.1vw] flex-1 items-center justify-between rounded border border-gray-400 bg-white px-4"
+        >
+          <span className="text-[0.7vw]">{selectedType}</span>
+
+          {activeDropdown === "travel" ? (
+            <ChevronUp size={18} />
+          ) : (
+            <ChevronDown size={18} />
+          )}
+        </button>
+
+        <button
+          onClick={() =>
+            setActiveDropdown(
+              activeDropdown === "destination"
+                ? null
+                : "destination"
+            )
+          }
+          className="flex h-[2.1vw] flex-1 items-center justify-between rounded border border-gray-400 bg-white px-4"
+        >
+          <span className="truncate text-[0.7vw]">
+            {selectedDestinations.length
+              ? selectedDestinations.length > 3
+                ? `${selectedDestinations
+                    .slice(0, 3)
+                    .join(", ")} +${
+                    selectedDestinations.length - 3
+                  } more`
+                : selectedDestinations.join(", ")
+              : "Where do you want to go?"}
+          </span>
+
+          {activeDropdown === "destination" ? (
+            <ChevronUp size={18} />
+          ) : (
+            <ChevronDown size={18} />
+          )}
+        </button>
+
+        <button
+          onClick={() =>
+            setActiveDropdown(
+              activeDropdown === "date" ? null : "date"
+            )
+          }
+          className="flex h-[2.1vw] flex-1 items-center justify-between rounded border border-gray-400 bg-white px-4 "
+        >
+          <span className="truncate text-[0.7vw]">
+            {selectedMonths.length || selectedDuration
+              ? `${selectedMonths.join(", ")}${
+                  selectedMonths.length && selectedDuration
+                    ? ", "
+                    : ""
+                }${selectedDuration}`
+              : "When do you want to travel?"}
+          </span>
+
+          {activeDropdown === "date" ? (
+            <ChevronUp size={18} />
+          ) : (
+            <ChevronDown size={18} />
+          )}
+        </button>
+
+        <button className="h-[2.25vw] min-w-[10.5vw] rounded-full bg-[#2E348D]  text-[0.9vw]  text-white transition hover:bg-[#252b78]">
+          Find Your Journey
+        </button>
+      </div>
+      {activeDropdown === "travel" && (
+        <div className="mt-3 rounded-lg border border-gray-400 bg-white p-4 shadow-md">
+          <h3 className="mb-4 text-[0.9vw] font-semibold">
+            Choose a way of travel
+          </h3>
+
+          <div className="flex flex-wrap gap-8">
+            {travelOptions.map((item) => (
+              <label
+                key={item}
+                className="flex cursor-pointer items-center gap-2 text-[0.7vw]"
+              >
+                <input
+                className="w-[0.9vw] h-[0.9vw]"
+                  type="checkbox"
+                  name="travelType"
+                  checked={selectedType === item}
+                  onChange={() => setSelectedType(item)}
+                />
+                {item}
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {activeDropdown === "destination" && (
+        <div className="mt-3 rounded-lg border border-gray-400 bg-white p-4 shadow-md">
+          <h3 className="mb-4 text-lg font-semibold text-[0.9vw]">
+            Popular Destinations
+          </h3>
+
+          <div className="flex flex-wrap gap-3">
+            {destinations.map((item) => (
+              <button
+                key={item}
+                onClick={() => handleDestinationSelect(item)}
+                className={`rounded-full border px-4 py-1 text-xs transition-all text-[0.7vw] ${
+                  selectedDestinations.includes(item)
+                    ? "border-[#2E348D] bg-[#F5EFE8] text-[#2E348D]"
+                    : "border-gray-300 bg-white"
+                }`}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+
+          <button className="mt-4 rounded-full border border-gray-300 bg-[#F5EFE8] px-4 py-1 text-xs">
+            I m open to possibilities!
+          </button>
+        </div>
+      )}
+
+      {activeDropdown === "date" && (
+        <div className="mt-3 rounded-lg border border-gray-400 bg-white p-4 shadow-md">
+          <h3 className="text-xl font-semibold text-[0.9vw]">
+            When do you want to go?
+          </h3>
+
+          <p className="mb-4 mt-2 text-sm text-gray-500">
+            Pick Month of Travel
+          </p>
+
+          <div className="flex flex-wrap gap-3">
+            {months.map((month) => (
+              <button
+                key={month}
+                onClick={() => handleMonthSelect(month)}
+                className={`rounded-full border px-4 py-1 text-xs transition-all text-[0.7vw] ${
+                  selectedMonths.includes(month)
+                    ? "border-[#2E348D] bg-[#F5EFE8] text-[#2E348D]"
+                    : "border-gray-300 bg-white"
+                }`}
+              >
+                {month}
+              </button>
+            ))}
+          </div>
+
+          <h4 className="mb-4 mt-5 font-semibold text-[0.9vw]">
+            How long do you want to travel?
+          </h4>
+
+          <div className="flex flex-wrap gap-6">
+            {durations.map((item) => (
+              <label
+                key={item}
+                className="flex items-center gap-2 text-[0.7vw] cursor-pointer"
+              >
+                <input
+                 className="w-[0.9vw] h-[0.9vw]"
+                  type="checkbox"
+                  name="duration"
+                  checked={selectedDuration === item}
+                  onChange={() => handleDurationSelect(item)}
+                />
+                {item}
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
