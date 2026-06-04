@@ -1,6 +1,6 @@
 import { CirclePlus, Clock3, Info, MapPin } from "lucide-react";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 const trips = [
   {
@@ -34,8 +34,6 @@ const trips = [
     price: "$7000",
     offer: "Complimentary Desert Camp Experience",
   },
-
-  // extra cards for scroll
   {
     title: "Italy Escape",
     image: "/GoldenTriange.svg",

@@ -28,3 +28,10 @@ body {
 .font-taprom {
  font-family: "Taprom";
 }
+.leaflet-container {
+  background: #f5f5f5;
+}
+
+.leaflet-tile {
+  filter: sepia(25%) saturate(30%) brightness(108%);
+}
