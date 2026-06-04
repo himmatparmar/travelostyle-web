@@ -4,7 +4,7 @@ import JourneySection from "../components/HomePage/JourneySection";
 import YourNextTrip from "../components/HomePage/YourNextTrip";
 import ContactInquiry from "../components/HomePage/ContactInquiry";
 import ExperienceTravelSection from "../components/HomePage/ExperienceTravelSection";
-import TravelMap from "../components/HomePage/TravelMap";
+import Map from "../components/HomePage/Map";
 import TimingSection from "../components/HomePage/TimingSection";
 import TestimonialSection from "../components/HomePage/TestimonialSection";
 import TravelOStylePromise from "../components/HomePage/TravelOStylePromise";
@@ -18,7 +18,7 @@ export default function Home() {
      <ContactInquiry/>
      <ExperienceTravelSection/>
      <TimingSection/>
-     <TravelMap/>
+     <Map/>
      <TestimonialSection/>
      <TravelOStylePromise/>
     </div>
