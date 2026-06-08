@@ -8,6 +8,7 @@ import Map from "../components/HomePage/Map";
 import TimingSection from "../components/HomePage/TimingSection";
 import TestimonialSection from "../components/HomePage/TestimonialSection";
 import TravelOStylePromise from "../components/HomePage/TravelOStylePromise";
+import Footer from "../components/Footer";
 export default function Home() {
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans bg-[#fafafa] w-[96vw] h-[54.15vw]">
@@ -21,6 +22,7 @@ export default function Home() {
      <Map/>
      <TestimonialSection/>
      <TravelOStylePromise/>
+     <Footer />
     </div>
   );
 }
