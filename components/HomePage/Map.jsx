@@ -16,28 +16,152 @@ const destinations = [
     subtitle: "Browse Journeys",
     image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=300&q=80",
     position: [25.2048, 55.2708],
-    months: ["January"] 
-  },
-  {
-    title: "Patna, Bihar, India", 
-    subtitle: "Browse Journeys",
-    image: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=300&q=80", 
-    position: [25.5941, 85.1376], 
-    months: ["February"] 
+    months: ["January"],
   },
   {
     title: "Cape Town, South Africa",
     subtitle: "Browse Journeys",
     image: "https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=300&q=80",
     position: [-33.9249, 18.4241],
-    months: ["January"] 
+    months: ["January"],
   },
   {
     title: "Patagonia, Argentina",
     subtitle: "Browse Journeys",
     image: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=300&q=80",
     position: [-50.9423, -73.4068],
-    months: ["January"] 
+    months: ["January"],
+  },
+
+  {
+    title: "Patna, Bihar, India",
+    subtitle: "Browse Journeys",
+    image: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=300&q=80",
+    position: [25.5941, 85.1376],
+    months: ["February"],
+  },
+  {
+    title: "Jaipur, Rajasthan",
+    subtitle: "Browse Journeys",
+    image: "https://images.unsplash.com/photo-1477587458883-47145ed94245?w=300&q=80",
+    position: [26.9124, 75.7873],
+    months: ["February"],
+  },
+
+  // March
+  {
+    title: "Tokyo, Japan",
+    subtitle: "Browse Journeys",
+    image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=300&q=80",
+    position: [35.6762, 139.6503],
+    months: ["March"],
+  },
+  {
+    title: "Kyoto, Japan",
+    subtitle: "Browse Journeys",
+    image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=300&q=80",
+    position: [35.0116, 135.7681],
+    months: ["March"],
+  },
+
+  {
+    title: "Amsterdam, Netherlands",
+    subtitle: "Browse Journeys",
+    image: "https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?w=300&q=80",
+    position: [52.3676, 4.9041],
+    months: ["April"],
+  },
+
+  {
+    title: "Santorini, Greece",
+    subtitle: "Browse Journeys",
+    image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=300&q=80",
+    position: [36.3932, 25.4615],
+    months: ["May"],
+  },
+
+  // June
+  {
+    title: "Iceland",
+    subtitle: "Browse Journeys",
+    image: "https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=300&q=80",
+    position: [64.9631, -19.0208],
+    months: ["June"],
+  },
+
+  {
+    title: "France",
+    subtitle: "Browse Journeys",
+    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=300&q=80",
+    position: [48.8566, 2.3522],
+    months: ["July"],
+  },
+  {
+    title: "Iceland",
+    subtitle: "Browse Journeys",
+    image: "https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=300&q=80",
+    position: [64.9631, -19.0208],
+    months: ["July"],
+  },
+  {
+    title: "Kenya, East Africa",
+    subtitle: "Browse Journeys",
+    image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=300&q=80",
+    position: [-1.286389, 36.817223],
+    months: ["July"],
+  },
+
+  {
+    title: "Bali, Indonesia",
+    subtitle: "Browse Journeys",
+    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=300&q=80",
+    position: [-8.3405, 115.092],
+    months: ["August"],
+  },
+
+  {
+    title: "Swiss Alps",
+    subtitle: "Browse Journeys",
+    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=300&q=80",
+    position: [46.8182, 8.2275],
+    months: ["September"],
+  },
+
+  {
+    title: "New York, USA",
+    subtitle: "Browse Journeys",
+    image: "https://images.unsplash.com/photo-1499092346589-b9b6be3e94b2?w=300&q=80",
+    position: [40.7128, -74.006],
+    months: ["October"],
+  },
+
+  {
+    title: "Rajasthan, India",
+    subtitle: "Browse Journeys",
+    image: "https://images.unsplash.com/photo-1599661046289-e31897846e41?w=300&q=80",
+    position: [26.9124, 75.7873],
+    months: ["November"],
+  },
+  {
+    title: "Vietnam",
+    subtitle: "Browse Journeys",
+    image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=300&q=80",
+    position: [14.0583, 108.2772],
+    months: ["November"],
+  },
+  {
+    title: "Patagonia, Argentina",
+    subtitle: "Browse Journeys",
+    image: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=300&q=80",
+    position: [-50.9423, -73.4068],
+    months: ["November"],
+  },
+  {
+    title: "Lapland, Finland",
+    subtitle: "Browse Journeys",
+    image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=300&q=80",
+    position: [67.9222, 26.5046],
+    months: ["December"],
   },
 ];
 
