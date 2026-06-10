@@ -50,7 +50,6 @@ export default function TravelForm() {
   const [selectedMonths, setSelectedMonths] = useState([]);
   const [selectedDuration, setSelectedDuration] = useState("");
 
-  // Destination Select
   const handleDestinationSelect = (destination) => {
     setSelectedDestinations((prev) => {
       if (prev.includes(destination)) {
@@ -60,7 +59,6 @@ export default function TravelForm() {
     });
   };
 
-  // Month Select
   const handleMonthSelect = (month) => {
     setSelectedMonths((prev) => {
       if (prev.includes(month)) {
