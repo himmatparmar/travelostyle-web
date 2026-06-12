@@ -167,8 +167,7 @@ export default function SearchBar() {
         </div>
       </div>
 
-      {/* Hero */}
-      <div className="relative md:h-[720px]">
+      <div className="relative md:h-[700px]">
         {/* Mobile Design */}
         <div className="block md:hidden px-3 py-3 bg-[#F6F6F6]">
           <div className="relative overflow-hidden">
@@ -240,18 +239,78 @@ export default function SearchBar() {
 
           <div className="absolute inset-0 bg-black/35" />
 
-          <div className="relative z-10 flex h-full flex-col justify-center md:justify-between px-14 py-14">
-            {/* desktop code remains identical */}
+          <div className="hidden md:block relative h-[700px]">
+            <img
+              src="italy.svg"
+              alt="travel"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+
+            <div className="absolute inset-0 bg-black/35" />
+
+            {/* Content */}
+            <div className="absolute top-[170px] left-[70px] z-10 max-w-[560px]">
+              <h1 className="text-white text-[54px] font-semibold leading-[60px]">
+                Experience the worlds most loved destinations; without the
+                guesswork.
+              </h1>
+
+              <p className="mt-6 text-white/90 text-[14px] leading-[24px] max-w-[500px]">
+                From the spice-laced alleyways of Marrakech to the art-rich
+                museums of Rome—choose from the journeys that our travelers come
+                home raving about.
+              </p>
+
+              <button className="mt-8 rounded-full bg-white px-6 py-3 text-[14px] font-semibold text-[#2E2787]">
+                Explore Popular Destinations
+              </button>
+            </div>
+
+            {/* Bottom Section */}
+            <div className="absolute bottom-[80px] left-[70px] right-[70px] z-10">
+              <p className="text-white text-[14px] mb-4">Venice, Italy</p>
+
+              <div className="h-[1px] w-full bg-white/70" />
+            </div>
+
+            {/* Arrows */}
+            <div className="absolute bottom-[40px] left-[70px] z-10 flex items-center gap-4">
+              <button>
+                <Image
+                  src="/WhiteLeftArrow.svg"
+                  alt="Previous"
+                  width={42}
+                  height={42}
+                />
+              </button>
+
+              <button>
+                <Image
+                  src="/WhiteRightArrow.svg"
+                  alt="Next"
+                  width={42}
+                  height={42}
+                />
+              </button>
+            </div>
+
+            <div className="absolute bottom-[-15px] right-[70px] z-10 flex flex-col items-end gap-3">
+              <p className="text-[11px] text-white/70">
+                Images are only for representation purposes
+              </p>
+
+              <button className="mb-5 hidden md:flex items-center justify-center h-[36px] px-5 rounded-[6px] bg-[#2E2787] text-white text-[14px] font-semibold border border-white hover:bg-[#3B33A0] transition-colors">
+                Compare Trips
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    {showFindJourneyMobile && (
-  <div className="fixed inset-0 z-50 bg-black/30 flex items-center justify-center">
-    <FindJourneyMobile
-      onClose={() => setShowFindJourneyMobile(false)}
-    />
-  </div>
-)}
+      {showFindJourneyMobile && (
+        <div className="fixed inset-0 z-50 bg-black/30 flex items-center justify-center">
+          <FindJourneyMobile onClose={() => setShowFindJourneyMobile(false)} />
+        </div>
+      )}
     </section>
   );
 }
