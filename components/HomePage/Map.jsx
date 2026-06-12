@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
@@ -32,7 +32,6 @@ const destinations = [
     position: [-50.9423, -73.4068],
     months: ["January"],
   },
-
   {
     title: "Patna, Bihar, India",
     subtitle: "Browse Journeys",
@@ -47,8 +46,6 @@ const destinations = [
     position: [26.9124, 75.7873],
     months: ["February"],
   },
-
-  // March
   {
     title: "Tokyo, Japan",
     subtitle: "Browse Journeys",
@@ -63,7 +60,6 @@ const destinations = [
     position: [35.0116, 135.7681],
     months: ["March"],
   },
-
   {
     title: "Amsterdam, Netherlands",
     subtitle: "Browse Journeys",
@@ -71,7 +67,6 @@ const destinations = [
     position: [52.3676, 4.9041],
     months: ["April"],
   },
-
   {
     title: "Santorini, Greece",
     subtitle: "Browse Journeys",
@@ -79,8 +74,6 @@ const destinations = [
     position: [36.3932, 25.4615],
     months: ["May"],
   },
-
-  // June
   {
     title: "Iceland",
     subtitle: "Browse Journeys",
@@ -88,7 +81,6 @@ const destinations = [
     position: [64.9631, -19.0208],
     months: ["June"],
   },
-
   {
     title: "France",
     subtitle: "Browse Journeys",
@@ -110,7 +102,6 @@ const destinations = [
     position: [-1.286389, 36.817223],
     months: ["July"],
   },
-
   {
     title: "Bali, Indonesia",
     subtitle: "Browse Journeys",
@@ -118,7 +109,6 @@ const destinations = [
     position: [-8.3405, 115.092],
     months: ["August"],
   },
-
   {
     title: "Swiss Alps",
     subtitle: "Browse Journeys",
@@ -126,7 +116,6 @@ const destinations = [
     position: [46.8182, 8.2275],
     months: ["September"],
   },
-
   {
     title: "New York, USA",
     subtitle: "Browse Journeys",
@@ -134,7 +123,6 @@ const destinations = [
     position: [40.7128, -74.006],
     months: ["October"],
   },
-
   {
     title: "Rajasthan, India",
     subtitle: "Browse Journeys",
@@ -165,19 +153,16 @@ const destinations = [
   },
 ];
 
-
 const createMarker = (item) =>
   L.divIcon({
     className: "",
     html: `
       <div style="position:relative; display:flex; align-items:center;">
-        
         <div style="margin-right: -2px; display: flex; align-items: center; background: white; padding: 3px; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z" fill="#4A4E69"/>
           </svg>
         </div>
-
         <div style="
           width:125px;
           background:white;
@@ -219,7 +204,6 @@ const createMarker = (item) =>
             </div>
           </div>
         </div>
-
       </div>
     `,
     iconSize: [150, 35],
@@ -228,10 +212,25 @@ const createMarker = (item) =>
 
 export default function TravelDestinationWidget() {
   const [selectedMonth, setSelectedMonth] = useState("January");
+  const mapRef = useRef(null); // Map instance ko store karne ke liye ref
 
   const filteredDestinations = destinations.filter(item => 
     item.months.includes(selectedMonth)
   );
+
+ 
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    if (filteredDestinations.length === 1) {
+      map.setView(filteredDestinations[0].position, 6, { animate: true });
+    } else if (filteredDestinations.length > 1) {
+      const bounds = L.latLngBounds(filteredDestinations.map(d => d.position));
+      map.fitBounds(bounds, { padding: [50, 50], maxZoom: 4, animate: true });
+    } else {
+      map.setView([20, 40], 2, { animate: true });
+    }
+  }, [filteredDestinations]);
 
   return (
     <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto", padding: "20px 10px" }}>
@@ -247,6 +246,7 @@ export default function TravelDestinationWidget() {
         minHeight: "520px"
       }}>
         
+        {/* Months Sidebar */}
         <div style={{
           width: "140px",
           background: "#eef2da", 
@@ -283,8 +283,6 @@ export default function TravelDestinationWidget() {
             );
           })}
         </div>
-
-     
         <div style={{ flex: 1, position: "relative", borderRadius: "4px", overflow: "hidden" }}>
           
           <style jsx global>{`
@@ -298,6 +296,7 @@ export default function TravelDestinationWidget() {
             zoom={2}
             zoomControl={false}
             attributionControl={false}
+            ref={mapRef}
             style={{
               height: "100%",
               width: "100%",
@@ -346,7 +345,7 @@ export default function TravelDestinationWidget() {
         fontWeight: "500",
         letterSpacing: "0.5px"
       }}>
-        Hear from those wh have travelled with us
+        Hear from those who have travelled with us
       </div>
 
     </div>
