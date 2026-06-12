@@ -14,15 +14,15 @@ export default function TravelBetter() {
       />
 
       <div className="relative z-10 max-w-[520px]">
-        <p className="font-taprom text-[28px] leading-none">
+       <p className="font-taprom text-[48px] leading-[64px] tracking-[0.05em] whitespace-nowrap">
           ways we like to travel
         </p>
 
-        <h2 className="mt-3 text-[48px] font-semibold leading-[56px]">
+        <h2 className="mt-3 w-[525px] text-[48px] font-semibold leading-[80px] tracking-[0.05em] whitespace-nowrap">
           Travel better with us
         </h2>
 
-        <p className="mt-8 text-[14px] leading-[30px] text-[#4A4A4A]">
+       <p className="mt-8 w-[830px] text-[18px] font-normal leading-[36px] tracking-[0.05em] text-[#4A4A4A]">
           We offer a curated collection of ready-to-book journeys across the
           world — across travel styles, budget points, and modes of travel.
           Alongside that, we personalise journeys for those who want something
