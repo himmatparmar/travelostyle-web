@@ -73,7 +73,7 @@ export default function TravelForm() {
   };
 
   return (
-    <div className="pt-3">
+    <div className="pt-3 px-[60px]">
       <div className="flex gap-4">
         <button
           onClick={() =>
@@ -150,6 +150,7 @@ export default function TravelForm() {
           Find Your Journey
         </button>
       </div>
+      <div className="mt-3 h-[1px] bg-[#2C3078] mx-[-60px]"></div>
       {activeDropdown === "travel" && (
         <div className="mt-3 rounded-lg border border-gray-400 bg-white p-4 shadow-md">
           <h3 className="mb-4 text-[0.9vw] font-semibold">
