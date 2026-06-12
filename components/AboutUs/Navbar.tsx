@@ -16,12 +16,11 @@ export default function Navbar() {
 
       <div className="flex items-center justify-between px-14 py-6 border-b border-[#d6d6d6]">
         <Image
-          src="/TravelOstyle.png"
-          alt="Travel Style"
-          width={260}
-          height={70}
-          priority
-        />
+  src="/TravelOStyleBlack.svg"
+  alt="TravelOStyle Logo"
+  width={280}
+  height={70}
+/>
 
          <div className="flex items-center gap-9 text-[14px] font-medium text-[#1E1E1E]">
             <button>About</button>
