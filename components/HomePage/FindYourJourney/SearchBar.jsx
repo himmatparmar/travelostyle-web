@@ -1,37 +1,15 @@
+import TopBar from "@/components/Common/TopBar";
+import Header from "@/components/Common/Header";
 import TravelForm from "./TravelForm"
-
+import Link from "next/link";
 export default function SearchBar() {
   return (
     <section className="overflow-hidden border border-[#7C4DFF] w-full">
      
-      <div className="flex items-center justify-between bg-[#2E2787] px-14 py-2 text-[11px] text-white">
-        <p>
-          Speak to our travel advisor (773) 983-8067 | open 10am-7pm CST
-        </p>
-
-        <div className="flex items-center gap-6">
-          <button>FAQs</button>
-          <button>Contact Us</button>
-        </div>
-      </div>
-       
+      <TopBar />
+      <Header />
       <div className="bg-[#F6F6F6] px-14 py-2">
-        <div className="flex items-center justify-between border-b border-gray-300 pb-4">
-     
-          <h1 className="text-[42px] font-light tracking-[2px] text-[#1A1A1A] font-taprom">
-            TRAVEL<span className="italic">O</span>STYLE
-          </h1>
-          <div className="flex items-center gap-9 text-[14px] font-medium text-[#1E1E1E]">
-            <button>About</button>
-            <button>Group Journeys</button>
-            <button>Private Journeys</button>
-            <button>Tailor-made Journeys</button>
-            <button>Destinations</button>
-            <button>Offers</button>
-          </div>
-        </div>
-        
-       <TravelForm/>
+      <TravelForm/>
       </div>
       <div className="relative h-[720px]">
         <img
