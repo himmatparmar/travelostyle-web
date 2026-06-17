@@ -1,12 +1,13 @@
 "use client";
-import { useState } from "react";
 import Image from "next/image";
-import TravelForm from "./TravelForm";
+import { useState } from "react";
 import FindJourneyMobile from "./FindYourJourneyMobile";
+import TravelForm from "./TravelForm";
 
 export default function SearchBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showFindJourneyMobile, setShowFindJourneyMobile] = useState(false);
+  const [mobileStep, setMobileStep] = useState(0);
 
   return (
     <section className="w-full overflow-hidden border border-[#7C4DFF]">
@@ -150,7 +151,12 @@ export default function SearchBar() {
             height={16}
             className="block md:hidden"
           />
-          <button onClick={() => setShowFindJourneyMobile(true)}>
+          <button
+  onClick={() => {
+    setShowFindJourneyMobile(true);
+    setMobileStep(0);
+  }}
+>
             <Image
               src="/Search.svg"
               alt="Search"
@@ -308,7 +314,7 @@ export default function SearchBar() {
       </div>
       {showFindJourneyMobile && (
         <div className="fixed inset-0 z-50 bg-black/30 flex items-center justify-center">
-          <FindJourneyMobile onClose={() => setShowFindJourneyMobile(false)} />
+           <FindJourneyMobile onClose={() => setShowFindJourneyMobile(false)} />   
         </div>
       )}
     </section>
