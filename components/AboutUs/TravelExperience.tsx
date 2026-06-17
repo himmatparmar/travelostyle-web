@@ -27,7 +27,7 @@ export default function TravelExperience() {
   ];
 
   return (
-    <section className="px-[170px] py-[100px]">
+    <section className="px-[113px] py-[100px]">
       <div className="overflow-hidden rounded-[6px] border border-[#4A4A4A]">
         
         {/* Heading */}
