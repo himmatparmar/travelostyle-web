@@ -8,15 +8,34 @@ import TravelDateMobile from "./TravelDateMobile";
 
 export default function FindJourneyMobile({ onClose }) {
   const [step, setStep] = useState(0);
-  const [selectedJourney, setSelectedJourney] = useState([]);
+    const [selectedTravelType, setSelectedTravelType] = useState("Private Journey");
+  // Destination
+  const [selectedDestinations, setSelectedDestinations] = useState([]);
+  const [openToPossibilities, setOpenToPossibilities] = useState(false);
+  // Travel date
+  const [selectedMonths, setSelectedMonths] = useState([]);
+  const [selectedDuration, setSelectedDuration] = useState("");
+
+  const handleFindJourney = () => {
+  const formData = {
+    travelType: selectedTravelType,
+    destinations: selectedDestinations,
+    openToPossibilities,
+    months: selectedMonths,
+    duration: selectedDuration,
+  };
+
+  console.log("Find Journey Data:", formData);
+
+};
 
   if (step === 1) {
     return (
       <TravelTypeMobile
         onClose={() => setStep(0)}
         onNext={() => setStep(2)}
-        selectedJourney={selectedJourney}
-        setSelectedJourney={setSelectedJourney}
+        selectedTravelType={selectedTravelType}
+        setSelectedTravelType={setSelectedTravelType}
       />
     );
   }
@@ -26,6 +45,10 @@ export default function FindJourneyMobile({ onClose }) {
       <DestinationMobile
         onClose={() => setStep(0)}
         onNext={() => setStep(3)}
+        selectedDestinations={selectedDestinations}
+        setSelectedDestinations={setSelectedDestinations}
+        openToPossibilities={openToPossibilities}
+        setOpenToPossibilities={setOpenToPossibilities}
       />
     );
   }
@@ -34,6 +57,10 @@ export default function FindJourneyMobile({ onClose }) {
     return (
       <TravelDateMobile
         onClose={() => setStep(0)}
+        selectedMonths={selectedMonths}
+        setSelectedMonths={setSelectedMonths}
+        selectedDuration={selectedDuration}
+        setSelectedDuration={setSelectedDuration}
       />
     );
   }
@@ -55,7 +82,11 @@ export default function FindJourneyMobile({ onClose }) {
           onClick={() => setStep(1)}
           className="w-full h-[40px] flex items-center justify-between px-3 border border-[#8B8178] bg-white rounded text-[12px] text-[#7B7B7B]"
         >
-          <span>{selectedJourney.length>0?selectedJourney:'How do you want to travel?'}</span>
+          <span>
+            {selectedTravelType
+              ? selectedTravelType
+              : "How do you want to travel?"}
+          </span>
           <Plus size={16} className="text-[#8B8178]" />
         </button>
 
@@ -63,7 +94,11 @@ export default function FindJourneyMobile({ onClose }) {
           onClick={() => setStep(2)}
           className="w-full h-[40px] flex items-center justify-between px-3 border border-[#8B8178] bg-white rounded text-[12px] text-[#7B7B7B]"
         >
-          <span>Where do you want to go?</span>
+          <span>
+            {selectedDestinations.length > 0
+              ? selectedDestinations.join(", ")
+              : "Where do you want to go?"}
+          </span>
           <Plus size={16} className="text-[#8B8178]" />
         </button>
 
@@ -71,12 +106,18 @@ export default function FindJourneyMobile({ onClose }) {
           onClick={() => setStep(3)}
           className="w-full h-[40px] flex items-center justify-between px-3 border border-[#8B8178] bg-white rounded text-[12px] text-[#7B7B7B]"
         >
-          <span>When do you want to travel?</span>
+          <span className="truncate">
+            {selectedMonths.length || selectedDuration
+              ? `${selectedMonths.join(", ")}${
+                  selectedMonths.length && selectedDuration ? ", " : ""
+                }${selectedDuration}`
+              : "When do you want to travel?"}
+          </span>
           <Plus size={16} className="text-[#8B8178]" />
         </button>
       </div>
 
-      <button className="mt-6 h-[36px] px-6 bg-[#2F2E8B] text-white text-[14px] font-medium rounded-full">
+      <button   onClick={handleFindJourney} className="mt-6 h-[36px] px-6 bg-[#2F2E8B] text-white text-[14px] font-medium rounded-full">
         Find Journey
       </button>
     </div>

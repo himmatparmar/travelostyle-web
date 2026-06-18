@@ -11,15 +11,12 @@ const travelOptions = [
   "Private Jet Journey",
 ];
 
-export default function TravelTypeMobile({ onClose,onNext,selectedJourney, setSelectedJourney }) {
+export default function TravelTypeMobile({ onClose,onNext,selectedTravelType,setSelectedTravelType }) {
   
-  const handleSelect = (item) => {
-    setSelectedJourney((prev) =>
-      prev.includes(item)
-        ? prev.filter((i) => i !== item)
-        : [...prev, item]
-    );
-  };
+ const handleTravelTypeSelect = (item) => {
+  setSelectedTravelType(item);
+};
+  
   return (
     <div className="w-[280px] min-h-[580px] bg-[#F5F5F5] p-5">
       <div className="flex items-start justify-between mb-6">
@@ -40,8 +37,8 @@ export default function TravelTypeMobile({ onClose,onNext,selectedJourney, setSe
           >
             <input
               type="checkbox"
-              checked={selectedJourney.includes(item)}
-              onChange={() => handleSelect(item)}
+              checked={selectedTravelType === item}
+              onChange={() => handleTravelTypeSelect(item)}
               className="w-[16px] h-[16px] border border-[#444] rounded-sm accent-[#2F2E8B]"
             />
 

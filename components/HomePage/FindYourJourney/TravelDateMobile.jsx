@@ -18,31 +18,18 @@ const months = [
   "December",
 ];
 
-const durations = [
-  "2–5 Days",
-  "6–10 Days",
-  "11–20 Days",
-  "20+ Days",
-];
+const durations = ["2–5 Days", "6–10 Days", "11–20 Days", "20+ Days"];
 
-export default function TravelDateMobile({ onClose }) {
-  const [selectedMonths, setSelectedMonths] = useState([]);
-  const [selectedDurations, setSelectedDurations] = useState([]);
+export default function TravelDateMobile({ onClose,selectedMonths,setSelectedMonths,selectedDuration,setSelectedDuration }) {
 
   const toggleMonth = (month) => {
     setSelectedMonths((prev) =>
-      prev.includes(month)
-        ? prev.filter((m) => m !== month)
-        : [...prev, month]
+      prev.includes(month) ? prev.filter((m) => m !== month) : [...prev, month],
     );
   };
 
-  const toggleDuration = (duration) => {
-    setSelectedDurations((prev) =>
-      prev.includes(duration)
-        ? prev.filter((d) => d !== duration)
-        : [...prev, duration]
-    );
+  const handleDurationSelect = (duration) => {
+    setSelectedDuration(duration);
   };
 
   return (
@@ -92,19 +79,20 @@ export default function TravelDateMobile({ onClose }) {
             >
               <input
                 type="checkbox"
-                checked={selectedDurations.includes(item)}
-                onChange={() => toggleDuration(item)}
+                checked={selectedDuration === item}
+                onChange={() => handleDurationSelect(item)}
                 className="w-[16px] h-[16px] border border-[#555] rounded-sm accent-[#2F2E8B]"
               />
 
-              <span className="text-[14px] text-[#444444]">
-                {item}
-              </span>
+              <span className="text-[14px] text-[#444444]">{item}</span>
             </label>
           ))}
         </div>
       </div>
-      <button onClick={onClose} className="mt-8 h-[34px] px-5 bg-[#2F2E8B] text-white text-[13px] font-medium rounded-full">
+      <button
+        onClick={onClose}
+        className="mt-8 h-[34px] px-5 bg-[#2F2E8B] text-white text-[13px] font-medium rounded-full"
+      >
         Next
       </button>
     </div>

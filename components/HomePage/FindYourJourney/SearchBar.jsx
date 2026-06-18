@@ -7,11 +7,9 @@ import TravelForm from "./TravelForm";
 export default function SearchBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showFindJourneyMobile, setShowFindJourneyMobile] = useState(false);
-  const [mobileStep, setMobileStep] = useState(0);
-
   return (
     <section className="w-full overflow-hidden border border-[#7C4DFF]">
-      {/* Top Bar */}
+
       <div className="flex items-center justify-between bg-[#2E2787] px-4 md:px-14 py-2 text-[10px] md:text-[11px] text-white">
         <p className="truncate">
           Speak to our travel advisor (773) 983-8067 | open 10am-7pm CST
@@ -152,11 +150,10 @@ export default function SearchBar() {
             className="block md:hidden"
           />
           <button
-  onClick={() => {
-    setShowFindJourneyMobile(true);
-    setMobileStep(0);
-  }}
->
+            onClick={() => {
+              setShowFindJourneyMobile(true);
+            }}
+          >
             <Image
               src="/Search.svg"
               alt="Search"
@@ -235,7 +232,6 @@ export default function SearchBar() {
           </div>
         </div>
 
-        {/* Existing Desktop Hero */}
         <div className="hidden md:block relative h-[720px]">
           <img
             src="italy.svg"
@@ -278,8 +274,6 @@ export default function SearchBar() {
 
               <div className="h-[1px] w-full bg-white/70" />
             </div>
-
-            {/* Arrows */}
             <div className="absolute bottom-[40px] left-[70px] z-10 flex items-center gap-4">
               <button>
                 <Image
@@ -314,7 +308,7 @@ export default function SearchBar() {
       </div>
       {showFindJourneyMobile && (
         <div className="fixed inset-0 z-50 bg-black/30 flex items-center justify-center">
-           <FindJourneyMobile onClose={() => setShowFindJourneyMobile(false)} />   
+          <FindJourneyMobile onClose={() => setShowFindJourneyMobile(false)} />
         </div>
       )}
     </section>

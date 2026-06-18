@@ -14,9 +14,7 @@ const destinations = [
   "Florida",
 ];
 
-export default function DestinationMobile({ onClose,onNext }) {
-  const [selectedDestinations, setSelectedDestinations] = useState([]);
-  const [openToPossibilities, setOpenToPossibilities] = useState(false);
+export default function DestinationMobile({ onClose,onNext,selectedDestinations,setSelectedDestinations ,openToPossibilities,setOpenToPossibilities }) {
 
   const handleSelect = (destination) => {
     setSelectedDestinations((prev) =>
@@ -28,7 +26,6 @@ export default function DestinationMobile({ onClose,onNext }) {
 
   return (
     <div className="w-[280px] min-h-[580px] bg-[#F5F5F5] p-5">
-      {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <h2 className="text-[18px] font-semibold text-[#333333] leading-[24px] max-w-[190px]">
           Where do you want to go?
@@ -39,7 +36,6 @@ export default function DestinationMobile({ onClose,onNext }) {
         </button>
       </div>
 
-      {/* Search */}
       <div className="relative mb-6">
         <Search
           size={16}
@@ -53,12 +49,11 @@ export default function DestinationMobile({ onClose,onNext }) {
         />
       </div>
 
-      {/* OR */}
       <div className="text-center text-[13px] font-medium text-[#555555] mb-5">
         OR
       </div>
 
-      {/* Popular Destinations */}
+
       <h3 className="text-[13px] font-semibold text-[#333333] mb-4">
         Choose from our popular destinations
       </h3>
@@ -80,7 +75,6 @@ export default function DestinationMobile({ onClose,onNext }) {
         ))}
       </div>
 
-      {/* Checkbox */}
       <label className="flex items-center gap-3 cursor-pointer mb-8">
         <input
           type="checkbox"
@@ -94,7 +88,6 @@ export default function DestinationMobile({ onClose,onNext }) {
         </span>
       </label>
 
-      {/* Next Button */}
       <button onClick={onNext} className="h-[34px] px-5 bg-[#2F2E8B] text-white text-[13px] font-medium rounded-full">
         Next
       </button>
