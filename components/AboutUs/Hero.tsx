@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="relative h-[850px] overflow-hidden">
+    <section className="relative h-[500px] mt-5">
 
       {/* Main curve */}
       <Image
@@ -10,16 +10,16 @@ export default function Hero() {
         alt="curve"
         width={1276}
         height={434}
-        className="absolute top-[21px] left-[-257px]"
+        className="absolute top-[6px] left-[-257px]"
       />
 
       {/* Bottom curve */}
       <Image
         src="/Vector220.svg"
         alt="bottom curve"
-        width={590}
-        height={484}
-        className="absolute right-[-100px] top-[275px]"
+        width={580}
+        height={464}
+        className="absolute right-[0px] top-[200px]"
       />
 
       {/* Heading */}
