@@ -269,22 +269,16 @@ export default function AllJourneysPage() {
 
   return (
     <div className="min-h-screen bg-[#fafafa] font-sans px-14">
-      <div className=" py-[0.8vw]">
-        <nav className="text-[0.72vw] text-[#888]">
-          <span>home</span>
-          <span className="mx-[0.3vw]">&gt;</span>
-          <span className="text-[#1a1a1a] font-medium">all journeys</span>
-        </nav>
-      </div>
-
-      <div className="flex gap-[2vw]  pb-[3vw]">
-        <FilterSidebar
-          filters={filters}
-          setFilters={setFilters}
-          filterOptions={filterOptions}
-          journeys={filteredJourneys}
-        />
-
+      <div className="flex gap-[2vw] py-[0.8vw] items-baseline">
+        {/* Breadcrumb — aligns with filter sidebar column */}
+        <div className="w-[220px] shrink-0">
+          <nav className="text-[0.72vw] text-[#888]">
+            <span>home</span>
+            <span className="mx-[0.3vw]">&gt;</span>
+            <span className="text-[#1a1a1a] font-medium">all journeys</span>
+          </nav>
+        </div>
+        {/* Sort bar aligned with grid column */}
         <div className="flex-1 min-w-0">
           <SortBar
             resultCount={filteredJourneys.length}
@@ -293,6 +287,18 @@ export default function AllJourneysPage() {
             filters={filters}
             setFilters={setFilters}
           />
+        </div>
+      </div>
+
+      <div className="flex gap-[2vw] pb-[3vw]">
+        <FilterSidebar
+          filters={filters}
+          setFilters={setFilters}
+          filterOptions={filterOptions}
+          journeys={filteredJourneys}
+        />
+
+        <div className="flex-1 min-w-0">
           {filteredJourneys.length === 0 ? (
             <div className="flex flex-col gap-2 items-center justify-center py-[6vw] text-center">
               <img

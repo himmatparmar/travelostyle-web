@@ -12,8 +12,23 @@ import TravelOStylePromise from "@/components/HomePage/TravelOStylePromise";
 
 const BASE = "http://travelostyle-drupal-backend.ddev.site";
 
-const INCLUDE =
-  "field_journey_image.field_media_image,field_journey_tag,field_month,field_starts_in,field_ends_in,field_best_seasons,field_pace";
+const INCLUDE = [
+  "field_journey_image.field_media_image",
+  "field_journey_tag",
+  "field_month",
+  "field_starts_in",
+  "field_ends_in",
+  "field_best_seasons",
+  "field_pace",
+  "field_journey_tabs_section",
+  "field_journey_tabs_section.field_section_tabs",
+  "field_journey_tabs_section.field_section_tabs.field_highlight_cards",
+  "field_journey_tabs_section.field_section_tabs.field_days",
+  "field_journey_tabs_section.field_section_tabs.field_days.field_stay",
+  "field_journey_tabs_section.field_section_tabs.field_hotels",
+  "field_journey_tabs_section.field_section_tabs.field_hotels.field_featured_image.field_media_image",
+  "field_journey_tabs_section.field_section_tabs.field_hotels.field_gallery.field_media_image",
+].join(",");
 
 const MOCK_JOURNEY = {
   title: "The Moroccan Getaway",
@@ -102,7 +117,114 @@ function resolvePace(item, included) {
   return e?.attributes?.name || "";
 }
 
+function stripHtml(html) {
+  return (html || "").replace(/<[^>]*>/g, "").trim();
+}
+
+function resolveTabSections(item, included) {
+  // Level 1: journey_tabs_section container
+  const containerRefs = item.relationships?.field_journey_tabs_section?.data;
+  if (!Array.isArray(containerRefs) || containerRefs.length === 0) return {};
+
+  const container = included.find((inc) => inc.id === containerRefs[0].id);
+  if (!container) return {};
+
+  // Level 2: individual tab paragraphs inside field_section_tabs
+  const tabRefs = container.relationships?.field_section_tabs?.data;
+  if (!Array.isArray(tabRefs) || tabRefs.length === 0) return {};
+
+  const tabs = {};
+
+  tabRefs.forEach((ref) => {
+    const para = included.find((inc) => inc.id === ref.id);
+    if (!para) return;
+
+    switch (para.type) {
+      // ── HIGHLIGHTS ─────────────────────────────────────────────────────
+      case "paragraph--highlights_tab": {
+        const cardRefs = para.relationships?.field_highlight_cards?.data || [];
+        tabs.highlights = cardRefs
+          .map((r) => {
+            const card = included.find((inc) => inc.id === r.id);
+            if (!card) return null;
+            return {
+              type: "text",
+              text: stripHtml(card.attributes?.field_card_content?.processed),
+            };
+          })
+          .filter(Boolean);
+        break;
+      }
+
+      // ── ITINERARY ──────────────────────────────────────────────────────
+      case "paragraph--itinerary_tab": {
+        const dayRefs = para.relationships?.field_days?.data || [];
+        tabs.itinerary = dayRefs
+          .map((r) => {
+            const day = included.find((inc) => inc.id === r.id);
+            if (!day) return null;
+            const a = day.attributes || {};
+            const hotelId = day.relationships?.field_stay?.data?.id;
+            const hotel = hotelId ? included.find((inc) => inc.id === hotelId) : null;
+            return {
+              day: a.field_day_number,
+              title: a.field_day_title || "",
+              stay: hotel?.attributes?.title || "",
+              description: stripHtml(a.field_description?.processed),
+            };
+          })
+          .filter(Boolean);
+        break;
+      }
+
+      // ── STAYS ──────────────────────────────────────────────────────────
+      case "paragraph--stays_tab": {
+        const hotelRefs = para.relationships?.field_hotels?.data || [];
+        tabs.stays = hotelRefs
+          .map((r) => {
+            const hotel = included.find((inc) => inc.id === r.id);
+            if (!hotel) return null;
+            const a = hotel.attributes || {};
+
+            // Featured image (card thumbnail)
+            const featuredMediaId = hotel.relationships?.field_featured_image?.data?.id;
+            const featuredMedia = featuredMediaId ? included.find((inc) => inc.id === featuredMediaId) : null;
+            const featuredFileId = featuredMedia?.relationships?.field_media_image?.data?.id;
+            const featuredFile = featuredFileId ? included.find((inc) => inc.id === featuredFileId) : null;
+            const featuredRaw = featuredFile?.attributes?.uri?.url;
+            const image = featuredRaw ? `${BASE}${decodeURIComponent(featuredRaw)}` : "/Morocco.svg";
+
+            // Gallery images (all media--image in field_gallery)
+            const galleryRefs = hotel.relationships?.field_gallery?.data || [];
+            const images = galleryRefs
+              .map((gr) => {
+                const gMedia = included.find((inc) => inc.id === gr.id);
+                const gFileId = gMedia?.relationships?.field_media_image?.data?.id;
+                const gFile = gFileId ? included.find((inc) => inc.id === gFileId) : null;
+                const gRaw = gFile?.attributes?.uri?.url;
+                return gRaw ? `${BASE}${decodeURIComponent(gRaw)}` : null;
+              })
+              .filter(Boolean);
+
+            return {
+              name: a.title || "",
+              desc: a.field_description || "",
+              image,
+              images: [image, ...images],
+            };
+          })
+          .filter(Boolean);
+        break;
+      }
+    }
+  });
+
+  return tabs;
+}
+
 function transformItem(item, included) {
+  const tabSections = resolveTabSections(item, included);
+
   return {
     ...MOCK_JOURNEY,
     title: item.attributes.title || MOCK_JOURNEY.title,
@@ -117,6 +239,10 @@ function transformItem(item, included) {
     endCity: resolveLocation(item.relationships?.field_ends_in, included) || MOCK_JOURNEY.endCity,
     bestSeason: resolveBestSeasons(item, included) || MOCK_JOURNEY.bestSeason,
     pace: resolvePace(item, included) || MOCK_JOURNEY.pace,
+    // Tab section data from field_journey_tabs_section paragraphs
+    tabHighlights: tabSections.highlights || null,
+    tabItinerary: tabSections.itinerary || null,
+    tabStays: tabSections.stays || null,
   };
 }
 

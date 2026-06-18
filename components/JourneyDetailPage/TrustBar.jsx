@@ -7,8 +7,8 @@ const trustItems = [
 
 export default function TrustBar() {
   return (
-    <div className="w-full border-y border-[#EAE0D8] bg-[#FBF5EE]">
-      <div className="flex items-center justify-center py-[1.15vw]">
+    <div className="w-full border-y border-[#EAE0D8] bg-[#F2E2DA]">
+      <div className="flex items-center justify-around py-[1.15vw]">
         {trustItems.map((label, i) => (
           <div key={i} className="flex items-center">
             {i > 0 && (
@@ -16,7 +16,7 @@ export default function TrustBar() {
                ✦
               </span>
             )}
-            <span className="text-[0.75vw] font-semibold text-[#1A1A1A]">
+            <span className="text-[18px] font-semibold text-[#1A1A1A]">
               {label}
             </span>
           </div>

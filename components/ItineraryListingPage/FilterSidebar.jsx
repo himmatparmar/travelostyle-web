@@ -42,16 +42,16 @@ const CheckboxItem = ({ label, checked, onChange, count = 0 }) => {
   );
 };
 
-const MonthPill = ({ label, active, onClick, count = 0 }) => {
+const MonthPill = ({ label, active, onClick }) => {
   return (
     <button
       onClick={onClick}
       className={`rounded-full border px-[0.7vw] py-[0.25vw] text-[0.72vw]
       ${
-        active ? "bg-[#2f2d89] text-white border-[#2f2d89]" : "border-[#d0d0d0]"
+        active ? "bg-[#2f2d89] text-white border-[#2f2d89]" : "border-[#d0d0d0] text-[#444]"
       }`}
     >
-      {label} ({count})
+      {label}
     </button>
   );
 };
@@ -149,7 +149,7 @@ export default function FilterSidebar({
     }).length;
   };
   return (
-    <aside className="w-[160px] shrink-0">
+    <aside className="w-[220px] shrink-0">
       {/* HEADER */}
       <div className="flex items-center justify-between pb-[1vw] border-b border-[#E8E8E8]">
         <span className="text-[0.85vw] font-semibold">Filters</span>
@@ -181,7 +181,7 @@ export default function FilterSidebar({
       </div>
 
       {/* MAIN FILTER WRAPPER */}
-      <div className="cursor-pointer items-center gap-[0.6vw] rounded-[0.4vw] border border-[#000] px-[0.7vw] py-[0.45vw]">
+      <div className="rounded-[0.4vw] border border-[#000] px-[0.7vw] py-[0.45vw]">
         {/* REGION (Drupal: country) */}
         <FilterSection title="Region">
           {(filterOptions.region || []).map((item) => (
@@ -208,56 +208,6 @@ export default function FilterSidebar({
           ))}
         </FilterSection>
 
-        {/* OFFERS */}
-        <FilterSection title="Offers">
-          {(filterOptions.offer || []).map((item) => (
-            <CheckboxItem
-              key={item}
-              label={item}
-              count={getCount("offer", item)}
-              checked={filters.offer.includes(item)}
-              onChange={() => toggleFilter("offer", item)}
-            />
-          ))}
-        </FilterSection>
-
-        {/* CATEGORY */}
-        <FilterSection title="Category">
-          {(showMoreCategories
-            ? filterOptions.category || []
-            : (filterOptions.category || []).slice(0, 5)
-          ).map((item) => (
-            <CheckboxItem
-              key={item}
-              label={item}
-              count={getCount("category", item)}
-              checked={filters.category.includes(item)}
-              onChange={() => toggleFilter("category", item)}
-            />
-          ))}
-
-          <button
-            onClick={() => setShowMoreCategories((prev) => !prev)}
-            className="text-[0.75vw] text-[#2f2d89] mt-2"
-          >
-            {showMoreCategories ? "See Less" : "See More"}
-          </button>
-        </FilterSection>
-
-        {/* MONTH */}
-        <FilterSection title="Month">
-          <div className="flex flex-wrap gap-[0.4vw]">
-            {(filterOptions.month || []).map((month) => (
-              <MonthPill
-                key={month}
-                label={month}
-                count={getCount("month", month)}
-                active={filters.month.includes(month)}
-                onClick={() => toggleFilter("month", month)}
-              />
-            ))}
-          </div>
-        </FilterSection>
         {/* PRICING */}
         <FilterSection title="Pricing">
           {["$3000 under", "$3,000-$8,000", "$10,000+"].map((item) => (
@@ -282,6 +232,60 @@ export default function FilterSidebar({
               onChange={() => toggleFilter("duration", item)}
             />
           ))}
+        </FilterSection>
+
+        {/* OFFERS */}
+        <FilterSection title="Offers">
+          {(filterOptions.offer || []).map((item) => (
+            <CheckboxItem
+              key={item}
+              label={item}
+              count={getCount("offer", item)}
+              checked={filters.offer.includes(item)}
+              onChange={() => toggleFilter("offer", item)}
+            />
+          ))}
+        </FilterSection>
+
+        {/* CATEGORY */}
+        <FilterSection title="Category">
+          {(showMoreCategories
+            ? filterOptions.category || []
+            : (filterOptions.category || []).slice(0, 7)
+          ).map((item) => (
+            <CheckboxItem
+              key={item}
+              label={item}
+              count={getCount("category", item)}
+              checked={filters.category.includes(item)}
+              onChange={() => toggleFilter("category", item)}
+            />
+          ))}
+
+          {(filterOptions.category || []).length > 7 && (
+            <button
+              onClick={() => setShowMoreCategories((prev) => !prev)}
+              className="text-[0.75vw] text-[#1a1a1a] mt-2 flex items-center gap-[0.3vw]"
+            >
+              {showMoreCategories
+                ? "See Less ▲"
+                : `See ${(filterOptions.category || []).length - 7} more ▼`}
+            </button>
+          )}
+        </FilterSection>
+
+        {/* MONTH */}
+        <FilterSection title="Month">
+          <div className="flex flex-wrap gap-[0.4vw]">
+            {(filterOptions.month || []).map((month) => (
+              <MonthPill
+                key={month}
+                label={month}
+                active={filters.month.includes(month)}
+                onClick={() => toggleFilter("month", month)}
+              />
+            ))}
+          </div>
         </FilterSection>
       </div>
     </aside>

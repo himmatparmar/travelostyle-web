@@ -2,13 +2,16 @@
 
 import { useState } from "react";
 import HighlightsSection from "./HighlightsSection";
+import ItinerarySection from "./ItinerarySection";
+import StaysSection from "./StaysSection";
 import CtaBanner from "./CtaBanner";
 
 const TABS = [
   "Highlights",
   "Itinerary",
-  "Q&A",
+  "Stays",
   "Inclusions & Exclusions",
+  "Dates & Pricing",
   "Additional Information",
 ];
 
@@ -18,21 +21,21 @@ export default function DetailTabs({ journey }) {
   return (
     <div className="bg-white">
       {/* Tab Navigation */}
-      <div className="border-b border-[#E5E5E5] px-[5.5vw]">
-        <div className="flex items-center gap-[2vw]">
+      <div className="sticky top-0 z-20 bg-white border-b border-[#E5E5E5] px-[5.5vw]">
+        <div className="flex items-center gap-[2.5vw]">
           {TABS.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`relative py-[1.1vw] text-[0.82vw] font-medium transition-colors ${
+              className={`relative py-[1.1vw] text-[0.82vw] transition-colors whitespace-nowrap ${
                 activeTab === tab
-                  ? "text-[#2D3482]"
-                  : "text-[#666] hover:text-[#1A1A1A]"
+                  ? "font-semibold text-[#1A1A1A]"
+                  : "font-medium text-[#888] hover:text-[#444]"
               }`}
             >
               {tab}
               {activeTab === tab && (
-                <span className="absolute bottom-0 left-0 right-0 h-[2px] rounded-full bg-[#2D3482]" />
+                <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#1A1A1A]" />
               )}
             </button>
           ))}
@@ -43,26 +46,37 @@ export default function DetailTabs({ journey }) {
       <div>
         {activeTab === "Highlights" && (
           <>
-            <HighlightsSection highlights={journey?.highlights} />
+            <HighlightsSection
+              highlights={journey?.highlights}
+              drupalData={journey?.tabHighlights}
+            />
             <CtaBanner />
           </>
         )}
 
         {activeTab === "Itinerary" && (
-          <div className="px-[5.5vw] py-[3vw] text-[0.85vw] text-[#666]">
-            Detailed day-by-day itinerary coming soon.
-          </div>
+          <ItinerarySection
+            itinerary={journey?.itinerary}
+            drupalData={journey?.tabItinerary}
+          />
         )}
 
-        {activeTab === "Q&A" && (
-          <div className="px-[5.5vw] py-[3vw] text-[0.85vw] text-[#666]">
-            Frequently asked questions coming soon.
-          </div>
+        {activeTab === "Stays" && (
+          <StaysSection
+            stays={journey?.stays}
+            drupalData={journey?.tabStays}
+          />
         )}
 
         {activeTab === "Inclusions & Exclusions" && (
           <div className="px-[5.5vw] py-[3vw] text-[0.85vw] text-[#666]">
-            What&apos;s included and excluded coming soon.
+            Inclusions &amp; exclusions coming soon.
+          </div>
+        )}
+
+        {activeTab === "Dates & Pricing" && (
+          <div className="px-[5.5vw] py-[3vw] text-[0.85vw] text-[#666]">
+            Dates &amp; pricing information coming soon.
           </div>
         )}
 

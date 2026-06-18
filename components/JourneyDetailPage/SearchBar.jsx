@@ -4,17 +4,6 @@ import Image from "next/image";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import FindJourneyMobile from "@/components/HomePage/FindYourJourney/FindYourJourneyMobile";
 
-const destinations = [
-  "Morocco", "India", "Africa", "Kenya", "South Africa",
-  "Japan", "Europe", "United Kingdom", "Central America", "South America",
-];
-
-const months = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
-];
-
-const budgets = ["$3,000 under", "$3,000 – $8,000", "$8,000 – $10,000", "$10,000+"];
 
 function ListingSearchForm() {
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -243,26 +232,7 @@ export default function SearchBar() {
           </button>
         </div>
 
-        {/* Hero Quote */}
-        <div className="hidden md:flex justify-center items-center py-8">
-          <p
-            className="text-center text-[2.2vw] leading-[1.5]"
-            style={{ fontFamily: "'Dancing Script', cursive" }}
-          >
-            <span className="bg-[#F2D5C4] px-2">
-              The range is wide because we&apos;ve never believed in a
-            </span>
-            <br />
-            <span className="bg-[#F2D5C4] px-2">
-              one-size-fits-all approach to the world.
-            </span>
-          </p>
-        </div>
-
-        {/* Desktop Search Form */}
-        <div className="hidden md:block">
-          <ListingSearchForm />
-        </div>
+      
       </div>
 
       {showFindJourneyMobile && (

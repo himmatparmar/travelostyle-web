@@ -67,11 +67,11 @@ export default function JourneyCard({ trip }) {
 
             <div className="flex items-end gap-[0.2vw]">
               <h4 className="text-[1.45vw] font-semibold leading-none text-[#1D1D1D]">
-                {trip.price}
+                ${Number(trip.price).toLocaleString()}*
               </h4>
 
               <span className="mb-[0.12vw] text-[0.52vw] leading-[1.15] text-[#7B7B7B]">
-                */person
+                /person
                 <br />
                 double occupancy*
               </span>
@@ -86,10 +86,12 @@ export default function JourneyCard({ trip }) {
 </a>
         </div>
 
-        <div className="mt-[1vw] flex items-center gap-[0.4vw] rounded-[0.35vw] bg-[#F4E5DA] px-[0.65vw] py-[0.55vw] text-[0.58vw] text-[#65574D]">
-          <Info size={11} />
-          <span>{trip.offer}</span>
-        </div>
+        {trip.offer && (
+          <div className="mt-[1vw] flex items-center gap-[0.4vw] rounded-[0.35vw] bg-[#F4E5DA] px-[0.65vw] py-[0.55vw] text-[0.58vw] text-[#65574D]">
+            <Info size={11} />
+            <span>{trip.offer}</span>
+          </div>
+        )}
 
         <div className="mt-[1vw] border-t border-dashed border-[#D7D7D7]" />
 

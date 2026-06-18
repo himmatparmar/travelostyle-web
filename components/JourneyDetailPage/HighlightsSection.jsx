@@ -58,17 +58,18 @@ function HighlightCard({ card, tall = false }) {
 
   return (
     <div
-      className="flex flex-col justify-center rounded-[0.5vw] border border-[#E2DDB8] bg-[#F5F0D8] px-[1.2vw] py-[1.4vw]"
+      className="flex flex-col justify-center rounded-[0.5vw] border border-[#C8CE90] bg-[#EAEDC9] px-[1.2vw] py-[1.4vw]"
       style={{ height }}
     >
-      <p className="text-[0.78vw] leading-[1.65] text-[#4A3F2F]">{card.text}</p>
+      <p className="text-[0.78vw] leading-[1.65] text-[#1A1A1A]">{card.text}</p>
     </div>
   );
 }
 
-export default function HighlightsSection({ highlights = DEFAULT_HIGHLIGHTS }) {
-  const firstRow = highlights.slice(0, 4);
-  const secondRow = highlights.slice(4);
+export default function HighlightsSection({ highlights = DEFAULT_HIGHLIGHTS, drupalData }) {
+  const cards = (drupalData && drupalData.length > 0) ? drupalData : highlights;
+  const firstRow = cards.slice(0, 4);
+  const secondRow = cards.slice(4);
 
   return (
     <div className="px-[5.5vw] py-[2.5vw]">
@@ -87,6 +88,7 @@ export default function HighlightsSection({ highlights = DEFAULT_HIGHLIGHTS }) {
           ))}
         </div>
       )}
+
     </div>
   );
 }

@@ -33,7 +33,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Taprom&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Taprom&family=Dancing+Script:wght@400;600;700&display=swap"
           rel="stylesheet"
         ></link>
       </head>
