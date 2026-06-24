@@ -1,16 +1,15 @@
 "use client";
-import { useState } from "react";
 import Image from "next/image";
-import TravelForm from "./TravelForm";
+import { useState } from "react";
 import FindJourneyMobile from "./FindYourJourneyMobile";
+import TravelForm from "./TravelForm";
 
 export default function SearchBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showFindJourneyMobile, setShowFindJourneyMobile] = useState(false);
-
   return (
     <section className="w-full overflow-hidden border border-[#7C4DFF]">
-      {/* Top Bar */}
+
       <div className="flex items-center justify-between bg-[#2E2787] px-4 md:px-14 py-2 text-[10px] md:text-[11px] text-white">
         <p className="truncate">
           Speak to our travel advisor (773) 983-8067 | open 10am-7pm CST
@@ -142,15 +141,11 @@ export default function SearchBar() {
             <button>Offers</button>
           </div>
 
-          {/* Mobile Search */}
-          <Image
-            src="/Search.svg"
-            alt="Search"
-            width={16}
-            height={16}
-            className="block md:hidden"
-          />
-          <button onClick={() => setShowFindJourneyMobile(true)}>
+          <button
+            onClick={() => {
+              setShowFindJourneyMobile(true);
+            }}
+          >
             <Image
               src="/Search.svg"
               alt="Search"
@@ -172,7 +167,7 @@ export default function SearchBar() {
         <div className="block md:hidden px-3 py-3 bg-[#F6F6F6]">
           <div className="relative overflow-hidden">
             <img
-              src="italy.svg"
+              src="ResHomepageBanner.svg"
               alt="travel"
               className="h-[600px] w-full object-cover"
             />
@@ -199,14 +194,13 @@ export default function SearchBar() {
               </button>
             </div>
 
-            {/* Bottom Location */}
             <div className="absolute bottom-12 left-5 right-5 z-10 flex flex-col gap-3">
               <p className="text-[12px] text-white">Italy, Europe</p>
 
               <div className="h-[1px] w-full bg-white/80" />
             </div>
 
-            {/* Bottom Arrows */}
+           
             <div className="absolute bottom-4 left-5 right-5 z-10 flex items-center justify-between">
               <button>
                 <Image
@@ -229,7 +223,6 @@ export default function SearchBar() {
           </div>
         </div>
 
-        {/* Existing Desktop Hero */}
         <div className="hidden md:block relative h-[720px]">
           <img
             src="italy.svg"
@@ -240,15 +233,11 @@ export default function SearchBar() {
           <div className="absolute inset-0 bg-black/35" />
 
           <div className="hidden md:block relative h-[700px]">
-            <img
-              src="italy.svg"
-              alt="travel"
-              className="absolute inset-0 h-full w-full object-cover"
-            />
+           
 
             <div className="absolute inset-0 bg-black/35" />
 
-            {/* Content */}
+          
             <div className="absolute top-[170px] left-[70px] z-10 max-w-[560px]">
               <h1 className="text-white text-[54px] font-semibold leading-[60px]">
                 Experience the worlds most loved destinations; without the
@@ -266,14 +255,11 @@ export default function SearchBar() {
               </button>
             </div>
 
-            {/* Bottom Section */}
             <div className="absolute bottom-[80px] left-[70px] right-[70px] z-10">
               <p className="text-white text-[14px] mb-4">Venice, Italy</p>
 
               <div className="h-[1px] w-full bg-white/70" />
             </div>
-
-            {/* Arrows */}
             <div className="absolute bottom-[40px] left-[70px] z-10 flex items-center gap-4">
               <button>
                 <Image

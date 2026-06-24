@@ -1,11 +1,73 @@
 "use client";
 
+import { useState } from "react";
 import { X, Plus } from "lucide-react";
+import TravelTypeMobile from "./TravelTypeMobile";
+import DestinationMobile from "./DestinationMobile";
+import TravelDateMobile from "./TravelDateMobile";
 
-export default function FindJourneyMobile({onClose}) {
+export default function FindJourneyMobile({ onClose }) {
+  const [step, setStep] = useState(0);
+    const [selectedTravelType, setSelectedTravelType] = useState("Private Journey");
+  // Destination
+  const [selectedDestinations, setSelectedDestinations] = useState([]);
+  const [openToPossibilities, setOpenToPossibilities] = useState(false);
+  // Travel date
+  const [selectedMonths, setSelectedMonths] = useState([]);
+  const [selectedDuration, setSelectedDuration] = useState("");
+
+  const handleFindJourney = () => {
+  const formData = {
+    travelType: selectedTravelType,
+    destinations: selectedDestinations,
+    openToPossibilities,
+    months: selectedMonths,
+    duration: selectedDuration,
+  };
+
+  console.log("Find Journey Data:", formData);
+
+};
+
+  if (step === 1) {
+    return (
+      <TravelTypeMobile
+        onClose={() => setStep(0)}
+        onNext={() => setStep(2)}
+        selectedTravelType={selectedTravelType}
+        setSelectedTravelType={setSelectedTravelType}
+      />
+    );
+  }
+
+  if (step === 2) {
+    return (
+      <DestinationMobile
+        onClose={() => setStep(0)}
+        onNext={() => setStep(3)}
+        selectedDestinations={selectedDestinations}
+        setSelectedDestinations={setSelectedDestinations}
+        openToPossibilities={openToPossibilities}
+        setOpenToPossibilities={setOpenToPossibilities}
+      />
+    );
+  }
+
+  if (step === 3) {
+    return (
+      <TravelDateMobile
+        onClose={() => setStep(0)}
+        selectedMonths={selectedMonths}
+        setSelectedMonths={setSelectedMonths}
+        selectedDuration={selectedDuration}
+        setSelectedDuration={setSelectedDuration}
+      />
+    );
+  }
+
   return (
-    <div className=" max-w-[280px]  h-[580px]  bg-[#f5f5f5]  p-5">
-      <div className="flex items-center justify-between mb-6">
+    <div className="max-w-[290px] h-[580px] bg-[#f5f5f5] p-5">
+      <div className="flex items-center gap-4 mb-6">
         <h2 className="text-[24px] font-semibold text-[#1A1A1A] leading-tight">
           Find Your Journey
         </h2>
@@ -16,25 +78,46 @@ export default function FindJourneyMobile({onClose}) {
       </div>
 
       <div className="space-y-4">
-        {[
-          "How do you want to travel?",
-          "Where do you want to go?",
-          "When do you want to travel?",
-        ].map((item, index) => (
-          <button
-            key={index}
-            className="w-full h-[40px] flex items-center justify-between px-3 border border-[#8B8178] bg-white rounded text-[12px] text-[#7B7B7B]"
-          >
-            <span>{item}</span>
-            <Plus
-              size={16}
-              className="text-[#8B8178] flex-shrink-0"
-            />
-          </button>
-        ))}
+        <button
+          onClick={() => setStep(1)}
+          className="w-full h-[40px] flex items-center justify-between px-3 border border-[#8B8178] bg-white rounded text-[12px] text-[#7B7B7B]"
+        >
+          <span>
+            {selectedTravelType
+              ? selectedTravelType
+              : "How do you want to travel?"}
+          </span>
+          <Plus size={16} className="text-[#8B8178]" />
+        </button>
+
+        <button
+          onClick={() => setStep(2)}
+          className="w-full h-[40px] flex items-center justify-between px-3 border border-[#8B8178] bg-white rounded text-[12px] text-[#7B7B7B]"
+        >
+          <span>
+            {selectedDestinations.length > 0
+              ? selectedDestinations.join(", ")
+              : "Where do you want to go?"}
+          </span>
+          <Plus size={16} className="text-[#8B8178]" />
+        </button>
+
+        <button
+          onClick={() => setStep(3)}
+          className="w-full h-[40px] flex items-center justify-between px-3 border border-[#8B8178] bg-white rounded text-[12px] text-[#7B7B7B]"
+        >
+          <span className="truncate">
+            {selectedMonths.length || selectedDuration
+              ? `${selectedMonths.join(", ")}${
+                  selectedMonths.length && selectedDuration ? ", " : ""
+                }${selectedDuration}`
+              : "When do you want to travel?"}
+          </span>
+          <Plus size={16} className="text-[#8B8178]" />
+        </button>
       </div>
 
-      <button className="mt-6 h-[36px] px-6 bg-[#2F2E8B] text-white text-[14px] font-medium rounded-full">
+      <button   onClick={handleFindJourney} className="mt-6 h-[36px] px-6 bg-[#2F2E8B] text-white text-[14px] font-medium rounded-full">
         Find Journey
       </button>
     </div>

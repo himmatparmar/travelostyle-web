@@ -43,12 +43,25 @@ const months = [
 const durations = ["2-5 Days", "6-10 Days", "11-20 Days", "20+ Days"];
 
 export default function TravelForm() {
-  const [selectedType, setSelectedType] = useState("Private Journey");
+  const [selectedTravelType, setSelectedTravelType] = useState("Private Journey");
   const [activeDropdown, setActiveDropdown] = useState(null);
 
   const [selectedDestinations, setSelectedDestinations] = useState([]);
   const [selectedMonths, setSelectedMonths] = useState([]);
   const [selectedDuration, setSelectedDuration] = useState("");
+  const [openToPossibilities, setOpenToPossibilities] = useState(false);
+
+ const handleFindJourney = () => {
+  const formData = {
+    travelType: selectedTravelType,
+    destinations: selectedDestinations,
+    openToPossibilities:openToPossibilities,
+    months: selectedMonths,
+    duration: selectedDuration,
+  };
+
+  console.log("Selected Journey Data:", formData);
+};
 
   const handleDestinationSelect = (destination) => {
     setSelectedDestinations((prev) => {
@@ -77,13 +90,11 @@ export default function TravelForm() {
       <div className="flex gap-4">
         <button
           onClick={() =>
-            setActiveDropdown(
-              activeDropdown === "travel" ? null : "travel"
-            )
+            setActiveDropdown(activeDropdown === "travel" ? null : "travel")
           }
           className="flex h-[2.1vw] flex-1 items-center justify-between rounded border border-gray-400 bg-white px-4"
         >
-          <span className="text-[0.7vw]">{selectedType}</span>
+          <span className="text-[0.7vw]">{selectedTravelType}</span>
 
           {activeDropdown === "travel" ? (
             <ChevronUp size={18} />
@@ -95,9 +106,7 @@ export default function TravelForm() {
         <button
           onClick={() =>
             setActiveDropdown(
-              activeDropdown === "destination"
-                ? null
-                : "destination"
+              activeDropdown === "destination" ? null : "destination",
             )
           }
           className="flex h-[2.1vw] flex-1 items-center justify-between rounded border border-gray-400 bg-white px-4"
@@ -105,9 +114,7 @@ export default function TravelForm() {
           <span className="truncate text-[0.7vw]">
             {selectedDestinations.length
               ? selectedDestinations.length > 3
-                ? `${selectedDestinations
-                    .slice(0, 3)
-                    .join(", ")} +${
+                ? `${selectedDestinations.slice(0, 3).join(", ")} +${
                     selectedDestinations.length - 3
                   } more`
                 : selectedDestinations.join(", ")
@@ -123,18 +130,14 @@ export default function TravelForm() {
 
         <button
           onClick={() =>
-            setActiveDropdown(
-              activeDropdown === "date" ? null : "date"
-            )
+            setActiveDropdown(activeDropdown === "date" ? null : "date")
           }
           className="flex h-[2.1vw] flex-1 items-center justify-between rounded border border-gray-400 bg-white px-4 "
         >
           <span className="truncate text-[0.7vw]">
             {selectedMonths.length || selectedDuration
               ? `${selectedMonths.join(", ")}${
-                  selectedMonths.length && selectedDuration
-                    ? ", "
-                    : ""
+                  selectedMonths.length && selectedDuration ? ", " : ""
                 }${selectedDuration}`
               : "When do you want to travel?"}
           </span>
@@ -146,7 +149,10 @@ export default function TravelForm() {
           )}
         </button>
 
-        <button className="h-[2.25vw] min-w-[10.5vw] rounded-full bg-[#2E348D]  text-[0.9vw]  text-white transition hover:bg-[#252b78]">
+        <button
+          onClick={handleFindJourney}
+          className="h-[2.25vw] min-w-[10.5vw] rounded-full bg-[#2E348D]  text-[0.9vw]  text-white transition hover:bg-[#252b78]"
+        >
           Find Your Journey
         </button>
       </div>
@@ -164,11 +170,11 @@ export default function TravelForm() {
                 className="flex cursor-pointer items-center gap-2 text-[0.7vw]"
               >
                 <input
-                className="w-[0.9vw] h-[0.9vw]"
+                  className="w-[0.9vw] h-[0.9vw]"
                   type="checkbox"
                   name="travelType"
-                  checked={selectedType === item}
-                  onChange={() => setSelectedType(item)}
+                  checked={selectedTravelType === item}
+                  onChange={() => setSelectedTravelType(item)}
                 />
                 {item}
               </label>
@@ -199,9 +205,22 @@ export default function TravelForm() {
             ))}
           </div>
 
-          <button className="mt-4 rounded-full border border-gray-300 bg-[#F5EFE8] px-4 py-1 text-xs">
-            I m open to possibilities!
-          </button>
+          <div className="mt-4">
+            <label className="inline-flex cursor-pointer items-center gap-2">
+              <input
+                type="checkbox"
+                checked={openToPossibilities}
+                onChange={(e) => setOpenToPossibilities(e.target.checked)}
+                className="h-4 w-4 accent-[#2E348D]"
+              />
+
+              <a
+                className={`text-[0.7vw] `}
+              >
+                I'm open to possibilities!
+              </a>
+            </label>
+          </div>
         </div>
       )}
 
@@ -242,7 +261,7 @@ export default function TravelForm() {
                 className="flex items-center gap-2 text-[0.7vw] cursor-pointer"
               >
                 <input
-                 className="w-[0.9vw] h-[0.9vw]"
+                  className="w-[0.9vw] h-[0.9vw]"
                   type="checkbox"
                   name="duration"
                   checked={selectedDuration === item}

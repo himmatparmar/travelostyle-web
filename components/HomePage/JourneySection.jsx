@@ -76,76 +76,98 @@ export default function JourneySection() {
           </div>
         </div>
       </section>
-      <section className="block md:hidden relative overflow-hidden bg-[#F7F6F3] px-6 pt-10 pb-16">
-        <div className="absolute top-0 right-[-120px] w-[420px] opacity-90">
-          <Image
-            src="/Line.svg"
-            alt=""
-            width={1243}
-            height={398}
-            className="w-full h-auto"
-          />
-        </div>
-        <div className="relative z-10">
-          <div className="inline bg-[#F3E5DB]">
-            <h2 className="font-taprom text-[34px] leading-[40px] text-[#1A1A1A]">
-              Journeys made
-              <br />
-              for you, by you &
-              <br />
-              with you.
-            </h2>
+      <section className="block md:hidden relative overflow-hidden bg-[#F8F7F5] pt-6 pb-10 px-5 w-full flex flex-col">
+        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+    
+          <div className="absolute top-[-20px] right-[47px] w-[170px] opacity-100">
+            <Image
+              src="/ResLine1Journey.svg"
+              alt=""
+              width={170}
+              height={80}
+              className="w-full h-auto"
+            />
           </div>
+          <div className="absolute top-[217px] left-[-5px]   opacity-100">
+            <Image
+              src="/ResLine2Journey.svg"
+              alt=""
+              width={170}
+              height={80}
+              className="w-full h-auto"
+            />
+          </div>
+          <div className="absolute top-[283px] opacity-100 width-[315px]">
+            <Image
+              src="/ResLine3Journey.svg"
+              alt=""
+              width={210}
+              height={100}
+              className="w-full h-auto"
+            />
+          </div>
+        </div>
 
-          <p className="mt-4 text-[15px] leading-[24px] text-[#333]">
+        <div className="relative z-10 w-full">
+          <h2 className="font-taprom text-[28px] leading-[36px] text-[#2A2522] font-medium tracking-tight mt-[20px]">
+            <span className="bg-[#F1E3D8] px-1 py-0.5 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">
+              Journeys made
+            </span>
+            <br />
+            <span className="bg-[#F1E3D8] px-1 py-0.5 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">
+              for you, by you &
+            </span>
+            <br />
+            <span className="bg-[#F1E3D8] px-1 py-0.5 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">
+              with you.
+            </span>
+          </h2>
+          <p className="mt-4 max-w-[285px] text-[14px] leading-6 text-[#3E3E3E] font-sans">
             Make travel feel calmer, clearer, and more worth it with
             TravelOstyle.
           </p>
         </div>
 
-        <div className="relative mx-auto mt-10 h-[380px] w-[280px]">
-          <div className="absolute left-[-8px] top-[120px] z-20">
-            <Image src="/star.svg" alt="" width={34} height={34} />
+        <div className="relative mt-8 h-[355px] w-full z-10">
+          <div className="absolute left-[90px] top-[71px] z-30 text-[#4043A8]">
+            <Image src="/star.svg" alt="star" width={18} height={18} />
           </div>
 
-          <div className="absolute right-[5px] bottom-[35px] z-20">
-            <Image src="/star.svg" alt="" width={24} height={24} />
+          <div className="absolute right-[120px] bottom-[50px] z-30 text-[#4043A8]">
+            <Image src="/star.svg" alt="star" width={20} height={20} />
           </div>
-          <div className="absolute right-0 top-0 rotate-[-8deg] bg-white p-[8px] shadow-[0_15px_40px_rgba(0,0,0,0.12)]">
+          <div className="absolute right-[126px] bottom-[18px] z-30 text-[#4043A8]">
+            <Image src="/star.svg" alt="star" width={30} height={30} />
+          </div>
+
+          <div className="absolute right-[-19px] top-0 rotate-[-8deg] bg-white border-[2px] border-[#4043A8] p-[2px] pb-5 shadow-md z-10">
             <Image
               src="/Tree.svg"
-              alt=""
-              width={180}
-              height={220}
-              className="h-[220px] w-[180px] object-cover"
+              alt="Palm Tree Horizon"
+              width={190}
+              height={190}
+              className="w-[180px] h-[190px] object-cover rotate-[8deg]"
             />
           </div>
 
-          <div className="absolute left-0 top-[135px] rotate-[6deg] bg-white p-[8px] shadow-[0_15px_40px_rgba(0,0,0,0.12)]">
+          <div className="absolute left-[-26px] top-[105px] rotate-[5deg] bg-white border-[2px] border-[#4043A8] p-[8px] pb-5 shadow-lg z-20">
             <Image
               src="/Road.svg"
-              alt=""
-              width={200}
-              height={240}
-              className="h-[240px] w-[200px] object-cover"
+              alt="Scenic Mountain Road"
+              width={190}
+              height={190}
+              className="w-[180px] h-[190px] object-cover rotate-[-6deg]"
             />
           </div>
         </div>
-        <p className="relative z-10 mt-2 text-[15px] leading-[26px] text-[#333]">
+
+        <p className="relative z-10 mx-auto max-w-[300px] text-center text-[14px] leading-[24px] text-[#3E3E3E] font-sans">
           Our journeys are designed around real people — your budgets, your
           rhythms, your hopes and the realities you are working with. We promise
           you honest guidance, thoughtful planning, and a travel experience that
           feels looked after from the get-go.
         </p>
-        <div className="absolute bottom-[-20px] left-[-70px] w-[220px] rotate-[8deg]">
-          <Image
-            src="/SmallLine.svg"
-            alt=""
-            width={500}
-            height={300}
-            className="w-full h-auto"
-          />
-        </div>
+        <div className="w-full h-[2px] bg-[#4A4A4A] mt-8" />
       </section>
     </>
   );
