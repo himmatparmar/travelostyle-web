@@ -14,7 +14,8 @@ const CATEGORY_TAGS = [
 
 export default function HeroSection({ journey }) {
   return (
-    <section className="w-full bg-white">
+    <>
+    <section className="w-full bg-white hidden md:block">
       {/* ── Category Tags Bar ── */}
       <div className="flex items-center justify-between border-b border-[#E8E8E8] bg-white px-[3vw] py-[0.55vw]">
         {/* Filled pill tags — each with its own colour */}
@@ -149,5 +150,125 @@ export default function HeroSection({ journey }) {
         </div>
       </div>
     </section>
+
+     {/* ================= MOBILE DESIGN ================= */}
+      <div className="block md:hidden bg-[#F5F5F5] block:md:hidden ">
+        <div className="px-4 py-3 text-[11px] text-[#666]">
+          Home &gt; All Journeys &gt;
+          <span className="font-medium text-[#222]"> {journey.title}</span>
+        </div>
+
+        <div className="relative">
+          <div className="relative h-[580px] w-full">
+            <Image
+              src={journey.image || "/Morocco.svg"}
+              alt={journey.title}
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute left-4 right-4 top-3 rounded-md border-2 border-[#3A3A3A] bg-white p-4 shadow-lg">
+              <h1 className="text-[28px] font-bold leading-[34px] text-[#1A1A1A]">
+                {journey.title}
+              </h1>
+
+              <p className="mt-2 text-[15px] leading-[24px] text-[#555]">
+                {journey.desc}
+              </p>
+
+              <div className="mt-4 flex items-center gap-6 text-[15px] text-[#444]">
+                <div className="flex items-center gap-2">
+                  <Clock3 size={18} />
+                  <span>{journey.days || "13 Days | 12 Nights"}</span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <MapPin size={18} />
+                  <span>{journey.destinations || "10 Destinations"}</span>
+                </div>
+              </div>
+              <div className="mt-4 space-y-2 text-[16px]">
+                <div>
+                  <span className="font-bold">Best Seasons:</span>{" "}
+                  {journey.bestSeason || "Jan–March, July–Sep"}
+                </div>
+
+                <div>
+                  <span className="font-bold">Pace:</span>{" "}
+                  {journey.pace || "Moderate"}
+                </div>
+
+                <div>
+                  <span className="font-bold">Group Size:</span> upto 18 guests
+                </div>
+              </div>
+
+              {/* Tags */}
+              <div className="mt-5 flex flex-wrap gap-3">
+                <span className="rounded bg-[#DDEDFB] px-4 py-2 text-[14px] font-medium">
+                  Culture & Heritage
+                </span>
+
+                <span className="rounded bg-[#DDEDFB] px-4 py-2 text-[14px] font-medium">
+                  Leisure
+                </span>
+
+                <span className="rounded bg-[#E8EBCF] px-4 py-2 text-[14px] font-medium">
+                  Group Journey
+                </span>
+
+                <span className="rounded bg-[#E8EBCF] px-4 py-2 text-[14px] font-medium">
+                  Private Journey
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Price Card */}
+          <div className="-mt-2 overflow-hidden rounded-t-[20px] border-2 border-[#333] bg-white">
+            <div className="flex border-b">
+              <div className="flex-1 p-4">
+                <p className="text-[12px] text-[#666]">from</p>
+
+                <div className="flex items-end">
+                  <span className="text-[42px] font-bold">
+                    {journey.price || "$5000"}
+                  </span>
+                  <span className="mb-1 ml-1 text-[16px]">/person</span>
+                </div>
+
+                <p className="text-[14px] text-[#777] line-through">
+                  was $6500
+                </p>
+              </div>
+
+              {/* Offer */}
+              <div className="w-[52%] bg-[#F6EEE8] p-4">
+                <div className="flex gap-2">
+                  <Info size={20} />
+                  <p className="text-[15px] leading-[24px]">
+                    Early Bird Offers available for August & September
+                    Departures
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Button */}
+            <div className="flex items-center justify-center gap-3 border-t border-[#2E2E2E] bg-white px-4 py-3">
+              <button className="rounded-full bg-[#2B2D82] px-6 py-2 text-[15px] font-semibold text-white">
+                Check Dates
+              </button>
+
+              <span className="text-[15px] text-[#333]">OR</span>
+
+              <button className="text-[15px] font-semibold text-[#1A1A1A] underline underline-offset-2">
+                Request a Private Journey
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

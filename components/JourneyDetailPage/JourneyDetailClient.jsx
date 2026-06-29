@@ -33,7 +33,7 @@ const INCLUDE = [
 const MOCK_JOURNEY = {
   title: "The Moroccan Getaway",
   tags: ["Culture & Heritage", "Culture"],
-  desc: "From imperial cities to Saharan silence — a journey through Morocco's most celebrated contrasts. Medinas that feel unchanged for centuries, cedar forests that cool the air, and a desert that redefines perspective.",
+  desc: "From imperial cities to Saharan silence — a journey through Morocco's most celebrated contrasts.",
   image: "/Morocco.svg",
   days: "13 Days | 12 Nights",
   destinations: "10 Destinations",
