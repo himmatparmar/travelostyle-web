@@ -46,8 +46,8 @@ export default function ContactInquiry() {
           className="object-cover"
         />
 
-        <div className="absolute inset-0 bg-black/35" />
-        <div className="absolute inset-0 bg-[#000]/30" />
+        <div className="absolute inset-0" />
+        <div className="absolute inset-0 " />
         
         <div
           className="relative z-10

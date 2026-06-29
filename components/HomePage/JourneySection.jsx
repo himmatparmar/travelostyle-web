@@ -109,16 +109,17 @@ export default function JourneySection() {
         </div>
 
         <div className="relative z-10 w-full">
-          <h2 className="font-taprom text-[28px] leading-[36px] text-[#2A2522] font-medium tracking-tight mt-[20px]">
-            <span className="bg-[#F1E3D8] px-1 py-0.5 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">
+          <h2 className="font-taprom text-[28px] leading-[24px] font-medium text-[#2A2522]">
+            <span className="bg-[#F1E3D8] px-[4px] py-[1px] inline-block">
               Journeys made
             </span>
+
             <br />
-            <span className="bg-[#F1E3D8] px-1 py-0.5 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">
+            <span className="bg-[#F1E3D8] px-[4px] py-[1px] inline-block mt-[8px]">
               for you, by you &
             </span>
             <br />
-            <span className="bg-[#F1E3D8] px-1 py-0.5 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">
+            <span className="bg-[#F1E3D8] px-[4px] py-[1px] inline-block mt-[8px]">
               with you.
             </span>
           </h2>
