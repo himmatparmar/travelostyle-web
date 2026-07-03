@@ -3,21 +3,21 @@ import Journey from "./Journeys";
 export default function Index() {
   return (
     <div>
-       <section className="w-full p-4">
-      <div className="mx-auto max-w-4xl text-center px-4">
-        
-        <h2 className="text-[2.8vw] font-bold">
-          Find Your Fit
-        </h2>
+      <section className="w-full px-6 py-10">
+        <div className="mx-auto max-w-4xl">
+          <div className="max-w-[300px] md:max-w-none">
+            <h2 className="text-[36px] md:text-[2.8vw] font-bold text-[#222] leading-tight text-left md:text-center">
+              Find Your Fit
+            </h2>
 
-        <p className="mx-auto mt-4  text-[1.05] text-[#4a4a4a]">
-          Whether you want to join a group, take a proven route and make it
-          your own, or build something entirely from &apos;scratch, theres a
-          way of travelling with us that fits exactly how you like to do it.
-        </p>
-
-      </div>
-    </section>
+            <p className="mt-4 text-[16px] md:text-[1.05vw] leading-[26px] text-[#4A4A4A] text-left md:text-center">
+              Whether you want to join a group, take a proven route and make it
+              your own, or build something entirely from scratch, there&apos;s a
+              way of travelling with us that fits exactly how you like to do it.
+            </p>
+          </div>
+        </div>
+      </section>
       <Journey
         title="GROUP JOURNEYS"
         imageSrc="GroupJourneys.svg"

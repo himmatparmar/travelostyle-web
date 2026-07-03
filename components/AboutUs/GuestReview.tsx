@@ -43,7 +43,7 @@ export default function GuestReview() {
     alt=""
     width={58}
     height={41}
-    className="absolute left-[0px] top-[-8px]"
+    className="absolute left-[-26px] top-[-8px]"
   />
 
   <p className="pl-[50px] text-[22px] leading-[46px] text-black">

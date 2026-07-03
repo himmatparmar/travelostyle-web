@@ -11,7 +11,7 @@ import TravelOStylePromise from "../components/HomePage/TravelOStylePromise";
 import Footer from "../components/Footer";
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans bg-[#fafafa] w-[96vw] h-[54.15vw]">
+    <div >
      <SearchBar/>
      <JourneySection/>
      <YourNextTrip/>
