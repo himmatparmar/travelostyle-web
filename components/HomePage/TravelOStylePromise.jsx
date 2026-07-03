@@ -1,26 +1,24 @@
 "use client";
 
 import Image from "next/image";
-
-const promises = [
+export default function TravelOStylePromise() {
+  const promises = [
   {
-    icon: "./copy.svg",
+    icon: "/copy.svg",
     title: "Transparent from the\nfirst conversation",
     bg: "#EFE5DE",
   },
   {
-    icon: "./HeartIcon.svg",
+    icon: "/HeartIcon.svg",
     title: "Thoughtful with every\nrecommendation",
     bg: "#E8EBCF",
   },
   {
-    icon: "./Handshake.svg",
+    icon: "/Handshake.svg",
     title: "Present long after the\nbooking is done",
     bg: "#F3DFC9",
   },
 ];
-
-export default function TravelOStylePromise() {
   return (
     <section className="py-16 md:py-20 bg-[#fbfbfb] select-none">
       <div className="mx-auto max-w-[1200px] px-6">
