@@ -1,0 +1,38 @@
+export default function Hero() {
+  return (
+    <section className="px-[60px] pt-[20px] pb-[20px]">
+      <div className="flex justify-between items-center border-b border-[#2B2B2B] pb-[10px]">
+        <p className="font-Nohemi text-[16px] font-semibold leading-[40px] tracking-[0.05em] text-[#000000]">
+  March 12, 2026
+</p>
+
+       <button
+           className="
+           w-[134px]
+           h-[31px]
+           px-[16px]
+    bg-[#F2E2DA]
+    border
+    border-[#8E7C72]
+    rounded-[100px]
+    text-[16px]
+    font-Nohemi
+    leading-none
+    text-[#2B2B2B]
+    flex
+    items-center
+    justify-center
+  "
+>
+  Experiences
+</button>
+      </div>
+
+     <h1 className="mt-[40px] max-w-[1688px] text-[50px] leading-[80px] font-semibold tracking-[0.05em] text-[#1A1A1A]">
+  The Golden Triangle: India’s Most Unforgettable First Journey
+</h1>
+
+      <div className="mt-[32px] border-b border-[#2B2B2B]" />
+    </section>
+  );
+}
