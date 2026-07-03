@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { Clock3, MapPin, Info } from "lucide-react";
+import MobileNavigationMenu from "./MobileNavigationMenu";
+import { useState } from "react";
 
 // Each tag has its own bg/text color matching the screenshot
 const CATEGORY_TAGS = [
@@ -11,8 +13,8 @@ const CATEGORY_TAGS = [
   { label: "Group Journey",       bg: "#D8E8F8", text: "#1B4F72" },
   { label: "Private Journey",     bg: "#D8E8F8", text: "#1B4F72" },
 ];
-
 export default function HeroSection({ journey }) {
+  const [activeView, setActiveView] = useState("menu");
   return (
     <>
     <section className="w-full bg-white hidden md:block">
@@ -152,7 +154,7 @@ export default function HeroSection({ journey }) {
     </section>
 
      {/* ================= MOBILE DESIGN ================= */}
-      <div className="block md:hidden bg-[#F5F5F5] block:md:hidden ">
+     {activeView === "menu"&&<div className="block md:hidden bg-[#F5F5F5]  ">
         <div className="px-4 py-3 text-[11px] text-[#666]">
           Home &gt; All Journeys &gt;
           <span className="font-medium text-[#222]"> {journey.title}</span>
@@ -202,8 +204,6 @@ export default function HeroSection({ journey }) {
                   <span className="font-bold">Group Size:</span> upto 18 guests
                 </div>
               </div>
-
-              {/* Tags */}
               <div className="mt-5 flex flex-wrap gap-3">
                 <span className="rounded bg-[#DDEDFB] px-4 py-2 text-[14px] font-medium">
                   Culture & Heritage
@@ -224,7 +224,6 @@ export default function HeroSection({ journey }) {
             </div>
           </div>
 
-          {/* Bottom Price Card */}
           <div className="-mt-2 overflow-hidden rounded-t-[20px] border-2 border-[#333] bg-white">
             <div className="flex border-b">
               <div className="flex-1 p-4">
@@ -242,7 +241,6 @@ export default function HeroSection({ journey }) {
                 </p>
               </div>
 
-              {/* Offer */}
               <div className="w-[52%] bg-[#F6EEE8] p-4">
                 <div className="flex gap-2">
                   <Info size={20} />
@@ -253,8 +251,6 @@ export default function HeroSection({ journey }) {
                 </div>
               </div>
             </div>
-
-            {/* Button */}
             <div className="flex items-center justify-center gap-3 border-t border-[#2E2E2E] bg-white px-4 py-3">
               <button className="rounded-full bg-[#2B2D82] px-6 py-2 text-[15px] font-semibold text-white">
                 Check Dates
@@ -268,7 +264,8 @@ export default function HeroSection({ journey }) {
             </div>
           </div>
         </div>
-      </div>
+      </div>} 
+        <MobileNavigationMenu activeView={activeView} setActiveView={setActiveView} />
     </>
   );
 }

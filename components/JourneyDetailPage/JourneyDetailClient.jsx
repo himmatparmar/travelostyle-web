@@ -247,7 +247,7 @@ function transformItem(item, included) {
 }
 
 export default function JourneyDetailClient() {
-  const { id: slug } = useParams();   // param is named [id] in folder but holds a slug
+  const { id: slug } = useParams();   
   const [journey, setJourney] = useState(MOCK_JOURNEY);
   const [loading, setLoading] = useState(true);
 
