@@ -28,7 +28,7 @@ export default function Hero() {
 </button>
       </div>
 
-     <h1 className="mt-[40px] max-w-[1688px] text-[50px] leading-[80px] font-semibold tracking-[0.05em] text-[#1A1A1A]">
+<h1 className="mt-[40px] w-[1300px] text-[50px] font-semibold leading-[70px] tracking-[-0.02em] text-[#1A1A1A]">
   The Golden Triangle: India’s Most Unforgettable First Journey
 </h1>
 
