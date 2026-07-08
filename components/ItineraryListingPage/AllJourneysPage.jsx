@@ -6,6 +6,7 @@ import SortBar from "./SortBar";
 import JourneyGrid from "./JourneyGrid";
 import Pagination from "./Pagination";
 import { slugify } from "@/lib/slugify";
+import { API_BASE_URL } from "@/lib/config";
 
 export default function AllJourneysPage() {
   const [journeys, setJourneys] = useState([]);
@@ -41,8 +42,8 @@ export default function AllJourneysPage() {
         setLoading(true);
 
         const res = await fetch(
-          "http://travelostyle-drupal-backend.ddev.site/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month",
-        );
+  `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month`,
+);
 
         const json = await res.json();
         const included = json.included || [];
@@ -69,9 +70,9 @@ export default function AllJourneysPage() {
 
           const rawUrl = fileEntity?.attributes?.uri?.url;
 
-          const imageUrl = rawUrl
-            ? `http://travelostyle-drupal-backend.ddev.site${decodeURIComponent(rawUrl)}`
-            : "/GoldenTriange.svg";
+         const imageUrl = rawUrl
+  ? `${API_BASE_URL}${decodeURIComponent(rawUrl)}`
+  : "/GoldenTriange.svg";
 
           const tagIds = item.relationships?.field_journey_tag?.data || [];
 
@@ -150,17 +151,12 @@ export default function AllJourneysPage() {
     async function loadFilters() {
       try {
         const endpoints = {
-          region:
-            "http://travelostyle-drupal-backend.ddev.site/jsonapi/taxonomy_term/country",
-          style:
-            "http://travelostyle-drupal-backend.ddev.site/jsonapi/taxonomy_term/tags",
-          offer:
-            "http://travelostyle-drupal-backend.ddev.site/jsonapi/taxonomy_term/offers",
-          category:
-            "http://travelostyle-drupal-backend.ddev.site/jsonapi/taxonomy_term/category",
-          month:
-            "http://travelostyle-drupal-backend.ddev.site/jsonapi/taxonomy_term/month",
-        };
+  region: `${API_BASE_URL}/jsonapi/taxonomy_term/country`,
+  style: `${API_BASE_URL}/jsonapi/taxonomy_term/tags`,
+  offer: `${API_BASE_URL}/jsonapi/taxonomy_term/offers`,
+  category: `${API_BASE_URL}/jsonapi/taxonomy_term/category`,
+  month: `${API_BASE_URL}/jsonapi/taxonomy_term/month`,
+};
 
         const results = {};
 

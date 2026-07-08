@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { slugify } from "@/lib/slugify";
+import { API_BASE_URL } from "@/lib/config";
 import HeroSection from "./HeroSection";
 import TrustBar from "./TrustBar";
 import DetailTabs from "./DetailTabs";
@@ -10,7 +11,8 @@ import OtherDestinations from "./OtherDestinations";
 import TestimonialSection from "@/components/HomePage/TestimonialSection";
 import TravelOStylePromise from "@/components/HomePage/TravelOStylePromise";
 
-const BASE = "http://travelostyle-drupal-backend.ddev.site";
+
+const BASE = API_BASE_URL;
 
 const INCLUDE = [
   "field_journey_image.field_media_image",
