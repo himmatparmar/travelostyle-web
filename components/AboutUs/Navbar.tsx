@@ -14,7 +14,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className="flex items-center justify-between px-14 py-6 border-b border-[#d6d6d6]">
+     <div className="flex items-center justify-between px-14 py-6 border-b border-[#1A1A1A]">
         <Image
   src="/TravelOStyleBlack.svg"
   alt="TravelOStyle Logo"
