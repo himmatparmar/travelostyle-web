@@ -4,6 +4,9 @@ import Image from "next/image";
 import Itinerary from "./Itinerary";
 import MobileHighlightsPage from "./MobileHighlightsPage";
 import MobileInclusionsExclusions from "./MobileInclusionsExclusions";
+import MobileAdditionalInformation from "./MobileAdditionalInformation";
+import MobileStays from "./MobileStays";
+import BookYourJourneyMobile from "./BookYourJourneyMobile";
 
 export default function MobileNavigationMenu({ activeView, setActiveView }) {
   const menuItems = [
@@ -57,6 +60,28 @@ if (activeView === "highlights") {
 if (activeView === "itinerary") {
   return (
     <Itinerary
+      onBack={() => setActiveView("menu")}
+    />
+  );
+}
+if (activeView === "additional-information") {
+  return (
+    <MobileAdditionalInformation
+      onBack={() => setActiveView("menu")}
+    />
+  );
+}
+
+if (activeView === "stays") {
+  return (
+    <MobileStays
+      onBack={() => setActiveView("menu")}
+    />
+  );
+}
+if (activeView === "dates-pricing") {
+  return (
+    <BookYourJourneyMobile
       onBack={() => setActiveView("menu")}
     />
   );

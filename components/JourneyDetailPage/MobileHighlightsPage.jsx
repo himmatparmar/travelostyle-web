@@ -12,14 +12,13 @@ export default function MobileHighlights({ onBack }) {
   ];
 
   return (
-    <div className="block w-full bg-[#F9F9F9] font-sans text-[#1A1A1A] antialiased md:hidden">
+    <div className="block w-full font-sans text-[#1A1A1A] antialiased md:hidden">
       <main className="px-4 py-4 pb-12">
         <div className="w-full p-2">
-          {/* Header */}
           <div className="mb-4 flex items-center justify-between border-b border-gray-100 pb-3">
             <button
               onClick={onBack}
-              className="flex h-6 w-12 items-center justify-center rounded-full border border-black bg-white transition active:scale-95"
+              className="flex h-6 w-12 items-center justify-center rounded-full bg-white transition active:scale-95"
             >
               <Image
                 src="/LeftArrow.svg"
@@ -35,8 +34,6 @@ export default function MobileHighlights({ onBack }) {
 
             <div className="w-12" />
           </div>
-
-          {/* Highlight Cards */}
           <div className="space-y-4">
             {highlights.map((item, index) => (
               <div
