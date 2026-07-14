@@ -2,7 +2,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import GalleryMobileView from "./GalleryMobileView";
 
-export default function MobileStays({ onBack }) {
+export default function MobileStays({ onBack, StaysRecord }) {
   const staysData = [
     {
       id: 1,
