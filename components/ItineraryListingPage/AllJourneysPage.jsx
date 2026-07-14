@@ -6,7 +6,7 @@ import SortBar from "./SortBar";
 import JourneyGrid from "./JourneyGrid";
 import Pagination from "./Pagination";
 import { slugify } from "@/lib/slugify";
-import { API_BASE_URL } from "@/lib/config";
+import { API_BASE_URL, buildFileUrl } from "@/lib/config";
 
 export default function AllJourneysPage() {
   const [journeys, setJourneys] = useState([]);
@@ -70,9 +70,7 @@ export default function AllJourneysPage() {
 
           const rawUrl = fileEntity?.attributes?.uri?.url;
 
-         const imageUrl = rawUrl
-  ? `${API_BASE_URL}${decodeURIComponent(rawUrl)}`
-  : "/GoldenTriange.svg";
+         const imageUrl = buildFileUrl(rawUrl) || "/GoldenTriange.svg";
 
           const tagIds = item.relationships?.field_journey_tag?.data || [];
 

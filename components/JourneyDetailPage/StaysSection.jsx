@@ -92,6 +92,7 @@ function Lightbox({ images, name, startIndex, onClose }) {
           src={images[current]}
           alt={`${name} — image ${current + 1}`}
           fill
+          unoptimized
           className="object-contain"
           sizes="70vw"
         />
@@ -144,6 +145,7 @@ function HotelCard({ hotel, onGalleryOpen }) {
           src={hotel.image}
           alt={hotel.name}
           fill
+          unoptimized
           className="object-cover"
         />
       </div>

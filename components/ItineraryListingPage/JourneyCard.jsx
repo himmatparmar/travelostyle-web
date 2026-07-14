@@ -34,6 +34,7 @@ export default function JourneyCard({ trip }) {
           src={trip.image}
           alt={trip.title}
           fill
+          unoptimized
           className="object-cover"
         />
       </div>
