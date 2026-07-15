@@ -8,7 +8,7 @@ import MobileAdditionalInformation from "./MobileAdditionalInformation";
 import MobileStays from "./MobileStays";
 import BookYourJourneyMobile from "./BookYourJourneyMobile";
 
-export default function MobileNavigationMenu({ activeView, setActiveView }) {
+export default function MobileNavigationMenu({journey, activeView, setActiveView }) {
   const menuItems = [
     { label: "Highlights", id: "highlights" },
     { label: "Itinerary", id: "itinerary" },
@@ -54,6 +54,8 @@ if (activeView === "highlights") {
   return (
     <MobileHighlightsPage
       onBack={() => setActiveView("menu")}
+      highlightsRecord={journey.highlights}
+      
     />
   );
 }
@@ -61,6 +63,8 @@ if (activeView === "itinerary") {
   return (
     <Itinerary
       onBack={() => setActiveView("menu")}
+      itineraryRecord={journey.tabItinerary}
+      
     />
   );
 }
@@ -68,6 +72,7 @@ if (activeView === "additional-information") {
   return (
     <MobileAdditionalInformation
       onBack={() => setActiveView("menu")}
+     
     />
   );
 }
@@ -76,6 +81,7 @@ if (activeView === "stays") {
   return (
     <MobileStays
       onBack={() => setActiveView("menu")}
+       StaysRecord={journey.tabStays}
     />
   );
 }

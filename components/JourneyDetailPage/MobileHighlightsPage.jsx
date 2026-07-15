@@ -2,14 +2,8 @@
 
 import Image from "next/image";
 
-export default function MobileHighlights({ onBack }) {
-  const highlights = [
-    "Ancient medinas where the call to prayer still echoes off the same walls it always has — and the baker, the craftsman, the spice merchant are all still there.",
-    "A Roman mosaic under open sky. A sultan's palace built to rival Versailles. Both within the same afternoon.",
-    "Cedar forests, mountain passes, a valley that seems to go on forever — and mint tea waiting for you at the end of it.",
-    "You've seen Ait Benhaddou in the films. Nothing prepares you for it in person.",
-    "Three days in Marrakech — the souks at dawn, the square at dusk, and a garden so quiet you'll forget where you are.",
-  ];
+export default function MobileHighlights({ onBack, highlightsRecord }) {
+ const highlights = highlightsRecord?.length > 0 ? highlightsRecord : [];
 
   return (
     <div className="block w-full font-sans text-[#1A1A1A] antialiased md:hidden">
@@ -41,7 +35,7 @@ export default function MobileHighlights({ onBack }) {
                 className="rounded-[8px] border-2 border-[#515589] bg-[#F3F6DD] p-4"
               >
                 <p className="text-[14px] leading-[20px] font-medium text-[#2A2522]">
-                  {item}
+                  {item.text}
                 </p>
               </div>
             ))}
