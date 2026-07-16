@@ -110,6 +110,7 @@ export default function OtherDestinations() {
                   src={trip.image}
                   alt={trip.title}
                   fill
+                  unoptimized
                   className="object-cover"
                 />
               </div>

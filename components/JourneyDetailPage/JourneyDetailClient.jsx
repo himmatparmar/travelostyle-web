@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { slugify } from "@/lib/slugify";
-import { API_BASE_URL } from "@/lib/config";
+import { API_BASE_URL, buildFileUrl } from "@/lib/config";
 import HeroSection from "./HeroSection";
 import TrustBar from "./TrustBar";
 import DetailTabs from "./DetailTabs";
@@ -78,7 +78,7 @@ function resolveImage(item, included) {
   const fileId = media?.relationships?.field_media_image?.data?.id;
   const file = included.find((i) => i.type === "file--file" && i.id === fileId);
   const raw = file?.attributes?.uri?.url;
-  return raw ? `${BASE}${decodeURIComponent(raw)}` : "/Morocco.svg";
+  return buildFileUrl(raw) || "/Morocco.svg";
 }
 
 function resolveTags(item, included) {
@@ -194,7 +194,7 @@ function resolveTabSections(item, included) {
             const featuredFileId = featuredMedia?.relationships?.field_media_image?.data?.id;
             const featuredFile = featuredFileId ? included.find((inc) => inc.id === featuredFileId) : null;
             const featuredRaw = featuredFile?.attributes?.uri?.url;
-            const image = featuredRaw ? `${BASE}${decodeURIComponent(featuredRaw)}` : "/Morocco.svg";
+            const image = buildFileUrl(featuredRaw) || "/Morocco.svg";
 
             // Gallery images (all media--image in field_gallery)
             const galleryRefs = hotel.relationships?.field_gallery?.data || [];
@@ -204,7 +204,7 @@ function resolveTabSections(item, included) {
                 const gFileId = gMedia?.relationships?.field_media_image?.data?.id;
                 const gFile = gFileId ? included.find((inc) => inc.id === gFileId) : null;
                 const gRaw = gFile?.attributes?.uri?.url;
-                return gRaw ? `${BASE}${decodeURIComponent(gRaw)}` : null;
+                return buildFileUrl(gRaw);
               })
               .filter(Boolean);
 

@@ -1,9 +1,49 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { CirclePlus, Clock3, Info, MapPin } from "lucide-react";
 export default function JourneyCard({ trip }) {
+const handleAddToCompare = () => {
+  const isAddingTrip =
+    localStorage.getItem("isAddingTrip") === "true";
+
+  if (isAddingTrip) {
+    const existingTrips = JSON.parse(
+      localStorage.getItem("compareTrips") || "[]"
+    );
+
+    const alreadyExists = existingTrips.some(
+      (item) => item.id === trip.id
+    );
+
+    if (!alreadyExists) {
+      existingTrips.push(trip);
+    }
+
+    localStorage.setItem(
+      "compareTrips",
+      JSON.stringify(existingTrips)
+    );
+
+    localStorage.removeItem("isAddingTrip");
+  } else {
+    // Start a completely new comparison
+    localStorage.setItem(
+      "compareTrips",
+      JSON.stringify([trip])
+    );
+  }
+
+  sessionStorage.setItem(
+  "comparisonReturnPage",
+  window.location.pathname + window.location.search
+);
+
+  router.push("/comparison");
+};
+  const router = useRouter();
   return (
+    
     <div
       className={`relative flex h-[31.8vw] flex-col overflow-hidden rounded-[0.7vw] bg-white px-[0.8vw] pt-[0.8vw] pb-[1vw]
       ${
@@ -34,6 +74,7 @@ export default function JourneyCard({ trip }) {
           src={trip.image}
           alt={trip.title}
           fill
+          unoptimized
           className="object-cover"
         />
       </div>
@@ -95,8 +136,10 @@ export default function JourneyCard({ trip }) {
 
         <div className="mt-[1vw] border-t border-dashed border-[#D7D7D7]" />
 
-        <button className="mt-[0.9vw] flex items-center gap-[0.4vw] text-[0.78vw] text-[#4E4E4E]">
-          <CirclePlus size={14} strokeWidth={1.8} />
+<button
+  onClick={handleAddToCompare}
+  className="mt-[0.9vw] flex items-center gap-[0.4vw] text-[0.78vw] text-[#4E4E4E]"
+>          <CirclePlus size={14} strokeWidth={1.8} />
           Add to Compare
         </button>
       </div>
@@ -111,4 +154,4 @@ export default function JourneyCard({ trip }) {
       </div>
     </div>
   );
-}
+} 

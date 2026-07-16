@@ -4,12 +4,14 @@ import JourneySection from "../components/HomePage/JourneySection";
 import YourNextTrip from "../components/HomePage/YourNextTrip";
 import ContactInquiry from "../components/HomePage/ContactInquiry";
 import ExperienceTravelSection from "../components/HomePage/ExperienceTravelSection";
-import Map from "../components/HomePage/Map";
+import Map from "../components/HomePage/MapClient";
 import TimingSection from "../components/HomePage/TimingSection";
 import TestimonialSection from "../components/HomePage/TestimonialSection";
 import TravelOStylePromise from "../components/HomePage/TravelOStylePromise";
 import PopularDestinations from "../components/HomePage/PopularDestinations";
 import Footer from "../components/Footer";
+
+
 export default function Home() {
   return (
     <div >

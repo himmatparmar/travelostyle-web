@@ -45,6 +45,7 @@ export default function HeroSection({ journey }) {
           src={journey.image || "/Morocco.svg"}
           alt={journey.title || "Journey"}
           fill
+          unoptimized
           className="object-cover"
           priority
         />
@@ -148,6 +149,7 @@ export default function HeroSection({ journey }) {
               src={journey.image || "/Morocco.svg"}
               alt={journey.title}
               fill
+              unoptimized
               className="object-cover"
               priority
             />
