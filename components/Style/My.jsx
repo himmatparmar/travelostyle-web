@@ -39,7 +39,7 @@ export default function My() {
   }}
 >
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/40" />
+      {/* <div className="absolute inset-0 bg-black/40" /> */}
 
       {/* Content */}
       <div className="relative z-10 px-3 lg:px-24 py-5">

@@ -84,7 +84,7 @@ const ROWS = [
   { key: "region", label: "Region", h: "h-10 md:h-10" },
   { key: "offer", label: "Offer", h: "h-14 md:h-14" },
   { key: "price", label: "Price", h: "h-32 md:h-32" },
-  { key: "travel", label: "Way to Travel", h: "h-44 md:h-44" },
+  { key: "travel", label: "Way to Travel", h: "h-44 md:h-30 md:p-7" },
 ];
 
 /* Height of the card header (image + title) so the desktop
@@ -201,7 +201,7 @@ export default function TripComparison() {
   const renderRowContent = (trip, key) => {
     switch (key) {
       case "duration":
-        return <div className="text-sm">{trip.days}</div>;
+        return <div className="text-sm">{trip.duration}</div>;
 
       case "destinations":
         return <div className="text-sm">{trip.destinations}</div>;
@@ -312,7 +312,7 @@ export default function TripComparison() {
 
         <hr className="mt-3 border-gray-600" />
 
-        <div className="flex gap-2 md:gap-4 mt-4 md:mt-6 px-2 md:px-4 pb-6">
+        <div className="flex gap-2 md:gap-4 mt-4 md:mt-1 px-2 md:px-4 pb-6">
           {/* Desktop label column — same ROWS config as the cards,
               so it can never drift out of alignment */}
           <div className="hidden md:block w-[130px] shrink-0">
@@ -321,8 +321,12 @@ export default function TripComparison() {
             {ROWS.map((row) => (
               <div
                 key={row.key}
-                className={`${row.h} flex items-start pt-1 text-[13px] font-bold`}
-              >
+                className={`${row.h} flex text-[13px] font-bold ${
+   row.key === "travel"
+      ? "items-start pt-10"
+      : "items-start pt-4"
+  }`}
+>
                 {row.label}
               </div>
             ))}
@@ -396,7 +400,8 @@ export default function TripComparison() {
                   {ROWS.map((row) => (
                     <div key={row.key} className={`${row.h} overflow-hidden`}>
                       {/* inline label — mobile only */}
-                      <div className="md:hidden text-[11px] font-bold uppercase tracking-wide text-gray-400">
+                      <div className="md:hidden text-[11px]  md:pt-1 
+                       font-bold uppercase tracking-wide text-gray-400">
                         {row.label}
                       </div>
                       {renderRowContent(trip, row.key)}
@@ -409,9 +414,13 @@ export default function TripComparison() {
               {trips.length < MAX_COMPARE_TRIPS && (
                 <div
                   onClick={() => {
-                    localStorage.setItem("isAddingTrip", "true");
-                    router.push("/");
-                  }}
+  localStorage.setItem("isAddingTrip", "true");
+
+  const sourcePage =
+    localStorage.getItem("compareSourcePage") || "/";
+
+  router.push(sourcePage);
+}}
                   className="relative snap-start shrink-0
                     w-[82vw] sm:w-[320px] md:w-[320px]
                     min-h-[400px] md:min-h-[500px]

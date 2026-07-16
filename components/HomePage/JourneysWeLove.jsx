@@ -271,6 +271,10 @@ const handleCompareSelection = (trip) => {
       "compareTrips",
       JSON.stringify([...existingTrips, compareTrip])
     );
+    localStorage.setItem(
+  "compareSourcePage",
+  window.location.pathname + window.location.search
+);
 
     window.location.href = "/comparison";
   }}

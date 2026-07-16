@@ -249,7 +249,7 @@ export default function HeroSection({ journey }) {
           </div>
         </div>}
       </div>
-        <MobileNavigationMenu activeView={activeView} setActiveView={setActiveView} />
+        <MobileNavigationMenu activeView={activeView} setActiveView={setActiveView} journey={journey} />
     </>
   );
 }
