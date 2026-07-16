@@ -3,6 +3,9 @@ import GoodCompanyJourney from "../../components/GroupRtbJourneys/GoodCompanyJou
 import ChoosePopularGroupJourney from "../../components/GroupRtbJourneys/ChoosePopularGroupJourney";
 import GroupRevelationsSection from "../../components/GroupRtbJourneys/GroupRevelationsSection";
 import SearchBar from "../../components/HomePage/FindYourJourney/SearchBar";
+import TravelOStylePromo from "../../components/GroupRtbJourneys/TravelOStylePromo";
+import BookingSteps from "../../components/GroupRtbJourneys/BookingSteps";
+import AdvisorCallout from "../../components/GroupRtbJourneys/AdvisorCallout";
 
 export default function Page() {
   return (
@@ -11,6 +14,9 @@ export default function Page() {
       <GoodCompanyJourney/>
        <GroupRevelationsSection/>
        <ChoosePopularGroupJourney/>
+       <TravelOStylePromo/>
+       <BookingSteps/>
+       <AdvisorCallout/>
       <Footer />
     </>
   );
