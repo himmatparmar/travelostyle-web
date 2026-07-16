@@ -127,7 +127,12 @@ const handleCompareSelection = (trip) => {
 
     localStorage.removeItem("isAddingTrip");
 
-    window.location.href = "/comparison";
+   sessionStorage.setItem(
+  "comparisonReturnPage",
+  window.location.pathname + window.location.search
+);
+
+window.location.href = "/comparison";
   } else {
     // NEW comparison starts here
     localStorage.setItem(
@@ -271,8 +276,8 @@ const handleCompareSelection = (trip) => {
       "compareTrips",
       JSON.stringify([...existingTrips, compareTrip])
     );
-    localStorage.setItem(
-  "compareSourcePage",
+   sessionStorage.setItem(
+  "comparisonReturnPage",
   window.location.pathname + window.location.search
 );
 

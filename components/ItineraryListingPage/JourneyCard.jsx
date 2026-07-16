@@ -34,10 +34,10 @@ const handleAddToCompare = () => {
     );
   }
 
-  localStorage.setItem(
-    "compareSourcePage",
-    window.location.pathname + window.location.search
-  );
+  sessionStorage.setItem(
+  "comparisonReturnPage",
+  window.location.pathname + window.location.search
+);
 
   router.push("/comparison");
 };
@@ -154,4 +154,4 @@ const handleAddToCompare = () => {
       </div>
     </div>
   );
-}
+} 

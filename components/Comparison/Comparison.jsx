@@ -412,14 +412,15 @@ export default function TripComparison() {
 
               {/* Add trip card */}
               {trips.length < MAX_COMPARE_TRIPS && (
+                
                 <div
                   onClick={() => {
   localStorage.setItem("isAddingTrip", "true");
 
-  const sourcePage =
-    localStorage.getItem("compareSourcePage") || "/";
+ const returnPage =
+  sessionStorage.getItem("comparisonReturnPage");
 
-  router.push(sourcePage);
+router.push(returnPage || "/");
 }}
                   className="relative snap-start shrink-0
                     w-[82vw] sm:w-[320px] md:w-[320px]
@@ -429,6 +430,7 @@ export default function TripComparison() {
                     flex items-center justify-center
                     cursor-pointer"
                 >
+                 
                   <p className="font-semibold text-lg text-center px-4">
                     + Add trip to compare
                   </p>
