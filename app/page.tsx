@@ -8,11 +8,13 @@ import Map from "../components/HomePage/Map";
 import TimingSection from "../components/HomePage/TimingSection";
 import TestimonialSection from "../components/HomePage/TestimonialSection";
 import TravelOStylePromise from "../components/HomePage/TravelOStylePromise";
+import PopularDestinations from "../components/HomePage/PopularDestinations";
 import Footer from "../components/Footer";
 export default function Home() {
   return (
     <div >
      <SearchBar/>
+     <PopularDestinations/>
      <JourneySection/>
      <YourNextTrip/>
      <Index/>
