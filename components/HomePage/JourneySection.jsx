@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function JourneySection() {
   return (
     <>
-      <section className="hidden md:block relative overflow-hidden py-[6vw] bg-[#f6f6f6] w-[96vw] h-[48.15vw]">
+      <section className="hidden md:block relative overflow-hidden py-[6vw] bg-[#f6f6f6] w-[99vw] h-[48.15vw]">
         <div className="absolute right-[-3vw] top-[-2vw] z-20 w-[55vw] rotate-[2deg]">
           <Image
             src="/Line.svg"

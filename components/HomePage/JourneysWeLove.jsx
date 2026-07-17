@@ -304,14 +304,6 @@ window.location.href = "/comparison";
       <div onClick={scrollRight}>
         <Image src={"/RightArrow.svg"} alt={""} height={24} width={56} />
       </div>
-
-      {/* <button
-            onClick={scrollRight}
-            className="z-10 flex h-[2.8vw] w-[2.8vw] items-center justify-center rounded-full border border-[#D8D8D8] bg-white shadow-sm"
-          >
-            <ChevronRight size={18} strokeWidth={1.8} />
-
-          </button> */}
     </div>
   );
 }
