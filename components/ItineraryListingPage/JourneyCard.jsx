@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import {
   CirclePlus,
@@ -35,7 +36,10 @@ const handleAddToCompare = () => {
     const alreadyExists = existingTrips.some(
       (item) => item.id === trip.id
     );
-
+if (alreadyExists) {
+  toast("Trip already added to comparison");
+  return;
+}
     if (!alreadyExists) {
       existingTrips.push(trip);
 
@@ -57,7 +61,7 @@ const handleAddToCompare = () => {
     setIsSelected(true);
   }
 
-  sessionStorage.setItem(
+  localStorage.setItem(
     "comparisonReturnPage",
     window.location.pathname +
       window.location.search
@@ -162,17 +166,23 @@ const handleAddToCompare = () => {
 <button
   onClick={handleAddToCompare}
   className="mt-[0.9vw] flex items-center gap-[0.4vw] text-[0.78vw] text-[#4E4E4E]"
->          {isSelected ? (
-  <CheckCircle2
-    size={14}
-    strokeWidth={2}
-    className="text-green-600"
-  />
-) : (
-  <CirclePlus size={14} strokeWidth={1.8} />
-)}
-
-        </button>
+>
+  {isSelected ? (
+    <>
+      <CheckCircle2
+        size={14}
+        strokeWidth={2}
+        className="text-green-600"
+      />
+      <span>Added to Compare</span>
+    </>
+  ) : (
+    <>
+      <CirclePlus size={14} strokeWidth={1.8} />
+      <span>Add to Compare</span>
+    </>
+  )}
+</button>
       </div>
 
       <div className="absolute bottom-[-0.38vw] left-0 flex w-full justify-between px-[0.42vw]">
