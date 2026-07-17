@@ -276,8 +276,8 @@ window.location.href = "/comparison";
       "compareTrips",
       JSON.stringify([...existingTrips, compareTrip])
     );
-   sessionStorage.setItem(
-  "comparisonReturnPage",
+    localStorage.setItem(
+  "compareSourcePage",
   window.location.pathname + window.location.search
 );
 

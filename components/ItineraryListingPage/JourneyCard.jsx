@@ -1,8 +1,28 @@
 "use client";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { CirclePlus, Clock3, Info, MapPin } from "lucide-react";
+import { useEffect, useState } from "react";
+import {
+  CirclePlus,
+  CheckCircle2,
+  Clock3,
+  Info,
+  MapPin,
+} from "lucide-react";
 export default function JourneyCard({ trip }) {
+   const router = useRouter();
+
+  const [isSelected, setIsSelected] = useState(false);
+
+  useEffect(() => {
+    const compareTrips = JSON.parse(
+      localStorage.getItem("compareTrips") || "[]"
+    );
+
+    setIsSelected(
+      compareTrips.some((item) => item.id === trip.id)
+    );
+  }, [trip.id]);
 const handleAddToCompare = () => {
   const isAddingTrip =
     localStorage.getItem("isAddingTrip") === "true";
@@ -18,30 +38,33 @@ const handleAddToCompare = () => {
 
     if (!alreadyExists) {
       existingTrips.push(trip);
+
+      localStorage.setItem(
+        "compareTrips",
+        JSON.stringify(existingTrips)
+      );
     }
 
-    localStorage.setItem(
-      "compareTrips",
-      JSON.stringify(existingTrips)
-    );
+    setIsSelected(true);
 
     localStorage.removeItem("isAddingTrip");
   } else {
-    // Start a completely new comparison
     localStorage.setItem(
       "compareTrips",
       JSON.stringify([trip])
     );
+
+    setIsSelected(true);
   }
 
   sessionStorage.setItem(
-  "comparisonReturnPage",
-  window.location.pathname + window.location.search
-);
+    "comparisonReturnPage",
+    window.location.pathname +
+      window.location.search
+  );
 
   router.push("/comparison");
 };
-  const router = useRouter();
   return (
     
     <div
@@ -139,8 +162,16 @@ const handleAddToCompare = () => {
 <button
   onClick={handleAddToCompare}
   className="mt-[0.9vw] flex items-center gap-[0.4vw] text-[0.78vw] text-[#4E4E4E]"
->          <CirclePlus size={14} strokeWidth={1.8} />
-          Add to Compare
+>          {isSelected ? (
+  <CheckCircle2
+    size={14}
+    strokeWidth={2}
+    className="text-green-600"
+  />
+) : (
+  <CirclePlus size={14} strokeWidth={1.8} />
+)}
+
         </button>
       </div>
 
