@@ -1,4 +1,12 @@
-import { CirclePlus, Clock3, Info, MapPin } from "lucide-react";
+import {
+  CirclePlus,
+  CheckCircle2,
+  Clock3,
+  Info,
+  MapPin,
+} from "lucide-react";
+
+import { toast } from "sonner";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { API_BASE_URL, buildFileUrl } from "@/lib/config";
@@ -6,7 +14,14 @@ import { slugify } from "@/lib/slugify";
 
 export default function JourneysWeLove() {
   const [trips, setTrips] = useState([]);
-  
+  const [selectedTrips, setSelectedTrips] = useState([]);
+  useEffect(() => {
+  const compareTrips = JSON.parse(
+    localStorage.getItem("compareTrips") || "[]"
+  );
+
+  setSelectedTrips(compareTrips.map((trip) => trip.id));
+}, []);
 
   useEffect(() => {
     async function loadJourneys() {
@@ -115,6 +130,10 @@ const handleCompareSelection = (trip) => {
     const alreadyExists = existingTrips.some(
       (t) => t.id === trip.id
     );
+    if (alreadyExists) {
+  toast("Trip already added to comparison");
+  return;
+}
 
     if (!alreadyExists) {
       existingTrips.push(trip);
@@ -132,7 +151,15 @@ const handleCompareSelection = (trip) => {
   window.location.pathname + window.location.search
 );
 
-window.location.href = "/comparison";
+const returnPage =
+  sessionStorage.getItem("comparisonReturnPage") ||
+  "/comparison";
+  console.log(
+  "comparisonReturnPage:",
+  sessionStorage.getItem("comparisonReturnPage")
+);
+
+window.location.href = returnPage;
   } else {
     // NEW comparison starts here
     localStorage.setItem(
@@ -155,7 +182,7 @@ window.location.href = "/comparison";
        {trips.map((trip, index) => (
   <div
     key={index}
-    onClick={() => handleCompareSelection(trip)}
+    // onClick={() => handleCompareSelection(trip)}
     className={`relative flex h-[31.8vw] min-w-[18.7vw] flex-col overflow-hidden rounded-[0.7vw] bg-white px-[0.8vw] pt-[0.8vw] pb-[1vw] cursor-pointer
       ${
         trip.active
@@ -248,9 +275,12 @@ window.location.href = "/comparison";
       (item) => item.id === trip.id
     );
 
-    if (alreadyExists) return;
+   if (alreadyExists) {
+  toast("Trip already added to comparison");
+  return;
+}
 
-    if (existingTrips.length >= 3) {
+    if (existingTrips.length >= 30) {
       alert("You can compare up to 3 trips only.");
       return;
     }
@@ -276,8 +306,14 @@ window.location.href = "/comparison";
       "compareTrips",
       JSON.stringify([...existingTrips, compareTrip])
     );
+    setSelectedTrips((prev) => [...prev, trip.id]);
     localStorage.setItem(
   "compareSourcePage",
+  window.location.pathname + window.location.search
+);
+
+sessionStorage.setItem(
+  "comparisonReturnPage",
   window.location.pathname + window.location.search
 );
 
@@ -285,7 +321,18 @@ window.location.href = "/comparison";
   }}
   className="mt-[0.9vw] flex items-center gap-[0.4vw] text-[0.78vw] text-[#4E4E4E]"
 >
-  <CirclePlus size={14} strokeWidth={1.8} />
+{selectedTrips.includes(trip.id) ? (
+  <CheckCircle2
+    size={14}
+    strokeWidth={2}
+    className="text-green-600"
+  />
+) : (
+  <CirclePlus
+    size={14}
+    strokeWidth={1.8}
+  />
+)}
   Add to Compare
 </button>
             </div>

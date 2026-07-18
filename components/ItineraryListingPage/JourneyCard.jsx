@@ -25,14 +25,16 @@ export default function JourneyCard({ trip }) {
     );
   }, [trip.id]);
 const handleAddToCompare = () => {
-  const isAddingTrip =
-    localStorage.getItem("isAddingTrip") === "true";
+  // const isAddingTrip =
+  //   localStorage.getItem("isAddingTrip") === "true";
 
-  if (isAddingTrip) {
-    const existingTrips = JSON.parse(
-      localStorage.getItem("compareTrips") || "[]"
-    );
-
+  // if (isAddingTrip) {
+  //   const existingTrips = JSON.parse(
+  //     localStorage.getItem("compareTrips") || "[]"
+  //   );
+  const existingTrips = JSON.parse(
+    localStorage.getItem("compareTrips") || "[]"
+  );
     const alreadyExists = existingTrips.some(
       (item) => item.id === trip.id
     );
@@ -40,37 +42,40 @@ if (alreadyExists) {
   toast("Trip already added to comparison");
   return;
 }
-    if (!alreadyExists) {
-      existingTrips.push(trip);
+existingTrips.push(trip);
 
       localStorage.setItem(
         "compareTrips",
         JSON.stringify(existingTrips)
       );
-    }
+
 
     setIsSelected(true);
+ 
+  // localStorage.removeItem("isAddingTrip");
 
-    localStorage.removeItem("isAddingTrip");
-  } else {
-    localStorage.setItem(
-      "compareTrips",
-      JSON.stringify([trip])
-    );
 
-    setIsSelected(true);
-  }
+  //   localStorage.removeItem("isAddingTrip");
+  // // } else {
+  // //   localStorage.setItem(
+  // //     "compareTrips",create a new array after loading 
+  // //     JSON.stringify([trip])
+  // //   );
 
-  localStorage.setItem(
+  //   setIsSelected(true);
+  // }
+
+  sessionStorage.setItem(
     "comparisonReturnPage",
     window.location.pathname +
       window.location.search
   );
-
-  router.push("/comparison");
+   if (localStorage.getItem("isAddingTrip") === "true") {
+    localStorage.removeItem("isAddingTrip");
+  }
+ router.push("/comparison");
 };
-  return (
-    
+  return ( 
     <div
       className={`relative flex h-[31.8vw] flex-col overflow-hidden rounded-[0.7vw] bg-white px-[0.8vw] pt-[0.8vw] pb-[1vw]
       ${
@@ -166,23 +171,23 @@ if (alreadyExists) {
 <button
   onClick={handleAddToCompare}
   className="mt-[0.9vw] flex items-center gap-[0.4vw] text-[0.78vw] text-[#4E4E4E]"
->
-  {isSelected ? (
-    <>
-      <CheckCircle2
-        size={14}
-        strokeWidth={2}
-        className="text-green-600"
-      />
-      <span>Added to Compare</span>
+>          {isSelected ? (
+   <>
+  <CheckCircle2
+    size={14}
+    strokeWidth={2}
+    className="text-green-600"
+    />
+     <span>Added to Compare</span>
     </>
   ) : (
     <>
-      <CirclePlus size={14} strokeWidth={1.8} />
-      <span>Add to Compare</span>
-    </>
-  )}
-</button>
+  <CirclePlus size={14} strokeWidth={1.8} />
+   <span>Add to Compare</span>
+  </>
+)}
+
+        </button>
       </div>
 
       <div className="absolute bottom-[-0.38vw] left-0 flex w-full justify-between px-[0.42vw]">
@@ -195,4 +200,4 @@ if (alreadyExists) {
       </div>
     </div>
   );
-} 
+}
