@@ -1,13 +1,14 @@
 "use client";
 import React from "react";
-import { useState,useEffect } from "react";
 import TravelJourneyCard from "../TravelJourneyCard";
+import { useEffect, useState } from "react";
 import { API_BASE_URL, buildFileUrl } from "@/lib/config";
+
 
 export default function ChoosePopularGroupJourney() {
  const [journeys, setJourneys] = useState([]);
-const [selectedTrips, setSelectedTrips] = useState([]);
-useEffect(() => {
+ const [selectedTrips, setSelectedTrips] = useState([]);
+ useEffect(() => {
   const compareTrips = JSON.parse(
     localStorage.getItem("compareTrips") || "[]"
   );
@@ -23,7 +24,9 @@ const handleCompareSelection = (trip) => {
     (item) => item.id === trip.id
   );
 
-  if (alreadyExists) return;
+  if (alreadyExists) {
+    return;
+  }
 
   const compareTrip = {
     id: trip.id,
@@ -31,7 +34,12 @@ const handleCompareSelection = (trip) => {
     image: trip.image,
     duration: trip.duration,
     destinations: trip.destinations,
-    price: trip.price,
+    offer: trip.earlyBird,
+    price: `$${Number(trip.price).toLocaleString()}`,
+    itinerary: [],
+    stays: "-",
+    region: trip.region,
+    travelMode: "-",
   };
 
   localStorage.setItem(
@@ -41,6 +49,11 @@ const handleCompareSelection = (trip) => {
 
   setSelectedTrips((prev) => [...prev, trip.id]);
 
+  localStorage.setItem(
+    "compareSourcePage",
+    window.location.pathname + window.location.search
+  );
+
   sessionStorage.setItem(
     "comparisonReturnPage",
     window.location.pathname + window.location.search
@@ -48,6 +61,7 @@ const handleCompareSelection = (trip) => {
 
   window.location.href = "/comparison";
 };
+
  useEffect(() => {
   async function loadJourneys() {
     try {
@@ -101,7 +115,7 @@ const handleCompareSelection = (trip) => {
             return tagEntity?.attributes?.name;
           })
           .filter(Boolean);
-
+          
         return {
           id: item.id,
           title: item.attributes?.title || "",
@@ -122,14 +136,16 @@ const handleCompareSelection = (trip) => {
         };
       });
 
-      const groupJourneys = drupalJourneys.filter(
-        (journey) =>
-          journey.types?.includes("Group Journey")
+      const groupJourneys = drupalJourneys.filter((journey) =>
+        journey.types?.includes("Group Journey")
       );
+      console.log("All journeys:", drupalJourneys.length);
+console.log("Group journeys:", groupJourneys.length);
+console.log(groupJourneys);
 
       setJourneys(groupJourneys);
     } catch (err) {
-      console.error("FETCH ERROR", err);
+      console.error(err);
     }
   }
 
@@ -146,7 +162,7 @@ const handleCompareSelection = (trip) => {
         </h2>
       </div>
 
-     <TravelJourneyCard
+      <TravelJourneyCard
   journeys={journeys}
   selectedTrips={selectedTrips}
   onCompare={handleCompareSelection}

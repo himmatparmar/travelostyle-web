@@ -1,8 +1,14 @@
 import React from 'react'
+import { CirclePlus, CheckCircle2 } from "lucide-react";
+import { toast } from "sonner";
 
-export default function TravelJourneyCard({journeys}) {
+export default function TravelJourneyCard({
+  journeys,
+  selectedTrips,
+  onCompare,
+}) {
   return (
-     <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pb-12">
+<div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pb-12">
         {journeys.map((journey) => (
           <div
             key={journey.id}
@@ -86,11 +92,31 @@ export default function TravelJourneyCard({journeys}) {
               )}
               <div className="border-t border-dashed border-neutral-200/80 mx-5 my-2"></div>
               <div className="px-5 pt-1">
-                <button className="flex items-center gap-1.5 text-neutral-500 hover:text-neutral-800 text-[11px] font-medium transition-colors">
-                  <svg className="w-4.5 h-4.5 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  Add to Compare
+<button
+onClick={() => {
+  if (selectedTrips?.includes(journey.id)) {
+    toast("Trip already added to comparison");
+    return;
+  }
+
+  onCompare(journey);
+}}
+  className="flex items-center gap-1.5 text-neutral-500 hover:text-neutral-800 text-[11px] font-medium transition-colors"
+>                  
+              {selectedTrips?.includes(journey.id) ? (
+  <>
+    <CheckCircle2
+      size={16}
+      className="text-green-600"
+    />
+    <span>Added to Compare</span>
+  </>
+) : (
+  <>
+    <CirclePlus size={16} />
+    <span>Add to Compare</span>
+  </>
+)}
                 </button>
               </div>
             </div>
