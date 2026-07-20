@@ -1,203 +1,376 @@
-import React from 'react';
-const journeys = [
-  {
-    id: 1,
-    title: 'The Golden Triangle',
-    description: 'From the Mughal grandeur of Delhi to the Taj at golden hour — and then, quietly, up into the hills.',
-    duration: '12 Days | 12 Nights',
-    destinations: '10 Destinations',
-    price: '5000',
-    types: ['Group Journey', 'Private Journey'],
-    earlyBird: 'September departure',
-    image: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=600&q=80', // Taj Mahal / Humayun's Tomb representation
-  },
-  {
-    id: 2,
-    title: 'Kenya & South Africa',
-    description: 'Two countries. One continent that will ask something of you — and give back considerably more.',
-    duration: '10 Days | 13 Nights',
-    destinations: '9 Destinations',
-    types: ['Group Journey'],
-    price: '8000',
-    earlyBird: null,
-    image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=600&q=80', // Safari/Lion representation
-  },
-  {
-    id: 3,
-    title: 'Morocco',
-    description: 'From Imperial cities to Saharan silence — a journey through Morocco\'s most extraordinary contrasts.',
-    duration: '12 Days | 12 Nights',
-    destinations: '10 Destinations',
-    types: ['Group Journey', 'Private Journey'],
-    price: '7000',
-    earlyBird: 'July departure',
-    image: 'https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?auto=format&fit=crop&w=600&q=80', // Morocco architecture
-  },
-  {
-    id: 4,
-    title: 'Vietnam',
-    description: 'From the Mughal grandeur of Delhi to the Taj at golden hour — and then, quietly, up into the hills.',
-    duration: '10 Days | 9 Nights',
-    destinations: '9 Destinations',
-    types: ['Group Journey', 'Private Journey'],
-    price: '6000',
-    earlyBird: null,
-    image: 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=80', // Vietnam boats / waterscape
-  },
-  {
-    id: 5,
-    title: 'The Golden Triangle',
-    description: 'From the Mughal grandeur of Delhi to the Taj at golden hour — and then, quietly, up into the hills.',
-    duration: '12 Days | 12 Nights',
-    destinations: '10 Destinations',
-    types: ['Group Journey', 'Private Journey'],
-    price: '5000',
-    earlyBird: 'September departure',
-    image: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=600&q=80',
-  },
-  {
-    id: 6,
-    title: 'Kenya & South Africa',
-    description: 'Two countries. One continent that will ask something of you — and give back considerably more.',
-    duration: '10 Days | 13 Nights',
-    destinations: '9 Destinations',
-    types: ['Group Journey'],
-    price: '8000',
-    earlyBird: null,
-    image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=600&q=80',
-  },
-  {
-    id: 7,
-    title: 'Morocco',
-    description: 'From Imperial cities to Saharan silence — a journey through Morocco\'s most extraordinary contrasts.',
-    duration: '12 Days | 12 Nights',
-    destinations: '10 Destinations',
-    types: ['Group Journey', 'Private Journey'],
-    price: '7000',
-    earlyBird: 'July departure',
-    image: 'https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?auto=format&fit=crop&w=600&q=80',
-  },
-  {
-    id: 8,
-    title: 'Vietnam',
-    description: 'From the Mughal grandeur of Delhi to the Taj at golden hour — and then, quietly, up into the hills.',
-    duration: '10 Days | 9 Nights',
-    destinations: '9 Destinations',
-    types: ['Group Journey', 'Private Journey'],
-    price: '6000',
-    earlyBird: null,
-    image: 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=80',
-  },
-];
+"use client";
+
+
+// import { toast } from "sonner";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { API_BASE_URL, buildFileUrl } from "@/lib/config";
+import JourneyCard from "../ItineraryListingPage/JourneyCard";
+import { slugify } from "@/lib/slugify";
 
 export default function ChoosePopularGroupJourney() {
-  return (
-    <div className=" min-h-screen py-16 px-4 sm:px-6 lg:px-8 font-sans">
-      <div className="text-center mb-12">
-        <p className="font-serif italic text-2xl text-neutral-600 lowercase tracking-wide">
-          choose from our popular group journeys
-        </p>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-[#111827] mt-1 tracking-tight">
-          Where are you headed to next?
-        </h2>
-      </div>
+  const [trips, setTrips] = useState([]);
+  const groupJourneys = trips.filter((trip) =>
+  trip.tags?.includes("Group Journey")
+);
+  // const [selectedTrips, setSelectedTrips] = useState([]);
+//   useEffect(() => {
+//   const compareTrips = JSON.parse(
+//     localStorage.getItem("compareTrips") || "[]"
+//   );
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pb-12">
-        {journeys.map((journey) => (
-          <div
-            key={journey.id}
-            className="relative bg-white rounded-t-lg shadow-sm border border-neutral-100/50 flex flex-col justify-between overflow-hidden pb-8 min-h-[580px]"
-          >
-            <div>
-              <div className="flex gap-2 p-4 pb-2">
-                {journey.types.includes('Group Journey') && (
-                  <span className="text-[10px] font-semibold bg-[#EFF6E0] text-[#59832A] px-2.5 py-1 rounded">
-                    Group Journey
-                  </span>
-                )}
-                {journey.types.includes('Private Journey') && (
-                  <span className="text-[10px] font-semibold bg-[#FEFAE0] text-[#B58A32] px-2.5 py-1 rounded">
-                    Private Journey
-                  </span>
-                )}
-              </div>
-              <div className="px-4">
-                <div className="overflow-hidden rounded-md h-[180px] w-full relative">
-                  <img
-                    src={journey.image}
-                    alt={journey.title}
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                  />
-                </div>
-              </div>
+//   setSelectedTrips(compareTrips.map((trip) => trip.id));
+// }, []);
 
-              <div className="px-5 pt-4">
-                <h3 className="text-lg font-bold text-neutral-900 leading-snug">
-                  {journey.title}
-                </h3>
-                <p className="text-xs text-neutral-500 mt-1.5 leading-relaxed line-clamp-3">
-                  {journey.description}
-                </p>
+  useEffect(() => {
+    async function loadJourneys() {
+      try {
+        const res = await fetch(
+          `${API_BASE_URL}/jsonapi/node/journey?include=
+          field_journey_image.field_media_image,field_journey_tag,field_month`,
+        );
+        const json = await res.json();
+        const included = json.included || [];
 
-                <div className="flex items-center gap-4 mt-4 text-[11px] text-neutral-500 font-medium">
-            
-                  <div className="flex items-center gap-1.5">
-                    <svg className="w-3.5 h-3.5 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    <span>{journey.duration}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <svg className="w-3.5 h-3.5 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <span>{journey.destinations}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+        const drupalJourneys = (json.data || []).map((item, index) => {
+          const mediaId = item.relationships?.field_journey_image?.data?.id;
 
-            <div className="mt-6">
-              <div className="flex items-center justify-between px-5 mb-4">
-                <div>
-                  <span className="text-[10px] text-neutral-400 block uppercase tracking-wider">from</span>
-                  <div className="flex items-baseline">
-                    <span className="text-xl font-bold text-neutral-900">${journey.price}*</span>
-                    <span className="text-[10px] text-neutral-500 ml-1">/ person</span>
-                  </div>
-                  <span className="text-[9px] text-neutral-400 block -mt-1">double occupancy*</span>
-                </div>
-                
-                <button className="bg-[#1C355E] hover:bg-[#12233F] text-white text-xs font-semibold px-4 py-2 rounded-full shadow transition-all duration-200">
-                  View Trip
-                </button>
-              </div>
+          const mediaEntity = included.find(
+            (inc) => inc.type === "media--image" && inc.id === mediaId,
+          );
 
-              {journey.earlyBird ? (
-                <div className="mx-4 mb-4 bg-[#FDF0EA] text-[#A65B32] py-2 px-3 rounded flex items-center gap-1.5 text-[10px] font-medium border border-[#FBE3D5]">
-                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span>Early Bird Offer available for {journey.earlyBird}</span>
-                </div>
-              ) : (
-                <div className="h-9 mb-4" />
-              )}
-              <div className="border-t border-dashed border-neutral-200/80 mx-5 my-2"></div>
-              <div className="px-5 pt-1">
-                <button className="flex items-center gap-1.5 text-neutral-500 hover:text-neutral-800 text-[11px] font-medium transition-colors">
-                  <svg className="w-4.5 h-4.5 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  Add to Compare
-                </button>
-              </div>
-            </div>
-            <div className="absolute -bottom-1.5 left-0 right-0 h-3 bg-[radial-gradient(circle_at_center,_#F6F8F9_5px,_transparent_6px)] bg-[length:14px_12px] bg-repeat-x z-10 pointer-events-none"></div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+          const fileId =
+            mediaEntity?.relationships?.field_media_image?.data?.id;
+
+          const fileEntity = included.find(
+            (inc) => inc.type === "file--file" && inc.id === fileId,
+          );
+
+          const rawUrl = fileEntity?.attributes?.uri?.url;
+
+          const imageUrl = buildFileUrl(rawUrl) || "/GoldenTriange.svg";
+
+          const tagData = item.relationships?.field_journey_tag?.data;
+          const tagArray = Array.isArray(tagData)
+            ? tagData
+            : tagData
+              ? [tagData]
+              : [];
+
+          const tagNames = tagArray
+            .map((tag) => {
+              const tagEntity = included.find(
+                (inc) =>
+                  inc.type === "taxonomy_term--tags" && inc.id === tag.id,
+              );
+              return tagEntity?.attributes?.name;
+            })
+            .filter(Boolean);
+
+          const cta = item.attributes?.field_cta;
+          const titleSlug = slugify(item.attributes?.title || "");
+          let viewTripUrl = `/journeys/${titleSlug}`;
+          if (cta?.uri && !cta.uri.startsWith("entity:")) {
+            viewTripUrl = cta.uri;
+          }
+
+          return {
+            id: item.id,
+            title: item.attributes?.title || "",
+            desc: item.attributes?.field_short_description || "",
+            days: `${item.attributes?.field_duration_days || 0} Days | ${
+              item.attributes?.field_duration_nights || 0
+            } Nights`,
+            destinations: `${
+              item.attributes?.field_destinations_count || 0
+            } Destinations`,
+            price: Number(item.attributes?.field_offer_price) || 0,
+            offer: item.attributes?.field_offer_message || "",
+            image: imageUrl,
+            tags: tagNames,
+            viewTripUrl,
+            viewTripText: cta?.title || "View Trip",
+            active: index === 0,
+          };
+        });
+
+        setTrips(drupalJourneys);
+      } catch (err) {
+        console.error("FETCH ERROR", err);
+      }
+    }
+
+    loadJourneys();
+  }, []);
+  const scrollRef = useRef(null);
+
+  const scrollLeft = () => {
+    scrollRef.current?.scrollBy({
+      left: -350,
+      behavior: "smooth",
+    });
+  };
+
+  const scrollRight = () => {
+    scrollRef.current?.scrollBy({
+      left: 350,
+      behavior: "smooth",
+    });
+  };
+const handleCompareSelection = (trip) => {
+  const isAddingTrip =
+    localStorage.getItem("isAddingTrip") === "true";
+
+  if (isAddingTrip) {
+    const existingTrips = JSON.parse(
+      localStorage.getItem("compareTrips") || "[]"
+    );
+
+    const alreadyExists = existingTrips.some(
+      (t) => t.id === trip.id
+    );
+    if (alreadyExists) {
+  toast("Trip already added to comparison");
+  return;
 }
+
+    if (!alreadyExists) {
+      existingTrips.push(trip);
+    }
+
+    localStorage.setItem(
+      "compareTrips",
+      JSON.stringify(existingTrips)
+    );
+
+    localStorage.removeItem("isAddingTrip");
+
+   sessionStorage.setItem(
+  "comparisonReturnPage",
+  window.location.pathname + window.location.search
+);
+
+const returnPage =
+  sessionStorage.getItem("comparisonReturnPage") ||
+  "/comparison";
+  console.log(
+  "comparisonReturnPage:",
+  sessionStorage.getItem("comparisonReturnPage")
+);
+
+window.location.href = returnPage;
+  } else {
+    // NEW comparison starts here
+    localStorage.setItem(
+      "compareTrips",
+      JSON.stringify([trip])
+    );
+
+    window.location.href = "/comparison";
+  }
+};
+  return (
+    <div className="mt-[4vw] flex items-center justify-center gap-[1.3vw]">
+     {/* <div onClick={scrollLeft} className="cursor-pointer">
+          <Image src={"/LeftArrow.svg"} alt={""} height={24} width={56} />
+      </div> */}
+{/* <div className="mt-[4vw] flex items-center justify-center gap-[1.3vw]">
+  <div onClick={scrollLeft}>
+    <Image ... />
+  </div> */}
+
+  <div className="grid grid-cols-4 gap-6">
+  {groupJourneys.map((trip) => (
+    <JourneyCard
+      key={trip.id}
+      trip={trip}
+      variant="grid"
+    />
+  ))}
+</div>
+
+  {/* <div onClick={scrollRight} className="cursor-pointer">
+  <Image src={"/RightArrow.svg"} alt={""} height={24} width={56} />
+     </div> */}
+</div>
+)}
+//       <div
+//         ref={scrollRef}
+//         className="flex w-[62vw] gap-[1.4vw] overflow-x-auto scroll-
+// smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+//       >
+//        {trips.map((trip, index) => (
+//   <div
+//     key={index}
+//     // onClick={() => handleCompareSelection(trip)}
+//     className={`relative flex h-[31.8vw] min-w-[18.7vw] flex-col overflow-hidden rounded-[0.7vw] bg-white px-[0.8vw] pt-[0.8vw] pb-[1vw] cursor-pointer
+//       ${
+//         trip.active
+//           ? "border border-[#6BA6FF]"
+//           : "border border-[#E8E8E8]"
+//       }`}
+//   >
+//             <div className="mb-[0.8vw] flex flex-wrap gap-[0.45vw]">
+//               {(trip.tags || []).map((tag) => (
+//                 <span
+//                   key={tag}
+//                   className={`rounded-[0.3vw] px-[0.75vw] py-[0.3vw] text-[0.63vw] font-medium
+//                       ${
+//                         tag === "Private Journey" ||
+//                         tag === "Tailormade Journey"
+//                           ? "bg-[#F5DFC9] text-[#6A5B4E]"
+//                           : "bg-[#EAEBCB] text-[#63634E]"
+//                       }`}
+//                 >
+//                   {tag}
+//                 </span>
+//               ))}
+//             </div>
+//             <div className="relative h-[10vw] w-full overflow-hidden rounded-[0.15vw]">
+//               <Image
+//                 src={trip.image}
+//                 alt={trip.title}
+//                 fill
+//                 unoptimized
+//                 className="object-cover"
+//               />
+//             </div>
+//             <div className="flex flex-1 flex-col pt-[1vw]">
+//               <h3 className="text-[1.1vw] font-semibold leading-[1.3] text-[#232323]">
+//                 {trip.title}
+//               </h3>
+
+//               <p className="mt-[0.6vw] text-[0.76vw] leading-[1.55] text-[#666666]">
+//                 {trip.desc}
+//               </p>
+//               <div className="mt-[0.9vw] flex items-center gap-[1vw] text-[0.58vw] text-[#717171]">
+//                 <div className="flex items-center gap-[0.28vw]">
+//                   <Clock3 size={12} strokeWidth={1.8} />
+//                   {trip.days}
+//                 </div>
+
+//                 <div className="flex items-center gap-[0.28vw]">
+//                   <MapPin size={12} strokeWidth={1.8} />
+//                   {trip.destinations}
+//                 </div>
+//               </div>
+//               <div className="mt-[1vw] flex items-end justify-between">
+//                 <div>
+//                   <p className="text-[0.62vw] lowercase text-[#787878]">from</p>
+
+//                   <div className="flex items-end gap-[0.2vw]">
+//                     <h4 className="text-[1.45vw] font-semibold leading-none text-[#1D1D1D]">
+//                       ${Number(trip.price).toLocaleString()}
+//                     </h4>
+
+//                     <span className="mb-[0.12vw] text-[0.52vw] leading-[1.15] text-[#7B7B7B]">
+//                       */person
+//                       <br />
+//                       double occupancy*
+//                     </span>
+//                   </div>
+//                 </div>
+
+//                 <a
+//   href={trip.viewTripUrl}
+//   onClick={(e) => e.stopPropagation()}
+//   className="..."
+// >
+//   {trip.viewTripText || "View Trip"}
+// </a>
+//               </div>
+//               <div className="mt-[1vw] flex items-center gap-[0.4vw] rounded-[0.35vw] bg-[#F4E5DA] px-[0.65vw] py-[0.55vw] text-[0.58vw] text-[#65574D]">
+//                 <Info size={11} />
+//                 <span>{trip.offer}</span>
+//               </div>
+//               <div className="mt-[1vw] border-t border-dashed border-[#D7D7D7]" />
+
+//               <button
+//   onClick={() => {
+//     const existingTrips = JSON.parse(
+//       localStorage.getItem("compareTrips") || "[]"
+//     );
+
+//     const alreadyExists = existingTrips.some(
+//       (item) => item.id === trip.id
+//     );
+
+//    if (alreadyExists) {
+//   toast("Trip already added to comparison");
+//   return;
+// }
+
+//     if (existingTrips.length >= 30) {
+//       alert("You can compare up to 3 trips only.");
+//       return;
+//     }
+
+//     const compareTrip = {
+//       id: trip.id,
+//       title: trip.title,
+//       image: trip.image,
+//       duration: trip.days,
+//       destinations: trip.destinations,
+//       offer: trip.offer,
+//       price: `$${Number(trip.price).toLocaleString()}`,
+//       viewTripUrl: trip.viewTripUrl,
+
+//       // fallback values until Drupal fields are mapped
+//       itinerary: [],
+//       stays: "-",
+//       region: trip.region,
+//       travelMode: "-",
+//     };
+
+//     localStorage.setItem(
+//       "compareTrips",
+//       JSON.stringify([...existingTrips, compareTrip])
+//     );
+//     setSelectedTrips((prev) => [...prev, trip.id]);
+//     localStorage.setItem(
+//   "compareSourcePage",
+//   window.location.pathname + window.location.search
+// );
+
+// sessionStorage.setItem(
+//   "comparisonReturnPage",
+//   window.location.pathname + window.location.search
+// );
+
+//     window.location.href = "/comparison";
+//   }}
+//   className="mt-[0.9vw] flex items-center gap-[0.4vw] text-[0.78vw] text-[#4E4E4E]"
+// >
+// {selectedTrips.includes(trip.id) ? (
+//   <CheckCircle2
+//     size={14}
+//     strokeWidth={2}
+//     className="text-green-600"
+//   />
+// ) : (
+//   <CirclePlus
+//     size={14}
+//     strokeWidth={1.8}
+//   />
+// )}
+//   Add to Compare
+// </button>
+//             </div>
+
+//             <div className="absolute bottom-[-0.38vw] left-0 flex w-full justify-between px-[0.42vw]">
+//               {Array.from({ length: 14 }).map((_, i) => (
+//                 <div
+//                   key={i}
+//                   className="h-[0.8vw] w-[0.8vw] rounded-full bg-[#F5F5F3]"
+//                 />
+//               ))}
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//       <div onClick={scrollRight}>
+//         <Image src={"/RightArrow.svg"} alt={""} height={24} width={56} />
+//       </div>
+//     </div>
+//   );
+// }

@@ -10,7 +10,14 @@ import {
   Info,
   MapPin,
 } from "lucide-react";
-export default function JourneyCard({ trip }) {
+export default function JourneyCard({ 
+   trip,
+  variant = "slider",
+}) {
+  const widthClass =
+    variant === "slider"
+      ? "min-w-[18.7vw]"
+      : "w-full";
    const router = useRouter();
 
   const [isSelected, setIsSelected] = useState(false);
@@ -77,7 +84,7 @@ existingTrips.push(trip);
 };
   return ( 
     <div
-      className={`relative flex h-[31.8vw] flex-col overflow-hidden rounded-[0.7vw] bg-white px-[0.8vw] pt-[0.8vw] pb-[1vw]
+      className={`relative flex h-[31.8vw] min-w-[18.7vw] flex-col overflow-hidden rounded-[0.7vw] bg-white px-[0.8vw] pt-[0.8vw] pb-[1vw]
       ${
         trip.active
           ? "border border-[#6BA6FF]"
