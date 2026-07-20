@@ -1,6 +1,7 @@
 import React from 'react'
 import GroupRevelationsSection from '../GroupRevelationsSection';
 import CuratedRouteSection from "./CuratedRouteSection"
+import JourneyInspiration from './JourneyInspiration';
 
 export default function Index() {
 const privateJourneyFeatures = [
@@ -44,6 +45,7 @@ return (
         labelBg: "bg-[#ebdcd1]/40"   
       }}
     />
+    <JourneyInspiration/>
   </div>
 );
 }
