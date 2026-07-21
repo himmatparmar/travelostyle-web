@@ -162,11 +162,10 @@ console.log(groupJourneys);
         </h2>
       </div>
 
-      <TravelJourneyCard
-  journeys={journeys}
-  selectedTrips={selectedTrips}
+      <TravelJourneyCard journeys={journeys}
+      selectedTrips={selectedTrips}
   onCompare={handleCompareSelection}
-/>
+       />
     </div>
   );
 }

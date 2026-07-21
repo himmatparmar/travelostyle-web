@@ -1,64 +1,39 @@
-import React from 'react';
+import React from "react";
 
-export default function BookingSteps() {
-  const steps = [
-    {
-      number: "1",
-      title: "Browse",
-      description: "Explore from a range of group journeys offered by TravelOStyle to find a destination and departure that works for you.",
-      bgColor: "bg-[#eff3cf]", 
-    },
-    {
-      number: "2",
-      title: "Confirm Details",
-      description: "Check availability for your preferred date and confirm traveller details – number of people, ages, and anything else we should know to make your trip.",
-      bgColor: "bg-[#c2e5ff]",
-    },
-    {
-      number: "3",
-      title: "Complete booking",
-      description: "TravelOStyle will confirm your spot with an advance deposit. Complete the payment procedure and you're all set!",
-      bgColor: "bg-[#f2e2da]",
-    },
-    {
-      number: "4",
-      title: "Set Off!",
-      description: "We'll send your pre-departure guides a few weeks before the trip, and stay in touch as the date gets closer.",
-      bgColor: "bg-[#f2d09f]", 
-    },
-  ];
+export default function BookingSteps({ bookingRecords }) {
+  const { subheading, mainHeading, steps } = bookingRecords;
 
   return (
-    <section className="bg-white py-16 px-6 md:px-12 lg:px-24 w-full text-gray-900">
-      <div className="max-w-7xl mx-auto text-center">
-        <div className="mb-12">
-          <span className="block font-serif italic text-2xl text-gray-700 tracking-wide font-medium lowercase">
-            how to book
-          </span>
-          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-950 mt-1">
-            Claim Your Spot
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
-          {steps.map((step, index) => (
-            <div
-              key={index}
-              className={`border border-black/80 flex flex-col text-left p-8 rounded-lg min-h-[340px] shadow-sm transition-transform duration-200 hover:-translate-y-1 ${step.bgColor} ${step.borderColor} ${step.borderWidth}`}
-            >
-              <span className="text-4xl font-extrabold text-gray-950 block mb-4">
+    <section className="w-full py-16 px-4 md:px-12 bg-white font-sans text-stone-900">
+      <div className="max-w-6xl mx-auto text-center mb-16">
+        <p className="font-taprom font-serif text-xl text-stone-600 mb-2 lowercase tracking-wide">
+          {subheading}
+        </p>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-black">
+          {mainHeading}
+        </h2>
+      </div>
+      <div className="flex flex-wrap justify-center gap-6 max-w-7xl mx-auto">
+        {steps?.map((step, index) => (
+          <div
+            key={index}
+            className={`p-8 rounded-xl border border-black/10 flex flex-col justify-between transition-shadow hover:shadow-md w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[280px] min-h-[380px] ${step.bgColor || "bg-white"}`}
+          >
+            <div>
+              <span className="block text-4xl font-extrabold text-black mb-6">
                 {step.number}
               </span>
-              <h3 className="text-lg font-bold text-gray-950 tracking-tight mb-4">
+
+              <h3 className="text-xl font-bold text-black mb-4 tracking-tight">
                 {step.title}
               </h3>
-              <p className="text-sm font-medium leading-relaxed text-gray-800">
+
+              <p className="text-stone-800 text-sm md:text-[15px] leading-relaxed tracking-normal font-normal">
                 {step.description}
               </p>
             </div>
-          ))}
-        </div>
-
+          </div>
+        ))}
       </div>
     </section>
   );

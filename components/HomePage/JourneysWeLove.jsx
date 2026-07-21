@@ -9,14 +9,6 @@ import { slugify } from "@/lib/slugify";
 
 export default function JourneysWeLove() {
   const [trips, setTrips] = useState([]);
-  // const [selectedTrips, setSelectedTrips] = useState([]);
-//   useEffect(() => {
-//   const compareTrips = JSON.parse(
-//     localStorage.getItem("compareTrips") || "[]"
-//   );
-
-//   setSelectedTrips(compareTrips.map((trip) => trip.id));
-// }, []);
 
   useEffect(() => {
     async function loadJourneys() {
@@ -98,6 +90,7 @@ export default function JourneysWeLove() {
 
     loadJourneys();
   }, []);
+
   const scrollRef = useRef(null);
 
   const scrollLeft = () => {
@@ -113,14 +106,9 @@ export default function JourneysWeLove() {
       behavior: "smooth",
     });
   };
-const handleCompareSelection = (trip) => {
-  const isAddingTrip =
-    localStorage.getItem("isAddingTrip") === "true";
 
-  if (isAddingTrip) {
-    const existingTrips = JSON.parse(
-      localStorage.getItem("compareTrips") || "[]"
-    );
+  const handleCompareSelection = (trip) => {
+    const isAddingTrip = localStorage.getItem("isAddingTrip") === "true";
 
     const alreadyExists = existingTrips.some(
       (t) => t.id === trip.id
@@ -130,9 +118,25 @@ const handleCompareSelection = (trip) => {
   return;
 }
 
-    if (!alreadyExists) {
-      existingTrips.push(trip);
-    }
+      // const alreadyExists = existingTrips.some((t) => t.id === trip.id);
+
+      if (!alreadyExists) {
+        existingTrips.push(trip);
+      }
+
+      localStorage.setItem("compareTrips", JSON.stringify(existingTrips));
+      localStorage.removeItem("isAddingTrip");
+
+      sessionStorage.setItem(
+        "comparisonReturnPage",
+        window.location.pathname + window.location.search,
+      );
+         window.location.href = "/comparison";
+    // } else {
+    //   localStorage.setItem("compareTrips", JSON.stringify([trip]));
+    //   window.location.href = "/comparison";
+     }
+
 
     localStorage.setItem(
       "compareTrips",
@@ -155,16 +159,16 @@ const returnPage =
 );
 
 window.location.href = returnPage;
-  } else {
-    // NEW comparison starts here
-    localStorage.setItem(
-      "compareTrips",
-      JSON.stringify([trip])
-    );
+  // } else {
+  //   // NEW comparison starts here
+  //   localStorage.setItem(
+  //     "compareTrips",
+  //     JSON.stringify([trip])
+  //   );
 
-    window.location.href = "/comparison";
-  }
-};
+  //   window.location.href = "/comparison";
+  // }
+
   return (
     <div className="mt-[4vw] flex items-center justify-center gap-[1.3vw]">
      <div onClick={scrollLeft} className="cursor-pointer">
