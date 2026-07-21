@@ -6,7 +6,7 @@ export default function TravelJourneyCard({journeys}) {
         {journeys.map((journey) => (
           <div
             key={journey.id}
-            className="relative bg-white rounded-t-lg shadow-sm border border-neutral-100/50 flex flex-col justify-between overflow-hidden pb-8 min-h-[580px]"
+            className="relative bg-white rounded-t-lg shadow-sm  flex flex-col justify-between overflow-hidden pb-8 min-h-[580px]"
           >
             <div>
               <div className="flex gap-2 p-4 pb-2">

@@ -1,7 +1,7 @@
 import React from "react";
 import TravelJourneyCard from "../TravelJourneyCard";
 
-export default function ChoosePopularGroupJourney() {
+export default function JourneyInspiration() {
   const journeys = [
     {
       id: 1,
@@ -53,7 +53,7 @@ export default function ChoosePopularGroupJourney() {
       price: "6000",
       earlyBird: null,
       image:
-        "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=80", // Vietnam boats / waterscape
+        "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=80", 
     },
     {
       id: 5,
@@ -118,10 +118,11 @@ export default function ChoosePopularGroupJourney() {
           Where are you headed to next?
         </h2>
       </div>
+
       <TravelJourneyCard journeys={journeys} />
-       <div className="flex justify-center">
+      <div className="flex justify-center">
         <button className="bg-[#1C355E] hover:bg-[#12233F] text-white text-xs font-semibold px-6 py-2 rounded-full shadow transition-all duration-200">
-          Discover All Group Journeys
+         Explore All Private Journeys
         </button>
       </div>
     </div>
