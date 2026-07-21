@@ -1,3 +1,5 @@
+"use client";
+import { useRouter } from "next/navigation";
 import React from 'react';
 const routeDays = [
   {
@@ -59,6 +61,7 @@ const routeDays = [
 ];
 
 export default function CuratedRouteSection() {
+    const router = useRouter();
   return (
     <div className="w-full min-h-[800px] bg-white relative flex flex-col items-center py-16 overflow-hidden select-none">
       
@@ -117,9 +120,12 @@ export default function CuratedRouteSection() {
 
         {/* Compare Trips Button */}
         <div className="absolute left-[79.5%] bottom-[-20px] z-50">
-          <button className="bg-[#242e6d] text-white font-semibold text-[11.5px] px-6 py-3 rounded-xs shadow-md hover:bg-[#1a2353] transition-colors duration-150 uppercase tracking-widest">
-            Compare Trips
-          </button>
+         <button
+  onClick={() => router.push("/comparison")}
+  className="bg-[#242e6d] text-white font-semibold text-[11.5px] px-6 py-3 rounded-xs shadow-md hover:bg-[#1a2353] transition-colors duration-150 uppercase tracking-widest"
+>
+  Compare Trips
+</button>
         </div>
 
       </div>

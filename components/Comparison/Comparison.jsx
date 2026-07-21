@@ -414,13 +414,22 @@ export default function TripComparison() {
               {trips.length < MAX_COMPARE_TRIPS && (
                 
                 <div
-                  onClick={() => {
+                // for navigating to previous page from compare trips
+//                   onClick={() => {
+//   localStorage.setItem("isAddingTrip", "true");
+
+//  const returnPage =
+//     sessionStorage.getItem("comparisonReturnPage") ||
+//     localStorage.getItem("compareSourcePage") ||
+//     "/itinerary";
+// console.log("comparisonReturnPage:", sessionStorage.getItem("comparisonReturnPage"));
+// console.log("compareSourcePage:", localStorage.getItem("compareSourcePage"));
+// console.log("returnPage:", returnPage);
+//  router.push(returnPage);
+// }}
+onClick={() => {
   localStorage.setItem("isAddingTrip", "true");
-
- const returnPage =
-  sessionStorage.getItem("comparisonReturnPage");
-
-router.push(returnPage || "/");
+  router.push("/itinerary");
 }}
                   className="relative snap-start shrink-0
                     w-[82vw] sm:w-[320px] md:w-[320px]

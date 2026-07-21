@@ -1,51 +1,90 @@
 "use client";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { CirclePlus, Clock3, Info, MapPin } from "lucide-react";
-export default function JourneyCard({ trip }) {
-const handleAddToCompare = () => {
-  const isAddingTrip =
-    localStorage.getItem("isAddingTrip") === "true";
+import { toast } from "sonner";
+import { useEffect, useState } from "react";
+import {
+  CirclePlus,
+  CheckCircle2,
+  Clock3,
+  Info,
+  MapPin,
+} from "lucide-react";
+export default function JourneyCard({ 
+   trip,
+  variant = "slider",
+}) {
+  const widthClass =
+    variant === "slider"
+      ? "min-w-[18.7vw]"
+      : "w-full";
+   const router = useRouter();
 
-  if (isAddingTrip) {
-    const existingTrips = JSON.parse(
+  const [isSelected, setIsSelected] = useState(false);
+
+  useEffect(() => {
+    const compareTrips = JSON.parse(
       localStorage.getItem("compareTrips") || "[]"
     );
 
+    setIsSelected(
+      compareTrips.some((item) => item.id === trip.id)
+    );
+  }, [trip.id]);
+const handleAddToCompare = () => {
+  // const isAddingTrip =
+  //   localStorage.getItem("isAddingTrip") === "true";
+
+  // if (isAddingTrip) {
+  //   const existingTrips = JSON.parse(
+  //     localStorage.getItem("compareTrips") || "[]"
+  //   );
+  const existingTrips = JSON.parse(
+    localStorage.getItem("compareTrips") || "[]"
+  );
     const alreadyExists = existingTrips.some(
       (item) => item.id === trip.id
     );
+if (alreadyExists) {
+  toast("Trip already added to comparison");
+  return;
+}
+existingTrips.push(trip);
 
-    if (!alreadyExists) {
-      existingTrips.push(trip);
-    }
+      localStorage.setItem(
+        "compareTrips",
+        JSON.stringify(existingTrips)
+      );
 
-    localStorage.setItem(
-      "compareTrips",
-      JSON.stringify(existingTrips)
-    );
 
-    localStorage.removeItem("isAddingTrip");
-  } else {
-    // Start a completely new comparison
-    localStorage.setItem(
-      "compareTrips",
-      JSON.stringify([trip])
-    );
-  }
+    setIsSelected(true);
+ 
+  // localStorage.removeItem("isAddingTrip");
+
+
+  //   localStorage.removeItem("isAddingTrip");
+  // // } else {
+  // //   localStorage.setItem(
+  // //     "compareTrips",create a new array after loading 
+  // //     JSON.stringify([trip])
+  // //   );
+
+  //   setIsSelected(true);
+  // }
 
   sessionStorage.setItem(
-  "comparisonReturnPage",
-  window.location.pathname + window.location.search
-);
-
-  router.push("/comparison");
+    "comparisonReturnPage",
+    window.location.pathname +
+      window.location.search
+  );
+   if (localStorage.getItem("isAddingTrip") === "true") {
+    localStorage.removeItem("isAddingTrip");
+  }
+ router.push("/comparison");
 };
-  const router = useRouter();
-  return (
-    
+  return ( 
     <div
-      className={`relative flex h-[31.8vw] flex-col overflow-hidden rounded-[0.7vw] bg-white px-[0.8vw] pt-[0.8vw] pb-[1vw]
+      className={`relative flex h-[31.8vw] min-w-[18.7vw] flex-col overflow-hidden rounded-[0.7vw] bg-white px-[0.8vw] pt-[0.8vw] pb-[1vw]
       ${
         trip.active
           ? "border border-[#6BA6FF]"
@@ -139,8 +178,22 @@ const handleAddToCompare = () => {
 <button
   onClick={handleAddToCompare}
   className="mt-[0.9vw] flex items-center gap-[0.4vw] text-[0.78vw] text-[#4E4E4E]"
->          <CirclePlus size={14} strokeWidth={1.8} />
-          Add to Compare
+>          {isSelected ? (
+   <>
+  <CheckCircle2
+    size={14}
+    strokeWidth={2}
+    className="text-green-600"
+    />
+     <span>Added to Compare</span>
+    </>
+  ) : (
+    <>
+  <CirclePlus size={14} strokeWidth={1.8} />
+   <span>Add to Compare</span>
+  </>
+)}
+
         </button>
       </div>
 
@@ -154,4 +207,4 @@ const handleAddToCompare = () => {
       </div>
     </div>
   );
-} 
+}
