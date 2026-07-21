@@ -1,9 +1,6 @@
-"use client";
-import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function GoodCompaneyJourney() {
-  const router = useRouter();
   const polaroids = [
     {
       id: 1,
@@ -132,12 +129,9 @@ export default function GoodCompaneyJourney() {
             </div>
             
             {photo.hasButton && (
-             <button
-  onClick={() => router.push("/comparison")}
-  className="absolute top-[46%] right-[-45px] transform -translate-y-1/2 bg-[#212b68] text-white font-semibold text-[10.5px] py-1.5 px-3.5 rounded-[3px] shadow-[0_4px_12px_rgba(0,0,0,0.3)] tracking-wide hover:bg-[#151c47] transition-colors z-50 whitespace-nowrap border border-white/15"
->
-  Compare Trips
-</button>
+              <button className="absolute top-[46%] right-[-45px] transform -translate-y-1/2 bg-[#212b68] text-white font-semibold text-[10.5px] py-1.5 px-3.5 rounded-[3px] shadow-[0_4px_12px_rgba(0,0,0,0.3)] tracking-wide hover:bg-[#151c47] transition-colors z-50 whitespace-nowrap border border-white/15">
+                Compare Trips
+              </button>
             )}
           </div>
         ))}

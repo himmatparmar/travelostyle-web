@@ -1,8 +1,6 @@
-"use client"
 import Image from 'next/image'
-import { useRouter } from "next/navigation";
+
 export default function PopularDestinations() {
-  const router = useRouter();
   return (
    
       <div className="relative md:h-[700px]">
@@ -120,12 +118,9 @@ export default function PopularDestinations() {
                 Images are only for representation purposes
               </p>
 
-             <button
-  onClick={() => router.push("/comparison")}
-  className="mb-5 hidden md:flex items-center justify-center h-[36px] px-5 rounded-[6px] bg-[#2E2787] text-white text-[14px] font-semibold border border-white hover:bg-[#3B33A0] transition-colors"
->
-  Compare Trips
-</button>
+              <button className="mb-5 hidden md:flex items-center justify-center h-[36px] px-5 rounded-[6px] bg-[#2E2787] text-white text-[14px] font-semibold border border-white hover:bg-[#3B33A0] transition-colors">
+                Compare Trips
+              </button>
             </div>
           </div>
         </div>

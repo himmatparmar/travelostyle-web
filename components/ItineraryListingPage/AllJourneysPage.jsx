@@ -179,7 +179,6 @@ export default function AllJourneysPage() {
     setCurrentPage(1);
   }, [filters]);
   // ================= FILTER =================
-
   const filteredJourneys = useMemo(() => {
     let data = [...journeys];
 
@@ -246,14 +245,6 @@ export default function AllJourneysPage() {
 
     return data;
   }, [journeys, filters, sort]);
-  const hasActiveFilters =
-  filters.region.length > 0 ||
-  filters.style.length > 0 ||
-  filters.offer.length > 0 ||
-  filters.category.length > 0 ||
-  filters.month.length > 0 ||
-  filters.pricing.length > 0 ||
-  filters.duration.length > 0;
   const totalPages = Math.ceil(filteredJourneys.length / itemsPerPage);
 
   const paginatedJourneys = filteredJourneys.slice(
@@ -302,7 +293,7 @@ export default function AllJourneysPage() {
         />
 
         <div className="flex-1 min-w-0">
-        {filteredJourneys.length === 0 && hasActiveFilters ? (
+          {filteredJourneys.length === 0 ? (
             <div className="flex flex-col gap-2 items-center justify-center py-[6vw] text-center">
               <img
                 src="/no-results.svg"
@@ -312,10 +303,6 @@ export default function AllJourneysPage() {
 
               <h3 className="font-[Nohemi] font-medium text-[32px] leading-[40px] tracking-[0.05em] text-center text-[#1A1A1A] mt-8">
                 Sorry! We were unable to find the <br /> trip you requested.
-                <p>
-  filteredJourneys: {filteredJourneys.length},
-  hasActiveFilters: {String(hasActiveFilters)}
-</p>
               </h3>
               <p className="mt-[16px] max-w-[520px] font-[Nohemi] font-normal text-[16px] leading-[100%] tracking-[0.05em] text-center text-[#1A1A1A] mt-2">
                 Please adjust your filters to find a trip that fits you
@@ -353,17 +340,17 @@ export default function AllJourneysPage() {
                 <JourneyGrid journeys={popularJourneys} />
               </div>
             </div>
-         ) : (
-  <>
-    <JourneyGrid journeys={paginatedJourneys} />
+          ) : (
+            <>
+              <JourneyGrid journeys={paginatedJourneys} />
 
-    <Pagination
-      totalPages={totalPages}
-      currentPage={currentPage}
-      setCurrentPage={setCurrentPage}
-    />
-  </>
-)}
+              <Pagination
+                totalPages={totalPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
+            </>
+          )}
         </div>
       </div>
     </div>
