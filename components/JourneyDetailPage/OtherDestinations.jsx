@@ -2,6 +2,7 @@
 "use client";
 // import { toast } from "sonner";
 import Image from "next/image";
+import HeroSection from "./HeroSection";
 import { useEffect, useRef, useState } from "react";
 import { API_BASE_URL, buildFileUrl } from "@/lib/config";
 import JourneyList from "../../components/JourneyList/JourneyList"
