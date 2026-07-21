@@ -10,6 +10,7 @@ import DetailTabs from "./DetailTabs";
 import OtherDestinations from "./OtherDestinations";
 import TestimonialSection from "@/components/HomePage/TestimonialSection";
 import TravelOStylePromise from "@/components/HomePage/TravelOStylePromise";
+import JourneysWeLove from "../HomePage/JourneysWeLove";
 
 
 const BASE = API_BASE_URL;
@@ -298,7 +299,8 @@ export default function JourneyDetailClient() {
       <HeroSection journey={journey} />
       <TrustBar />
       <DetailTabs journey={journey} />
-      <OtherDestinations />
+      {/* <OtherDestinations /> */}
+      <JourneysWeLove />
       <TestimonialSection />
       <TravelOStylePromise />
     </main>
