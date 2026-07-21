@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { API_BASE_URL, buildFileUrl } from "@/lib/config";
 import JourneyList from "../../components/JourneyList/JourneyList"
 import { slugify } from "@/lib/slugify";
+import { CirclePlus, Clock3, Info, MapPin } from "lucide-react";
 
 export default function JourneysWeLove() {
   const [trips, setTrips] = useState([]);
