@@ -299,8 +299,7 @@ export default function JourneyDetailClient() {
       <HeroSection journey={journey} />
       <TrustBar />
       <DetailTabs journey={journey} />
-      {/* <OtherDestinations /> */}
-      <JourneysWeLove />
+      <OtherDestinations />
       <TestimonialSection />
       <TravelOStylePromise />
     </main>
