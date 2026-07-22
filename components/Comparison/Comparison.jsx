@@ -83,8 +83,8 @@ const ROWS = [
   { key: "stays", label: "Stays", h: "h-24 md:h-24" },
   { key: "region", label: "Region", h: "h-10 md:h-10" },
   { key: "offer", label: "Offer", h: "h-14 md:h-14" },
-  { key: "price", label: "Price", h: "h-32 md:h-32" },
-  { key: "travel", label: "Way to Travel", h: "h-44 md:h-30 md:p-7" },
+  { key: "price", label: "Price", h: "h-32 md:h-20" },
+  { key: "travel", label: "Way to Travel", h: "h-44 md:h-44" },
 ];
 
 /* Height of the card header (image + title) so the desktop
@@ -201,7 +201,7 @@ export default function TripComparison() {
   const renderRowContent = (trip, key) => {
     switch (key) {
       case "duration":
-        return <div className="text-sm">{trip.duration}</div>;
+        return <div className="text-sm">{trip.days}</div>;
 
       case "destinations":
         return <div className="text-sm">{trip.destinations}</div>;
@@ -245,19 +245,19 @@ export default function TripComparison() {
 
       case "price":
         return (
-          <div className="bg-[#FFF3E8] rounded-lg p-3 flex justify-between items-center gap-2 h-full">
+          <div className="bg-[#FFF3E8] rounded-lg p-3 flex flex-col md:flex-row md:justify-between md:items-center gap-2 h-full">
             <div className="text-left min-w-0">
-              <div className="text-xs text-gray-600">From</div>
+              <div className="text-xs text-gray-600">From </div>
               <div className="font-bold text-lg leading-tight truncate">
-                {trip.price} / Person
+                ${trip.price} / Person
               </div>
               <div className="text-xs text-gray-600 mt-1">
                 Double Occupancy
               </div>
             </div>
-            <button className="bg-[#2C3078] hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors shrink-0">
-              View Trip
-            </button>
+            <button className="bg-[#2C3078] hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors shrink-0 self-start md:self-auto">
+  View Trip
+</button>
           </div>
         );
 
@@ -266,25 +266,28 @@ export default function TripComparison() {
           <div className="text-sm">
             <div>{trip.travelMode}</div>
             <hr className="my-2 border-gray-300" />
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 py-1">
-              <span className="font-medium">Group Journey</span>
-              <a
-                href={`/trips/${trip.id}/availability`}
-                className="font-bold underline text-sm"
-              >
-                Check Availability
-              </a>
-            </div>
+           <div className="flex flex-col items-center md:items-start md:flex-row md:flex-wrap gap-1 md:gap-x-2 md:gap-y-1 py-1 text-center md:text-left">
+  <span className="font-medium">Group Journey</span>
+  <a
+    href={`/trips/${trip.id}/availability`}
+    className="font-bold underline text-sm"
+  >
+    Check Availability
+  </a>
+</div>
             <hr className="border-gray-300" />
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 py-1">
-              <span className="font-medium">Private Journey</span>
-              <a
-                href={`/trips/${trip.id}/private`}
-                className="font-bold underline text-sm"
-              >
-                Request Private Journey
-              </a>
-            </div>
+          <div className="flex flex-col items-center md:items-center md:flex-row gap-1 md:gap-2 py-1 text-center md:text-left">
+  <span className="font-medium whitespace-nowrap">
+    Private Journey
+  </span>
+
+  <a
+    href={`/trips/${trip.id}/private`}
+    className="font-bold underline text-sm md:whitespace-nowrap"
+  >
+    Request Private Journey
+  </a>
+</div>
           </div>
         );
 
@@ -331,6 +334,22 @@ export default function TripComparison() {
               </div>
             ))}
           </div>
+          <div className="md:hidden w-[90px] shrink-0 sticky left-0 z-20 bg-white">
+  <div className={CARD_HEADER} />
+
+  {ROWS.map((row) => (
+    <div
+  key={row.key}
+  className={`${row.h} flex items-start ${
+    row.key === "travel" ? "pt-14" : "pt-4"
+  }`}
+>
+      <span className="text-[11px] font-bold uppercase tracking-wide text-gray-400">
+        {row.label}
+      </span>
+    </div>
+  ))}
+</div>
 
           {/* Scroll area */}
           <div className="relative flex-1 min-w-0 flex items-center gap-2">
@@ -338,7 +357,7 @@ export default function TripComparison() {
               <button
                 onClick={scrollLeft}
                 aria-label="Scroll left"
-                className="shrink-0 cursor-pointer z-10
+                className="hidden md:block shrink-0 cursor-pointer z-10
                   absolute left-0 top-1/2 -translate-y-1/2
                   md:static md:translate-y-0"
               >
@@ -351,20 +370,22 @@ export default function TripComparison() {
               </button>
             )}
 
-            <div
-              ref={scrollRef}
-              className="flex-1 min-w-0 flex gap-3 md:gap-4 overflow-x-auto scroll-smooth
-                snap-x snap-mandatory md:snap-none
-                [-ms-overflow-style:none]
-                [scrollbar-width:none]
-                [&::-webkit-scrollbar]:hidden"
-            >
+           <div
+  ref={scrollRef}
+  style={{ WebkitOverflowScrolling: "touch" }}
+  className="flex-1 min-w-0 flex gap-3 md:gap-4
+    overflow-x-auto
+    snap-x snap-mandatory md:snap-none
+    [-ms-overflow-style:none]
+    [scrollbar-width:none]
+    [&::-webkit-scrollbar]:hidden"
+>
               {/* Trip Cards */}
               {trips.map((trip) => (
                 <div
                   key={trip.id}
-                  className="relative snap-start shrink-0
-                    w-[82vw] sm:w-[320px] md:w-[320px]
+                  className="relative snap-center shrink-0
+                    w-[55vw] sm:w-[320px] md:w-[320px]
                     rounded-[10px] p-3 md:p-4 bg-white
                     border border-gray-300"
                 >
@@ -398,15 +419,10 @@ export default function TripComparison() {
 
                   {/* Comparison rows */}
                   {ROWS.map((row) => (
-                    <div key={row.key} className={`${row.h} overflow-hidden`}>
-                      {/* inline label — mobile only */}
-                      <div className="md:hidden text-[11px]  md:pt-1 
-                       font-bold uppercase tracking-wide text-gray-400">
-                        {row.label}
-                      </div>
-                      {renderRowContent(trip, row.key)}
-                    </div>
-                  ))}
+  <div key={row.key} className={`${row.h} overflow-hidden`}>
+    {renderRowContent(trip, row.key)}
+  </div>
+))}
                 </div>
               ))}
 
@@ -451,7 +467,7 @@ onClick={() => {
               <button
                 onClick={scrollRight}
                 aria-label="Scroll right"
-                className="shrink-0 cursor-pointer z-10
+                className="hidden md:block shrink-0 cursor-pointer z-10
                   absolute right-0 top-1/2 -translate-y-1/2
                   md:static md:translate-y-0"
               >
