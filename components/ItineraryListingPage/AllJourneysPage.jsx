@@ -95,7 +95,13 @@ export default function AllJourneysPage() {
 
           const cta = item.attributes?.field_cta;
 
-          const titleSlug = slugify(item.attributes.title || "");
+          // Use Drupal's real Pathauto-generated alias (already present on
+          // every node's JSON:API "path" attribute, no include needed) so
+          // this link always matches what /api/journey/{slug} will resolve.
+          // Fall back to a client-computed slug only if path/alias is missing.
+          const alias = item.attributes?.path?.alias || "";
+          const aliasSlug = alias.replace(/^\/journey\//, "");
+          const titleSlug = aliasSlug || slugify(item.attributes.title || "");
           let viewTripUrl = `/journeys/${titleSlug}`;
 
           if (cta?.uri && !cta.uri.startsWith("entity:")) {
