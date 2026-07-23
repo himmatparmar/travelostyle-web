@@ -298,7 +298,7 @@ export default function TripComparison() {
 
   return (
     <div className="mb-8 font-nohemi">
-      <h1 className="text-xl md:text-2xl font-bold mb-4 pt-6 md:pt-8 px-4 md:px-6">
+      <h1 className="text-xl md:text-2xl font-bold mb-4 pt-6 md:pt-8 px-4 md:px-12">
         Compare Trips
       </h1>
 
