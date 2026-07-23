@@ -191,7 +191,13 @@ export default function JourneyInspiration() {
         };
       });
 
-      setJourneys(drupalJourneys);
+     const privateJourneys = drupalJourneys.filter((journey) =>
+  journey.types?.includes("Private Journey")
+);
+
+
+
+setJourneys(privateJourneys);
     } catch (err) {
       console.error(err);
     }
@@ -218,8 +224,9 @@ export default function JourneyInspiration() {
       variant="grid"
     />
   ))}
-</div>     <div className="flex justify-center">
-        <button className="bg-[#1C355E] hover:bg-[#12233F] text-white text-xs font-semibold px-6 py-2 rounded-full shadow transition-all duration-200">
+</div>   
+  <div className="flex justify-center mt-8">
+        <button className="bg-[#1C355E] hover:bg-[#12233F] text-white text-xs font-semibold  px-6 py-2 p-6 rounded-full shadow transition-all duration-200">
          Explore All Private Journeys
         </button>
       </div>

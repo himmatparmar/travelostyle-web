@@ -326,7 +326,7 @@ export default function TripComparison() {
                 key={row.key}
                 className={`${row.h} flex text-[13px] font-bold ${
    row.key === "travel"
-      ? "items-start pt-10"
+      ? "items-start pt-12"
       : "items-start pt-4"
   }`}
 >
