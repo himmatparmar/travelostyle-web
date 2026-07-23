@@ -1,12 +1,9 @@
-
-
 // import { toast } from "sonner";
+import { API_BASE_URL, buildFileUrl } from "@/lib/config";
+import { slugify } from "@/lib/slugify";
+import { CirclePlus, Info } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { API_BASE_URL, buildFileUrl } from "@/lib/config";
-import JourneyList from "../../components/JourneyList/JourneyList"
-import { slugify } from "@/lib/slugify";
-import { CirclePlus, Clock3, Info, MapPin } from "lucide-react";
 
 export default function JourneysWeLove() {
   const [trips, setTrips] = useState([]);
@@ -15,8 +12,7 @@ export default function JourneysWeLove() {
     async function loadJourneys() {
       try {
         const res = await fetch(
-          `${API_BASE_URL}/jsonapi/node/journey?include=
-          field_journey_image.field_media_image,field_journey_tag,field_month`,
+          `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month`,
         );
         const json = await res.json();
         const included = json.included || [];
@@ -138,38 +134,39 @@ export default function JourneysWeLove() {
   };
 
   return (
-    <div className="mt-[4vw] flex items-center justify-center gap-[1.3vw] max-md:mt-6 max-md:px-4">
+    <div className="mt-6 flex w-full items-center justify-center gap-[1.3vw] px-4 max-md:mt-4 md:mt-[4vw] md:px-0">
       <div onClick={scrollLeft} className="cursor-pointer max-md:hidden">
-        <Image src={"/LeftArrow.svg"} alt={""} height={24} width={56} />
+        <Image
+          src={"/LeftArrow.svg"}
+          alt={"Scroll Left"}
+          height={24}
+          width={56}
+        />
       </div>
       <div
         ref={scrollRef}
-        className="flex w-[62vw] gap-[1.4vw] overflow-x-auto scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden max-md:w-full max-md:gap-4 max-md:snap-x max-md:snap-mandatory"
+        className="flex w-full items-start gap-4 overflow-x-auto scroll-smooth pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden max-md:snap-x max-md:snap-mandatory md:w-[62vw] md:gap-[1.4vw]"
       >
         {trips.map((trip, index) => (
           <div
             key={index}
             onClick={() => handleCompareSelection(trip)}
-            className={`relative flex h-[31.8vw] min-w-[18.7vw] flex-col overflow-hidden rounded-[0.7vw] bg-white px-[0.8vw] pt-[0.8vw] pb-[1vw] cursor-pointer max-md:h-auto max-md:w-[85vw] max-md:min-w-[85vw] max-md:shrink-0 max-md:snap-center max-md:p-4 max-md:rounded-xl
-            ${trip.active ? "border border-[#6BA6FF]" : "border border-[#E8E8E8]"}`}
+            className={`relative flex h-auto w-[85vw] min-w-[85vw] shrink-0 cursor-pointer flex-col overflow-hidden rounded-xl border bg-white p-4 pb-6 shadow-sm max-md:snap-center md:w-[18.7vw] md:min-w-[18.7vw] md:rounded-[0.8vw] md:p-[0.9vw] md:pb-[1.2vw] ${
+              trip.active ? "border-[#2B2D6C]" : "border-[#E8E8E8]"
+            }`}
           >
-            <div className="mb-[0.8vw] flex flex-wrap gap-[0.45vw] max-md:mb-3 max-md:gap-2">
+            <div className="mb-3 flex min-h-[24px] items-center gap-2 overflow-hidden md:mb-[0.6vw] md:min-h-[1.5vw] md:gap-[0.4vw]">
               {(trip.tags || []).map((tag) => (
                 <span
                   key={tag}
-                  className={`rounded-[0.3vw] px-[0.75vw] py-[0.3vw] text-[0.63vw] font-medium max-md:rounded max-md:px-2 max-md:py-1 max-md:text-xs
-                      ${
-                        tag === "Private Journey" ||
-                        tag === "Tailormade Journey"
-                          ? "bg-[#F5DFC9] text-[#6A5B4E]"
-                          : "bg-[#EAEBCB] text-[#63634E]"
-                      }`}
+                  className="rounded px-2 py-1 text-xs font-medium whitespace-nowrap bg-[#EBF0C7] text-[#42452D] md:rounded-[0.3vw] md:px-[0.7vw] md:py-[0.25vw] md:text-[0.6vw]"
                 >
                   {tag}
                 </span>
               ))}
             </div>
-            <div className="relative h-[10vw] w-full overflow-hidden rounded-[0.15vw] max-md:h-[180px] max-md:rounded-md">
+
+            <div className="relative h-[180px] w-full shrink-0 overflow-hidden rounded-md md:h-[9.5vw] md:rounded-[0.4vw]">
               <Image
                 src={trip.image}
                 alt={trip.title}
@@ -179,118 +176,140 @@ export default function JourneysWeLove() {
               />
             </div>
 
-            <div className="flex flex-1 flex-col pt-[1vw] max-md:pt-3">
-              <h3 className="text-[1.1vw] font-semibold leading-[1.3] text-[#232323] max-md:text-base">
+            <div className="flex flex-col pt-3 md:pt-[0.6vw]">
+              <h3 className="line-clamp-1 text-left text-base font-bold leading-[1.25] text-[#111111] md:text-[1.1vw]">
                 {trip.title}
               </h3>
 
-              <p className="mt-[0.6vw] text-[0.76vw] leading-[1.55] text-[#666666] max-md:mt-2 max-md:text-xs max-md:leading-relaxed">
+              <p className="mt-2 line-clamp-2 text-left text-xs leading-relaxed text-[#555555] md:mt-[0.3vw] md:text-[0.68vw] md:leading-[1.35]">
                 {trip.desc}
               </p>
-
-              <div className="mt-[0.9vw] flex items-center gap-[1vw] text-[0.58vw] text-[#717171] max-md:mt-3 max-md:gap-3 max-md:text-xs">
-                <div className="flex items-center gap-[0.28vw] max-md:gap-1">
-                  <Clock3 size={12} strokeWidth={1.8} />
-                  {trip.days}
+              <div className="mt-3 flex items-center gap-3 text-xs text-[#444444] md:mt-[0.5vw] md:gap-[0.8vw] md:text-[0.58vw]">
+                <div className="flex items-center gap-1 md:gap-[0.25vw]">
+                  <Image
+                    src="/CalenderIcon.svg"
+                    alt="Calendar"
+                    width={16}
+                    height={16}
+                    className="md:h-[1.1vw] md:w-[1.1vw]"
+                  />
+                  <span className="font-medium">{trip.days}</span>
                 </div>
 
-                <div className="flex items-center gap-[0.28vw] max-md:gap-1">
-                  <MapPin size={12} strokeWidth={1.8} />
-                  {trip.destinations}
+                <div className="flex items-center gap-1 md:gap-[0.25vw]">
+                  <Image
+                    src="/Destination.svg"
+                    alt="Destination"
+                    width={16}
+                    height={16}
+                    className="md:h-[1.1vw] md:w-[1.1vw]"
+                  />
+                  <span className="font-medium">{trip.destinations}</span>
                 </div>
               </div>
 
-              <div className="mt-[1vw] flex items-end justify-between max-md:mt-4">
-                <div>
-                  <p className="text-[0.62vw] lowercase text-[#787878] max-md:text-xs">
-                    from
-                  </p>
+              <div className="mt-4 md:mt-[1.2vw]">
+                <div className="flex items-end justify-between">
+                  <div className="flex flex-col items-start text-left">
+                    <span className="mb-[0.1vw] text-xs leading-none text-[#666666] md:text-[0.58vw]">
+                      from
+                    </span>
 
-                  <div className="flex items-end gap-[0.2vw] max-md:gap-1">
-                    <h4 className="text-[1.45vw] font-semibold leading-none text-[#1D1D1D] max-md:text-lg">
-                      ${Number(trip.price).toLocaleString()}
-                    </h4>
+                    <div className="flex flex-col items-start">
+                      <div className="flex items-baseline gap-[0.15vw]">
+                        <h4 className="text-lg font-bold leading-none text-[#111111] md:text-[1.25vw]">
+                          ${Number(trip.price).toLocaleString()}*
+                        </h4>
+                        <span className="text-[10px] text-[#666666] md:text-[0.55vw]">
+                          /person
+                        </span>
+                      </div>
+                      <span className="mt-1 text-[10px] text-[#707070] md:mt-[0.1vw] md:text-[0.5vw]">
+                        double occupancy*
+                      </span>
+                    </div>
+                  </div>
 
-                    <span className="mb-[0.12vw] text-[0.52vw] leading-[1.15] text-[#7B7B7B] max-md:text-[10px] max-md:leading-tight">
-                      */person
-                      <br />
-                      double occupancy*
+                  <a
+                    href={trip.viewTripUrl}
+                    onClick={(e) => e.stopPropagation()}
+                    className="rounded-full bg-[#2B2D6C] px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-[#202254] md:px-[1.1vw] md:py-[0.45vw] md:text-[0.68vw]"
+                  >
+                    {trip.viewTripText || "View Trip"}
+                  </a>
+                </div>
+
+                {trip?.offer ? (
+                  <div className="mt-3 flex items-center gap-2 rounded-md bg-[#F9EBE2] p-2 text-xs text-[#5C4A3E] md:mt-[0.5vw] md:gap-[0.35vw] md:rounded-[0.3vw] md:px-[0.5vw] md:py-[0.35vw] md:text-[0.58vw]">
+                    <Info size={13} className="shrink-0 text-[#6C5343]" />
+                    <span className="line-clamp-1 font-medium">
+                      {trip.offer}
                     </span>
                   </div>
-                </div>
+                ) : (
+                  <div className="mt-3 flex items-center gap-2 rounded-md p-2 text-xs text-[#5C4A3E] md:mt-[0.5vw] md:gap-[0.35vw] md:rounded-[0.3vw] md:px-[0.5vw] md:py-[0.35vw] md:text-[0.58vw]"></div>
+                )}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const existingTrips = JSON.parse(
+                      localStorage.getItem("compareTrips") || "[]",
+                    );
 
-                <a
-                  href={trip.viewTripUrl}
-                  onClick={(e) => e.stopPropagation()}
-                  className="bg-[#2B2D6C] text-white px-4 py-2 rounded-full text-xs font-semibold md:px-[1.2vw] md:py-[0.5vw] md:text-[0.75vw]"
+                    const alreadyExists = existingTrips.some(
+                      (item) => item.id === trip.id,
+                    );
+
+                    if (alreadyExists) return;
+
+                    if (existingTrips.length >= 3) {
+                      alert("You can compare up to 3 trips only.");
+                      return;
+                    }
+
+                    const compareTrip = {
+                      id: trip.id,
+                      title: trip.title,
+                      image: trip.image,
+                      duration: trip.days,
+                      destinations: trip.destinations,
+                      offer: trip.offer,
+                      price: `$${Number(trip.price).toLocaleString()}`,
+                      viewTripUrl: trip.viewTripUrl,
+                      itinerary: [],
+                      stays: "-",
+                      region: trip.region,
+                      travelMode: "-",
+                    };
+
+                    localStorage.setItem(
+                      "compareTrips",
+                      JSON.stringify([...existingTrips, compareTrip]),
+                    );
+                    sessionStorage.setItem(
+                      "comparisonReturnPage",
+                      window.location.pathname + window.location.search,
+                    );
+
+                    window.location.href = "/comparison";
+                  }}
+                  className="mt-3 flex items-center gap-2 text-xs font-medium text-[#333333] hover:text-black md:mt-[0.6vw] md:gap-[0.35vw] md:text-[0.68vw]"
                 >
-                  {trip.viewTripText || "View Trip"}
-                </a>
+                  <CirclePlus
+                    size={14}
+                    strokeWidth={1.6}
+                    className="text-[#555]"
+                  />
+                  Add to Compare
+                </button>
               </div>
-
-              <div className="mt-[1vw] flex items-center gap-[0.4vw] rounded-[0.35vw] bg-[#F4E5DA] px-[0.65vw] py-[0.55vw] text-[0.58vw] text-[#65574D] max-md:mt-3 max-md:gap-2 max-md:rounded-md max-md:p-2 max-md:text-xs">
-                <Info size={11} />
-                <span>{trip.offer}</span>
-              </div>
-
-              <div className="mt-[1vw] border-t border-dashed border-[#D7D7D7] max-md:mt-3" />
-
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  const existingTrips = JSON.parse(
-                    localStorage.getItem("compareTrips") || "[]",
-                  );
-
-                  const alreadyExists = existingTrips.some(
-                    (item) => item.id === trip.id,
-                  );
-
-                  if (alreadyExists) return;
-
-                  if (existingTrips.length >= 3) {
-                    alert("You can compare up to 3 trips only.");
-                    return;
-                  }
-
-                  const compareTrip = {
-                    id: trip.id,
-                    title: trip.title,
-                    image: trip.image,
-                    duration: trip.days,
-                    destinations: trip.destinations,
-                    offer: trip.offer,
-                    price: `$${Number(trip.price).toLocaleString()}`,
-                    viewTripUrl: trip.viewTripUrl,
-                    itinerary: [],
-                    stays: "-",
-                    region: trip.region,
-                    travelMode: "-",
-                  };
-
-                  localStorage.setItem(
-                    "compareTrips",
-                    JSON.stringify([...existingTrips, compareTrip]),
-                  );
-                  sessionStorage.setItem(
-                    "comparisonReturnPage",
-                    window.location.pathname + window.location.search,
-                  );
-
-                  window.location.href = "/comparison";
-                }}
-                className="mt-[0.9vw] flex items-center gap-[0.4vw] text-[0.78vw] text-[#4E4E4E] max-md:mt-3 max-md:gap-2 max-md:text-xs"
-              >
-                <CirclePlus size={14} strokeWidth={1.8} />
-                Add to Compare
-              </button>
             </div>
 
-            <div className="absolute bottom-[-0.38vw] left-0 flex w-full justify-between px-[0.42vw]">
+            <div className="absolute bottom-[-0.38vw] left-0 flex w-full justify-between px-1 md:px-[0.42vw]">
               {Array.from({ length: 14 }).map((_, i) => (
                 <div
                   key={i}
-                  className="h-[0.8vw] w-[0.8vw] rounded-full bg-[#F5F5F3] max-md:h-2 max-md:w-2"
+                  className="h-2 w-2 rounded-full bg-[#F5F5F3] md:h-[0.8vw] md:w-[0.8vw]"
                 />
               ))}
             </div>
@@ -299,7 +318,12 @@ export default function JourneysWeLove() {
       </div>
 
       <div onClick={scrollRight} className="cursor-pointer max-md:hidden">
-        <Image src={"/RightArrow.svg"} alt={""} height={24} width={56} />
+        <Image
+          src={"/RightArrow.svg"}
+          alt={"Scroll Right"}
+          height={24}
+          width={56}
+        />
       </div>
     </div>
   );
