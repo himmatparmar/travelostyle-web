@@ -6,6 +6,7 @@ import JourneyInspiration from "./JourneyInspiration";
 import WhyTakeJourney from "../WhyTakeJourney";
 import BookingSteps from "../GroupRtbJourneys/BookingSteps";
 import AdvisorCallout from "./AdvisorCallout"
+import PrivateJourneysLuxury from "./PrivateJourneysLuxury";
 
 export default function Index() {
   const privateJourneyFeatures = [
@@ -110,6 +111,7 @@ export default function Index() {
           labelBg: "bg-[#ebdcd1]/40",
         }}
       />
+      <PrivateJourneysLuxury />
       <JourneyInspiration />
       <WhyTakeJourney
         title={
