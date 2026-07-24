@@ -1,36 +1,29 @@
 import Image from "next/image";
 import RecommendedBlogs from "./RecommendedBlogs";
 
-export default function BlogContent() {
+export default function BlogContent({
+  blog,
+  categories,
+  bannerImage,
+  galleryImage,
+}) {
+
+  console.log("Banner Image:", bannerImage);
+  console.log("Gallery Image:", galleryImage);
+
   return (
     <section className="px-[60px] pb-[80px]">
       <div className="mt-[44px] flex justify-between gap-[76px]">
         {/* LEFT SIDE */}
         <div className="w-[1008px]">
-          <p className="text-[18px] leading-[36px] tracking-[0.05em] text-[#1A1A1A]">
-            There are some journeys that feel less like a holiday and more like
-            an introduction to an entire world. India’s Golden Triangle is one
-            of them.
-          </p>
-
-          <p className="mt-[28px] text-[18px] leading-[36px] tracking-[0.05em] text-[#1A1A1A]">
-            Connecting Delhi, Agra, and Jaipur, this iconic route offers a rich,
-            colourful, and deeply memorable experience of North India. It is
-            called the Golden Triangle because of the triangular shape these
-            three cities form on the map, but the name also feels fitting for
-            another reason: every stop on this journey reveals something
-            precious.
-          </p>
-
-          <p className="mt-[28px] text-[18px] leading-[36px] tracking-[0.05em] text-[#1A1A1A]">
-            From grand forts and Mughal monuments to bustling bazaars, royal
-            palaces, sacred spaces, and unforgettable food, the Golden Triangle
-            is one of the best ways to experience the beauty, contrast, and
-            energy of India.
-          </p>
-
+          <div
+            className="text-[18px] leading-[36px] tracking-[0.05em] text-[#1A1A1A]"
+            dangerouslySetInnerHTML={{
+              __html: blog.attributes.field_introduction.processed,
+            }}
+          />
           <Image
-            src="/golden-triangle.svg"
+            src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${bannerImage.attributes.uri.url}`}
             alt="Golden Triangle"
             width={1008}
             height={410}
@@ -41,31 +34,15 @@ export default function BlogContent() {
             Delhi: Where the Journey Begins
           </h2>
 
-          <p className="mt-[24px] text-[18px] leading-[36px] tracking-[0.05em] text-[#1A1A1A]">
-            The trip usually begins in Delhi, a city that immediately makes you
-            feel the pulse of India. It is fast, layered, historic, and modern
-            all at once. One moment, you are walking through the narrow lanes of
-            Old Delhi, surrounded by the aroma of street food, spice shops, and
-            sweet stalls. The next, you are standing before wide boulevards,
-            colonial-era buildings, and peaceful gardens.
-          </p>
-
-          <p className="mt-[28px] text-[18px] leading-[36px] tracking-[0.05em] text-[#1A1A1A]">
-            Delhi is a city of contrasts, and that is what makes it so
-            fascinating. The Red Fort, Jama Masjid, India Gate, Humayun’s Tomb,
-            Qutub Minar, and Lotus Temple each show a different side of the
-            capital. Every monument carries a story, and every street feels
-            alive with movement.
-          </p>
-
-          <p className="mt-[28px] text-[18px] leading-[36px] tracking-[0.05em] text-[#1A1A1A]">
-            For first-time visitors, Delhi is the perfect opening chapter. It
-            introduces you to India’s history, diversity, food, and rhythm in a
-            way that is impossible to forget.
-          </p>
+          <div
+            className="mt-[24px] text-[18px] leading-[36px] tracking-[0.05em] text-[#1A1A1A]"
+            dangerouslySetInnerHTML={{
+              __html: blog.attributes.field_body.processed,
+            }}
+          />
           <div className="mt-[48px] flex gap-[32px]">
             <Image
-              src="/agra-left.svg"
+              src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${galleryImage.attributes.uri.url}`}
               alt="Agra"
               width={408}
               height={536}
@@ -73,12 +50,12 @@ export default function BlogContent() {
             />
 
             <Image
-              src="/agra-right.svg"
-              alt="Taj Mahal"
-              width={408}
-              height={536}
-              className="w-[408px] h-[536px] object-cover object-center"
-            />
+  src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${galleryImage.attributes.uri.url}`}
+  alt="Taj Mahal"
+  width={408}
+  height={536}
+  className="w-[408px] h-[536px] object-cover object-center"
+/>
           </div>
 
           <h2 className="mt-[40px] text-[24px] font-semibold leading-[40px] tracking-[0.05em] text-[#1A1A1A]">
@@ -223,36 +200,23 @@ export default function BlogContent() {
             Categories
           </h3>
 
-          <div className="mt-[20px]">
-            {/* First Row */}
-            <div className="flex gap-[12px]">
-              <button className="w-[134px] h-[31px] rounded-full border border-[#1A1A1A] text-[16px] font-normal text-[#1A1A1A]">
-                Experiences
-              </button>
-
-              <button className="w-[169px] h-[31px] rounded-full border border-[#1A1A1A] text-[16px] font-normal text-[#1A1A1A]">
-                News & Updates
-              </button>
-
-              <button className="w-[157px] h-[31px] rounded-full border border-[#1A1A1A] text-[16px] font-normal text-[#1A1A1A]">
-                Tips & Planning
-              </button>
-            </div>
-
-            {/* Second Row */}
-            <div className="mt-[16px]">
-              <button className="w-[135px] h-[31px] rounded-full border border-[#1A1A1A] text-[16px] font-normal text-[#1A1A1A]">
-                Destinations
-              </button>
-            </div>
-          </div>
+          <div className="mt-[20px] flex flex-wrap gap-[12px]">
+            {categories.map((category) => (
+         <button
+             key={category.id}
+             className="px-[16px] h-[31px] rounded-full border border-[#1A1A1A] text-[16px] font-normal text-[#1A1A1A]"
+           >
+             {category.attributes.name}
+         </button>
+         ))}
+         </div>
 
           <div className="mt-[36px] border-b border-[#1A1A1A]" />
 
           <h3 className="mt-[34px] text-[24px] font-semibold leading-[40px] text-[#1A1A1A]">
             Recommended Blogs
           </h3>
-          <RecommendedBlogs />
+         <RecommendedBlogs currentBlogId={blog.id} />
           {/* Divider */}
           <div className="mt-[28px] border-b border-[#1A1A1A]" />
 
