@@ -1,13 +1,12 @@
 "use client";
 
-import { buildFileUrl } from "@/lib/config";
-import HeroSection from "./HeroSection";
-import TrustBar from "./TrustBar";
-import DetailTabs from "./DetailTabs";
-import OtherDestinations from "./OtherDestinations";
 import TestimonialSection from "@/components/HomePage/TestimonialSection";
 import TravelOStylePromise from "@/components/HomePage/TravelOStylePromise";
-import JourneysWeLove from "../HomePage/JourneysWeLove";
+import { buildFileUrl } from "@/lib/config";
+import DetailTabs from "./DetailTabs";
+import HeroSection from "./HeroSection";
+import OtherDestinations from "./OtherDestinations";
+import TrustBar from "./TrustBar";
 
 const MOCK_JOURNEY = {
   title: "The Moroccan Getaway",
