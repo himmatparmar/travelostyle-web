@@ -1,5 +1,4 @@
-import Navbar from "../../components/AboutUs/Navbar";
-import SearchBar from "../../components/AboutUs/SearchBar";
+import SearchBar from "@/components/JourneyDetailPage/SearchBar";
 import Hero from "../../components/AboutUs/Hero";
 import OriginStory from "../../components/AboutUs/OriginStory";
 import TravelBetter from "../../components/AboutUs/TravelBetter";
@@ -10,7 +9,6 @@ import Footer from "../../components/Footer";
 export default function AboutUs() {
   return (
     <div className="bg-white min-h-screen">
-      <Navbar />
       <SearchBar />
       <Hero />
       <OriginStory />
