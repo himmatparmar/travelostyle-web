@@ -217,7 +217,7 @@ export default function TravelForm() {
               <a
                 className={`text-[0.7vw] `}
               >
-                I'm open to possibilities!
+                I&apos;m open to possibilities!
               </a>
             </label>
           </div>

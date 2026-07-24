@@ -19,8 +19,8 @@ export default function DetailTabs({ journey }) {
   const [activeTab, setActiveTab] = useState("Highlights");
 
   return (
-    <div className="bg-white">
-      {/* Tab Navigation */}
+    <>
+    <div className="bg-white hidden md:block">
       <div className="sticky top-0 z-20 bg-white border-b border-[#E5E5E5] px-[5.5vw]">
         <div className="flex items-center gap-[2.5vw]">
           {TABS.map((tab) => (
@@ -86,6 +86,9 @@ export default function DetailTabs({ journey }) {
           </div>
         )}
       </div>
+
     </div>
+  
+    </>
   );
 }

@@ -9,10 +9,8 @@ import TravelDateMobile from "./TravelDateMobile";
 export default function FindJourneyMobile({ onClose }) {
   const [step, setStep] = useState(0);
     const [selectedTravelType, setSelectedTravelType] = useState("Private Journey");
-  // Destination
   const [selectedDestinations, setSelectedDestinations] = useState([]);
   const [openToPossibilities, setOpenToPossibilities] = useState(false);
-  // Travel date
   const [selectedMonths, setSelectedMonths] = useState([]);
   const [selectedDuration, setSelectedDuration] = useState("");
 
