@@ -8,114 +8,66 @@ import { slugify } from "@/lib/slugify";
 import JourneyList from "../JourneyList/JourneyList";
 
 
+
 export default function JourneyInspiration() {
   const [journeys, setJourneys] = useState([]);
-  // const journeys = [
-  //   {
-  //     id: 1,
-  //     title: "The Golden Triangle",
-  //     description:
-  //       "From the Mughal grandeur of Delhi to the Taj at golden hour — and then, quietly, up into the hills.",
-  //     duration: "12 Days | 12 Nights",
-  //     destinations: "10 Destinations",
-  //     price: "5000",
-  //     types: ["Group Journey", "Private Journey"],
-  //     earlyBird: "September departure",
-  //     image:
-  //       "https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=600&q=80", // Taj Mahal / Humayun's Tomb representation
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Kenya & South Africa",
-  //     description:
-  //       "Two countries. One continent that will ask something of you — and give back considerably more.",
-  //     duration: "10 Days | 13 Nights",
-  //     destinations: "9 Destinations",
-  //     types: ["Group Journey"],
-  //     price: "8000",
-  //     earlyBird: null,
-  //     image:
-  //       "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=600&q=80", // Safari/Lion representation
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Morocco",
-  //     description:
-  //       "From Imperial cities to Saharan silence — a journey through Morocco's most extraordinary contrasts.",
-  //     duration: "12 Days | 12 Nights",
-  //     destinations: "10 Destinations",
-  //     types: ["Group Journey", "Private Journey"],
-  //     price: "7000",
-  //     earlyBird: "July departure",
-  //     image:
-  //       "https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?auto=format&fit=crop&w=600&q=80", // Morocco architecture
-  //   },
-  //   {
-  //     id: 4,
-  //     title: "Vietnam",
-  //     description:
-  //       "From the Mughal grandeur of Delhi to the Taj at golden hour — and then, quietly, up into the hills.",
-  //     duration: "10 Days | 9 Nights",
-  //     destinations: "9 Destinations",
-  //     types: ["Group Journey", "Private Journey"],
-  //     price: "6000",
-  //     earlyBird: null,
-  //     image:
-  //       "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=80", 
-  //   },
-  //   {
-  //     id: 5,
-  //     title: "The Golden Triangle",
-  //     description:
-  //       "From the Mughal grandeur of Delhi to the Taj at golden hour — and then, quietly, up into the hills.",
-  //     duration: "12 Days | 12 Nights",
-  //     destinations: "10 Destinations",
-  //     types: ["Group Journey", "Private Journey"],
-  //     price: "5000",
-  //     earlyBird: "September departure",
-  //     image:
-  //       "https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=600&q=80",
-  //   },
-  //   {
-  //     id: 6,
-  //     title: "Kenya & South Africa",
-  //     description:
-  //       "Two countries. One continent that will ask something of you — and give back considerably more.",
-  //     duration: "10 Days | 13 Nights",
-  //     destinations: "9 Destinations",
-  //     types: ["Group Journey"],
-  //     price: "8000",
-  //     earlyBird: null,
-  //     image:
-  //       "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=600&q=80",
-  //   },
-  //   {
-  //     id: 7,
-  //     title: "Morocco",
-  //     description:
-  //       "From Imperial cities to Saharan silence — a journey through Morocco's most extraordinary contrasts.",
-  //     duration: "12 Days | 12 Nights",
-  //     destinations: "10 Destinations",
-  //     types: ["Group Journey", "Private Journey"],
-  //     price: "7000",
-  //     earlyBird: "July departure",
-  //     image:
-  //       "https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?auto=format&fit=crop&w=600&q=80",
-  //   },
-  //   {
-  //     id: 8,
-  //     title: "Vietnam",
-  //     description:
-  //       "From the Mughal grandeur of Delhi to the Taj at golden hour — and then, quietly, up into the hills.",
-  //     duration: "10 Days | 9 Nights",
-  //     destinations: "9 Destinations",
-  //     types: ["Group Journey", "Private Journey"],
-  //     price: "6000",
-  //     earlyBird: null,
-  //     image:
-  //       "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=80",
-  //   },
-  // ];
+  const [selectedTrips, setSelectedTrips] = useState([]);
+  useEffect(() => {
+  const compareTrips = JSON.parse(
+    localStorage.getItem("compareTrips") || "[]"
+  );
+
+
+  setSelectedTrips(compareTrips.map((trip) => trip.id));
+}, []);
+const handleCompareSelection = (trip) => {
+  const existingTrips = JSON.parse(
+    localStorage.getItem("compareTrips") || "[]"
+  );
+
+  const alreadyExists = existingTrips.some(
+    (item) => item.id === trip.id
+  );
+
+  if (alreadyExists) return;
+
+  const compareTrip = {
+    id: trip.id,
+    title: trip.title,
+    image: trip.image,
+    duration: trip.duration,
+    destinations: trip.destinations,
+    offer: trip.earlyBird,
+    price: `$${Number(trip.price).toLocaleString()}`,
+    itinerary: [],
+    stays: "-",
+    region: trip.region,
+    travelMode: "-",
+  };
+
+  localStorage.setItem(
+    "compareTrips",
+    JSON.stringify([...existingTrips, compareTrip])
+  );
+
+  setSelectedTrips((prev) => [...prev, trip.id]);
+  localStorage.setItem(
+      "compareSourcePage",
+      window.location.pathname + window.location.search,
+    );
+
+    sessionStorage.setItem(
+      "comparisonReturnPage",
+      window.location.pathname + window.location.search,
+    );
+
+  window.location.href = "/comparison";
+};
+
+
+ 
+
+ 
   useEffect(() => {
   async function loadJourneys() {
     try {
@@ -216,15 +168,13 @@ setJourneys(privateJourneys);
         </h2>
       </div>
 
-<div className="grid grid-cols-4 gap-6">
-  {journeys.slice(0, 8).map((trip) => (
-    <JourneyCard
-      key={trip.id}
-      trip={trip}
-      variant="grid"
-    />
-  ))}
-</div>   
+{/* <div className="grid grid-cols-4 gap-6"> */}
+ <TravelJourneyCard
+  journeys={journeys}
+  selectedTrips={selectedTrips}
+  onCompare={handleCompareSelection}
+/>
+{/* </div>    */}
   <div className="flex justify-center mt-8">
         <button className="bg-[#1C355E] hover:bg-[#12233F] text-white text-xs font-semibold  px-6 py-2 p-6 rounded-full shadow transition-all duration-200">
          Explore All Private Journeys
