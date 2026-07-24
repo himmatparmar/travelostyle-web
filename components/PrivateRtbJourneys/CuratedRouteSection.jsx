@@ -70,7 +70,7 @@ const routeDays = [
 export default function CuratedRouteSection() {
   const router = useRouter();
   return (
-    <div className="w-full min-h-[800px] bg-white relative flex flex-col items-center py-16 overflow-hidden select-none">
+    <div className="w-full min-h-[800px] bg-white relative flex flex-col items-center py-16 overflow-hidden select-none border-t-[1px] border-[#3f4284]">
       <style
         dangerouslySetInnerHTML={{
           __html: `
