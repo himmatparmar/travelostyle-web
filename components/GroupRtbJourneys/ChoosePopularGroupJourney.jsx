@@ -63,10 +63,12 @@ export default function ChoosePopularGroupJourney() {
     async function loadJourneys() {
       try {
         const res = await fetch(
-          `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag`,
+          `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,
+          field_journey_tag`,
         );
 
         const json = await res.json();
+        
         const included = json.included || [];
 
         const drupalJourneys = (json.data || []).map((item) => {
