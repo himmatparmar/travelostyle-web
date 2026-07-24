@@ -1,15 +1,15 @@
 import SearchBar from "../../components/HomePage/FindYourJourney/SearchBar";
-import Comparison from "../../components/Comparison/Comparison";
+import Destination from "../../components/Destination/Destination";
 import Footer from "../../components/Footer";
-import TravelOStylePromise from "@/components/HomePage/TravelOStylePromise";
+import Line from "../../components/Destination/Line";
 
 
 export default function Page() {
     return( 
     <>
     <SearchBar/>
-    <Comparison/>
-      <TravelOStylePromise />
+    <Line/>
+    <Destination/>
       <Footer />
     </>
   );
