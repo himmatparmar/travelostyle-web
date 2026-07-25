@@ -78,11 +78,11 @@ function getStays(journey, included) {
 
 const ROWS = [
   { key: "duration", label: "Duration", h: "h-10 md:h-10" },
-  { key: "destinations", label: "Destinations", h: "h-10 md:h-10" },
-  { key: "itinerary", label: "Itinerary", h: "h-36 md:h-36" },
-  { key: "stays", label: "Stays", h: "h-24 md:h-24" },
+  { key: "destinations", label: "No. of Destinations", h: "h-10 md:h-10" },
+  { key: "itinerary", label: "Itinerary", h: "h-20 md:h-20" },
+  { key: "stays", label: "Stays", h: "h-10 md:h-10" },
   { key: "region", label: "Region", h: "h-10 md:h-10" },
-  { key: "offer", label: "Offer", h: "h-14 md:h-14" },
+  { key: "offer", label: "Available Offer", h: "h-14 md:h-14" },
   { key: "price", label: "Price", h: "h-32 md:h-20" },
   { key: "travel", label: "Way to Travel", h: "h-44 md:h-44" },
 ];
@@ -200,33 +200,74 @@ export default function TripComparison() {
      phones every value is self-explanatory without the side column. */
   const renderRowContent = (trip, key) => {
     switch (key) {
-      case "duration":
-        return <div className="text-sm">{trip.days}</div>;
-
-      case "destinations":
-        return <div className="text-sm">{trip.destinations}</div>;
+    case "duration":
+  return (
+    <div
+      className="
+        text-sm
+        md:w-[156px]
+        md:h-[13px]
+        justify-center
+        md:leading-[13px]
+        md:overflow-hidden
+      "
+    >
+      {trip.days}
+    </div>
+  );
+    case "destinations":
+  return (
+    <div
+      className="
+        text-sm
+        md:w-[135px]
+        md:h-[13px]
+        md:leading-[13px]
+        md:overflow-hidden
+      "
+    >
+      {trip.destinations}
+    </div>
+  );
 
       case "itinerary":
         return (
           <div className="text-sm space-y-0.5 overflow-y-auto h-full pr-1">
-            {trip.tabItinerary?.map((day) => (
-              <div key={day.day} className="truncate">
-                Day {day.day}: {day.title}
-              </div>
-            ))}
+           {trip.tabItinerary?.map((day) => (
+  <div
+    key={day.day}
+    className="truncate text-[18px] leading-[18px] tracking-[0.05em]"
+  >
+    <span className="font-semibold">
+      Day {day.day}:
+    </span>{" "}
+    <span className="font-nohemi">
+      {day.title}
+    </span>
+  </div>
+))}
           </div>
         );
 
-      case "stays":
-        return (
-          <div className="text-sm space-y-0.5 overflow-y-auto h-full pr-1">
-            {trip.tabStays?.map((stay) => (
-              <div key={stay.name} className="truncate">
-                {stay.name}
-              </div>
-            ))}
-          </div>
-        );
+     case "stays":
+  return (
+    <div className="text-sm space-y-0.5 overflow-y-auto h-full pr-1">
+      {trip.tabStays?.map((stay) => (
+        <div
+          key={stay.name}
+          className="
+            truncate
+            md:w-[224px]
+            md:h-[13px]
+            md:leading-[13px]
+            md:overflow-hidden
+          "
+        >
+          {stay.name}
+        </div>
+      ))}
+    </div>
+  );
 
       case "region":
         return (
@@ -235,24 +276,44 @@ export default function TripComparison() {
           </div>
         );
 
-      case "offer":
-        return (
-          <div className="text-sm">
-            <div>Offer price {trip.price}</div>
-            <div>{trip.offerprice}</div>
-          </div>
-        );
-
+   case "offer":
+  return (
+    <div
+      className="
+        text-sm
+        md:w-[298px]
+        md:h-[37px]
+        md:overflow-hidden
+      "
+    >
+      <div>Offer price {trip.price}</div>
+      <div>{trip.offerprice}</div>
+    </div>
+  );
       case "price":
         return (
-          <div className="bg-[#FFF3E8] rounded-lg p-3 flex flex-col md:flex-row md:justify-between md:items-center gap-2 h-full">
-            <div className="text-left min-w-0">
-              <div className="text-xs text-gray-600">From </div>
+<div
+  className="
+    bg-[#FFF3E8]
+    
+    px-3 py-3 
+    md:p-8
+    flex flex-col md:flex-row
+    md:justify-between
+    md:items-center
+    gap-2
+    h-full
+    md:w-[calc(100%+32px)]
+    md:-ml-4
+    md:h-[61px]
+  "
+>            <div className="text-left min-w-0">
+              <div className="text-xs text-gray-600">from </div>
               <div className="font-bold text-lg leading-tight truncate">
-                ${trip.price} / Person
+                ${trip.price}* / Person
               </div>
               <div className="text-xs text-gray-600 mt-1">
-                Double Occupancy
+                double occupancy*
               </div>
             </div>
             <button className="bg-[#2C3078] hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors shrink-0 self-start md:self-auto">
@@ -318,7 +379,7 @@ export default function TripComparison() {
         <div className="flex gap-2 md:gap-4 mt-4 md:mt-1 px-2 md:px-4 pb-6">
           {/* Desktop label column — same ROWS config as the cards,
               so it can never drift out of alignment */}
-          <div className="hidden md:block w-[130px] shrink-0">
+          <div className="hidden md:block md:h-[700px] md:w-[150px] w-[130px] shrink-0">
             {/* spacer matching card header (image + title) */}
             <div className={CARD_HEADER} />
             {ROWS.map((row) => (
@@ -384,10 +445,11 @@ export default function TripComparison() {
               {trips.map((trip) => (
                 <div
                   key={trip.id}
-                  className="relative snap-center shrink-0
-                    w-[55vw] sm:w-[320px] md:w-[320px]
-                    rounded-[10px] p-3 md:p-4 bg-white
-                    border border-gray-300"
+               className="relative snap-center shrink-0
+  w-[55vw] sm:w-[320px] md:w-[320px]
+  md:h-[800px]
+  rounded-[6px] p-3 md:p-4 bg-white
+  border border-gray-300"
                 >
                   <button
                     onClick={() => removeTrip(trip.id)}
@@ -403,16 +465,18 @@ export default function TripComparison() {
                       with the label-column spacer */}
                   <div className={`${CARD_HEADER} flex flex-col`}>
                     <div className="relative h-[170px] md:h-[213px] rounded-lg overflow-hidden shrink-0">
-                      <Image
-                        src={trip.image}
-                        alt={trip.title}
-                        fill
-                        sizes="(max-width: 768px) 82vw, 320px"
-                        className="object-cover"
-                        unoptimized
-                      />
+                    <div className="relative h-[170px] md:w-[349px] md:h-[213px] overflow-hidden shrink-0 mx-auto">
+  <Image
+    src={trip.image}
+    alt={trip.title}
+    fill
+    sizes="(max-width: 768px) 82vw, 349px"
+    className="object-cover"
+    unoptimized
+  />
+</div>
                     </div>
-                    <h3 className="text-center font-semibold mt-3 line-clamp-2">
+                    <h3 className="text-center font-semibold mt-2 line-clamp-2">
                       {trip.title}
                     </h3>
                   </div>
@@ -447,13 +511,13 @@ onClick={() => {
   localStorage.setItem("isAddingTrip", "true");
   router.push("/itinerary");
 }}
-                  className="relative snap-start shrink-0
-                    w-[82vw] sm:w-[320px] md:w-[320px]
-                    min-h-[400px] md:min-h-[500px]
-                    border-2 border-dashed border-gray-400
-                    rounded-lg
-                    flex items-center justify-center
-                    cursor-pointer"
+                 className="relative snap-start shrink-0
+  w-[82vw] sm:w-[320px] md:w-[300px]
+  min-h-[400px] md:h-[800px]
+  border-2 border-dashed border-gray-400
+  rounded-[10px]
+  flex items-center justify-center
+  cursor-pointer"
                 >
                  
                   <p className="font-semibold text-lg text-center px-4">
