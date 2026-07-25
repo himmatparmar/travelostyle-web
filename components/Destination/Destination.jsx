@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from "react";
 import TravelJourneyCard from "../TravelJourneyCard";
 import { API_BASE_URL, buildFileUrl } from "@/lib/config";
-import Line from './Line';
+import { slugify } from "@/lib/slugify";
+
 export default function Destination() {
     
      const [journeys, setJourneys] = useState([]);
@@ -107,6 +108,17 @@ export default function Destination() {
                   return tagEntity?.attributes?.name;
                 })
                 .filter(Boolean);
+              const cta = item.attributes?.field_cta;
+
+const alias = item.attributes?.path?.alias || "";
+const aliasSlug = alias.replace(/^\/journey\//, "");
+const titleSlug = aliasSlug || slugify(item.attributes?.title || "");
+
+let viewTripUrl = `/journeys/${titleSlug}`;
+
+if (cta?.uri && !cta.uri.startsWith("entity:")) {
+  viewTripUrl = cta.uri;
+}
         
               return {
                 id: item.id,
@@ -122,6 +134,8 @@ export default function Destination() {
                 earlyBird: item.attributes?.field_offer_message || null,
                 image: imageUrl,
                 types: tagNames,
+                 viewTripUrl,
+  viewTripText: cta?.title || "View Trip",
               };
             });
            setJourneys(drupalJourneys);
