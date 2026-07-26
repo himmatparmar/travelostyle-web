@@ -49,7 +49,7 @@ export default async function RecommendedBlogs({
         return (
           <div
             key={blog.id}
-            className="mt-[20px] flex h-[640px] flex-col overflow-hidden rounded-[10px] border-2 border-[#1A1A1A] bg-[#FAFAFA]"
+           className="mt-5 flex flex-col overflow-hidden rounded-[10px] border-2 border-[#1A1A1A] bg-[#FAFAFA]"
           >
             {/* Top */}
             <div className="flex items-center justify-between px-[16px] py-[14px]">
@@ -76,7 +76,7 @@ export default async function RecommendedBlogs({
                 alt="Recommended Blog"
                 width={524}
                 height={296}
-                className="h-[296px] w-[524px] object-cover"
+                className="w-full h-[220px] lg:w-[524px] lg:h-[296px] object-cover"
               />
             </div>
 

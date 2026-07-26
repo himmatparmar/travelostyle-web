@@ -1,4 +1,4 @@
-import Navbar from "../../components/AboutUs/Navbar";
+import SearchBar from "@/components/JourneyDetailPage/SearchBar";
 import Hero from "../../components/BlogDetailPage/Hero";
 import BlogContent from "@/components/BlogDetailPage/BlogContent";
 import Footer from "../../components/Footer";
@@ -46,7 +46,7 @@ const galleryImage = response.included?.find(
 
   return (
     <div className="bg-[#FAFAFA] min-h-screen">
-      <Navbar />
+      <SearchBar />
 
       <Hero
         blog={blog}
