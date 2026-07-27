@@ -1,11 +1,11 @@
 "use client";
-import React from "react";
-import GroupRevelationsSection from "../GroupRevelationsSection";
+import BookingSteps from "../BookingSteps";
+import GroupRevelationsSectionMobile from "../JourneyRevelationsMobile";
+import JourneyRevelationsSection from "../JourneyRevelationsSection";
+import WhyTakeJourney from "../WhyTakeJourney";
+import AdvisorCallout from "./AdvisorCallout";
 import CuratedRouteSection from "./CuratedRouteSection";
 import JourneyInspiration from "./JourneyInspiration";
-import WhyTakeJourney from "../WhyTakeJourney";
-import BookingSteps from "../GroupRtbJourneys/BookingSteps";
-import AdvisorCallout from "./AdvisorCallout"
 import PrivateJourneysLuxury from "./PrivateJourneysLuxury";
 
 export default function Index() {
@@ -99,7 +99,7 @@ export default function Index() {
   return (
     <div>
       <CuratedRouteSection />
-      <GroupRevelationsSection
+      <JourneyRevelationsSection
         badgeText="What exactly is a private journey?"
         titleText="A well-designed starting point, shaped entirely around you aa"
         features={privateJourneyFeatures}
@@ -109,6 +109,18 @@ export default function Index() {
         theme={{
           cardBg: "bg-[#f1e2d7]",
           labelBg: "bg-[#ebdcd1]/40",
+        }}
+      />
+      <GroupRevelationsSectionMobile
+        badgeText="What exactly is a private journey?"
+        titleText="A well-designed starting point, shaped entirely around you aa"
+        features={privateJourneyFeatures}
+        topIntroText="A TravelOStyle Private Journey begins with one of our carefully built itineraries – and then hands it over to you."
+        matrixRows={privateMatrix}
+        footerText="The key-locations, the flow between them, and the way you move through the trip is already planned for you; along with on-ground guidance for a smooth journey"
+        theme={{
+          cardBg: "#f1e2d7",
+          borderColor: "#444444",
         }}
       />
       <PrivateJourneysLuxury />
@@ -128,7 +140,7 @@ export default function Index() {
         onCtaClick={handlePrivateCtaClick}
       />
       <BookingSteps bookingRecords={claimYourPerfectJourney} />
-      <AdvisorCallout/>
+      <AdvisorCallout />
     </div>
   );
 }

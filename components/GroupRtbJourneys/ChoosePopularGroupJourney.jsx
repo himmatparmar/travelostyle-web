@@ -108,18 +108,18 @@ export default function ChoosePopularGroupJourney() {
               return tagEntity?.attributes?.name;
             })
             .filter(Boolean);
-            const cta = item.attributes?.field_cta;
+          const cta = item.attributes?.field_cta;
 
-const alias = item.attributes?.path?.alias || "";
-const aliasSlug = alias.replace(/^\/journey\//, "");
+          const alias = item.attributes?.path?.alias || "";
+          const aliasSlug = alias.replace(/^\/journey\//, "");
 
-const titleSlug = aliasSlug || slugify(item.attributes?.title || "");
+          const titleSlug = aliasSlug || slugify(item.attributes?.title || "");
 
-let viewTripUrl = `/journeys/${titleSlug}`;
+          let viewTripUrl = `/journeys/${titleSlug}`;
 
-if (cta?.uri && !cta.uri.startsWith("entity:")) {
-  viewTripUrl = cta.uri;
-}
+          if (cta?.uri && !cta.uri.startsWith("entity:")) {
+            viewTripUrl = cta.uri;
+          }
 
           return {
             id: item.id,
@@ -134,9 +134,9 @@ if (cta?.uri && !cta.uri.startsWith("entity:")) {
             price: Number(item.attributes?.field_offer_price) || 0,
             earlyBird: item.attributes?.field_offer_message || null,
             image: imageUrl,
-           types: tagNames,
-viewTripUrl,
-viewTripText: cta?.title || "View Trip",
+            types: tagNames,
+            viewTripUrl,
+            viewTripText: cta?.title || "View Trip",
           };
         });
 
@@ -156,7 +156,7 @@ viewTripText: cta?.title || "View Trip",
     loadJourneys();
   }, []);
   return (
-    <div className=" min-h-screen py-16 px-4 sm:px-6 lg:px-8 font-sans">
+    <div className=" min-h-screen py-16 px-4 sm:px-6 lg:px-8 font-sans overflow-hidden">
       <div className="text-center mb-12">
         <p className="font-serif italic text-2xl text-neutral-600 lowercase tracking-wide">
           choose from our popular group journeys

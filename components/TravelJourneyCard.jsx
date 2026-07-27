@@ -1,37 +1,37 @@
 "use client";
-import React from 'react'
+import React from "react";
 import { CirclePlus, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
-
+import Image from "next/image";
 
 export default function TravelJourneyCard({
-  journeys,
-  selectedTrips,
+  journeys = [],
+  selectedTrips = [],
   onCompare,
 }) {
- 
   return (
-<div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pb-12">
+    <div className="w-full max-w-7xl mx-auto pt-6 pb-12 overflow-hidden">
+      <div className="flex flex-row overflow-x-auto snap-x snap-mandatory gap-4 scroll-smooth pt-2 pb-6 pl-4 pr-12 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 md:overflow-visible md:px-0 md:pb-0 md:pt-0">
         {journeys.map((journey) => (
           <div
             key={journey.id}
-            className="relative bg-white rounded-t-lg shadow-sm  flex flex-col justify-between overflow-hidden pb-8 min-h-[580px]"
+            className="relative bg-white rounded-xl border border-neutral-200/90 shadow-sm flex flex-col justify-between overflow-hidden pb-8 min-h-[560px] shrink-0 w-[75vw] max-w-[290px] snap-start md:w-full md:max-w-none md:shrink"
           >
             <div>
               <div className="flex gap-2 p-4 pb-2">
-                {journey.types.includes('Group Journey') && (
-                  <span className="text-[10px] font-semibold bg-[#EFF6E0] text-[#59832A] px-2.5 py-1 rounded">
+                {journey.types?.includes("Group Journey") && (
+                  <span className="text-[10px] font-semibold bg-[#EFF6E0] text-[#59832A] px-2.5 py-1 rounded whitespace-nowrap">
                     Group Journey
                   </span>
                 )}
-                {journey.types.includes('Private Journey') && (
-                  <span className="text-[10px] font-semibold bg-[#FEFAE0] text-[#B58A32] px-2.5 py-1 rounded">
+                {journey.types?.includes("Private Journey") && (
+                  <span className="text-[10px] font-semibold bg-[#FEFAE0] text-[#B58A32] px-2.5 py-1 rounded whitespace-nowrap">
                     Private Journey
                   </span>
                 )}
               </div>
               <div className="px-4">
-                <div className="overflow-hidden rounded-md h-[180px] w-full relative">
+                <div className="overflow-hidden rounded-md h-[170px] w-full relative">
                   <img
                     src={journey.image}
                     alt={journey.title}
@@ -40,89 +40,113 @@ export default function TravelJourneyCard({
                 </div>
               </div>
 
-              <div className="px-5 pt-4">
-                <h3 className="text-lg font-bold text-neutral-900 leading-snug">
+              <div className="px-4 pt-3">
+                <h3 className="text-base font-bold text-neutral-900 leading-snug line-clamp-2">
                   {journey.title}
                 </h3>
                 <p className="text-xs text-neutral-500 mt-1.5 leading-relaxed line-clamp-3">
                   {journey.description}
                 </p>
-
-                <div className="flex items-center gap-4 mt-4 text-[11px] text-neutral-500 font-medium">
-            
-                  <div className="flex items-center gap-1.5">
-                    <svg className="w-3.5 h-3.5 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    <span>{journey.duration}</span>
+                <div className="flex items-center gap-3 mt-3 text-[11px] text-neutral-500 font-medium">
+                  <div className="flex items-center gap-1">
+                    <Image
+                      src="/CalenderIcon.svg"
+                      alt="Calendar"
+                      width={16}
+                      height={16}
+                      className="md:h-[1.1vw] md:w-[1.1vw]"
+                    />
+                    <span className="whitespace-nowrap">
+                      {journey.duration}sss
+                    </span>
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <svg className="w-3.5 h-3.5 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <span>{journey.destinations}</span>
+                  <div className="flex items-center gap-1">
+                     <Image
+                    src="/Destination.svg"
+                    alt="Destination"
+                    width={16}
+                    height={16}
+                    className="md:h-[1.1vw] md:w-[1.1vw]"
+                  />
+                    <span className="whitespace-nowrap">
+                      {journey.destinations}
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
-
-            <div className="mt-6">
-              <div className="flex items-center justify-between px-5 mb-4">
+            <div className="mt-4">
+              <div className="flex items-center justify-between px-4 mb-3">
                 <div>
-                  <span className="text-[10px] text-neutral-400 block uppercase tracking-wider">from</span>
+                  <span className="text-[10px] text-neutral-400 block uppercase tracking-wider">
+                    from
+                  </span>
                   <div className="flex items-baseline">
-                    <span className="text-xl font-bold text-neutral-900">${journey.price}*</span>
-                    <span className="text-[10px] text-neutral-500 ml-1">/ person</span>
+                    <span className="text-lg font-bold text-neutral-900">
+                      ${journey.price}*
+                    </span>
+                    <span className="text-[10px] text-neutral-500 ml-0.5">
+                      /person
+                    </span>
                   </div>
-                  <span className="text-[9px] text-neutral-400 block -mt-1">double occupancy*</span>
+                  <span className="text-[9px] text-neutral-400 block -mt-1">
+                    double occupancy*
+                  </span>
                 </div>
-                
-            <a
-  href={journey.viewTripUrl}
-  className="flex h-[2vw] w-[6.2vw] items-center justify-center rounded-full bg-[#2D3482] text-[0.78vw] font-semibold text-white"
->
-  {journey.viewTripText || "View Trip"}
-</a>
-              </div>
 
+                <a
+                  href={journey.viewTripUrl}
+                  className="flex items-center justify-center rounded-full bg-[#2D3482] px-3.5 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[#202254] md:px-[1.1vw] md:py-[0.45vw] md:text-[0.78vw]"
+                >
+                  {journey.viewTripText || "View Trip"}
+                </a>
+              </div>
               {journey.earlyBird ? (
-                <div className="mx-4 mb-4 bg-[#FDF0EA] text-[#A65B32] py-2 px-3 rounded flex items-center gap-1.5 text-[10px] font-medium border border-[#FBE3D5]">
-                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <div className="mx-3 mb-3 bg-[#FDF0EA] text-[#A65B32] py-1.5 px-2.5 rounded flex items-center gap-1.5 text-[10px] font-medium border border-[#FBE3D5]">
+                  <svg
+                    className="w-3.5 h-3.5 shrink-0"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
                   </svg>
-                  <span>Early Bird Offer available for {journey.earlyBird}</span>
+                  <span className="line-clamp-1">
+                    Early Bird Offer available for {journey.earlyBird}
+                  </span>
                 </div>
               ) : (
-                <div className="h-9 mb-4" />
+                <div className="h-8 mb-3" />
               )}
-              <div className="border-t border-dashed border-neutral-200/80 mx-5 my-2"></div>
-              <div className="px-5 pt-1">
-<button
-onClick={() => {
-  if (selectedTrips?.includes(journey.id)) {
-    toast("Trip already added to comparison");
-    return;
-  }
 
-  onCompare(journey);
-}}
-  className="flex items-center gap-1.5 text-neutral-500 hover:text-neutral-800 text-[11px] font-medium transition-colors"
->                  
-              {selectedTrips?.includes(journey.id) ? (
-  <>
-    <CheckCircle2
-      size={16}
-      className="text-green-600"
-    />
-    <span>Added to Compare</span>
-  </>
-) : (
-  <>
-    <CirclePlus size={16} />
-    <span>Add to Compare</span>
-  </>
-)}
+              <div className="border-t border-dashed border-neutral-200/80 mx-4 my-2"></div>
+              <div className="px-4 pt-0.5">
+                <button
+                  onClick={() => {
+                    if (selectedTrips?.includes(journey.id)) {
+                      toast("Trip already added to comparison");
+                      return;
+                    }
+                    onCompare(journey);
+                  }}
+                  className="flex items-center gap-1.5 text-neutral-500 hover:text-neutral-800 text-[11px] font-medium transition-colors"
+                >
+                  {selectedTrips?.includes(journey.id) ? (
+                    <>
+                      <CheckCircle2 size={15} className="text-green-600" />
+                      <span>Added to Compare</span>
+                    </>
+                  ) : (
+                    <>
+                      <CirclePlus size={15} />
+                      <span>Add to Compare</span>
+                    </>
+                  )}
                 </button>
               </div>
             </div>
@@ -130,5 +154,6 @@ onClick={() => {
           </div>
         ))}
       </div>
-  )
+    </div>
+  );
 }
