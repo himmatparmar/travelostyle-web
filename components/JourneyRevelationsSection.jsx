@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function GroupRevelationsSection({
+export default function JourneyRevelationsSection({
   badgeText,
   titleText,
   features = [],
@@ -14,7 +14,7 @@ export default function GroupRevelationsSection({
   const borderStyle = theme.borderColor || "border-neutral-400";
 
   return (
-    <div className="w-full min-h-screen bg-white font-sans antialiased select-none flex flex-col items-center justify-center py-10">
+    <div className="hidden md:flex w-full min-h-screen bg-white font-sans antialiased select-none flex flex-col items-center justify-center py-10">
       <section
         className={`w-full max-w-[1100px] mx-4 my-8 rounded-xl border ${borderStyle} overflow-hidden flex flex-col z-20 shadow-sm ${!cardBgStyle.startsWith("#") ? cardBgStyle : ""}`}
         style={{
