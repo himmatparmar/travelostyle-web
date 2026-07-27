@@ -22,7 +22,7 @@ const routeDays = [
   },
   {
     day: "DAY 4",
-    img: "https://images.unsplash.com/photo-1515542641795-060ef2593f04?w=600",
+     img: "https://images.unsplash.com/photo-1498307833015-e7b400441eb8?w=600",
     styles:
       "absolute left-[24%] top-[140px] w-[205px] -rotate-[5deg] z-40 shadow-[6px_16px_34px_rgba(0,0,0,0.16)] border-neutral-200",
     aspect: "aspect-[4/3.4]",
@@ -70,7 +70,7 @@ const routeDays = [
 export default function CuratedRouteSection() {
   const router = useRouter();
   return (
-    <div className="w-full min-h-[800px] bg-white relative flex flex-col items-center py-16 overflow-hidden select-none">
+    <div className="w-full min-h-[800px] bg-white relative flex flex-col items-center py-16 overflow-hidden select-none border-t-[1px] border-[#3f4284]">
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -99,10 +99,10 @@ export default function CuratedRouteSection() {
         </svg>
       </div>
       <div className="relative z-10 flex flex-col items-center text-center px-4 mb-26 mt-4">
-        <span className="cursive-font text-[46px] md:text-[52px] font-bold text-[#2d2d2d] bg-[#f1e3d9] px-8 py-1 tracking-wide leading-none rounded-2xs shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
+        <span className="font-taprom text-[46px] md:text-[52px] font-bold text-[#2d2d2d] bg-[#f1e3d9] px-8 py-1 tracking-wide leading-none rounded-2xs shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
           A curated route, perfected by
         </span>
-        <span className="cursive-font text-[46px] md:text-[52px] font-bold text-[#2d2d2d] bg-[#f1e3d9] px-12 py-1 mt-3.5 tracking-wide leading-none rounded-2xs shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
+        <span className="font-taprom text-[46px] md:text-[52px] font-bold text-[#2d2d2d] bg-[#f1e3d9] px-12 py-1 mt-3.5 tracking-wide leading-none rounded-2xs shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
           you, for you
         </span>
       </div>
