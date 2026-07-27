@@ -43,6 +43,7 @@ function HighlightCard({ card, tall = false }) {
           src={card.image}
           alt={card.alt || ""}
           fill
+          unoptimized
           className="object-cover"
         />
         {card.caption && (

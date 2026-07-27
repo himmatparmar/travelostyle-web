@@ -6,6 +6,7 @@ import SortBar from "./SortBar";
 import JourneyGrid from "./JourneyGrid";
 import Pagination from "./Pagination";
 import { slugify } from "@/lib/slugify";
+import { API_BASE_URL, buildFileUrl } from "@/lib/config";
 
 export default function AllJourneysPage() {
   const [journeys, setJourneys] = useState([]);
@@ -41,8 +42,8 @@ export default function AllJourneysPage() {
         setLoading(true);
 
         const res = await fetch(
-          "http://travelostyle-drupal-backend.ddev.site/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month",
-        );
+  `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month`,
+);
 
         const json = await res.json();
         const included = json.included || [];
@@ -69,9 +70,7 @@ export default function AllJourneysPage() {
 
           const rawUrl = fileEntity?.attributes?.uri?.url;
 
-          const imageUrl = rawUrl
-            ? `http://travelostyle-drupal-backend.ddev.site${decodeURIComponent(rawUrl)}`
-            : "/GoldenTriange.svg";
+         const imageUrl = buildFileUrl(rawUrl) || "/GoldenTriange.svg";
 
           const tagIds = item.relationships?.field_journey_tag?.data || [];
 
@@ -96,7 +95,13 @@ export default function AllJourneysPage() {
 
           const cta = item.attributes?.field_cta;
 
-          const titleSlug = slugify(item.attributes.title || "");
+          // Use Drupal's real Pathauto-generated alias (already present on
+          // every node's JSON:API "path" attribute, no include needed) so
+          // this link always matches what /api/journey/{slug} will resolve.
+          // Fall back to a client-computed slug only if path/alias is missing.
+          const alias = item.attributes?.path?.alias || "";
+          const aliasSlug = alias.replace(/^\/journey\//, "");
+          const titleSlug = aliasSlug || slugify(item.attributes.title || "");
           let viewTripUrl = `/journeys/${titleSlug}`;
 
           if (cta?.uri && !cta.uri.startsWith("entity:")) {
@@ -150,17 +155,12 @@ export default function AllJourneysPage() {
     async function loadFilters() {
       try {
         const endpoints = {
-          region:
-            "http://travelostyle-drupal-backend.ddev.site/jsonapi/taxonomy_term/country",
-          style:
-            "http://travelostyle-drupal-backend.ddev.site/jsonapi/taxonomy_term/tags",
-          offer:
-            "http://travelostyle-drupal-backend.ddev.site/jsonapi/taxonomy_term/offers",
-          category:
-            "http://travelostyle-drupal-backend.ddev.site/jsonapi/taxonomy_term/category",
-          month:
-            "http://travelostyle-drupal-backend.ddev.site/jsonapi/taxonomy_term/month",
-        };
+  region: `${API_BASE_URL}/jsonapi/taxonomy_term/country`,
+  style: `${API_BASE_URL}/jsonapi/taxonomy_term/tags`,
+  offer: `${API_BASE_URL}/jsonapi/taxonomy_term/offers`,
+  category: `${API_BASE_URL}/jsonapi/taxonomy_term/category`,
+  month: `${API_BASE_URL}/jsonapi/taxonomy_term/month`,
+};
 
         const results = {};
 
@@ -185,6 +185,7 @@ export default function AllJourneysPage() {
     setCurrentPage(1);
   }, [filters]);
   // ================= FILTER =================
+
   const filteredJourneys = useMemo(() => {
     let data = [...journeys];
 
@@ -251,6 +252,14 @@ export default function AllJourneysPage() {
 
     return data;
   }, [journeys, filters, sort]);
+  const hasActiveFilters =
+  filters.region.length > 0 ||
+  filters.style.length > 0 ||
+  filters.offer.length > 0 ||
+  filters.category.length > 0 ||
+  filters.month.length > 0 ||
+  filters.pricing.length > 0 ||
+  filters.duration.length > 0;
   const totalPages = Math.ceil(filteredJourneys.length / itemsPerPage);
 
   const paginatedJourneys = filteredJourneys.slice(
@@ -299,7 +308,7 @@ export default function AllJourneysPage() {
         />
 
         <div className="flex-1 min-w-0">
-          {filteredJourneys.length === 0 ? (
+        {filteredJourneys.length === 0 && hasActiveFilters ? (
             <div className="flex flex-col gap-2 items-center justify-center py-[6vw] text-center">
               <img
                 src="/no-results.svg"
@@ -309,6 +318,10 @@ export default function AllJourneysPage() {
 
               <h3 className="font-[Nohemi] font-medium text-[32px] leading-[40px] tracking-[0.05em] text-center text-[#1A1A1A] mt-8">
                 Sorry! We were unable to find the <br /> trip you requested.
+                <p>
+  filteredJourneys: {filteredJourneys.length},
+  hasActiveFilters: {String(hasActiveFilters)}
+</p>
               </h3>
               <p className="mt-[16px] max-w-[520px] font-[Nohemi] font-normal text-[16px] leading-[100%] tracking-[0.05em] text-center text-[#1A1A1A] mt-2">
                 Please adjust your filters to find a trip that fits you
@@ -346,17 +359,17 @@ export default function AllJourneysPage() {
                 <JourneyGrid journeys={popularJourneys} />
               </div>
             </div>
-          ) : (
-            <>
-              <JourneyGrid journeys={paginatedJourneys} />
+         ) : (
+  <>
+    <JourneyGrid journeys={paginatedJourneys} />
 
-              <Pagination
-                totalPages={totalPages}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-              />
-            </>
-          )}
+    <Pagination
+      totalPages={totalPages}
+      currentPage={currentPage}
+      setCurrentPage={setCurrentPage}
+    />
+  </>
+)}
         </div>
       </div>
     </div>

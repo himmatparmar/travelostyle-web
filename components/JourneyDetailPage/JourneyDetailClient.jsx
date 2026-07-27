@@ -1,34 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
-import { slugify } from "@/lib/slugify";
-import HeroSection from "./HeroSection";
-import TrustBar from "./TrustBar";
-import DetailTabs from "./DetailTabs";
-import OtherDestinations from "./OtherDestinations";
 import TestimonialSection from "@/components/HomePage/TestimonialSection";
 import TravelOStylePromise from "@/components/HomePage/TravelOStylePromise";
-
-const BASE = "http://travelostyle-drupal-backend.ddev.site";
-
-const INCLUDE = [
-  "field_journey_image.field_media_image",
-  "field_journey_tag",
-  "field_month",
-  "field_starts_in",
-  "field_ends_in",
-  "field_best_seasons",
-  "field_pace",
-  "field_journey_tabs_section",
-  "field_journey_tabs_section.field_section_tabs",
-  "field_journey_tabs_section.field_section_tabs.field_highlight_cards",
-  "field_journey_tabs_section.field_section_tabs.field_days",
-  "field_journey_tabs_section.field_section_tabs.field_days.field_stay",
-  "field_journey_tabs_section.field_section_tabs.field_hotels",
-  "field_journey_tabs_section.field_section_tabs.field_hotels.field_featured_image.field_media_image",
-  "field_journey_tabs_section.field_section_tabs.field_hotels.field_gallery.field_media_image",
-].join(",");
+import { buildFileUrl } from "@/lib/config";
+import DetailTabs from "./DetailTabs";
+import HeroSection from "./HeroSection";
+import OtherDestinations from "./OtherDestinations";
+import TrustBar from "./TrustBar";
 
 const MOCK_JOURNEY = {
   title: "The Moroccan Getaway",
@@ -76,7 +54,7 @@ function resolveImage(item, included) {
   const fileId = media?.relationships?.field_media_image?.data?.id;
   const file = included.find((i) => i.type === "file--file" && i.id === fileId);
   const raw = file?.attributes?.uri?.url;
-  return raw ? `${BASE}${decodeURIComponent(raw)}` : "/Morocco.svg";
+  return buildFileUrl(raw) || "/Morocco.svg";
 }
 
 function resolveTags(item, included) {
@@ -192,7 +170,7 @@ function resolveTabSections(item, included) {
             const featuredFileId = featuredMedia?.relationships?.field_media_image?.data?.id;
             const featuredFile = featuredFileId ? included.find((inc) => inc.id === featuredFileId) : null;
             const featuredRaw = featuredFile?.attributes?.uri?.url;
-            const image = featuredRaw ? `${BASE}${decodeURIComponent(featuredRaw)}` : "/Morocco.svg";
+            const image = buildFileUrl(featuredRaw) || "/Morocco.svg";
 
             // Gallery images (all media--image in field_gallery)
             const galleryRefs = hotel.relationships?.field_gallery?.data || [];
@@ -202,7 +180,7 @@ function resolveTabSections(item, included) {
                 const gFileId = gMedia?.relationships?.field_media_image?.data?.id;
                 const gFile = gFileId ? included.find((inc) => inc.id === gFileId) : null;
                 const gRaw = gFile?.attributes?.uri?.url;
-                return gRaw ? `${BASE}${decodeURIComponent(gRaw)}` : null;
+                return buildFileUrl(gRaw);
               })
               .filter(Boolean);
 
@@ -246,50 +224,11 @@ function transformItem(item, included) {
   };
 }
 
-export default function JourneyDetailClient() {
-  const { id: slug } = useParams();   // param is named [id] in folder but holds a slug
-  const [journey, setJourney] = useState(MOCK_JOURNEY);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (!slug) {
-      setLoading(false);
-      return;
-    }
-
-    async function loadJourney() {
-      try {
-        // Fetch all journeys with full includes, then match by slugified title
-        const res = await fetch(
-          `${BASE}/jsonapi/node/journey?include=${INCLUDE}`,
-        );
-        const json = await res.json();
-        const included = json.included || [];
-
-        const item = (json.data || []).find(
-          (d) => slugify(d.attributes.title || "") === slug,
-        );
-
-        if (item) {
-          setJourney(transformItem(item, included));
-        }
-      } catch {
-        /* Drupal dev server not running — keep mock data */
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    loadJourney();
-  }, [slug]);
-
-  if (loading) {
-    return (
-      <div className="flex min-h-[60vh] items-center justify-center text-[0.9vw] text-[#666]">
-        Loading journey...
-      </div>
-    );
-  }
+export default function JourneyDetailClient({ initialData }) {
+  const journey =
+    initialData?.data
+      ? transformItem(initialData.data, initialData.included || [])
+      : MOCK_JOURNEY;
 
   return (
     <main>

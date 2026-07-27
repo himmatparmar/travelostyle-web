@@ -73,8 +73,8 @@ export default function YourNextTrip() {
         {activeTab === "journeys" && (
       <JourneysWeLove/>
         )}
-        {activeTab === "destinations" && <span>destination</span>}
-        {activeTab === "deals" && <span>deals</span>}
+        {activeTab === "destinations" &&  <JourneysWeLove/>}
+        {activeTab === "deals" &&  <JourneysWeLove/>}
       </div>
     </section>
   );

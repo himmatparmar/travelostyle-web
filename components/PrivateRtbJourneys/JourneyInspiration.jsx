@@ -1,0 +1,185 @@
+"use client";
+import React from "react";
+import { useEffect, useState } from "react";
+import TravelJourneyCard from "../TravelJourneyCard";
+import { API_BASE_URL, buildFileUrl } from "@/lib/config";
+import JourneyCard from "../ItineraryListingPage/JourneyCard";
+import { slugify } from "@/lib/slugify";
+import JourneyList from "../JourneyList/JourneyList";
+
+
+
+export default function JourneyInspiration() {
+  const [journeys, setJourneys] = useState([]);
+  const [selectedTrips, setSelectedTrips] = useState([]);
+  useEffect(() => {
+  const compareTrips = JSON.parse(
+    localStorage.getItem("compareTrips") || "[]"
+  );
+
+
+  setSelectedTrips(compareTrips.map((trip) => trip.id));
+}, []);
+const handleCompareSelection = (trip) => {
+  const existingTrips = JSON.parse(
+    localStorage.getItem("compareTrips") || "[]"
+  );
+
+  const alreadyExists = existingTrips.some(
+    (item) => item.id === trip.id
+  );
+
+  if (alreadyExists) return;
+
+  const compareTrip = {
+    id: trip.id,
+    title: trip.title,
+    image: trip.image,
+    duration: trip.duration,
+    destinations: trip.destinations,
+    offer: trip.earlyBird,
+    price: `$${Number(trip.price).toLocaleString()}`,
+    itinerary: [],
+    stays: "-",
+    region: trip.region,
+    travelMode: "-",
+  };
+
+  localStorage.setItem(
+    "compareTrips",
+    JSON.stringify([...existingTrips, compareTrip])
+  );
+
+  setSelectedTrips((prev) => [...prev, trip.id]);
+  localStorage.setItem(
+      "compareSourcePage",
+      window.location.pathname + window.location.search,
+    );
+
+    sessionStorage.setItem(
+      "comparisonReturnPage",
+      window.location.pathname + window.location.search,
+    );
+
+  window.location.href = "/comparison";
+};
+
+
+ 
+
+ 
+  useEffect(() => {
+  async function loadJourneys() {
+    try {
+      const res = await fetch(
+        `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month`
+      );
+
+      const json = await res.json();
+      const included = json.included || [];
+
+      const drupalJourneys = (json.data || []).map((item) => {
+        const mediaId =
+          item.relationships?.field_journey_image?.data?.id;
+
+        const mediaEntity = included.find(
+          (inc) =>
+            inc.type === "media--image" &&
+            inc.id === mediaId
+        );
+
+        const fileId =
+          mediaEntity?.relationships?.field_media_image?.data?.id;
+
+        const fileEntity = included.find(
+          (inc) =>
+            inc.type === "file--file" &&
+            inc.id === fileId
+        );
+
+        const rawUrl = fileEntity?.attributes?.uri?.url;
+
+        const imageUrl =
+          buildFileUrl(rawUrl) || "/GoldenTriange.svg";
+
+        const tagData =
+          item.relationships?.field_journey_tag?.data;
+
+        const tagArray = Array.isArray(tagData)
+          ? tagData
+          : tagData
+          ? [tagData]
+          : [];
+
+        const tagNames = tagArray
+          .map((tag) => {
+            const tagEntity = included.find(
+              (inc) =>
+                inc.type === "taxonomy_term--tags" &&
+                inc.id === tag.id
+            );
+
+            return tagEntity?.attributes?.name;
+          })
+          .filter(Boolean);
+
+        return {
+          id: item.id,
+          title: item.attributes?.title || "",
+          description:
+            item.attributes?.field_short_description || "",
+          duration: `${item.attributes?.field_duration_days || 0} Days | ${
+            item.attributes?.field_duration_nights || 0
+          } Nights`,
+          destinations: `${
+            item.attributes?.field_destinations_count || 0
+          } Destinations`,
+          price:
+            Number(item.attributes?.field_offer_price) || 0,
+          earlyBird:
+            item.attributes?.field_offer_message || null,
+          image: imageUrl,
+          types: tagNames,
+        };
+      });
+
+     const privateJourneys = drupalJourneys.filter((journey) =>
+  journey.types?.includes("Private Journey")
+);
+
+
+
+setJourneys(privateJourneys);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  loadJourneys();
+}, []);
+  return (
+    <div className=" min-h-screen py-16 px-4 sm:px-6 lg:px-8 font-sans">
+      <div className="text-center mb-12">
+        <p className="font-serif italic text-2xl text-neutral-600 lowercase tracking-wide">
+          choose from our popular group journeys
+        </p>
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-[#111827] mt-1 tracking-tight">
+          Where are you headed to next?
+        </h2>
+      </div>
+
+{/* <div className="grid grid-cols-4 gap-6"> */}
+ <TravelJourneyCard
+  journeys={journeys}
+  selectedTrips={selectedTrips}
+  onCompare={handleCompareSelection}
+/>
+{/* </div>    */}
+  <div className="flex justify-center mt-8">
+        <button className="bg-[#1C355E] hover:bg-[#12233F] text-white text-xs font-semibold  px-6 py-2 p-6 rounded-full shadow transition-all duration-200">
+         Explore All Private Journeys
+        </button>
+      </div>
+    </div>
+  );
+}
