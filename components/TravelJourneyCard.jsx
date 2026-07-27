@@ -1,12 +1,15 @@
+"use client";
 import React from 'react'
 import { CirclePlus, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
+
 
 export default function TravelJourneyCard({
   journeys,
   selectedTrips,
   onCompare,
 }) {
+ 
   return (
 <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pb-12">
         {journeys.map((journey) => (
@@ -75,9 +78,12 @@ export default function TravelJourneyCard({
                   <span className="text-[9px] text-neutral-400 block -mt-1">double occupancy*</span>
                 </div>
                 
-                <button className="bg-[#1C355E] hover:bg-[#12233F] text-white text-xs font-semibold px-4 py-2 rounded-full shadow transition-all duration-200">
-                  View Trip
-                </button>
+            <a
+  href={journey.viewTripUrl}
+  className="flex h-[2vw] w-[6.2vw] items-center justify-center rounded-full bg-[#2D3482] text-[0.78vw] font-semibold text-white"
+>
+  {journey.viewTripText || "View Trip"}
+</a>
               </div>
 
               {journey.earlyBird ? (

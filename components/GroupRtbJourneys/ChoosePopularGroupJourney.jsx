@@ -1,4 +1,5 @@
 "use client";
+import { slugify } from "@/lib/slugify";
 import React from "react";
 import TravelJourneyCard from "../TravelJourneyCard";
 import { useEffect, useState } from "react";
@@ -107,6 +108,18 @@ export default function ChoosePopularGroupJourney() {
               return tagEntity?.attributes?.name;
             })
             .filter(Boolean);
+            const cta = item.attributes?.field_cta;
+
+const alias = item.attributes?.path?.alias || "";
+const aliasSlug = alias.replace(/^\/journey\//, "");
+
+const titleSlug = aliasSlug || slugify(item.attributes?.title || "");
+
+let viewTripUrl = `/journeys/${titleSlug}`;
+
+if (cta?.uri && !cta.uri.startsWith("entity:")) {
+  viewTripUrl = cta.uri;
+}
 
           return {
             id: item.id,
@@ -121,7 +134,9 @@ export default function ChoosePopularGroupJourney() {
             price: Number(item.attributes?.field_offer_price) || 0,
             earlyBird: item.attributes?.field_offer_message || null,
             image: imageUrl,
-            types: tagNames,
+           types: tagNames,
+viewTripUrl,
+viewTripText: cta?.title || "View Trip",
           };
         });
 
