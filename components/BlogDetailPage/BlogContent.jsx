@@ -12,10 +12,10 @@ export default function BlogContent({
   console.log("Gallery Image:", galleryImage);
 
   return (
-    <section className="px-[60px] pb-[80px]">
-      <div className="mt-[44px] flex justify-between gap-[76px]">
+    <section className="px-5 md:px-8 lg:px-[60px] pb-[60px] lg:pb-[80px]">
+     <div className="mt-8 lg:mt-[44px] flex flex-col lg:flex-row items-start gap-12 lg:gap-[76px]">
         {/* LEFT SIDE */}
-        <div className="w-[1008px]">
+        <div className="flex-1 min-w-0 lg:max-w-[1008px]">
           <div
             className="text-[18px] leading-[36px] tracking-[0.05em] text-[#1A1A1A]"
             dangerouslySetInnerHTML={{
@@ -27,7 +27,7 @@ export default function BlogContent({
             alt="Golden Triangle"
             width={1008}
             height={410}
-            className="mt-[36px] w-[1008px] h-[410px] object-cover"
+            className="mt-8 w-full h-auto lg:w-[1008px] lg:h-[410px] object-cover"
           />
 
           <h2 className="mt-[40px] text-[24px] font-semibold leading-[40px] tracking-[0.05em] text-[#1A1A1A]">
@@ -40,13 +40,13 @@ export default function BlogContent({
               __html: blog.attributes.field_body.processed,
             }}
           />
-          <div className="mt-[48px] flex gap-[32px]">
+          <div className="mt-10 flex flex-col sm:flex-row gap-6 lg:gap-[32px]">
             <Image
               src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${galleryImage.attributes.uri.url}`}
               alt="Agra"
               width={408}
               height={536}
-              className="w-[408px] h-[536px] object-cover object-center"
+              className="w-full sm:w-1/2 lg:w-[408px] h-auto lg:h-[536px] object-cover object-center"
             />
 
             <Image
@@ -54,7 +54,7 @@ export default function BlogContent({
   alt="Taj Mahal"
   width={408}
   height={536}
-  className="w-[408px] h-[536px] object-cover object-center"
+   className="w-full sm:w-1/2 lg:w-[408px] h-auto lg:h-[536px] object-cover object-center"
 />
           </div>
 
@@ -171,31 +171,32 @@ export default function BlogContent({
 
           {/* Previous / Next */}
 
-          <div className="mt-[72px] flex items-center justify-between">
-            <button className="flex items-center gap-[12px] text-[14px] font-medium text-[#1A1A1A]">
-              <Image
-                src="/ArrowLeft.svg"
-                alt="Previous"
-                width={24}
-                height={24}
-              />
-              <span>Previous Post Name</span>
-            </button>
+          <div className="mt-14 flex flex-col gap-6 sm:flex-row sm:justify-between sm:items-center">
+  <button className="flex items-center gap-[12px] text-[14px] font-medium text-[#1A1A1A] self-start sm:self-auto">
+    <Image
+      src="/ArrowLeft.svg"
+      alt="Previous"
+      width={24}
+      height={24}
+    />
+    <span>Previous Post Name</span>
+  </button>
 
-            <button className="flex items-center gap-[12px] text-[14px] font-medium text-[#1A1A1A]">
-              <span>Next Post Name</span>
-              <Image
-                src="/ArrowUpRight.svg"
-                alt="Next"
-                width={24}
-                height={24}
-              />
-            </button>
-          </div>
+  <button className="flex items-center gap-[12px] text-[14px] font-medium text-[#1A1A1A] self-end sm:self-auto">
+    <span>Next Post Name</span>
+    <Image
+      src="/ArrowUpRight.svg"
+      alt="Next"
+      width={24}
+      height={24}
+    />
+  </button>
+</div>
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="w-[552px]">
+          <div className="w-full lg:w-[552px] lg:flex-shrink-0">
+          <div className="mb-[32px] border-b border-[#1A1A1A] lg:hidden" />
           <h3 className="text-[24px] font-semibold leading-[40px] tracking-[0.05em] text-[#1A1A1A]">
             Categories
           </h3>
@@ -204,7 +205,7 @@ export default function BlogContent({
             {categories.map((category) => (
          <button
              key={category.id}
-             className="px-[16px] h-[31px] rounded-full border border-[#1A1A1A] text-[16px] font-normal text-[#1A1A1A]"
+             className="px-4 h-[31px] text-sm lg:text-base rounded-full border border-[#1A1A1A] text-[16px] font-normal text-[#1A1A1A]"
            >
              {category.attributes.name}
          </button>
@@ -265,7 +266,7 @@ export default function BlogContent({
             </div>
 
             {/* Button */}
-            <button className="mt-[24px] h-[45px] rounded-[100px] bg-[#2C3078] px-[21px] text-[16px] font-medium text-white">
+            <button className="mt-6 w-full sm:w-auto h-[45px] rounded-full bg-[#2C3078] px-6 text-base text-white">
               Subscribe
             </button>
           </div>
