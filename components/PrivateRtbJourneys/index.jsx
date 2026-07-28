@@ -5,6 +5,7 @@ import JourneyRevelationsSection from "../JourneyRevelationsSection";
 import WhyTakeJourney from "../WhyTakeJourney";
 import AdvisorCallout from "./AdvisorCallout";
 import CuratedRouteSection from "./CuratedRouteSection";
+import CuratedRouteSectionMobile from "./CuratedRouteSectionMobile";
 import JourneyInspiration from "./JourneyInspiration";
 import PrivateJourneysLuxury from "./PrivateJourneysLuxury";
 
@@ -99,6 +100,7 @@ export default function Index() {
   return (
     <div>
       <CuratedRouteSection />
+      <CuratedRouteSectionMobile />
       <JourneyRevelationsSection
         badgeText="What exactly is a private journey?"
         titleText="A well-designed starting point, shaped entirely around you aa"
