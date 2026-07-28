@@ -107,9 +107,7 @@ export default function ChoosePopularGroupJourney() {
               return tagEntity?.attributes?.name;
             })
             .filter(Boolean);
-<<<<<<< HEAD
-=======
-          const cta = item.attributes?.field_cta;
+              const cta = item.attributes?.field_cta;
 
           const alias = item.attributes?.path?.alias || "";
           const aliasSlug = alias.replace(/^\/journey\//, "");
@@ -121,7 +119,6 @@ export default function ChoosePopularGroupJourney() {
           if (cta?.uri && !cta.uri.startsWith("entity:")) {
             viewTripUrl = cta.uri;
           }
->>>>>>> 79673c8dc04115d46e527a2841ab0cce24987d46
 
           return {
             id: item.id,
@@ -137,11 +134,8 @@ export default function ChoosePopularGroupJourney() {
             earlyBird: item.attributes?.field_offer_message || null,
             image: imageUrl,
             types: tagNames,
-<<<<<<< HEAD
-=======
-            viewTripUrl,
+             viewTripUrl,
             viewTripText: cta?.title || "View Trip",
->>>>>>> 79673c8dc04115d46e527a2841ab0cce24987d46
           };
         });
 
@@ -153,6 +147,7 @@ export default function ChoosePopularGroupJourney() {
         console.log(groupJourneys);
 
         setJourneys(groupJourneys);
+        
       } catch (err) {
         console.error(err);
       }

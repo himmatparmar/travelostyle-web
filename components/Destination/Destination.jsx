@@ -147,7 +147,7 @@ if (cta?.uri && !cta.uri.startsWith("entity:")) {
   }, []);
 
   return (
-  <section className="flex flex-col items-start md:items-center text-left md:text-center px-4">
+  <section className="w-full overflow-hidden flex flex-col items-start md:items-center text-left md:text-center px-4">
   <div className="flex flex-col items-start md:items-center text-left md:text-center">
     <h2 className="mt-5 text-[32px] leading-[40px] md:text-[48px] md:leading-[56px] font-semibold">
       The Destinations TravelOStyle Knows Best
@@ -162,13 +162,13 @@ if (cta?.uri && !cta.uri.startsWith("entity:")) {
     </p>
   </div>
 
- <div className="mt-12">
-      <TravelJourneyCard
-        journeys={journeys.slice(0, 8)}
-        selectedTrips={selectedTrips}
-        onCompare={handleCompareSelection}
-      />
-    </div>
+ <div className="mt-12 w-full overflow-hidden">
+  <TravelJourneyCard
+    journeys={journeys.slice(0, 8)}
+    selectedTrips={selectedTrips}
+    onCompare={handleCompareSelection}
+  />
+</div>
 </section>
 
 

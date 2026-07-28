@@ -42,7 +42,7 @@ export default function AllJourneysPage() {
         setLoading(true);
 
         const res = await fetch(
-  `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month`,
+  `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month,field_region`,
 );
 
         const json = await res.json();
@@ -107,6 +107,15 @@ export default function AllJourneysPage() {
           if (cta?.uri && !cta.uri.startsWith("entity:")) {
             viewTripUrl = cta.uri;
           }
+          const regionId = item.relationships?.field_region?.data?.id;
+
+const regionEntity = included.find(
+  (inc) =>
+    inc.type === "taxonomy_term--region" &&
+    inc.id === regionId
+);
+
+const regionName = regionEntity?.attributes?.name || "";
 
           return {
             id: item.id,
@@ -128,7 +137,7 @@ export default function AllJourneysPage() {
 
             tags: tagNames,
             style: tagNames[0] || "Group Journey",
-            region: item.attributes?.field_region || "",
+            region: regionName,
             category: item.attributes?.field_category || "",
             month: monthName,
 
@@ -155,7 +164,7 @@ export default function AllJourneysPage() {
     async function loadFilters() {
       try {
         const endpoints = {
-  region: `${API_BASE_URL}/jsonapi/taxonomy_term/country`,
+  region: `${API_BASE_URL}/jsonapi/taxonomy_term/region`,
   style: `${API_BASE_URL}/jsonapi/taxonomy_term/tags`,
   offer: `${API_BASE_URL}/jsonapi/taxonomy_term/offers`,
   category: `${API_BASE_URL}/jsonapi/taxonomy_term/category`,
