@@ -54,7 +54,7 @@ export default function GoodCompaneyJourney() {
   ];
 
   return (
-    <div className="relative w-full min-h-screen bg-white px-4 py-16 md:py-24 overflow-hidden flex flex-col items-center select-none border-t-[2px] border-[#3f4284]">
+    <div className="hidden md:flex relative w-full min-h-screen bg-white px-4 py-16 md:py-24 overflow-hidden flex-col items-center select-none border-t-[2px] border-[#3f4284]">
       <div className="absolute inset-0 w-full h-full pointer-events-none z-0 hidden md:block">
         <svg
           className="w-full h-full"
@@ -110,6 +110,7 @@ export default function GoodCompaneyJourney() {
           </span>
         </p>
       </div>
+
       <div className="relative w-full max-w-[1250px] mt-12 md:mt-24 flex flex-wrap md:flex-nowrap justify-center items-start gap-8 md:gap-0 px-6 z-10">
         {polaroids.map((photo) => (
           <div
@@ -132,12 +133,12 @@ export default function GoodCompaneyJourney() {
             </div>
             
             {photo.hasButton && (
-             <button
-  onClick={() => router.push("/comparison")}
-  className="absolute top-[46%] right-[-45px] transform -translate-y-1/2 bg-[#212b68] text-white font-semibold text-[10.5px] py-1.5 px-3.5 rounded-[3px] shadow-[0_4px_12px_rgba(0,0,0,0.3)] tracking-wide hover:bg-[#151c47] transition-colors z-50 whitespace-nowrap border border-white/15"
->
-  Compare Trips
-</button>
+              <button
+                onClick={() => router.push("/comparison")}
+                className="absolute top-[46%] right-[-45px] transform -translate-y-1/2 bg-[#212b68] text-white font-semibold text-[10.5px] py-1.5 px-3.5 rounded-[3px] shadow-[0_4px_12px_rgba(0,0,0,0.3)] tracking-wide hover:bg-[#151c47] transition-colors z-50 whitespace-nowrap border border-white/15"
+              >
+                Compare Trips
+              </button>
             )}
           </div>
         ))}

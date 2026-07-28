@@ -1,37 +1,36 @@
 "use client";
-import GroupRevelationsSection from "../GroupRevelationsSection";
-import BookingSteps from "../GroupRtbJourneys/BookingSteps";
+import BookingSteps from "../BookingSteps";
+import JourneyRevelationsMobile from "../JourneyRevelationsMobile";
+import JourneyRevelationsSection from "../JourneyRevelationsSection";
 import CustomFromGroundUp from "./CustomFromGroundUp";
 import NotSureWhereToBegin from "./NotSureWhereToBegin";
 import PopularRegions from "./PopularRegions";
 import WhollyJourneyHero from "./WhollyJourneyHero";
 
 export default function Index() {
-  const privateJourneyFeatures = [
+const tailormadeJourneyFeatures = [
     {
-      imgUrl: "/TeresaWang.svg",
-      description: "Well-thought out route that you get to customize",
+      imgUrl: "/TeresaWang.svg", 
+      description: "Start with an inspiration",
     },
     {
       imgUrl: "/TeresaWang.svg",
-      description:
-        "Want to add a city? Let's build it in. A different hotel? We'll give you options",
+      description: "Start with a conversation",
     },
     {
-      imgUrl: "/GoupPeople.svg",
-      description:
-        "All the groundwork is done. Beyond that, everything is open to conversation",
+      imgUrl: "/GoupPeople.svg", 
+      description: "Start with what you want and we'll take it from there!",
     },
   ];
 
-  const privateMatrix = [
+ const tailormadeMatrix = [
     {
       label: "WHAT IS IT?",
-      text: "The itineraries act as inspirations, not contracts. TravelOStyle advisors will work through every detail with you – adjusting the pace, reshaping the sequence, adding what matters to you and letting go of what doesn't.",
+      text: "A completely customized journey built from scratch according to your specific travel vision, preferences, and pace.",
     },
     {
       label: "WHO IS IT FOR?",
-      text: "This is for travelers who know roughly what they want but would rather start from something solid than build from nothing. You can go solo or bring along your loved ones and go as a group.",
+      text: "For those who know what they want to experience from travel. Or have a rough idea, or a vision they would like to bring alive.",
     },
   ];
 
@@ -66,16 +65,28 @@ export default function Index() {
   return (
     <div>
       <WhollyJourneyHero />
-      <GroupRevelationsSection
-        badgeText="What exactly is a private journey?"
-        titleText="A well-designed starting point, shaped entirely around you aa"
-        features={privateJourneyFeatures}
-        topIntroText="A TravelOStyle Private Journey begins with one of our carefully built itineraries – and then hands it over to you."
-        matrixRows={privateMatrix}
-        footerText="The key-locations, the flow between them, and the way you move through the trip is already planned for you; along with on-ground guidance for a smooth journey"
+      <JourneyRevelationsSection
+       badgeText="What is a tailormade journey?"
+        titleText="Journeys made to fit your idea of travel"
+        features={tailormadeJourneyFeatures}
+          topIntroText={"TravelOStyle will ask the right questions, understand how you like to move, what you're hoping to feel, what you absolutely cannot compromise on, and what you'd happily leave behind. Then we craft your perfect journey."}
+        matrixRows={tailormadeMatrix}
+      footerText={"Journeys that begin with you. Where you want to go. How long you want to travel. What season works. Who's coming? What pace feels right. What kind of stay you want. What the trip needs to do for you"}
         theme={{
-          cardBg: "bg-[#f1e2d7]",
+          cardBg: "bg-[#f2d09f]",
           labelBg: "bg-[#ebdcd1]/40",
+        }}
+      />
+      <JourneyRevelationsMobile
+       badgeText="What is a tailormade journey?"
+        titleText="Journeys made to fit your idea of travel"
+        features={tailormadeJourneyFeatures}
+        topIntroText={"TravelOStyle will ask the right questions, understand how you like to move, what you're hoping to feel, what you absolutely cannot compromise on, and what you'd happily leave behind. Then we craft your perfect journey."}
+        matrixRows={tailormadeMatrix}
+        footerText={"Journeys that begin with you. Where you want to go. How long you want to travel. What season works. Who's coming? What pace feels right. What kind of stay you want. What the trip needs to do for you"}
+        theme={{
+          cardBg: "#f2d09f",
+          borderColor: "#444444",
         }}
       />
       <NotSureWhereToBegin />

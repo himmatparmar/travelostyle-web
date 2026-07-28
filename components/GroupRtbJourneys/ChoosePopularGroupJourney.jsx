@@ -107,6 +107,21 @@ export default function ChoosePopularGroupJourney() {
               return tagEntity?.attributes?.name;
             })
             .filter(Boolean);
+<<<<<<< HEAD
+=======
+          const cta = item.attributes?.field_cta;
+
+          const alias = item.attributes?.path?.alias || "";
+          const aliasSlug = alias.replace(/^\/journey\//, "");
+
+          const titleSlug = aliasSlug || slugify(item.attributes?.title || "");
+
+          let viewTripUrl = `/journeys/${titleSlug}`;
+
+          if (cta?.uri && !cta.uri.startsWith("entity:")) {
+            viewTripUrl = cta.uri;
+          }
+>>>>>>> 79673c8dc04115d46e527a2841ab0cce24987d46
 
           return {
             id: item.id,
@@ -122,6 +137,11 @@ export default function ChoosePopularGroupJourney() {
             earlyBird: item.attributes?.field_offer_message || null,
             image: imageUrl,
             types: tagNames,
+<<<<<<< HEAD
+=======
+            viewTripUrl,
+            viewTripText: cta?.title || "View Trip",
+>>>>>>> 79673c8dc04115d46e527a2841ab0cce24987d46
           };
         });
 
@@ -141,7 +161,7 @@ export default function ChoosePopularGroupJourney() {
     loadJourneys();
   }, []);
   return (
-    <div className=" min-h-screen py-16 px-4 sm:px-6 lg:px-8 font-sans">
+    <div className=" min-h-screen py-16 px-4 sm:px-6 lg:px-8 font-sans overflow-hidden">
       <div className="text-center mb-12">
         <p className="font-serif italic text-2xl text-neutral-600 lowercase tracking-wide">
           choose from our popular group journeys

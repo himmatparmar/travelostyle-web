@@ -147,21 +147,21 @@ if (cta?.uri && !cta.uri.startsWith("entity:")) {
   }, []);
 
   return (
-      
-     <section className="flex flex-col items-center text-center px-4">
-        <div className="flex flex-col items-center text-center">
-<h2 className="mt-5 text-[48px] leading-[56px] font-semibold">
+  <section className="flex flex-col items-start md:items-center text-left md:text-center px-4">
+  <div className="flex flex-col items-start md:items-center text-left md:text-center">
+    <h2 className="mt-5 text-[32px] leading-[40px] md:text-[48px] md:leading-[56px] font-semibold">
       The Destinations TravelOStyle Knows Best
-</h2>
+    </h2>
 
-<p className="w-full max-w-[1100px] font-[Nohemi] text-[18px] leading-[32px] tracking-[0.05em] text-black">
-  Choose from the locations that consistently deliver. These are places we know
-  <br />
-  well enough to recommend without reservation, and that our travelers reliably come home
-  <br />
-  grateful they chose!
-</p>
-</div>
+    <p className="w-full max-w-[1100px] font-[Nohemi] text-[18px] leading-[28px] md:text-[18px] md:leading-[32px] tracking-[0.05em] text-black">
+      Choose from the locations that consistently deliver. These are places we know
+      <br className="hidden md:block" />
+      well enough to recommend without reservation, and that our travelers reliably come home
+      <br className="hidden md:block" />
+      grateful they chose!
+    </p>
+  </div>
+
  <div className="mt-12">
       <TravelJourneyCard
         journeys={journeys.slice(0, 8)}

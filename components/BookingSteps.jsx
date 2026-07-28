@@ -2,7 +2,7 @@ import React from "react";
 
 export default function BookingSteps({ bookingRecords }) {
   const { subheading, mainHeading, steps } = bookingRecords;
-
+  
   return (
     <section className="w-full py-16 px-4 md:px-12 bg-white font-sans text-stone-900">
       <div className="max-w-6xl mx-auto text-center mb-16">
@@ -17,7 +17,7 @@ export default function BookingSteps({ bookingRecords }) {
         {steps?.map((step, index) => (
           <div
             key={index}
-            className={`p-8 rounded-xl border border-black/10 flex flex-col justify-between transition-shadow hover:shadow-md w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[280px] min-h-[380px] ${step.bgColor || "bg-white"}`}
+            className={`p-8 rounded-xl border border-[#646461] flex flex-col justify-between transition-shadow hover:shadow-md w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[280px] min-h-[380px] ${step.bgColor || "bg-white"}`}
           >
             <div>
               <span className="block text-4xl font-extrabold text-black mb-6">
