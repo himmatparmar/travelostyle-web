@@ -1,11 +1,14 @@
 "use client";
-
+import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 
 const FilterSection = ({ title, children, defaultOpen = true }) => {
   const [open, setOpen] = useState(defaultOpen);
 
+
   return (
+
+
     <div className="border-b border-[#E8E8E8] py-[1.2vw]">
       <button
         onClick={() => setOpen(!open)}
@@ -47,9 +50,8 @@ const MonthPill = ({ label, active, onClick }) => {
     <button
       onClick={onClick}
       className={`rounded-full border px-[0.7vw] py-[0.25vw] text-[0.72vw]
-      ${
-        active ? "bg-[#2f2d89] text-white border-[#2f2d89]" : "border-[#d0d0d0] text-[#444]"
-      }`}
+      ${active ? "bg-[#2f2d89] text-white border-[#2f2d89]" : "border-[#d0d0d0] text-[#444]"
+        }`}
     >
       {label}
     </button>
@@ -61,9 +63,22 @@ export default function FilterSidebar({
   filterOptions,
   journeys = [],
 }) {
+
   const [showMoreCategories, setShowMoreCategories] = useState(false);
 
   const [loading, setLoading] = useState(false);
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const regionParam = searchParams.get("region");
+
+    if (regionParam) {
+      setFilters((prev) => ({
+        ...prev,
+        region: [regionParam],
+      }));
+    }
+  }, [searchParams]);
 
   // ================= CLEAR =================
   const clearAll = () => {
@@ -148,6 +163,13 @@ export default function FilterSidebar({
       }
     }).length;
   };
+  const filteredJourneys = journeys.filter((item) => {
+    const regionMatch =
+      filters.region.length === 0 ||
+      filters.region.includes(item.region);
+
+    return regionMatch;
+  });
   return (
     <aside className="w-[220px] shrink-0">
       {/* HEADER */}

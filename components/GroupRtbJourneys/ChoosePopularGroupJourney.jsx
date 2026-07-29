@@ -1,5 +1,4 @@
 "use client";
-import { slugify } from "@/lib/slugify";
 import React from "react";
 import TravelJourneyCard from "../TravelJourneyCard";
 import { useEffect, useState } from "react";
@@ -69,7 +68,7 @@ export default function ChoosePopularGroupJourney() {
         );
 
         const json = await res.json();
-        
+
         const included = json.included || [];
 
         const drupalJourneys = (json.data || []).map((item) => {
@@ -125,12 +124,10 @@ export default function ChoosePopularGroupJourney() {
             id: item.id,
             title: item.attributes?.title || "",
             description: item.attributes?.field_short_description || "",
-            duration: `${item.attributes?.field_duration_days || 0} Days | ${
-              item.attributes?.field_duration_nights || 0
-            } Nights`,
-            destinations: `${
-              item.attributes?.field_destinations_count || 0
-            } Destinations`,
+            duration: `${item.attributes?.field_duration_days || 0} Days | ${item.attributes?.field_duration_nights || 0
+              } Nights`,
+            destinations: `${item.attributes?.field_destinations_count || 0
+              } Destinations`,
             price: Number(item.attributes?.field_offer_price) || 0,
             earlyBird: item.attributes?.field_offer_message || null,
             image: imageUrl,
@@ -148,6 +145,7 @@ export default function ChoosePopularGroupJourney() {
         console.log(groupJourneys);
 
         setJourneys(groupJourneys);
+
       } catch (err) {
         console.error(err);
       }

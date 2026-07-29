@@ -108,9 +108,6 @@ export default function Region() {
         {regions.map((region) => (
           <div
             key={region.id}
-            onClick={() =>
-              router.push(`/itinerary?region=${region.id}`)
-            }
             className="group relative cursor-pointer overflow-hidden rounded-[10px] border-2 border-[#1A1A1A]  w-full
 "
           >
@@ -148,6 +145,11 @@ export default function Region() {
                 <div className="mt-3 h-[1px] w-full bg-white/60" />
 
                 <button
+                  onClick={() =>
+                    router.push(
+                      `/itinerary?region=${encodeURIComponent(region.name)}`
+                    )
+                  }
                   className="
     mt-3 rounded-full bg-white
     px-3 py-1.5 md:px-4 md:py-2
