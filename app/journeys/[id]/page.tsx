@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import SearchBar from "@/components/JourneyDetailPage/SearchBar";
 import JourneyDetailClient from "@/components/JourneyDetailPage/JourneyDetailClient";
 import Footer from "@/components/Footer";
+import JourneyPricing from "@/components/JourneyDetailPage/DatePricing";
 import { API_BASE_URL } from "@/lib/config";
 
 const INCLUDE = [
@@ -58,7 +59,9 @@ export default async function JourneyDetailPage({
     <>
       <SearchBar />
       <JourneyDetailClient initialData={initialData} />
-      <Footer />
+
+    <JourneyPricing/>
+     <Footer />
     </>
   );
 }
