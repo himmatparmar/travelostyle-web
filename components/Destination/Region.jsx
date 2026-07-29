@@ -144,21 +144,21 @@ export default function Region() {
 
                 <div className="mt-3 h-[1px] w-full bg-white/60" />
 
-              <button
-  onClick={() =>
- router.push(
-  `/itinerary?region=${encodeURIComponent(region.name)}`
-)
-  }
-  className="
+                <button
+                  onClick={() =>
+                    router.push(
+                      `/itinerary?region=${encodeURIComponent(region.name)}`
+                    )
+                  }
+                  className="
     mt-3 rounded-full bg-white
     px-3 py-1.5 md:px-4 md:py-2
     text-[11px] md:text-[12px]
     font-semibold text-[#24378C]
   "
->
-  Explore Journeys
-</button>
+                >
+                  Explore Journeys
+                </button>
               </div>
             </div>
           </div>

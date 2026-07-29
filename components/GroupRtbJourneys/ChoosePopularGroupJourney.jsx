@@ -68,7 +68,7 @@ export default function ChoosePopularGroupJourney() {
         );
 
         const json = await res.json();
-        
+
         const included = json.included || [];
 
         const drupalJourneys = (json.data || []).map((item) => {
@@ -107,7 +107,7 @@ export default function ChoosePopularGroupJourney() {
               return tagEntity?.attributes?.name;
             })
             .filter(Boolean);
-              const cta = item.attributes?.field_cta;
+          const cta = item.attributes?.field_cta;
 
           const alias = item.attributes?.path?.alias || "";
           const aliasSlug = alias.replace(/^\/journey\//, "");
@@ -124,17 +124,15 @@ export default function ChoosePopularGroupJourney() {
             id: item.id,
             title: item.attributes?.title || "",
             description: item.attributes?.field_short_description || "",
-            duration: `${item.attributes?.field_duration_days || 0} Days | ${
-              item.attributes?.field_duration_nights || 0
-            } Nights`,
-            destinations: `${
-              item.attributes?.field_destinations_count || 0
-            } Destinations`,
+            duration: `${item.attributes?.field_duration_days || 0} Days | ${item.attributes?.field_duration_nights || 0
+              } Nights`,
+            destinations: `${item.attributes?.field_destinations_count || 0
+              } Destinations`,
             price: Number(item.attributes?.field_offer_price) || 0,
             earlyBird: item.attributes?.field_offer_message || null,
             image: imageUrl,
             types: tagNames,
-             viewTripUrl,
+            viewTripUrl,
             viewTripText: cta?.title || "View Trip",
           };
         });
@@ -147,7 +145,7 @@ export default function ChoosePopularGroupJourney() {
         console.log(groupJourneys);
 
         setJourneys(groupJourneys);
-        
+
       } catch (err) {
         console.error(err);
       }
