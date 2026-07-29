@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React from "react";
+
 const routeDays = [
   {
     day: "DAY 1",
@@ -70,7 +71,7 @@ const routeDays = [
 export default function CuratedRouteSection() {
   const router = useRouter();
   return (
-    <div className="w-full min-h-[800px] bg-white relative flex flex-col items-center py-16 overflow-hidden select-none border-t-[1px] border-[#3f4284]">
+    <div className=" hidden md:flex w-full  bg-white relative flex flex-col items-center overflow-hidden select-none border-t-[1px] border-[#3f4284]">
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -98,20 +99,20 @@ export default function CuratedRouteSection() {
           />
         </svg>
       </div>
-      <div className="relative z-10 flex flex-col items-center text-center px-4 mb-26 mt-4">
-        <span className="font-taprom text-[46px] md:text-[52px] font-bold text-[#2d2d2d] bg-[#f1e3d9] px-8 py-1 tracking-wide leading-none rounded-2xs shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
+      <div className="relative z-10 flex flex-col items-center text-center px-4 mb-15 mt-15">
+        <span className="font-taprom text-[46px] md:text-[52px] font-bold text-[#2d2d2d] bg-[#f1e3d9] px-5  tracking-wide leading-none rounded-2xs shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
           A curated route, perfected by
         </span>
-        <span className="font-taprom text-[46px] md:text-[52px] font-bold text-[#2d2d2d] bg-[#f1e3d9] px-12 py-1 mt-3.5 tracking-wide leading-none rounded-2xs shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
+        <span className="font-taprom text-[46px] md:text-[52px] font-bold text-[#2d2d2d] bg-[#f1e3d9] px-5 mt-3.5 tracking-wide leading-none rounded-2xs shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
           you, for you
         </span>
       </div>
 
-      <div className="w-full max-w-[1280px] h-[480px] relative z-20 mx-auto px-4 flex items-center justify-start">
+      <div className="w-full max-w-[1200px] h-[480px] relative z-20 mx-auto px-4 flex items-center justify-start">
         {routeDays.map((item, index) => (
           <div
             key={index}
-            className={`bg-white border transition-transform duration-200 hover:scale-105 hover:z-50 ${item.styles} ${item.padding}`}
+            className={`bg-white border border-[#919191]-100 transition-transform duration-200 hover:scale-105 hover:z-50 ${item.styles} ${item.padding}`}
           >
             <div
               className={`w-full overflow-hidden border border-neutral-200 rounded-3xs ${item.aspect}`}
@@ -130,9 +131,7 @@ export default function CuratedRouteSection() {
             </div>
           </div>
         ))}
-
-        {/* Compare Trips Button */}
-        <div className="absolute left-[79.5%] bottom-[-20px] z-50">
+        <div className="absolute right-[5%] bottom-[10vw] z-50">
           <button
             onClick={() => router.push("/comparison")}
             className="bg-[#242e6d] text-white font-semibold text-[11.5px] px-6 py-3 rounded-xs shadow-md hover:bg-[#1a2353] transition-colors duration-150 uppercase tracking-widest"
