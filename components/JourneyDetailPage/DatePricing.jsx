@@ -2,89 +2,128 @@
 import { useState } from "react";
 import React from "react";
 
-const departures = [
-    {
+// const departures = [
+//     {
 
-        startDate: "11 May 2026",
-        startDay: "Monday",
-        endDate: "24 May 2026",
-        endDay: "Friday",
-
-
-        statusType: "soldout",
-        line1: "Journey Sold Out",
-
-        statusColor: "text-red-600",
-        price: "$5000",
-        offer: "No offers available",
-        button: "Request a Private Journey",
-        buttonStyle: "bg-[#2C3078] text-white",
-    },
-
-    {
-        startDate: "11 May 2026",
-        startDay: "Monday",
-        endDate: "24 May 2026",
-        endDay: "Friday",
-
-        statusType: "guaranteed",
-        line1: "2 Seats Left",
-        line2: "Guaranteed Departure",
-
-        statusColor: "text-green-600",
-        price: "$5000",
-        offer: "No offers available",
-        button: "Enquire For This Date",
-        buttonStyle: "bg-[#2C3078] text-white",
-    },
-    {
-
-        startDate: "11 May 2026",
-        startDay: "Monday",
-        endDate: "24 May 2026",
-        endDay: "Friday",
-        statusType: "earlybird",
-        line1: "Seats Open",
-        line2: "Early Bird Available",
+//         startDate: "11 May 2026",
+//         startDay: "Monday",
+//         endDate: "24 May 2026",
+//         endDay: "Friday",
 
 
-        discountedPrice: "$3500",
-        originalPrice: "$5000",
+//         statusType: "soldout",
+//         line1: "Journey Sold Out",
+
+//         statusColor: "text-red-600",
+//         price: "$5000",
+//         offer: "No offers available",
+//         button: "Request a Private Journey",
+//         buttonStyle: "bg-[#2C3078] text-white",
+//     },
+
+//     {
+//         startDate: "11 May 2026",
+//         startDay: "Monday",
+//         endDate: "24 May 2026",
+//         endDay: "Friday",
+
+//         statusType: "guaranteed",
+//         line1: "2 Seats Left",
+//         line2: "Guaranteed Departure",
+
+//         statusColor: "text-green-600",
+//         price: "$5000",
+//         offer: "No offers available",
+//         button: "Enquire For This Date",
+//         buttonStyle: "bg-[#2C3078] text-white",
+//     },
+//     {
+
+//         startDate: "11 May 2026",
+//         startDay: "Monday",
+//         endDate: "24 May 2026",
+//         endDay: "Friday",
+//         statusType: "earlybird",
+//         line1: "Seats Open",
+//         line2: "Early Bird Available",
 
 
-        offerPercent: "30% off",
-        offerText: "Early Bird Offer applied to price",
+//         discountedPrice: "$3500",
+//         originalPrice: "$5000",
 
 
-        button: "Claim Early Bird Call",
-        buttonStyle: "bg-[#2C3078] text-white",
-    },
-    {
-
-        startDate: "11 May 2026",
-        startDay: "Monday",
-        endDate: "24 May 2026",
-        endDay: "Friday",
+//         offerPercent: "30% off",
+//         offerText: "Early Bird Offer applied to price",
 
 
-        statusType: "open",
-        line1: "Seats Open",
-        statusColor: "text-green-600",
-        price: "$5000",
-        offer: "No offers available",
-        button: "Enquire For This Date",
-        buttonStyle: "bg-[#2C3078] text-white",
-    },
-];
+//         button: "Claim Early Bird Call",
+//         buttonStyle: "bg-[#2C3078] text-white",
+//     },
+//     {
 
-export default function JourneyPricing() {
+//         startDate: "11 May 2026",
+//         startDay: "Monday",
+//         endDate: "24 May 2026",
+//         endDay: "Friday",
+
+
+//         statusType: "open",
+//         line1: "Seats Open",
+//         statusColor: "text-green-600",
+//         price: "$5000",
+//         offer: "No offers available",
+//         button: "Enquire For This Date",
+//         buttonStyle: "bg-[#2C3078] text-white",
+//     },
+// ];
+
+
+
+export default function JourneyPricing({
+  journey,
+  departures = [],
+}) {
     const [selectedYear, setSelectedYear] = useState("2026");
+
+const trips = departures.map((item) => ({
+  startDate: item.attributes?.field_departure_date,
+  endDate: item.attributes?.field_return_date,
+  statusType: item.attributes?.field_status,
+  originalPrice: journey?.attributes?.field_original_price,
+  discountedPrice: journey?.attributes?.field_offer_price,
+  offer: item.attributes?.field_offer,
+  button:
+  item.attributes?.field_status === "soldout"
+    ? "Request a Private Journey"
+    : "Enquire For This Date",
+}));
+const filteredTrips = trips.filter((trip) => {
+  const year = new Date(trip.startDate)
+    .getFullYear()
+    .toString();
+
+  return year === selectedYear;
+});
+console.log("Departures:", departures);
+console.log("Trips:", trips);
+const formatDate = (date) =>
+  new Date(date).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+
+const getDay = (date) =>
+  new Date(date).toLocaleDateString("en-GB", {
+    weekday: "long",
+  });
+  
 
     return (
         <section className="max-w-[1701px]  px-4 py-10">
             <div className="text-center mb-8">
                 <h2
-                
+
                     className="
           font-semibold
           text-[32px]
@@ -163,7 +202,7 @@ export default function JourneyPricing() {
                         </tr>
                     </thead>
                     <tbody>
-                        {departures.map((trip, index) => (
+                    {filteredTrips.map((trip, index) => (
                             <tr key={index} className="h-[104px] border-b-2 border-black">
                                 <td className="border px-5 py-6 align-middle">
                                     <div className="flex items-start gap-3">
@@ -172,14 +211,14 @@ export default function JourneyPricing() {
                                                 className="font-medium text-[16px] text-[#1A1A1A]"
                                                 style={{ fontFamily: "Nohemi" }}
                                             >
-                                                {trip.startDate}
+                                                {formatDate(trip.startDate)}
                                             </div>
 
                                             <div
                                                 className="text-[12px] text-[#6B7280] mt-1"
                                                 style={{ fontFamily: "Nohemi" }}
                                             >
-                                                {trip.startDay}
+                                                {getDay(trip.startDate)}
                                             </div>
                                         </div>
 
@@ -190,123 +229,58 @@ export default function JourneyPricing() {
                                                 className="font-medium text-[16px] text-[#1A1A1A]"
                                                 style={{ fontFamily: "Nohemi" }}
                                             >
-                                                {trip.endDate}
+                                               {formatDate(trip.endDate)}
                                             </div>
 
                                             <div
                                                 className="text-[12px] text-[#6B7280] mt-1"
                                                 style={{ fontFamily: "Nohemi" }}
                                             >
-                                                {trip.endDay}
-                                            </div>
+                                            {getDay(trip.endDate)}
+                                                                                        </div>
                                         </div>
                                     </div>
                                 </td>
 
                                 <td className="border px-4 py-5 align-middle">
-                                    {trip.statusType === "soldout" && (
-                                        <div
-                                            className="text-[#891722] text-[14px] leading-[16px] font-medium"
-                                            style={{ fontFamily: "Nohemi" }}
-                                        >
-                                            {trip.line1}
-                                        </div>
-                                    )}
-
-                                    {trip.statusType === "guaranteed" && (
-                                        <div
-                                            className="flex flex-col gap-[2px]"
-                                            style={{ fontFamily: "Nohemi" }}
-                                        >
-                                            <span className="text-[#891722] text-[14px] leading-[16px] font-medium">
-                                                {trip.line1}
-                                            </span>
-
-                                            <span className="text-[#128914] text-[14px] leading-[16px] font-medium">
-                                                {trip.line2}
-                                            </span>
-                                        </div>
-                                    )}
-
-                                    {trip.statusType === "earlybird" && (
-                                        <div
-                                            className="flex flex-col gap-[2px]"
-                                            style={{ fontFamily: "Nohemi" }}
-                                        >
-                                            <span className="text-[#128914] text-[14px] leading-[16px] font-medium">
-                                                {trip.line1}
-                                            </span>
-
-                                            <span className="text-[#128914] text-[14px] leading-[16px] font-medium">
-                                                {trip.line2}
-                                            </span>
-                                        </div>
-                                    )}
-
-                                    {trip.statusType === "open" && (
-                                        <div
-                                            className="text-[#128914] text-[14px] leading-[16px] font-medium"
-                                            style={{ fontFamily: "Nohemi" }}
-                                        >
-                                            {trip.line1}
-                                        </div>
-                                    )}
-                                </td>
+                                   {trip.statusType === "available" && (
+  <div
+    className="text-[#128914] text-[14px] leading-[16px] font-medium"
+    style={{ fontFamily: "Nohemi" }}
+  >
+    Seats Available
+  </div>
+)}
+</td>
                                 <td className="border px-4 py-5">
-                                    <div
-                                        className="text-[10px] text-[#9CA3AF] mb-1"
-                                        style={{ fontFamily: "Nohemi" }}
-                                    >
-                                        from
-                                    </div>
+                                  <div className="flex items-baseline gap-[2px]">
+  <span className="text-[20px] font-semibold">
+    {trip.discountedPrice || trip.originalPrice}
+  </span>
 
-                                    <div className="flex items-baseline gap-[2px]">
-                                        <span
-                                            className="text-[20px] font-semibold text-[#1A1A1A] leading-none"
-                                            style={{ fontFamily: "Nohemi" }}
-                                        >
-                                            {trip.discountedPrice || trip.price}
-                                            {trip.discountedPrice && "*"}
-                                        </span>
+  <span className="text-[12px]">
+    / per person
+  </span>
+</div>
 
-                                        <span
-                                            className="text-[12px] text-[#6B7280]"
-                                            style={{ fontFamily: "Nohemi" }}
-                                        >
-                                            / per person
-                                        </span>
-                                    </div>
-
-                                    {trip.originalPrice && (
-                                        <div
-                                            className="text-[10px] text-[#9CA3AF] mt-1"
-                                            style={{ fontFamily: "Nohemi" }}
-                                        >
-                                            was {trip.originalPrice}
-                                        </div>
-                                    )}
-                                </td>
-                                <td className="border px-4 py-5">
-                                    {trip.statusType === "earlybird" ? (
-                                        <div style={{ fontFamily: "Nohemi" }}>
-                                            <div className="text-[#128914] text-[14px] font-semibold leading-[16px]">
-                                                {trip.offerPercent}
-                                            </div>
-
-                                            <div className="text-[#4B5563] text-[12px] leading-[14px] mt-[2px]">
-                                                {trip.offerText}
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <div
-                                            className="text-[14px] text-[#4B5563]"
-                                            style={{ fontFamily: "Nohemi" }}
-                                        >
-                                            No offers available
-                                        </div>
-                                    )}
-                                </td>
-
+{trip.discountedPrice && (
+  <div className="text-[10px] text-[#9CA3AF]">
+    was ${trip.originalPrice}
+  </div>
+)}
+</td>
+                           
+                                    <td className="border px-4 py-5">
+  {trip.offer ? (
+    <div className="text-[14px] text-[#128914]">
+      {trip.offer}
+    </div>
+  ) : (
+    <div className="text-[14px] text-[#4B5563]">
+      No offers available
+    </div>
+  )}
+</td>
                                 <td className="border px-4 py-5 text-center">
                                     {trip.statusType === "soldout" ? (
                                         <span
