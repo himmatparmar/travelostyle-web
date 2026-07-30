@@ -18,7 +18,7 @@ const departures = [
         price: "$5000",
         offer: "No offers available",
         button: "Request a Private Journey",
-       buttonStyle: "bg-[#2C3078] text-white",
+        buttonStyle: "bg-[#2C3078] text-white",
     },
 
     {
@@ -38,7 +38,7 @@ const departures = [
         buttonStyle: "bg-[#2C3078] text-white",
     },
     {
-        
+
         startDate: "11 May 2026",
         startDay: "Monday",
         endDate: "24 May 2026",
@@ -57,7 +57,7 @@ const departures = [
 
 
         button: "Claim Early Bird Call",
-       buttonStyle: "bg-[#2C3078] text-white",
+        buttonStyle: "bg-[#2C3078] text-white",
     },
     {
 
@@ -81,7 +81,7 @@ export default function JourneyPricing() {
     const [selectedYear, setSelectedYear] = useState("2026");
 
     return (
-        <section className="max-w-[1701px] mx-auto px-4 py-10">
+        <section className="max-w-[1701px]  px-4 py-10">
             <div className="text-center mb-8">
                 <h2
                     className="
@@ -128,7 +128,8 @@ export default function JourneyPricing() {
                 </div>
             </div>
 
-            <div className="border-2 border-black rounded-[10px] overflow-hidden">
+          <div className="overflow-x-auto">
+  <div className="min-w-[1200px] border-2 border-black rounded-[10px] overflow-hidden">
                 <table
                     className="
     w-full
@@ -139,11 +140,11 @@ export default function JourneyPricing() {
                 >
                     <thead>
                         <tr className="h-[60px] bg-[#F2E2DA] border-b-2 border-black">
-                            <th className="border-r-2 border-b-2 border-black text-center font-semibold">
+                            <th className="w-[24%] border-r-2 border-b-2 border-black text-center font-semibold">
                                 Trip Dates
                             </th>
 
-                            <th className=" border-r-2 border-b-2 border-black text-center font-semibold">
+                            <th className="border-r-2 border-b-2 border-black text-center font-semibold">
                                 Status
                             </th>
 
@@ -151,7 +152,7 @@ export default function JourneyPricing() {
                                 Pricing
                             </th>
 
-                            <th className="w-[16%] border-r-2 border-b-2 border-black text-center font-semibold">
+                            <th className="w-[22%] border-r-2 border-b-2 border-black text-center font-semibold">
                                 Offers Available
                             </th>
 
@@ -284,44 +285,44 @@ export default function JourneyPricing() {
                                         </div>
                                     )}
                                 </td>
-                              <td className="border px-4 py-5">
-  {trip.statusType === "earlybird" ? (
-    <div style={{ fontFamily: "Nohemi" }}>
-      <div className="text-[#128914] text-[14px] font-semibold leading-[16px]">
-        {trip.offerPercent}
-      </div>
+                                <td className="border px-4 py-5">
+                                    {trip.statusType === "earlybird" ? (
+                                        <div style={{ fontFamily: "Nohemi" }}>
+                                            <div className="text-[#128914] text-[14px] font-semibold leading-[16px]">
+                                                {trip.offerPercent}
+                                            </div>
 
-      <div className="text-[#4B5563] text-[12px] leading-[14px] mt-[2px]">
-        {trip.offerText}
-      </div>
-    </div>
-  ) : (
-    <div
-      className="text-[14px] text-[#4B5563]"
-      style={{ fontFamily: "Nohemi" }}
-    >
-      No offers available
-    </div>
-  )}
-</td>
+                                            <div className="text-[#4B5563] text-[12px] leading-[14px] mt-[2px]">
+                                                {trip.offerText}
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div
+                                            className="text-[14px] text-[#4B5563]"
+                                            style={{ fontFamily: "Nohemi" }}
+                                        >
+                                            No offers available
+                                        </div>
+                                    )}
+                                </td>
 
                                 <td className="border px-4 py-5 text-center">
-  {trip.statusType === "soldout" ? (
-    <span
-      className="
+                                    {trip.statusType === "soldout" ? (
+                                        <span
+                                            className="
         text-[14px]
         font-medium
         underline
         cursor-pointer
         text-[#1A1A1A]
       "
-      style={{ fontFamily: "Nohemi" }}
-    >
-      Request a Private Journey
-    </span>
-  ) : (
-    <button
-      className="
+                                            style={{ fontFamily: "Nohemi" }}
+                                        >
+                                            Request a Private Journey
+                                        </span>
+                                    ) : (
+                                        <button
+                                            className="
         bg-[#2C3078]
         text-white
         rounded-full
@@ -330,48 +331,49 @@ export default function JourneyPricing() {
         text-[14px]
         font-medium
       "
-      style={{ fontFamily: "Nohemi" }}
-    >
-      {trip.button}
-    </button>
-  )}
-</td>
+                                            style={{ fontFamily: "Nohemi" }}
+                                        >
+                                            {trip.button}
+                                        </button>
+                                    )}
+                                </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
+            </div>
 
-           <div className="mt-6 flex flex-col items-start">
-  <p
-    className="text-[#1A1A1A]"
-    style={{
-      width: "263px",
-      height: "13px",
-      fontFamily: "Nohemi",
-      fontWeight: 400,
-      fontSize: "14px",
-      lineHeight: "13px",
-    }}
-  >
-    Not sure which date works?
-  </p>
+            <div className="mt-6 flex flex-col items-start">
+                <p
+                    className="text-[#1A1A1A]"
+                    style={{
+                        width: "263px",
+                        height: "13px",
+                        fontFamily: "Nohemi",
+                        fontWeight: 400,
+                        fontSize: "14px",
+                        lineHeight: "13px",
+                    }}
+                >
+                    Not sure which date works?
+                </p>
 
-  <button
-    className="underline text-[#1A1A1A] mt-[12px]"
-    style={{
-      width: "185px",
-      height: "13px",
-      fontFamily: "Nohemi",
-      fontWeight: 400,
-      fontSize: "14px",
-      lineHeight: "13px",
-      textAlign: "left",
-    }}
-  >
-    Speak to an advisor
-  </button>
-</div>
+                <button
+                    className="underline text-[#1A1A1A] mt-[12px]"
+                    style={{
+                        width: "185px",
+                        height: "13px",
+                        fontFamily: "Nohemi",
+                        fontWeight: 400,
+                        fontSize: "14px",
+                        lineHeight: "13px",
+                        textAlign: "left",
+                    }}
+                >
+                    Speak to an advisor
+                </button>
+            </div>
         </section>
     );
 }
