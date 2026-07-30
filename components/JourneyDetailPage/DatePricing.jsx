@@ -84,6 +84,7 @@ export default function JourneyPricing() {
         <section className="max-w-[1701px]  px-4 py-10">
             <div className="text-center mb-8">
                 <h2
+                
                     className="
           font-semibold
           text-[32px]
