@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Image from "next/image";
 
-export default function BookYourJourneyMobile({ onBack }) {
+export default function BookYourJourneyMobile({ onBack,journey,
+  departures }) {
   const [activeYear, setActiveYear] = useState(2026);
   const [expandedCard, setExpandedCard] = useState(2);
 
@@ -53,11 +54,8 @@ export default function BookYourJourneyMobile({ onBack }) {
   return (
     <div className="w-full max-w-md mx-auto p-4 font-sans flex flex-col gap-6  bg-[#F9F9F9]">
       <div className="flex items-center justify-between">
-        <button
-          onClick={onBack}
-          className="flex h-6 w-12 items-center justify-center rounded-full bg-white transition border border-neutral-300 active:scale-95"
-        >
-          <Image src="/LeftArrow.svg" alt="Back" width={56} height={24} />
+        <button onClick={onBack}>
+          ← Back
         </button>
 
         <h1 className="text-base font-bold tracking-tight text-[#1A1A1A]">

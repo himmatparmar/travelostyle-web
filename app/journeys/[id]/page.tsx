@@ -54,13 +54,52 @@ export default async function JourneyDetailPage({
     }
     initialData = await res.json();
   }
+  const journeyRes = await fetch(
+    `${API_BASE_URL}/api/journey/${id}?include=${INCLUDE}`,
+    {
+      cache: "no-store",
+    }
+  );
+
+  if (!journeyRes.ok) {
+    notFound();
+  }
+
+  const journeyData = await journeyRes.json();
+
+  // Check the structure first
+  console.log("Journey Data:", journeyData);
+
+  // Example (adjust based on actual response shape)
+  const journeyId = journeyData.data.id;
+
+  // Fetch departures linked to this journey
+const departureRes = await fetch(
+  `${API_BASE_URL}/jsonapi/node/book_your_journey?filter[field_journey.id]=${journeyId}`,
+  {
+    cache: "no-store",
+  }
+);
+
+const departureData = await departureRes.json();
+
+const departures = departureData.data || [];
+
+console.log("All Departures:", departures);
+console.log("Journey ID:", journeyId);
+console.log("Filtered Departures:", departures);
+
 
   return (
+
     <>
       <SearchBar />
       <JourneyDetailClient initialData={initialData} />
 
-    <JourneyPricing/>
+<JourneyPricing
+  journey={journeyData.data}
+  departures={departures}
+/>
      <Footer />
     </>
   );
