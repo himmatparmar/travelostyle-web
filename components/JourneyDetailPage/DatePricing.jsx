@@ -82,13 +82,13 @@ export default function JourneyPricing() {
 
     return (
         <section className="max-w-[1701px]  px-4 py-10">
-            <div className="text-center mb-8">
+            <div className="text-left md:text-center mb-8">
                 <h2
                 
                     className="
           font-semibold
-          text-[32px]
-          leading-[56px]
+          text-[28px] md:text-[32px]
+          leading-[36px] md:leading-[56px]
           tracking-[0.05em]
           text-[#1A1A1A]
         "
@@ -99,11 +99,7 @@ export default function JourneyPricing() {
 
                 <div className="flex justify-center">
                     <div
-                        className="flex border-2 border-black rounded-[5px] overflow-hidden"
-                        style={{
-                            width: "160px",
-                            height: "40px",
-                        }}
+                        className="flex w-[110px] h-[34px] md:w-[160px] md:h-[40px] border-2 border-black rounded-[5px] overflow-hidden"
                     >
                         {["2026", "2027"].map((year) => (
                             <button
@@ -128,9 +124,105 @@ export default function JourneyPricing() {
 
                 </div>
             </div>
+            {/* Mobile View */}
+    <div className="block md:hidden space-y-4">
+        {departures.map((trip, index) => (
+    <div
+        key={index}
+        className="border-2 border-black rounded-[6px] overflow-hidden"
+    >
+    <div className="p-3">
 
-          <div className="overflow-x-auto">
-  <div className="min-w-[1200px] border-2 border-black rounded-[10px] overflow-hidden">
+        <div className="font-semibold text-[16px]">
+            Trip Start: <span className="font-normal">{trip.startDate}</span>
+        </div>
+
+        <div className="font-semibold text-[16px] mt-1">
+          Trip End: <span className="font-normal">{trip.endDate}</span>
+        </div>
+
+        <div className="flex justify-between items-start mt-3">
+          <div>
+            {trip.statusType === "soldout" && (
+              <p className="text-[#C22121] text-[12px]">
+                Journey sold out
+              </p>
+            )}
+
+            {trip.statusType === "guaranteed" && (
+              <>
+                <p className="text-[#C22121] text-[12px]">
+                  2 seats left
+                </p>
+
+                <p className="text-[#128914] text-[12px]">
+                  Guaranteed departure
+                </p>
+              </>
+            )}
+
+            {trip.statusType === "earlybird" && (
+              <>
+                <p className="text-[#C22121] text-[12px]">
+            2 seats left
+                </p>
+
+                <p className="text-[#128914] text-[12px]">
+            Guaranteed departure
+                </p>
+
+                <div className="mt-3 text-center">
+            <p className="text-[#128914] font-semibold text-[24px]">
+                    30% off
+                  </p>
+
+                  <p className="text-[14px]">
+                    Early Bird Offer applied to price
+                  </p>
+                </div>
+              </>
+            )}
+          </div>
+
+          <div className="text-right">
+            <p className="text-[10px]">from</p>
+
+            <p className="font-semibold text-[28px] leading-none">
+              {trip.discountedPrice || trip.price}
+            </p>
+
+            <p className="text-[12px]">/person</p>
+
+            {trip.originalPrice && (
+              <p className="text-[11px] text-gray-500">
+                was {trip.originalPrice}
+              </p>
+            )}
+          </div>
+        </div>
+
+        <button
+          className="w-full bg-[#2C3078] text-white rounded-full py-3 mt-5"
+        >
+          {trip.statusType === "soldout"
+            ? "Request a Private Journey"
+            : trip.button}
+        </button>
+
+      </div>
+
+      <div className="border-t border-black py-2 flex justify-center">
+        <button className="flex items-center gap-2 text-[14px]">
+          +
+          Show more
+        </button>
+      </div>
+    </div>
+  ))}
+</div>
+
+          <div className="hidden md:block overflow-x-auto">
+          <div className="min-w-[1200px] border-2 border-black rounded-[10px] overflow-hidden">
                 <table
                     className="
     w-full

@@ -17,32 +17,32 @@ export default async function BlogDetail() {
 
   const categories =
     response.included?.filter(
-      (item) => item.type === "taxonomy_term--categories"
+      (item: any) => item.type === "taxonomy_term--categories"
     ) || [];
 
   const bannerMedia = response.included?.find(
-  (item) =>
-    item.type === "media--image" &&
-    item.id === blog.relationships.field_banner_image.data.id
-);
+    (item: any) =>
+      item.type === "media--image" &&
+      item.id === blog.relationships.field_banner_image.data.id
+  );
 
-const bannerImage = response.included?.find(
-  (item) =>
-    item.type === "file--file" &&
-    item.id === bannerMedia?.relationships.field_media_image.data.id
-);
+  const bannerImage = response.included?.find(
+    (item: any) =>
+      item.type === "file--file" &&
+      item.id === bannerMedia?.relationships.field_media_image.data.id
+  );
 
-const galleryMedia = response.included?.find(
-  (item) =>
-    item.type === "media--image" &&
-    item.id === blog.relationships.field_gallery_images.data[0]?.id
-);
+  const galleryMedia = response.included?.find(
+    (item: any) =>
+      item.type === "media--image" &&
+      item.id === blog.relationships.field_gallery_images.data[0]?.id
+  );
 
-const galleryImage = response.included?.find(
-  (item) =>
-    item.type === "file--file" &&
-    item.id === galleryMedia?.relationships.field_media_image.data.id
-);
+  const galleryImage = response.included?.find(
+    (item: any) =>
+      item.type === "file--file" &&
+      item.id === galleryMedia?.relationships.field_media_image.data.id
+  );
 
   return (
     <div className="bg-[#FAFAFA] min-h-screen">
@@ -53,12 +53,13 @@ const galleryImage = response.included?.find(
         categories={categories}
       />
 
-     <BlogContent
-  blog={blog}
-  categories={categories}
-  bannerImage={bannerImage}
-  galleryImage={galleryImage}
-/>
+      <BlogContent
+        blog={blog}
+        categories={categories}
+        bannerImage={bannerImage}
+        galleryImage={galleryImage}
+      />
+
       <Footer />
     </div>
   );

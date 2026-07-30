@@ -42,8 +42,8 @@ export default function AllJourneysPage() {
         setLoading(true);
 
         const res = await fetch(
-          `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month,field_region`,
-        );
+  `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month`,
+);
 
         const json = await res.json();
         const included = json.included || [];
@@ -70,7 +70,7 @@ export default function AllJourneysPage() {
 
           const rawUrl = fileEntity?.attributes?.uri?.url;
 
-          const imageUrl = buildFileUrl(rawUrl) || "/GoldenTriange.svg";
+         const imageUrl = buildFileUrl(rawUrl) || "/GoldenTriange.svg";
 
           const tagIds = item.relationships?.field_journey_tag?.data || [];
 
@@ -107,26 +107,19 @@ export default function AllJourneysPage() {
           if (cta?.uri && !cta.uri.startsWith("entity:")) {
             viewTripUrl = cta.uri;
           }
-          const regionId = item.relationships?.field_region?.data?.id;
-
-          const regionEntity = included.find(
-            (inc) =>
-              inc.type === "taxonomy_term--region" &&
-              inc.id === regionId
-          );
-
-          const regionName = regionEntity?.attributes?.name || "";
 
           return {
             id: item.id,
             title: item.attributes.title || "",
             desc: item.attributes.field_short_description || "",
 
-            days: `${item.attributes.field_duration_days || 0} Days | ${item.attributes.field_duration_nights || 0
-              } Nights`,
+            days: `${item.attributes.field_duration_days || 0} Days | ${
+              item.attributes.field_duration_nights || 0
+            } Nights`,
 
-            destinations: `${item.attributes.field_destinations_count || 0
-              } Destinations`,
+            destinations: `${
+              item.attributes.field_destinations_count || 0
+            } Destinations`,
 
             price: Number(item.attributes.field_offer_price) || 0,
             offer: item.attributes.field_offer_message || "",
@@ -135,7 +128,7 @@ export default function AllJourneysPage() {
 
             tags: tagNames,
             style: tagNames[0] || "Group Journey",
-            region: regionName,
+            region: item.attributes?.field_region || "",
             category: item.attributes?.field_category || "",
             month: monthName,
 
@@ -162,15 +155,15 @@ export default function AllJourneysPage() {
     async function loadFilters() {
       try {
         const endpoints = {
-          region: `${API_BASE_URL}/jsonapi/taxonomy_term/region`,
-          style: `${API_BASE_URL}/jsonapi/taxonomy_term/tags`,
-          offer: `${API_BASE_URL}/jsonapi/taxonomy_term/offers`,
-          category: `${API_BASE_URL}/jsonapi/taxonomy_term/category`,
-          month: `${API_BASE_URL}/jsonapi/taxonomy_term/month`,
-        };
+  region: `${API_BASE_URL}/jsonapi/taxonomy_term/country`,
+  style: `${API_BASE_URL}/jsonapi/taxonomy_term/tags`,
+  offer: `${API_BASE_URL}/jsonapi/taxonomy_term/offers`,
+  category: `${API_BASE_URL}/jsonapi/taxonomy_term/category`,
+  month: `${API_BASE_URL}/jsonapi/taxonomy_term/month`,
+};
 
         const results = {};
-
+        console.log(endpoints);
         for (const key in endpoints) {
           const res = await fetch(endpoints[key]);
           const json = await res.json();
@@ -260,13 +253,13 @@ export default function AllJourneysPage() {
     return data;
   }, [journeys, filters, sort]);
   const hasActiveFilters =
-    filters.region.length > 0 ||
-    filters.style.length > 0 ||
-    filters.offer.length > 0 ||
-    filters.category.length > 0 ||
-    filters.month.length > 0 ||
-    filters.pricing.length > 0 ||
-    filters.duration.length > 0;
+  filters.region.length > 0 ||
+  filters.style.length > 0 ||
+  filters.offer.length > 0 ||
+  filters.category.length > 0 ||
+  filters.month.length > 0 ||
+  filters.pricing.length > 0 ||
+  filters.duration.length > 0;
   const totalPages = Math.ceil(filteredJourneys.length / itemsPerPage);
 
   const paginatedJourneys = filteredJourneys.slice(
@@ -315,7 +308,7 @@ export default function AllJourneysPage() {
         />
 
         <div className="flex-1 min-w-0">
-          {filteredJourneys.length === 0 && hasActiveFilters ? (
+        {filteredJourneys.length === 0 && hasActiveFilters ? (
             <div className="flex flex-col gap-2 items-center justify-center py-[6vw] text-center">
               <img
                 src="/no-results.svg"
@@ -326,9 +319,9 @@ export default function AllJourneysPage() {
               <h3 className="font-[Nohemi] font-medium text-[32px] leading-[40px] tracking-[0.05em] text-center text-[#1A1A1A] mt-8">
                 Sorry! We were unable to find the <br /> trip you requested.
                 <p>
-                  filteredJourneys: {filteredJourneys.length},
-                  hasActiveFilters: {String(hasActiveFilters)}
-                </p>
+  filteredJourneys: {filteredJourneys.length},
+  hasActiveFilters: {String(hasActiveFilters)}
+</p>
               </h3>
               <p className="mt-[16px] max-w-[520px] font-[Nohemi] font-normal text-[16px] leading-[100%] tracking-[0.05em] text-center text-[#1A1A1A] mt-2">
                 Please adjust your filters to find a trip that fits you
@@ -366,17 +359,17 @@ export default function AllJourneysPage() {
                 <JourneyGrid journeys={popularJourneys} />
               </div>
             </div>
-          ) : (
-            <>
-              <JourneyGrid journeys={paginatedJourneys} />
+         ) : (
+  <>
+    <JourneyGrid journeys={paginatedJourneys} />
 
-              <Pagination
-                totalPages={totalPages}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-              />
-            </>
-          )}
+    <Pagination
+      totalPages={totalPages}
+      currentPage={currentPage}
+      setCurrentPage={setCurrentPage}
+    />
+  </>
+)}
         </div>
       </div>
     </div>
