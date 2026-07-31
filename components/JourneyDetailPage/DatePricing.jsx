@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 // const departures = [
 //     {
@@ -82,8 +83,10 @@ import React from "react";
 export default function JourneyPricing({
     journey,
     departures = [],
+     journeyId,
 }) {
     const [expandedCard, setExpandedCard] = useState(null);
+    const router = useRouter();
 
     const toggleCard = (index) => {
         setExpandedCard(expandedCard === index ? null : index);
@@ -91,6 +94,7 @@ export default function JourneyPricing({
     const [selectedYear, setSelectedYear] = useState("2026");
 
     const trips = departures.map((item) => ({
+        id: item.id,
         startDate: item.attributes?.field_departure_date,
         endDate: item.attributes?.field_return_date,
         statusType: item.attributes?.field_status,
@@ -417,20 +421,24 @@ export default function JourneyPricing({
                                                     Request a Private Journey
                                                 </span>
                                             ) : (
-                                                <button
-                                                    className="
-        bg-[#2C3078]
-        text-white
-        rounded-full
-        px-6
-        py-2
-        text-[14px]
-        font-medium
-      "
-                                                    style={{ fontFamily: "Nohemi" }}
-                                                >
-                                                    {trip.button}
-                                                </button>
+                                               <button
+  className="
+    bg-[#2C3078]
+    text-white
+    rounded-full
+    px-6
+    py-2
+    text-[14px]
+    font-medium
+  "
+  onClick={() =>
+    router.push(
+      `/enquiry?journeyId=${journeyId}&departureId=${trip.id}`
+    )
+  }
+>
+  {trip.button}
+</button>
                                             )}
                                         </td>
                                     </tr>

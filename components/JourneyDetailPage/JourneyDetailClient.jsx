@@ -224,7 +224,7 @@ function transformItem(item, included) {
   };
 }
 
-export default function JourneyDetailClient({ initialData,departures }) {
+export default function JourneyDetailClient({ initialData,departures,journeyId, }) {
   const journey =
     initialData?.data
       ? transformItem(initialData.data, initialData.included || [])
@@ -240,6 +240,7 @@ export default function JourneyDetailClient({ initialData,departures }) {
 <DetailTabs
   journey={journey}
   departures={departures}
+   journeyId={journeyId}
 />      <OtherDestinations />
       <TestimonialSection />
       <TravelOStylePromise />

@@ -98,6 +98,7 @@ const departures = departureData.data.filter(
      <JourneyDetailClient
   initialData={initialData}
   departures={departures}
+   journeyId={journeyId}
 />
 
 

@@ -18,6 +18,7 @@ const TABS = [
 export default function DetailTabs({
   journey,
   departures,
+   journeyId,
 }) {
   const [activeTab, setActiveTab] = useState("Highlights");
 
@@ -81,6 +82,7 @@ export default function DetailTabs({
  <JourneyPricing
   journey={journey}
   departures={departures}
+   journeyId={journeyId}
 />
 )}
 
