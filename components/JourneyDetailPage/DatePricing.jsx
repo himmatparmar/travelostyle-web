@@ -83,14 +83,19 @@ export default function JourneyPricing({
   journey,
   departures = [],
 }) {
+    const [expandedCard, setExpandedCard] = useState(null);
+
+const toggleCard = (index) => {
+  setExpandedCard(expandedCard === index ? null : index);
+};
     const [selectedYear, setSelectedYear] = useState("2026");
 
 const trips = departures.map((item) => ({
   startDate: item.attributes?.field_departure_date,
   endDate: item.attributes?.field_return_date,
   statusType: item.attributes?.field_status,
-  originalPrice: journey?.attributes?.field_original_price,
-  discountedPrice: journey?.attributes?.field_offer_price,
+  originalPrice: journey?.price,
+discountedPrice: journey?.price,
   offer: item.attributes?.field_offer,
   button:
   item.attributes?.field_status === "soldout"
@@ -120,7 +125,7 @@ const getDay = (date) =>
   
 
     return (
-        <section className="max-w-[1701px]  px-4 py-10">
+<section className="w-full max-w-full px-4 py-6 overflow-x-hidden">    
             <div className="text-center mb-8">
                 <h2
 
@@ -167,6 +172,88 @@ const getDay = (date) =>
 
                 </div>
             </div>
+          <div className="md:hidden w-full space-y-4">
+  {filteredTrips.map((trip, index) => {
+    const isExpanded = expandedCard === index;
+
+    return (
+      <div
+        key={index}
+       className="border border-black rounded-[8px] bg-white overflow-hidden"
+      >
+        {/* Top Section - Always Visible */}
+        <div className="p-4">
+          <div className="flex justify-between items-start">
+            <div>
+              <p className="text-[12px] font-semibold">
+                Trip Start: {formatDate(trip.startDate)}
+              </p>
+
+              <p className="text-[12px] font-semibold mt-1">
+                Trip End: {formatDate(trip.endDate)}
+              </p>
+
+              <div className="mt-2">
+                {trip.statusType === "soldout" ? (
+                  <span className="text-red-600 text-[11px] font-semibold">
+                    Journey Sold Out
+                  </span>
+                ) : (
+                  <span className="text-[#128914] text-[11px] font-semibold">
+                    Seats Available
+                  </span>
+                )}
+              </div>
+            </div>
+
+            <div className="text-right">
+              <p className="text-[10px] text-gray-500">from</p>
+
+              <p className="text-[22px] font-bold">
+                {trip.discountedPrice || trip.originalPrice}
+              </p>
+
+              <p className="text-[10px] text-gray-500">
+                / person
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Hidden Section */}
+        {isExpanded && (
+          <div className="border-t border-neutral-300 p-4">
+            <div className="text-center mb-4">
+              {trip.offer ? (
+                <p className="text-[#128914] font-semibold">
+                  {trip.offer}
+                </p>
+              ) : (
+                <p className="text-gray-500">
+                  No offers available
+                </p>
+              )}
+            </div>
+
+            <button className="w-full bg-[#2C3078] text-white rounded-full py-3 font-medium">
+              {trip.button}
+            </button>
+          </div>
+        )}
+
+        {/* Show More / Less */}
+        <button
+          onClick={() => toggleCard(index)}
+          className="w-full border-t border-neutral-300 py-3 text-xs font-semibold flex justify-center items-center gap-2"
+        >
+          {isExpanded ? "− Show less" : "+ Show more"}
+        </button>
+      </div>
+    );
+  })}
+
+</div>
+<div className="hidden md:block">
 
           <div className="overflow-x-auto">
   <div className="min-w-[1200px] border-2 border-black rounded-[10px] overflow-hidden">
@@ -179,6 +266,7 @@ const getDay = (date) =>
   "
                 >
                     <thead>
+                    
                         <tr className="h-[60px] bg-[#F2E2DA] border-b-2 border-black">
                             <th className="w-[24%] border-r-2 border-b-2 border-black text-center font-semibold">
                                 Trip Dates
@@ -201,8 +289,8 @@ const getDay = (date) =>
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
-                    {filteredTrips.map((trip, index) => (
+                   <tbody>
+  {filteredTrips.map((trip, index) => (
                             <tr key={index} className="h-[104px] border-b-2 border-black">
                                 <td className="border px-5 py-6 align-middle">
                                     <div className="flex items-start gap-3">
@@ -314,9 +402,12 @@ const getDay = (date) =>
                                 </td>
                             </tr>
                         ))}
+                        
                     </tbody>
+    
                 </table>
             </div>
+</div>
             </div>
 
             <div className="mt-6 flex flex-col items-start">

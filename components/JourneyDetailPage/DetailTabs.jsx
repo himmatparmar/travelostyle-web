@@ -5,7 +5,7 @@ import HighlightsSection from "./HighlightsSection";
 import ItinerarySection from "./ItinerarySection";
 import StaysSection from "./StaysSection";
 import CtaBanner from "./CtaBanner";
-
+import JourneyPricing from "./DatePricing";
 const TABS = [
   "Highlights",
   "Itinerary",
@@ -15,7 +15,10 @@ const TABS = [
   "Additional Information",
 ];
 
-export default function DetailTabs({ journey }) {
+export default function DetailTabs({
+  journey,
+  departures,
+}) {
   const [activeTab, setActiveTab] = useState("Highlights");
 
   return (
@@ -74,11 +77,12 @@ export default function DetailTabs({ journey }) {
           </div>
         )}
 
-        {activeTab === "Dates & Pricing" && (
-          <div className="px-[5.5vw] py-[3vw] text-[0.85vw] text-[#666]">
-            Dates &amp; pricing information coming soon.
-          </div>
-        )}
+{activeTab === "Dates & Pricing" && (
+ <JourneyPricing
+  journey={journey}
+  departures={departures}
+/>
+)}
 
         {activeTab === "Additional Information" && (
           <div className="px-[5.5vw] py-[3vw] text-[0.85vw] text-[#666]">
