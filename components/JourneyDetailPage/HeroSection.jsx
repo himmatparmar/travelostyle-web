@@ -13,7 +13,10 @@ const CATEGORY_TAGS = [
   { label: "Group Journey",       bg: "#D8E8F8", text: "#1B4F72" },
   { label: "Private Journey",     bg: "#D8E8F8", text: "#1B4F72" },
 ];
-export default function HeroSection({ journey }) {
+export default function HeroSection({
+  journey,
+  departures,
+}) {
   const [activeView, setActiveView] = useState("menu");
   return (
     <>
@@ -249,7 +252,12 @@ export default function HeroSection({ journey }) {
           </div>
         </div>}
       </div>
-        <MobileNavigationMenu activeView={activeView} setActiveView={setActiveView} journey={journey} />
+        <MobileNavigationMenu
+  journey={journey}
+  departures={departures}
+  activeView={activeView}
+  setActiveView={setActiveView}
+/>
     </>
   );
 }
