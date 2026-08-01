@@ -77,7 +77,7 @@ export default function JourneyRevelationsSection({
                   className={`flex flex-col sm:flex-row ${!isLast || footerText ? `border-b ${borderStyle}` : ""} flex-1 min-h-[110px]`}
                 >
                   <div
-                    className={`w-full sm:w-[25%] p-4 flex items-center justify-start sm:justify-center border-b sm:border-b-0 sm:border-r ${borderStyle} ${!labelBgStyle.startsWith("#") ? labelBgStyle : ""}`}
+                    className={`w-full sm:w-[25%] p-4 flex items-center justify-start sm:justify-center border-b sm:border-b-0 sm:border-r ${borderStyle} ${!labelBgStyle.startsWith("#") ? "" : ""}`}
                   >
                     <span className="text-[11px] font-bold text-[#111111] tracking-widest text-center whitespace-nowrap">
                       {row.label.toUpperCase()}

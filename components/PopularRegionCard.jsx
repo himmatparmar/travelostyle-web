@@ -24,7 +24,7 @@ export default function PopularRegionCard({regions}) {
             <div className="absolute inset-0 p-5 sm:p-6 flex flex-col justify-between text-white z-10">
           
               <div>
-                <h4 className="text-[16vw] sm:text-3xl font-semibold tracking-normal">
+                <h4 className="text-[5vw] sm:text-3xl font-semibold tracking-normal">
                   {region.title}
                 </h4>
               </div>
