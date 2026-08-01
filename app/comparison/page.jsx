@@ -7,7 +7,9 @@ import TravelOStylePromise from "@/components/HomePage/TravelOStylePromise";
 export default function Page() {
     return( 
     <>
+    <div className="border-b-2 border-[black]">
     <SearchBar/>
+    </div>
     <Comparison/>
       <TravelOStylePromise />
       <Footer />
