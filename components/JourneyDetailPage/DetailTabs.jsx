@@ -6,6 +6,7 @@ import ItinerarySection from "./ItinerarySection";
 import StaysSection from "./StaysSection";
 import CtaBanner from "./CtaBanner";
 import JourneyPricing from "./DatePricing";
+import InclusionExclusion from "./Inclusionexclusion";
 const TABS = [
   "Highlights",
   "Itinerary",
@@ -18,7 +19,9 @@ const TABS = [
 export default function DetailTabs({
   journey,
   departures,
-   journeyId,
+  journeyId,
+  inclusions,
+  exclusions,
 }) {
   const [activeTab, setActiveTab] = useState("Highlights");
 
@@ -73,10 +76,11 @@ export default function DetailTabs({
         )}
 
         {activeTab === "Inclusions & Exclusions" && (
-          <div className="px-[5.5vw] py-[3vw] text-[0.85vw] text-[#666]">
-            Inclusions &amp; exclusions coming soon.
-          </div>
-        )}
+  <InclusionExclusion
+    inclusions={inclusions}
+    exclusions={exclusions}
+  />
+)}
 
 {activeTab === "Dates & Pricing" && (
  <JourneyPricing

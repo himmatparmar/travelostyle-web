@@ -16,6 +16,8 @@ const CATEGORY_TAGS = [
 export default function HeroSection({
   journey,
   departures,
+   inclusions,
+  exclusions
 }) {
   const [activeView, setActiveView] = useState("menu");
   return (
@@ -256,8 +258,11 @@ export default function HeroSection({
   journey={journey}
   departures={departures}
   activeView={activeView}
+   inclusions={inclusions}
+  exclusions={exclusions}
   setActiveView={setActiveView}
 />
+
     </>
   );
 }

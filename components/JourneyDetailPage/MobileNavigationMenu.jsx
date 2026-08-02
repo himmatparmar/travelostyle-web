@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Itinerary from "./Itinerary";
 import MobileHighlightsPage from "./MobileHighlightsPage";
-import MobileInclusionsExclusions from "./MobileInclusionsExclusions";
+import InclusionExclusion from "./Inclusionexclusion";
 import MobileAdditionalInformation from "./MobileAdditionalInformation";
 import MobileStays from "./MobileStays";
 import JourneyPricing from "./DatePricing";
@@ -12,6 +12,8 @@ import BookYourJourneyMobile from "./BookYourJourneyMobile";
 export default function MobileNavigationMenu({
   journey,
   departures,
+  inclusions,
+  exclusions,
   activeView,
   setActiveView
 }){
@@ -51,8 +53,9 @@ export default function MobileNavigationMenu({
   // ── VIEW 2: FULL HIGHLIGHTS PAGE ──────────────────────────────────
 if (activeView === "inclusions-exclusions") {
   return (
-    <MobileInclusionsExclusions
-      onBack={() => setActiveView("menu")}
+    <InclusionExclusion
+      inclusions={inclusions}
+      exclusions={exclusions}
     />
   );
 }
