@@ -235,6 +235,8 @@ export default function JourneyDetailClient({ initialData,departures,journeyId, 
      <HeroSection
   journey={journey}
   departures={departures}
+  rawItem={initialData?.data}
+  included={initialData?.included || []}
 />
       <TrustBar />
 <DetailTabs

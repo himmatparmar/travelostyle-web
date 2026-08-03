@@ -8,6 +8,7 @@ import { API_BASE_URL } from "@/lib/config";
 const INCLUDE = [
   "field_journey_image.field_media_image",
   "field_journey_tag",
+  "field_category",
   "field_month",
   "field_starts_in",
   "field_ends_in",
@@ -66,6 +67,9 @@ export default async function JourneyDetailPage({
   }
 
   const journeyData = await journeyRes.json();
+  console.log(
+  JSON.stringify(journeyData.included, null, 2)
+);
 
   // Check the structure first
   console.log("Journey Data:", journeyData);
