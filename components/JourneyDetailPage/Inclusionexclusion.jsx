@@ -1,154 +1,159 @@
 "use client";
 import {
-  Utensils,
-  Hotel,
-  Briefcase,
-  Car,
-  UserCheck,
-  Plane,
-  Shield,
-  Wallet,
-  FileText,
-  HandCoins,
+    Utensils,
+    Hotel,
+    Briefcase,
+    Car,
+    UserCheck,
+    Plane,
+    Shield,
+    Wallet,
+    FileText,
+    HandCoins,
 } from "lucide-react";
 
 import { useState } from "react";
 import { Info } from "lucide-react";
 
-function TableCard({ title, items = [], theme }) { const current =
-  theme === "inclusion"
-    ? {
-        bg: "bg-[#EFF3CF]",
-        border: "border-[#D8DFA5]",
-        text: "text-green-700",
-      }
-    : {
-        bg: "bg-[#F2E2DA]",
-        border: "border-[#E5C8B8]",
-        text: "text-red-700",
-      };
-  return (
-    <div
-      className={`${current.bg} border ${current.border} rounded-lg overflow-hidden`}
-    >
+function TableCard({ title, items = [], theme }) {
+    const current =
+        theme === "inclusion"
+            ? {
+                bg: "bg-[#EFF3CF]",
+                border: "border-black",
+                text: "text-black",
+            }
+            : {
+                bg: "bg-[#F2E2DA]",
+                border: "border-black",
+                text: "text-black",
+            };
+    return (
 
-      {/* Heading */}
-      <div
-        className={`
-          h-[60px]
-          flex
-          items-center
-          justify-center
-          font-bold
-          text-[24px]
-          border-b
-          ${current.border}
-          ${current.text}
-        `}
-      >
-        {title}
-      </div>
+        <div
+            className={`${current.bg} border-2 ${current.border} rounded-lg overflow-hidden`}
+        >
+
+            {/* Heading */}
+            <div
+                className={`
+  h-[52px]
+  self-start
+  flex
+  items-center
+  justify-center
+  font-bold
+  text-[18px]
+border-b-2
+  ${current.border}
+  ${current.text}
+`}
+            >
+                {title}
+            </div>
 
 
-    {(items || []).map((item, index) => (
-  <div
-    key={item.title + index}
-    className={`
-      grid
-      grid-cols-[220px_1fr]
-      border-b
-      ${current.border}
-      last:border-b-0
-    `}
-  >
+            {(items || []).map((item, index) => (
+                <div
+                    key={item.title + index}
+                    className={`
+  grid
+  grid-cols-[220px_1fr]
+  border-b-2
+  ${current.border}
+  last:border-b-0
+`}
+                >
 
-    {/* Icon + Title fixed column */}
-    <div
-      className={`
-        flex
-        items-center
-        gap-4
-        px-6
-        py-5
-        border-r
-        ${current.border}
-      `}
-    >
+                    {/* Icon + Title fixed column */}
+                    <div
+                        className={`
+  flex
+  items-center
+  gap-3
+  px-5
+  h-full
+  py-4
+border-r-2
+  ${current.border}
+`}
+                    >
 
-      {/* fixed icon position */}
-      <div className="w-[64px] h-[46px] flex items-center justify-center shrink-0">
-        {item.icon && (
-          <img
-            src={item.icon}
-            alt={item.title}
-            className="
-              w-[64px]
-              h-[46px]
+                        {/* fixed icon position */}
+                        <div className="w-10 h-10 flex items-center justify-center shrink-0">
+                            {item.icon && (
+                                <img
+                                    src={item.icon}
+                                    alt={item.title}
+                                    className="
+              w-10
+              h-10
               object-contain
             "
-          />
-        )}
-      </div>
+                                />
+                            )}
+                        </div>
 
 
-      {/* fixed title area */}
-      <div className="w-[120px]">
-        <h4
-          className={`
+                        {/* title area, fills remaining space so it never overflows the fixed column */}
+                        <div className="flex-1 min-w-0">
+                            <h4
+                                className={`
             font-semibold
             text-left
             text-[16px]
             leading-[20px]
+            break-words
             ${current.text}
           `}
-        >
-          {item.title}
-        </h4>
-      </div>
+                            >
+                                {item.title}
+                            </h4>
+                        </div>
 
-    </div>
+                    </div>
 
 
-    {/* Description */}
-    <div
-      className="
+                    {/* Description */}
+                    <div
+                        className="
         flex
         items-center
         px-5
-        py-5
-        text-[14px]
-        leading-[22px]
-        text-gray-700
+        py-4
+        text-[13px]
+        leading-[20px]
+        text-gray-600
       "
-    >
-      {item.description}
-    </div>
+                    >
+                        {item.description}
+                    </div>
 
 
-  </div>
-))}
-    </div>   // closes main card
-  );
-}    
+                </div>
+            ))}
+        </div>   // closes main card
+    );
+}
 function MobileInclusions({
-  inclusions = [],
-  exclusions = []
+    inclusions = [],
+    exclusions = []
 }) {
-    
-
-console.log("MOBILE INC DATA", inclusions);
-console.log("MOBILE EXC DATA", exclusions);
-
-const [openInc,setOpenInc]=useState(true);
-const [openExc,setOpenExc]=useState(false);
 
 
-return (
+    console.log("MOBILE INC DATA", inclusions);
+    console.log("MOBILE EXC DATA", exclusions);
 
-<div className="block md:hidden px-4 py-5">
+    const [openInc, setOpenInc] = useState(true);
+    const [openExc, setOpenExc] = useState(false);
 
 
-<div className="
+    return (
+
+        <div className="block md:hidden px-4 py-5">
+
+
+            <div className="
 flex gap-3 
 bg-[#FAF0E6]
 rounded-lg
@@ -157,19 +162,19 @@ text-xs
 mb-5
 ">
 
-<Info size={16}/>
+                <Info size={16} />
 
-<p>
-Everything listed below is included in your journey pricing.
-</p>
+                <p>
+                    Everything listed below is included in your journey pricing.
+                </p>
 
-</div>
+            </div>
 
 
 
-{/* INCLUSIONS */}
+            {/* INCLUSIONS */}
 
-<div className="
+            <div className="
 rounded-xl
 border
 border-black
@@ -178,9 +183,9 @@ mb-5
 ">
 
 
-<button
-onClick={()=>setOpenInc(!openInc)}
-className="
+                <button
+                    onClick={() => setOpenInc(!openInc)}
+                    className="
 w-full
 flex
 justify-between
@@ -189,69 +194,69 @@ px-4
 py-4
 font-bold
 "
->
+                >
 
-INCLUSIONS
+                    INCLUSIONS
 
-<span>
-{openInc ? "-" : "+"}
-</span>
+                    <span>
+                        {openInc ? "-" : "+"}
+                    </span>
 
-</button>
+                </button>
 
 
-{
-openInc &&
-(inclusions || []).map((item,index)=>(
+                {
+                    openInc &&
+                    (inclusions || []).map((item, index) => (
 
-<div
-key={index}
-className="
+                        <div
+                            key={index}
+                            className="
 p-4
 border-t
 border-black
 "
->
+                        >
 
-<div className="
+                            <div className="
 flex
 gap-3
 font-bold
 text-sm
 ">
 
-<img
-src={item.icon}
-className="w-6 h-6"
-/>
+                                <img
+                                    src={item.icon}
+                                    className="w-6 h-6"
+                                />
 
-{item.title}
+                                {item.title}
 
-</div>
+                            </div>
 
 
-<p className="
+                            <p className="
 text-xs
 mt-2
 ">
-{item.description}
-</p>
+                                {item.description}
+                            </p>
 
 
-</div>
+                        </div>
 
-))
-}
-
-
-</div>
+                    ))
+                }
 
 
+            </div>
 
 
-{/* EXCLUSIONS */}
 
-<div className="
+
+            {/* EXCLUSIONS */}
+
+            <div className="
 rounded-xl
 border
 border-black
@@ -259,9 +264,9 @@ overflow-hidden
 ">
 
 
-<button
-onClick={()=>setOpenExc(!openExc)}
-className="
+                <button
+                    onClick={() => setOpenExc(!openExc)}
+                    className="
 w-full
 flex
 justify-between
@@ -270,104 +275,103 @@ px-4
 py-4
 font-bold
 "
->
+                >
 
-EXCLUSIONS
+                    EXCLUSIONS
 
-<span>
-{openExc ? "-" : "+"}
-</span>
+                    <span>
+                        {openExc ? "-" : "+"}
+                    </span>
 
-</button>
+                </button>
 
 
 
-{
-openExc &&
-exclusions.map((item,index)=>(
+                {
+                    openExc &&
+                    exclusions.map((item, index) => (
 
-<div
-key={index}
-className="
+                        <div
+                            key={index}
+                            className="
 p-4
 border-t
 border-black
 "
->
+                        >
 
-<div className="
+                            <div className="
 flex
 gap-3
 font-bold
 text-sm
 ">
 
-<img
-src={item.icon}
-className="w-6 h-6"
-/>
+                                <img
+                                    src={item.icon}
+                                    className="w-6 h-6"
+                                />
 
-{item.title}
+                                {item.title}
 
-</div>
+                            </div>
 
 
-<p className="
+                            <p className="
 text-xs
 mt-2
 ">
-{item.description}
-</p>
+                                {item.description}
+                            </p>
 
 
-</div>
+                        </div>
 
-))
-}
-
-
-
-</div>
+                    ))
+                }
 
 
-</div>
 
-)
+            </div>
+
+
+        </div>
+
+    )
 
 }        // closes TableCard
 export default function InclusionsExclusions({
-  inclusions,
-  exclusions,
+    inclusions,
+    exclusions,
 }) {
-  return (
-    <>
-      {/* DESKTOP ONLY */}
-      <section className="hidden md:block max-w-7xl mx-auto px-4 py-10">
-        <div className="grid lg:grid-cols-2 gap-8">
+    return (
+        <>
+            {/* DESKTOP ONLY */}
+            <section className="hidden md:block max-w-7xl mx-auto px-4 py-10">
+                <div className="grid lg:grid-cols-2 gap-8 items-start">
+                    <TableCard
+                        title="Inclusions"
+                        items={inclusions}
+                        theme="inclusion"
+                    />
 
-          <TableCard
-            title="Inclusions"
-            items={inclusions}
-            theme="inclusion"
-          />
+                    <TableCard
+                        title="Exclusions"
+                        items={exclusions}
+                        theme="exclusion"
+                    />
 
-          <TableCard
-            title="Exclusions"
-            items={exclusions}
-            theme="exclusion"
-          />
-
-        </div>
-      </section>
-
+                </div>
+            </section>
 
 
-      {/* MOBILE ONLY */}
-      <MobileInclusions
-        inclusions={inclusions}
-        exclusions={exclusions}
-      />
 
-    </>
-  );
+            {/* MOBILE ONLY */}
+            <MobileInclusions
+                inclusions={inclusions}
+                exclusions={exclusions}
+            />
+
+        </>
+    );
 }
