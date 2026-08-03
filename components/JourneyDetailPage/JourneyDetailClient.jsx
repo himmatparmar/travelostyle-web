@@ -238,20 +238,20 @@ export default function JourneyDetailClient({
 
   return (
     <main>
-     <HeroSection
-  journey={journey}
-  departures={departures}
-   inclusions={inclusions}
-  exclusions={exclusions}
-/>
+      <HeroSection
+        journey={journey}
+        departures={departures}
+        inclusions={inclusions}
+        exclusions={exclusions}
+      />
       <TrustBar />
-<DetailTabs
-  journey={journey}
-  departures={departures}
-  journeyId={journeyId}
-  inclusions={inclusions}
-  exclusions={exclusions}
-/>     <OtherDestinations />
+      <DetailTabs
+        journey={journey}
+        departures={departures}
+        journeyId={journeyId}
+        inclusions={inclusions}
+        exclusions={exclusions}
+      />     <OtherDestinations />
       <TestimonialSection />
       <TravelOStylePromise />
     </main>

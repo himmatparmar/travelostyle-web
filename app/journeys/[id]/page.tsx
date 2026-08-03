@@ -18,10 +18,10 @@ const INCLUDE = [
   "field_best_seasons",
   "field_pace",
   "field_journey_tabs_section.field_section_tabs.field_inclusions",
-"field_journey_tabs_section.field_section_tabs.field_exclusions",
+  "field_journey_tabs_section.field_section_tabs.field_exclusions",
 
-"field_journey_tabs_section.field_section_tabs.field_inclusions.field_field_journey_inclusions",
-"field_journey_tabs_section.field_section_tabs.field_exclusions.field_exclusion",
+  "field_journey_tabs_section.field_section_tabs.field_inclusions.field_field_journey_inclusions",
+  "field_journey_tabs_section.field_section_tabs.field_exclusions.field_exclusion",
 
   "field_journey_tabs_section",
   "field_journey_tabs_section.field_section_tabs",
@@ -30,15 +30,15 @@ const INCLUDE = [
   "field_journey_tabs_section.field_section_tabs.field_days",
   "field_journey_tabs_section.field_section_tabs.field_hotels",
   "field_journey_tabs_section.field_section_tabs.field_inclusions.field_field_journey_inclusions.field_icon.field_media_image",
-"field_journey_tabs_section.field_section_tabs.field_exclusions.field_exclusion.field_icon.field_media_image",
+  "field_journey_tabs_section.field_section_tabs.field_exclusions.field_exclusion.field_icon.field_media_image",
 
   "field_journey_tabs_section.field_section_tabs.field_days.field_stay",
   "field_journey_tabs_section.field_section_tabs.field_hotels.field_featured_image.field_media_image",
   "field_journey_tabs_section.field_section_tabs.field_hotels.field_gallery.field_media_image",
   "field_journey_tabs_section.field_section_tabs.field_inclusions.field_field_journey_inclusions.field_icon",
-"field_journey_tabs_section.field_section_tabs.field_exclusions.field_exclusion.field_icon",
-"field_journey_tabs_section.field_section_tabs.field_inclusions.field_field_journey_inclusions.field_icon.field_media_image",
-"field_journey_tabs_section.field_section_tabs.field_exclusions.field_exclusion.field_icon.field_media_image",
+  "field_journey_tabs_section.field_section_tabs.field_exclusions.field_exclusion.field_icon",
+  "field_journey_tabs_section.field_section_tabs.field_inclusions.field_field_journey_inclusions.field_icon.field_media_image",
+  "field_journey_tabs_section.field_section_tabs.field_exclusions.field_exclusion.field_icon.field_media_image",
 
 ].join(",");
 export default async function JourneyDetailPage({
@@ -85,170 +85,170 @@ export default async function JourneyDetailPage({
   }
 
 
-const journeyData = await journeyRes.json();
-console.log(
-  JSON.stringify(
-    journeyData.included.filter(
-      (x: any) => x.type === "paragraph--inclusion_exclusion_item"
-    ),
-    null,
-    2
-  )
-);
+  const journeyData = await journeyRes.json();
+  console.log(
+    JSON.stringify(
+      journeyData.included.filter(
+        (x: any) => x.type === "paragraph--inclusion_exclusion_item"
+      ),
+      null,
+      2
+    )
+  );
 
-const included = journeyData.included || [];
-console.log(
-  "ICON MEDIA OBJECT",
-  included.find(
-    (item:any)=>
-      item.id === "a5ccd2bc-d9e8-42c5-8892-b983e32b7dbb"
-  )
-);
-console.log(
-  JSON.stringify(
+  const included = journeyData.included || [];
+  console.log(
+    "ICON MEDIA OBJECT",
     included.find(
-      (i: any) =>
-        i.type === "paragraph--inclusion_exclusion_item"
-    ),
-    null,
-    2
-  )
-);
-console.log(
-  "ALL INCLUDED TYPES:",
-  included.map((item:any)=>item.type)
-);
-
-
-// ADD YOUR CODE HERE
-const inclusions:any[] = [];
-const exclusions:any[] = [];
-
-
-const inclusionItems = included.filter(
-  (item:any)=>
-    item.type === "paragraph--inclusion_exclusion_item"
-);
-
-
-console.log("INCLUSION ITEMS", inclusionItems);
-
-
-inclusionItems.forEach((item:any)=>{
-
-
-  const inclusionRefs =
-    item.relationships
-      ?.field_field_journey_inclusions
-      ?.data || [];
-
-
-  inclusionRefs.forEach((ref:any)=>{
-
-    const term = included.find(
-      (inc:any)=> inc.id === ref.id
-    );
-
-
-   if(term){
-
-  const iconMediaId =
-    term.relationships?.field_icon?.data?.id;
-
-
-  const iconMedia = included.find(
-    (media:any)=>
-      media.id === iconMediaId &&
-      media.type === "media--image"
+      (item: any) =>
+        item.id === "a5ccd2bc-d9e8-42c5-8892-b983e32b7dbb"
+    )
+  );
+  console.log(
+    JSON.stringify(
+      included.find(
+        (i: any) =>
+          i.type === "paragraph--inclusion_exclusion_item"
+      ),
+      null,
+      2
+    )
+  );
+  console.log(
+    "ALL INCLUDED TYPES:",
+    included.map((item: any) => item.type)
   );
 
 
-  const iconFileId =
-    iconMedia?.relationships?.field_media_image?.data?.id;
+  // ADD YOUR CODE HERE
+  const inclusions: any[] = [];
+  const exclusions: any[] = [];
 
 
-  const iconFile = included.find(
-    (file:any)=>
-      file.id === iconFileId &&
-      file.type === "file--file"
+  const inclusionItems = included.filter(
+    (item: any) =>
+      item.type === "paragraph--inclusion_exclusion_item"
   );
 
 
-  inclusions.push({
-    title: term.attributes.name,
-   description:
-  stripHtml(term.attributes.description?.value || ""),
+  console.log("INCLUSION ITEMS", inclusionItems);
 
-    icon:
-      iconFile?.attributes?.uri?.url
-        ? `${API_BASE_URL}${iconFile.attributes.uri.url}`
-        : ""
+
+  inclusionItems.forEach((item: any) => {
+
+
+    const inclusionRefs =
+      item.relationships
+        ?.field_field_journey_inclusions
+        ?.data || [];
+
+
+    inclusionRefs.forEach((ref: any) => {
+
+      const term = included.find(
+        (inc: any) => inc.id === ref.id
+      );
+
+
+      if (term) {
+
+        const iconMediaId =
+          term.relationships?.field_icon?.data?.id;
+
+
+        const iconMedia = included.find(
+          (media: any) =>
+            media.id === iconMediaId &&
+            media.type === "media--image"
+        );
+
+
+        const iconFileId =
+          iconMedia?.relationships?.field_media_image?.data?.id;
+
+
+        const iconFile = included.find(
+          (file: any) =>
+            file.id === iconFileId &&
+            file.type === "file--file"
+        );
+
+
+        inclusions.push({
+          title: term.attributes.name,
+          description:
+            stripHtml(term.attributes.description?.value || ""),
+
+          icon:
+            iconFile?.attributes?.uri?.url
+              ? `${API_BASE_URL}${iconFile.attributes.uri.url}`
+              : ""
+        });
+
+
+      }
+
+    });
+
+
+
+    const exclusionRefs =
+      item.relationships
+        ?.field_exclusion
+        ?.data || [];
+
+
+    exclusionRefs.forEach((ref: any) => {
+
+      const term = included.find(
+        (inc: any) => inc.id === ref.id
+      );
+
+
+      if (term) {
+
+        const iconMediaId =
+          term.relationships?.field_icon?.data?.id;
+
+
+        const iconMedia = included.find(
+          (media: any) =>
+            media.id === iconMediaId &&
+            media.type === "media--image"
+        );
+
+
+        const iconFileId =
+          iconMedia?.relationships?.field_media_image?.data?.id;
+
+
+        const iconFile = included.find(
+          (file: any) =>
+            file.id === iconFileId &&
+            file.type === "file--file"
+        );
+
+
+        exclusions.push({
+          title: term.attributes.name,
+          description:
+            stripHtml(term.attributes.description?.value || ""),
+
+          icon:
+            iconFile?.attributes?.uri?.url
+              ? `${API_BASE_URL}${iconFile.attributes.uri.url}`
+              : ""
+        });
+
+      }
+    });
+
+
   });
 
 
-}
-
-  });
-
-
-
-  const exclusionRefs =
-    item.relationships
-      ?.field_exclusion
-      ?.data || [];
-
-
-  exclusionRefs.forEach((ref:any)=>{
-
-    const term = included.find(
-      (inc:any)=> inc.id === ref.id
-    );
-
-
-  if(term){
-
-  const iconMediaId =
-    term.relationships?.field_icon?.data?.id;
-
-
-  const iconMedia = included.find(
-    (media:any)=>
-      media.id === iconMediaId &&
-      media.type === "media--image"
-  );
-
-
-  const iconFileId =
-    iconMedia?.relationships?.field_media_image?.data?.id;
-
-
-  const iconFile = included.find(
-    (file:any)=>
-      file.id === iconFileId &&
-      file.type === "file--file"
-  );
-
-
-  exclusions.push({
-    title: term.attributes.name,
-    description:
-  stripHtml(term.attributes.description?.value || ""),
-
-    icon:
-      iconFile?.attributes?.uri?.url
-        ? `${API_BASE_URL}${iconFile.attributes.uri.url}`
-        : ""
-  });
-
-}
-  });
-
-
-});
-
-
-console.log("FINAL INCLUSIONS", inclusions);
-console.log("FINAL EXCLUSIONS", exclusions);
+  console.log("FINAL INCLUSIONS", inclusions);
+  console.log("FINAL EXCLUSIONS", exclusions);
 
 
 
@@ -263,10 +263,10 @@ console.log("FINAL EXCLUSIONS", exclusions);
 
   const departureData = await departureRes.json();
 
-const departures = departureData.data.filter(
-  (departure: any) =>
-    departure.relationships?.field_journey?.data?.id === journeyId
-);
+  const departures = departureData.data.filter(
+    (departure: any) =>
+      departure.relationships?.field_journey?.data?.id === journeyId
+  );
 
   console.log("All Departures:", departures);
   console.log("Journey ID:", journeyId);
@@ -277,13 +277,13 @@ const departures = departureData.data.filter(
 
     <>
       <SearchBar />
-    <JourneyDetailClient
-  initialData={initialData}
-  departures={departures}
-  journeyId={journeyId}
-  inclusions={inclusions}
-  exclusions={exclusions}
-/>
+      <JourneyDetailClient
+        initialData={initialData}
+        departures={departures}
+        journeyId={journeyId}
+        inclusions={inclusions}
+        exclusions={exclusions}
+      />
 
       <Footer />
     </>
