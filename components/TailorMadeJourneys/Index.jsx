@@ -74,7 +74,6 @@ const tailormadeJourneyFeatures = [
       footerText={"Journeys that begin with you. Where you want to go. How long you want to travel. What season works. Who's coming? What pace feels right. What kind of stay you want. What the trip needs to do for you"}
         theme={{
           cardBg: "bg-[#f2d09f]",
-          labelBg: "bg-[#ebdcd1]/40",
         }}
       />
       <JourneyRevelationsMobile
