@@ -5,37 +5,11 @@ import { Clock3, MapPin, Info } from "lucide-react";
 import MobileNavigationMenu from "./MobileNavigationMenu";
 import { useState } from "react";
 
-// Each tag has its own bg/text color matching the screenshot
-// const CATEGORY_TAGS = [
-//   { label: "Early Bird Offer",    bg: "#F5DFC9", text: "#6A5B4E" },
-//   { label: "Culture & Heritage",  bg: "#D8E8F8", text: "#1B4F72" },
-//   { label: "Leisure",             bg: "#D8E8F8", text: "#1B4F72" },
-//   { label: "Group Journey",       bg: "#D8E8F8", text: "#1B4F72" },
-//   { label: "Private Journey",     bg: "#D8E8F8", text: "#1B4F72" },
-// ];
-const getTagStyle = (tag) => {
-  switch (tag.toLowerCase()) {
-    case "private journey":
-      return {
-        bg: "#E8EBCF",
-        text: "#4B5320",
-      };
+// Fixed badge colors matching the design (Figma) reference:
+// Early Bird / offer = peach, tags (field_journey_tag, e.g. Group/Private
+// Journey) = green, categories (field_category, e.g. Culture & Heritage,
+// Leisure) = blue. All badge text is black, font-semibold, rounded-[5px].
 
-    case "tailor":
-    case "tailor made":
-    case "tailor-made":
-      return {
-        bg: "#E8EBCF",
-        text: "#4B5320",
-      };
-
-    default:
-      return {
-        bg: "#D8E8F8",
-        text: "#1B4F72",
-      };
-  }
-};
 // field_category is an entity reference to the "Category" taxonomy
 // vocabulary (unlimited cardinality) on the journey node. We resolve it
 // right here from the raw JSON:API item + included data (rather than in
@@ -68,47 +42,44 @@ export default function HeroSection({
     <section className="w-full bg-white hidden md:block">
       <div className="flex items-center justify-between border-b border-[#E8E8E8] bg-white px-[3vw] py-[0.55vw]">
 
-<div className="flex items-center gap-[0.45vw] flex-wrap">
-  {journey?.offer && (
-    <span
-      className="cursor-pointer rounded-full px-[0.85vw] py-[0.28vw] text-[0.63vw] font-medium"
-      style={{
-        backgroundColor: "#F5DFC9",
-        color: "#6A5B4E",
-      }}
-    >
-      {journey.offer}
-    </span>
-  )}
+<div className="flex items-center gap-[10px] flex-wrap">
+  {journey?.offer && (
+    <span
+      className="cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
+      style={{
+        backgroundColor: "#F2E2DA",
+        color: "#000000",
+      }}
+    >
+      {journey.offer}
+    </span>
+  )}
 
-  {journey?.tags?.map((tag) => (
-    <span
-      key={tag}
-      className="cursor-pointer rounded-full px-[0.85vw] py-[0.28vw] text-[0.63vw] font-medium"
-      style={{
-        backgroundColor: "#D8E8F8",
-        color: "#1B4F72",
-      }}
-    >
-      {tag}
-    </span>
-  ))}
+  {journey?.tags?.map((tag) => (
+    <span
+      key={tag}
+      className="cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
+      style={{
+        backgroundColor: "#EFF3CF",
+        color: "#000000",
+      }}
+    >
+      {tag}
+    </span>
+  ))}
 
-  {categories?.map((category) => {
-    const style = getTagStyle(category);
-    return (
-      <span
-        key={category}
-        className="cursor-pointer rounded-full px-[0.85vw] py-[0.28vw] text-[0.63vw] font-medium"
-        style={{
-          backgroundColor: style.bg,
-          color: style.text,
-        }}
-      >
-        {category}
-      </span>
-    );
-  })}
+  {categories?.map((category) => (
+    <span
+      key={category}
+      className="cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
+      style={{
+        backgroundColor: "#C2E5FF",
+        color: "#000000",
+      }}
+    >
+      {category}
+    </span>
+  ))}
 </div>
         <div className="flex items-center gap-[0.3vw] text-[0.63vw] text-[#888]">
           <span className="cursor-pointer hover:underline">Home</span>
@@ -267,11 +238,11 @@ export default function HeroSection({
                   <span className="font-bold">Group Size:</span> upto 18 guests
                 </div>
               </div>
-              <div className="mt-5 flex flex-wrap gap-3">
+              <div className="mt-5 flex flex-wrap gap-[10px]">
                 {journey?.offer && (
                   <span
-                    className="rounded px-4 py-2 text-[14px] font-medium"
-                    style={{ backgroundColor: "#F5DFC9", color: "#6A5B4E" }}
+                    className="rounded-[5px] px-3 py-2 text-[14px] font-semibold tracking-[0.05em]"
+                    style={{ backgroundColor: "#F2E2DA", color: "#000000" }}
                   >
                     {journey.offer}
                   </span>
@@ -280,24 +251,22 @@ export default function HeroSection({
                 {categories?.map((category) => (
                   <span
                     key={category}
-                    className="rounded bg-[#DDEDFB] px-4 py-2 text-[14px] font-medium"
+                    className="rounded-[5px] px-3 py-2 text-[14px] font-semibold tracking-[0.05em]"
+                    style={{ backgroundColor: "#C2E5FF", color: "#000000" }}
                   >
                     {category}
                   </span>
                 ))}
 
-                {journey?.tags?.map((tag) => {
-                  const style = getTagStyle(tag);
-                  return (
-                    <span
-                      key={tag}
-                      className="rounded px-4 py-2 text-[14px] font-medium"
-                      style={{ backgroundColor: style.bg, color: style.text }}
-                    >
-                      {tag}
-                    </span>
-                  );
-                })}
+                {journey?.tags?.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-[5px] px-3 py-2 text-[14px] font-semibold tracking-[0.05em]"
+                    style={{ backgroundColor: "#EFF3CF", color: "#000000" }}
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
