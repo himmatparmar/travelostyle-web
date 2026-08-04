@@ -7,7 +7,9 @@ import DetailTabs from "./DetailTabs";
 import HeroSection from "./HeroSection";
 import OtherDestinations from "./OtherDestinations";
 import TrustBar from "./TrustBar";
-
+function stripHtml(html) {
+  return (html || "").replace(/<[^>]*>/g, "").trim();
+}
 const MOCK_JOURNEY = {
   title: "The Moroccan Getaway",
   tags: ["Culture & Heritage", "Culture"],
@@ -21,6 +23,7 @@ const MOCK_JOURNEY = {
   bestSeason: "Jan–March, July–Sep",
   pace: "Moderate",
   offer: "Black Friday offer available for August & September departure/s",
+  earlyBird: true,
   highlights: [
     {
       type: "text",
@@ -95,9 +98,7 @@ function resolvePace(item, included) {
   return e?.attributes?.name || "";
 }
 
-function stripHtml(html) {
-  return (html || "").replace(/<[^>]*>/g, "").trim();
-}
+
 
 function resolveTabSections(item, included) {
   // Level 1: journey_tabs_section container
@@ -237,6 +238,10 @@ function transformItem(item, included) {
     destinations: `${item.attributes.field_destinations_count || 10} Destinations`,
     price: `$${Number(item.attributes.field_offer_price) || 5000}`,
     offer: item.attributes.field_offer_message || MOCK_JOURNEY.offer,
+    // field_early_bird is a plain Boolean attribute on the journey node
+    // (not a relationship), so it's already present in item.attributes —
+    // no change to the `include` param needed to fetch it.
+    earlyBird: Boolean(item.attributes.field_early_bird),
     tags: resolveTags(item, included),
     startCity: resolveLocation(item.relationships?.field_starts_in, included) || MOCK_JOURNEY.startCity,
     endCity: resolveLocation(item.relationships?.field_ends_in, included) || MOCK_JOURNEY.endCity,
@@ -250,7 +255,13 @@ function transformItem(item, included) {
   };
 }
 
-export default function JourneyDetailClient({ initialData,departures,journeyId, }) {
+export default function JourneyDetailClient({
+  initialData,
+  departures,
+  journeyId,
+  inclusions,
+  exclusions,
+}) {
   const journey =
     initialData?.data
       ? transformItem(initialData.data, initialData.included || [])
@@ -258,18 +269,22 @@ export default function JourneyDetailClient({ initialData,departures,journeyId, 
 
   return (
     <main>
-     <HeroSection
-  journey={journey}
-  departures={departures}
-  rawItem={initialData?.data}
-  included={initialData?.included || []}
-/>
+      <HeroSection
+        journey={journey}
+        departures={departures}
+        inclusions={inclusions}
+        exclusions={exclusions}
+        rawItem={initialData?.data}
+        included={initialData?.included || []}
+      />
       <TrustBar />
-<DetailTabs
-  journey={journey}
-  departures={departures}
-   journeyId={journeyId}
-/>      <OtherDestinations />
+      <DetailTabs
+        journey={journey}
+        departures={departures}
+        journeyId={journeyId}
+        inclusions={inclusions}
+        exclusions={exclusions}
+      />     <OtherDestinations />
       <TestimonialSection />
       <TravelOStylePromise />
     </main>

@@ -43,7 +43,7 @@ export default function HeroSection({
       <div className="flex items-center justify-between border-b border-[#E8E8E8] bg-white px-[3vw] py-[0.55vw]">
 
 <div className="flex items-center gap-[10px] flex-wrap">
-  {journey?.offer && (
+  {journey?.offer && journey?.earlyBird && (
     <span
       className="cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
       style={{
@@ -239,7 +239,7 @@ export default function HeroSection({
                 </div>
               </div>
               <div className="mt-5 flex flex-wrap gap-[10px]">
-                {journey?.offer && (
+                {journey?.offer && journey?.earlyBird && (
                   <span
                     className="rounded-[5px] px-3 py-2 text-[14px] font-semibold tracking-[0.05em]"
                     style={{ backgroundColor: "#F2E2DA", color: "#000000" }}
