@@ -113,7 +113,7 @@ const drupalJourneys = (json.data || []).map((item, index) => {
           // this link always matches what /api/journey/{slug} will resolve.
           // Fall back to a client-computed slug only if path/alias is missing.
           const alias = item.attributes?.path?.alias || "";
-          const aliasSlug = alias.replace(/^\/journey\//, "");
+          const aliasSlug = alias.replace(/^\/journeys?\//, "");
           const titleSlug = aliasSlug || slugify(item.attributes.title || "");
           let viewTripUrl = `/journeys/${titleSlug}`;
 
@@ -155,7 +155,7 @@ console.log({
 
             tags: tagNames,
             style: tagNames[0] || "Group Journey",
-             region: regionName,
+            region: regionName,
             category: item.attributes?.field_category || "",
             month: monthName,
 
@@ -192,7 +192,7 @@ console.log({
 };
 
         const results = {};
-
+        console.log(endpoints);
         for (const key in endpoints) {
           const res = await fetch(endpoints[key]);
           const json = await res.json();

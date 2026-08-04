@@ -3,82 +3,6 @@ import { useState } from "react";
 import React from "react";
 import { useRouter } from "next/navigation";
 
-// const departures = [
-//     {
-
-//         startDate: "11 May 2026",
-//         startDay: "Monday",
-//         endDate: "24 May 2026",
-//         endDay: "Friday",
-
-
-//         statusType: "soldout",
-//         line1: "Journey Sold Out",
-
-//         statusColor: "text-red-600",
-//         price: "$5000",
-//         offer: "No offers available",
-//         button: "Request a Private Journey",
-//         buttonStyle: "bg-[#2C3078] text-white",
-//     },
-
-//     {
-//         startDate: "11 May 2026",
-//         startDay: "Monday",
-//         endDate: "24 May 2026",
-//         endDay: "Friday",
-
-//         statusType: "guaranteed",
-//         line1: "2 Seats Left",
-//         line2: "Guaranteed Departure",
-
-//         statusColor: "text-green-600",
-//         price: "$5000",
-//         offer: "No offers available",
-//         button: "Enquire For This Date",
-//         buttonStyle: "bg-[#2C3078] text-white",
-//     },
-//     {
-
-//         startDate: "11 May 2026",
-//         startDay: "Monday",
-//         endDate: "24 May 2026",
-//         endDay: "Friday",
-//         statusType: "earlybird",
-//         line1: "Seats Open",
-//         line2: "Early Bird Available",
-
-
-//         discountedPrice: "$3500",
-//         originalPrice: "$5000",
-
-
-//         offerPercent: "30% off",
-//         offerText: "Early Bird Offer applied to price",
-
-
-//         button: "Claim Early Bird Call",
-//         buttonStyle: "bg-[#2C3078] text-white",
-//     },
-//     {
-
-//         startDate: "11 May 2026",
-//         startDay: "Monday",
-//         endDate: "24 May 2026",
-//         endDay: "Friday",
-
-
-//         statusType: "open",
-//         line1: "Seats Open",
-//         statusColor: "text-green-600",
-//         price: "$5000",
-//         offer: "No offers available",
-//         button: "Enquire For This Date",
-//         buttonStyle: "bg-[#2C3078] text-white",
-//     },
-// ];
-
-
 
 export default function JourneyPricing({
     journey,
@@ -168,8 +92,8 @@ export default function JourneyPricing({
 
                     className="
           font-semibold
-          text-[32px]
-          leading-[56px]
+          text-[28px] md:text-[32px]
+          leading-[36px] md:leading-[56px]
           tracking-[0.05em]
           text-[#1A1A1A]
         "
@@ -180,11 +104,7 @@ export default function JourneyPricing({
 
                 <div className="flex justify-center">
                     <div
-                        className="flex border-2 border-black rounded-[5px] overflow-hidden"
-                        style={{
-                            width: "160px",
-                            height: "40px",
-                        }}
+                        className="flex w-[110px] h-[34px] md:w-[160px] md:h-[40px] border-2 border-black rounded-[5px] overflow-hidden"
                     >
                         {["2026", "2027"].map((year) => (
                             <button
@@ -240,6 +160,7 @@ export default function JourneyPricing({
                                                     Seats Available
                                                 </span>
                                             )}
+
                                         </div>
                                     </div>
 
