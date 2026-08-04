@@ -153,7 +153,7 @@ console.log({
 
             tags: tagNames,
             style: tagNames[0] || "Group Journey",
-             region: regionName,
+            region: regionName,
             category: item.attributes?.field_category || "",
             month: monthName,
 
@@ -190,7 +190,7 @@ console.log({
 };
 
         const results = {};
-
+        console.log(endpoints);
         for (const key in endpoints) {
           const res = await fetch(endpoints[key]);
           const json = await res.json();
