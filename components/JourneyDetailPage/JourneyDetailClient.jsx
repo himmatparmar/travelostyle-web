@@ -224,13 +224,7 @@ function transformItem(item, included) {
   };
 }
 
-export default function JourneyDetailClient({
-  initialData,
-  departures,
-  journeyId,
-  inclusions,
-  exclusions,
-}) {
+export default function JourneyDetailClient({ initialData,departures,journeyId, }) {
   const journey =
     initialData?.data
       ? transformItem(initialData.data, initialData.included || [])
@@ -238,20 +232,18 @@ export default function JourneyDetailClient({
 
   return (
     <main>
-      <HeroSection
-        journey={journey}
-        departures={departures}
-        inclusions={inclusions}
-        exclusions={exclusions}
-      />
+     <HeroSection
+  journey={journey}
+  departures={departures}
+  rawItem={initialData?.data}
+  included={initialData?.included || []}
+/>
       <TrustBar />
-      <DetailTabs
-        journey={journey}
-        departures={departures}
-        journeyId={journeyId}
-        inclusions={inclusions}
-        exclusions={exclusions}
-      />     <OtherDestinations />
+<DetailTabs
+  journey={journey}
+  departures={departures}
+   journeyId={journeyId}
+/>      <OtherDestinations />
       <TestimonialSection />
       <TravelOStylePromise />
     </main>
