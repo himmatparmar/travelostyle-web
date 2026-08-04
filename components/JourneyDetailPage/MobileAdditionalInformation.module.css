@@ -1,0 +1,38 @@
+/* Rich text rendered from Drupal (field_content) inside Additional Information
+   accordion items on mobile. Scoped via CSS Modules so it can never leak
+   onto rich text rendered anywhere else on the site. */
+
+.infoRichText p {
+  margin-bottom: 0.5rem;
+}
+.infoRichText p:last-child {
+  margin-bottom: 0;
+}
+.infoRichText strong {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+.infoRichText table {
+  margin: 0.75rem 0;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid #1a1a1a;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f2e2da;
+}
+.infoRichText thead {
+  display: none;
+}
+.infoRichText td {
+  border: 1px solid #1a1a1a;
+  padding: 0.5rem;
+  vertical-align: top;
+}
+.infoRichText tbody td:first-child {
+  width: 34%;
+  white-space: nowrap;
+  font-weight: 600;
+  color: #1a1a1a;
+}

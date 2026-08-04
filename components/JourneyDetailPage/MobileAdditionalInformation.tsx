@@ -2,79 +2,64 @@
 
 import Image from "next/image";
 import React, { useState } from "react";
-interface AccordionItem {
-  id: string;
+import { DEFAULT_ADDITIONAL_INFO } from "./AdditionalInformationSection";
+import styles from "./MobileAdditionalInformation.module.css";
+
+interface InfoItem {
   title: string;
+  content: string;
+}
+
+interface InfoGroup {
+  title: string;
+  items: InfoItem[];
+}
+
+function AccordionItem({ item }: { item: InfoItem }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="rounded-xl border border-[#1A1A1A] bg-white overflow-hidden">
+      <button
+        onClick={() => setIsOpen((v) => !v)}
+        className="flex w-full items-center justify-between p-4 text-left"
+      >
+        <span className="font-bold text-[#1A1A1A]">{item.title}</span>
+        <span className="relative flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#F7E4DC]">
+          <span className="absolute h-[1.5px] w-3 bg-[#1A1A1A]" />
+          <span
+            className={`absolute h-3 w-[1.5px] bg-[#1A1A1A] transition-transform duration-200 ${
+              isOpen ? "scale-y-0" : "scale-y-100"
+            }`}
+          />
+        </span>
+      </button>
+
+      <div
+        className={`grid transition-all duration-300 ease-in-out ${
+          isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div
+            className={`${styles.infoRichText} border-t border-[#E5E5E5] p-4 text-sm leading-relaxed text-[#333]`}
+            dangerouslySetInnerHTML={{ __html: item.content }}
+          />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default function MobileAdditionalInformation({
   onBack,
+  drupalData,
 }: {
   onBack: () => void;
+  drupalData?: InfoGroup[] | null;
 }) {
-  const [openItems, setOpenItems] = useState<Record<string, boolean>>({});
-
-  const toggleAccordion = (id: string) => {
-    setOpenItems((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
-  };
-
-  const beforeYouBookItems: AccordionItem[] = [
-    { id: "best-season", title: "Best Season" },
-    { id: "visa-req", title: "Visa Requirements" },
-    { id: "cancellation", title: "Cancellation Policy" },
-    { id: "insurance", title: "Travel Insurance" },
-  ];
-
-  const beforeYouTravelItems: AccordionItem[] = [
-    { id: "country-details", title: "Country Details & Travel Advisory" },
-    { id: "ground-sharing", title: "On-Ground Sharing" },
-    { id: "documents", title: "Travel Documents" },
-    { id: "safety", title: "Safety & Security" },
-  ];
-
-  const renderAccordionSection = (items: AccordionItem[]) => {
-    return (
-      <div className="space-y-3">
-        {items.map((item) => {
-          const isOpen = !!openItems[item.id];
-          return (
-            <div
-              key={item.id}
-              className="border border-neutral-800 rounded-xl bg-[#fcfcfc] overflow-hidden transition-all duration-200 shadow-sm"
-            >
-              <button
-                onClick={() => toggleAccordion(item.id)}
-                className="w-full flex items-center justify-between p-4 text-left font-semibold text-neutral-800 hover:bg-neutral-50 transition-colors"
-              >
-                <span>{item.title}</span>
-                <div className="w-6 h-6 rounded-full bg-[#fceae6] flex items-center justify-center text-[#e07a5f] relative">
-                  <span className="absolute w-3 h-[2px] bg-orange-900/70 block"></span>
-                  <span
-                    className={`absolute w-[2px] h-3 bg-orange-900/70 block transition-transform duration-200 ${
-                      isOpen ? "rotate-90 scale-y-0" : ""
-                    }`}
-                  ></span>
-                </div>
-              </button>
-              <div
-                className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                  isOpen ? "max-h-40 border-t border-neutral-100" : "max-h-0"
-                }`}
-              >
-                <div className="p-4 text-sm text-neutral-600 bg-white">
-                  Placeholder content for {item.title}. You can replace this
-                  with your actual dynamic data.
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
+  const groups =
+    drupalData && drupalData.length > 0 ? drupalData : DEFAULT_ADDITIONAL_INFO;
 
   return (
     <div className="max-w-md mx-auto min-h-screen bg-[#fafafa] p-6 font-sans">
@@ -92,18 +77,19 @@ export default function MobileAdditionalInformation({
 
         <div className="w-12" />
       </div>
-      <div className="mb-8">
-        <h2 className="text-md font-bold text-neutral-800 mb-4">
-          Things to Know Before You Book
-        </h2>
-        {renderAccordionSection(beforeYouBookItems)}
-      </div>
-      <div className="mb-6">
-        <h2 className="text-md font-bold text-neutral-800 mb-4">
-          Things to Know Before You Travel
-        </h2>
-        {renderAccordionSection(beforeYouTravelItems)}
-      </div>
+
+      {groups.map((group, gi) => (
+        <div key={gi} className={gi > 0 ? "mb-6" : "mb-8"}>
+          <h2 className="text-md font-bold text-neutral-800 mb-4">
+            {group.title}
+          </h2>
+          <div className="space-y-3">
+            {group.items.map((item, ii) => (
+              <AccordionItem key={ii} item={item} />
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

@@ -41,6 +41,7 @@ const INCLUDE = [
   "field_journey_tabs_section.field_section_tabs.field_days.field_stay",
   "field_journey_tabs_section.field_section_tabs.field_hotels.field_featured_image.field_media_image",
   "field_journey_tabs_section.field_section_tabs.field_hotels.field_gallery.field_media_image",
+  "field_journey_tabs_section.field_section_tabs.field_information_item",
   // "field_journey_tabs_section.field_section_tabs.field_inclusions.field_inclusion.field_icon",
   // "field_journey_tabs_section.field_section_tabs.field_exclusions.field_exclusion.field_icon",
   // "field_journey_tabs_section.field_section_tabs.field_inclusions.field_inclusion.field_icon.field_media_image",
