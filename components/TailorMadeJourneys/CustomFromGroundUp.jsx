@@ -4,16 +4,53 @@ import React from "react";
 export default function CustomFromGroundUp() {
   return (
     <>
-      <section className="relative bg-white py-8 sm:py-16 pl-6 sm:pl-12 lg:pl-20 pr-0 overflow-hidden min-h-[480px]">
+      <section className="relative bg-white py-8 sm:py-16 px-6 sm:pl-12 lg:pl-20 sm:pr-0 overflow-hidden min-h-[480px]">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative">
-          <div className="md:col-span-7 space-y-6 pr-4 sm:pr-8">
-            <div className="relative inline-block my-2">
-              <span className="absolute inset-y-1 inset-x-0 bg-[#f2e2da] -z-0 rounded-xs transform scale-y-75 sm:scale-y-80" />
+          <div className="md:col-span-7 space-y-6 md:pr-8 relative">
+          
+            <div className="block md:hidden relative pt-14">
+              <div className="absolute -top-12 right-0 w-[180px] h-[150px] z-0 pointer-events-none">
+                <Image
+                  src="/CustomFormLine.svg"
+                  alt="Dashed Swirl Line"
+                  fill
+                  className="object-contain object-top-right"
+                  priority
+                />
+              </div>
+              <div className="relative z-10 flex flex-col gap-1 mb-12">
+                <div className="inline-block w-fit bg-[#F3E3DC] px-1.5 py-[2px]">
+                  <h2 className="font-taprom text-[34px] leading-[0.92] font-normal text-[#111111]">
+                    Custom, from
+                  </h2>
+                </div>
+
+                <div className="inline-block w-fit bg-[#F3E3DC] px-1.5 py-[2px]">
+                  <h2 className="font-taprom text-[34px] leading-[0.92] font-normal text-[#111111]">
+                    the ground up
+                  </h2>
+                </div>
+              </div>
+
+              <div className="absolute left-[-32px] bottom-[-55px] z-0">
+                <Image
+                  src="/ResLine2Journey.svg"
+                  alt="Journey Line"
+                  width={80}
+                  height={80}
+                  className="w-[80px] h-auto"
+                  priority
+                />
+              </div>
+            </div>
+            <div className="hidden md:inline-block relative my-2">
+              <span className="absolute inset-y-1 inset-x-0 bg-[#F3E3DC] rounded-xs transform scale-y-75 sm:scale-y-80" />
               <h2 className="relative z-10 font-taprom text-4xl sm:text-5xl md:text-[52px] text-[#111111] leading-none px-2 tracking-wide font-normal">
                 Custom, from the ground up
               </h2>
             </div>
-            <div className="space-y-6 mt-5 text-[#555555] text-xs sm:text-sm md:text-[15px] leading-relaxed">
+
+            <div className="space-y-6 mt-5 text-[#555555] text-xs sm:text-sm md:text-[15px] leading-relaxed relative z-10">
               <p>
                 We start where you are, not where we like you to be or where the
                 average itinerary tends to go. We begin with your reality — your
@@ -37,8 +74,7 @@ export default function CustomFromGroundUp() {
               </p>
             </div>
           </div>
-
-          <div className="md:col-span-5 flex justify-end items-start md:absolute md:right-0 md:top-2 lg:-top-6 z-10">
+          <div className="hidden md:flex md:col-span-5 justify-end items-start md:absolute md:right-0 md:top-2 lg:-top-6 z-10">
             <Image
               src="/DashedSwirlLine.svg"
               alt="Dashed Swirl Line Journey Vector"

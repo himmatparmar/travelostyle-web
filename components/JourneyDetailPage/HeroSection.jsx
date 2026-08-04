@@ -5,32 +5,82 @@ import { Clock3, MapPin, Info } from "lucide-react";
 import MobileNavigationMenu from "./MobileNavigationMenu";
 import { useState } from "react";
 
-// Each tag has its own bg/text color matching the screenshot
-const CATEGORY_TAGS = [
-  { label: "Early Bird Offer",    bg: "#F5DFC9", text: "#6A5B4E" },
-  { label: "Culture & Heritage",  bg: "#D8E8F8", text: "#1B4F72" },
-  { label: "Leisure",             bg: "#D8E8F8", text: "#1B4F72" },
-  { label: "Group Journey",       bg: "#D8E8F8", text: "#1B4F72" },
-  { label: "Private Journey",     bg: "#D8E8F8", text: "#1B4F72" },
-];
-export default function HeroSection({ journey }) {
+// Fixed badge colors matching the design (Figma) reference:
+// Early Bird / offer = peach, tags (field_journey_tag, e.g. Group/Private
+// Journey) = green, categories (field_category, e.g. Culture & Heritage,
+// Leisure) = blue. All badge text is black, font-semibold, rounded-[5px].
+
+// field_category is an entity reference to the "Category" taxonomy
+// vocabulary (unlimited cardinality) on the journey node. We resolve it
+// right here from the raw JSON:API item + included data (rather than in
+// JourneyDetailClient) so all category-related logic stays in one place.
+// Matching by id only (not resource type) since ids are unique across the
+// whole `included` array.
+function resolveCategories(item, included) {
+  const data = item?.relationships?.field_category?.data;
+  const arr = Array.isArray(data) ? data : data ? [data] : [];
+  return arr
+    .map((c) => {
+      const e = included.find((i) => i.id === c.id);
+      return e?.attributes?.name;
+    })
+    .filter(Boolean);
+}
+
+const MOCK_CATEGORIES = ["Culture & Heritage", "Leisure"];
+
+export default function HeroSection({
+  journey,
+  departures,
+  rawItem,
+  included = [],
+}) {
   const [activeView, setActiveView] = useState("menu");
+  const categories = rawItem ? resolveCategories(rawItem, included) : MOCK_CATEGORIES;
   return (
     <>
     <section className="w-full bg-white hidden md:block">
       <div className="flex items-center justify-between border-b border-[#E8E8E8] bg-white px-[3vw] py-[0.55vw]">
 
-        <div className="flex items-center gap-[0.45vw]">
-          {CATEGORY_TAGS.map((tag) => (
-            <span
-              key={tag.label}
-              className="cursor-pointer rounded-full px-[0.85vw] py-[0.28vw] text-[0.63vw] font-medium"
-              style={{ backgroundColor: tag.bg, color: tag.text }}
-            >
-              {tag.label}
-            </span>
-          ))}
-        </div>
+<div className="flex items-center gap-[10px] flex-wrap">
+  {journey?.offer && (
+    <span
+      className="cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
+      style={{
+        backgroundColor: "#F2E2DA",
+        color: "#000000",
+      }}
+    >
+      {journey.offer}
+    </span>
+  )}
+
+  {journey?.tags?.map((tag) => (
+    <span
+      key={tag}
+      className="cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
+      style={{
+        backgroundColor: "#EFF3CF",
+        color: "#000000",
+      }}
+    >
+      {tag}
+    </span>
+  ))}
+
+  {categories?.map((category) => (
+    <span
+      key={category}
+      className="cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
+      style={{
+        backgroundColor: "#C2E5FF",
+        color: "#000000",
+      }}
+    >
+      {category}
+    </span>
+  ))}
+</div>
         <div className="flex items-center gap-[0.3vw] text-[0.63vw] text-[#888]">
           <span className="cursor-pointer hover:underline">Home</span>
           <span className="text-[#BBB]">&gt;</span>
@@ -188,22 +238,35 @@ export default function HeroSection({ journey }) {
                   <span className="font-bold">Group Size:</span> upto 18 guests
                 </div>
               </div>
-              <div className="mt-5 flex flex-wrap gap-3">
-                <span className="rounded bg-[#DDEDFB] px-4 py-2 text-[14px] font-medium">
-                  Culture & Heritage
-                </span>
+              <div className="mt-5 flex flex-wrap gap-[10px]">
+                {journey?.offer && (
+                  <span
+                    className="rounded-[5px] px-3 py-2 text-[14px] font-semibold tracking-[0.05em]"
+                    style={{ backgroundColor: "#F2E2DA", color: "#000000" }}
+                  >
+                    {journey.offer}
+                  </span>
+                )}
 
-                <span className="rounded bg-[#DDEDFB] px-4 py-2 text-[14px] font-medium">
-                  Leisure
-                </span>
+                {categories?.map((category) => (
+                  <span
+                    key={category}
+                    className="rounded-[5px] px-3 py-2 text-[14px] font-semibold tracking-[0.05em]"
+                    style={{ backgroundColor: "#C2E5FF", color: "#000000" }}
+                  >
+                    {category}
+                  </span>
+                ))}
 
-                <span className="rounded bg-[#E8EBCF] px-4 py-2 text-[14px] font-medium">
-                  Group Journey
-                </span>
-
-                <span className="rounded bg-[#E8EBCF] px-4 py-2 text-[14px] font-medium">
-                  Private Journey
-                </span>
+                {journey?.tags?.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-[5px] px-3 py-2 text-[14px] font-semibold tracking-[0.05em]"
+                    style={{ backgroundColor: "#EFF3CF", color: "#000000" }}
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
@@ -224,16 +287,15 @@ export default function HeroSection({ journey }) {
                   was $6500
                 </p>
               </div>
-
-              <div className="w-[52%] bg-[#F6EEE8] p-4">
-                <div className="flex gap-2">
-                  <Info size={20} />
-                  <p className="text-[15px] leading-[24px]">
-                    Early Bird Offers available for August & September
-                    Departures
-                  </p>
-                </div>
-              </div>
+<div className="w-[52%] bg-[#F6EEE8] p-4">
+  <div className="flex gap-2">
+    <Info size={20} />
+    <p className="text-[15px] leading-[24px]">
+      {journey.offer ||
+        "Early Bird Offers available for August & September Departures"}
+    </p>
+  </div>
+</div>
             </div>
             <div className="flex items-center justify-center gap-3 border-t border-[#2E2E2E] bg-white px-4 py-3">
               <button className="rounded-full bg-[#2B2D82] px-6 py-2 text-[15px] font-semibold text-white">
@@ -249,7 +311,12 @@ export default function HeroSection({ journey }) {
           </div>
         </div>}
       </div>
-        <MobileNavigationMenu activeView={activeView} setActiveView={setActiveView} journey={journey} />
+        <MobileNavigationMenu
+  journey={journey}
+  departures={departures}
+  activeView={activeView}
+  setActiveView={setActiveView}
+/>
     </>
   );
 }

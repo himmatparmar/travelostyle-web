@@ -6,9 +6,15 @@ import MobileHighlightsPage from "./MobileHighlightsPage";
 import MobileInclusionsExclusions from "./MobileInclusionsExclusions";
 import MobileAdditionalInformation from "./MobileAdditionalInformation";
 import MobileStays from "./MobileStays";
+import JourneyPricing from "./DatePricing";
 import BookYourJourneyMobile from "./BookYourJourneyMobile";
 
-export default function MobileNavigationMenu({journey, activeView, setActiveView }) {
+export default function MobileNavigationMenu({
+  journey,
+  departures,
+  activeView,
+  setActiveView
+}){
   const menuItems = [
     { label: "Highlights", id: "highlights" },
     { label: "Itinerary", id: "itinerary" },
@@ -87,9 +93,26 @@ if (activeView === "stays") {
 }
 if (activeView === "dates-pricing") {
   return (
-    <BookYourJourneyMobile
-      onBack={() => setActiveView("menu")}
-    />
+    <div>
+      <div className="p-4">
+        <button
+          onClick={() => setActiveView("menu")}
+          className="flex h-6 w-12 items-center justify-center rounded-full bg-white border border-neutral-300"
+        >
+          <Image
+            src="/LeftArrow.svg"
+            alt="Back"
+            width={56}
+            height={24}
+          />
+        </button>
+      </div>
+
+     <JourneyPricing
+  journey={journey}
+  departures={departures}
+/>
+    </div>
   );
 }
 }

@@ -26,8 +26,9 @@ export default function SearchHeader({
         setMenuOpen={setMenuOpen}
       />
 
+      <div className="border-b border-[#636363]">
       <div className="px-4 md:px-14 py-3">
-      <div className="relative flex items-center justify-between border-b border-[#636363] pb-4">
+      <div className="relative flex items-center justify-between pb-4">
           <button
             onClick={() => setMenuOpen(true)}
             className="block md:hidden"
@@ -67,6 +68,7 @@ export default function SearchHeader({
             />
           </button>
         </div>
+      </div>
       </div>
     </>
   );

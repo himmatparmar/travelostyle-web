@@ -46,10 +46,21 @@ export default function AllJourneysPage() {
 );
 
         const json = await res.json();
+        console.log(
+  "Relationships:",
+  json.data?.[0]?.relationships
+);
+        console.log("Journey API:", json);
         const included = json.included || [];
+        console.log(
+  "Region terms:",
+  included.filter(
+    (i) => i.type === "taxonomy_term--region"
+  )
+);
 
-        const drupalJourneys = json.data.map((item, index) => {
-          const mediaId = item.relationships?.field_journey_image?.data?.id;
+const drupalJourneys = (json.data || []).map((item, index) => {
+            const mediaId = item.relationships?.field_journey_image?.data?.id;
 
           const mediaEntity = included.find(
             (inc) => inc.type === "media--image" && inc.id === mediaId,
@@ -107,6 +118,20 @@ export default function AllJourneysPage() {
           if (cta?.uri && !cta.uri.startsWith("entity:")) {
             viewTripUrl = cta.uri;
           }
+            const regionId = item.relationships?.field_region?.data?.id;
+
+const regionEntity = included.find(
+  (inc) =>
+    inc.type === "taxonomy_term--region" &&
+    inc.id === regionId
+);
+
+const regionName = regionEntity?.attributes?.name || "";
+console.log({
+  title: item.attributes?.title,
+  regionId,
+  regionName,
+});
 
           return {
             id: item.id,
@@ -128,7 +153,7 @@ export default function AllJourneysPage() {
 
             tags: tagNames,
             style: tagNames[0] || "Group Journey",
-            region: item.attributes?.field_region || "",
+            region: regionName,
             category: item.attributes?.field_category || "",
             month: monthName,
 
@@ -140,6 +165,8 @@ export default function AllJourneysPage() {
         });
 
         setJourneys(drupalJourneys);
+        console.log("Final journeys:", drupalJourneys);
+        
       } catch (error) {
         console.error("API ERROR:", error);
       } finally {
@@ -155,7 +182,7 @@ export default function AllJourneysPage() {
     async function loadFilters() {
       try {
         const endpoints = {
-  region: `${API_BASE_URL}/jsonapi/taxonomy_term/country`,
+   region: `${API_BASE_URL}/jsonapi/taxonomy_term/region`,
   style: `${API_BASE_URL}/jsonapi/taxonomy_term/tags`,
   offer: `${API_BASE_URL}/jsonapi/taxonomy_term/offers`,
   category: `${API_BASE_URL}/jsonapi/taxonomy_term/category`,

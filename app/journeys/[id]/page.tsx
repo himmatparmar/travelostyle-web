@@ -8,6 +8,7 @@ import { API_BASE_URL } from "@/lib/config";
 const INCLUDE = [
   "field_journey_image.field_media_image",
   "field_journey_tag",
+  "field_category",
   "field_month",
   "field_starts_in",
   "field_ends_in",
@@ -54,14 +55,59 @@ export default async function JourneyDetailPage({
     }
     initialData = await res.json();
   }
+  const journeyRes = await fetch(
+    `${API_BASE_URL}/api/journey/${id}?include=${INCLUDE}`,
+    {
+      cache: "no-store",
+    }
+  );
+
+  if (!journeyRes.ok) {
+    notFound();
+  }
+
+  const journeyData = await journeyRes.json();
+  console.log(
+  JSON.stringify(journeyData.included, null, 2)
+);
+
+  // Check the structure first
+  console.log("Journey Data:", journeyData);
+
+  // Example (adjust based on actual response shape)
+  const journeyId = journeyData.data.id;
+
+  // Fetch departures linked to this journey
+  const departureRes = await fetch(
+    `${API_BASE_URL}/jsonapi/node/book_your_journey`,
+    { cache: "no-store" }
+  );
+
+  const departureData = await departureRes.json();
+
+const departures = departureData.data.filter(
+  (departure: any) =>
+    departure.relationships?.field_journey?.data?.id === journeyId
+);
+
+  console.log("All Departures:", departures);
+  console.log("Journey ID:", journeyId);
+  console.log("Filtered Departures:", departures);
+
 
   return (
+
     <>
       <SearchBar />
-      <JourneyDetailClient initialData={initialData} />
+     <JourneyDetailClient
+  initialData={initialData}
+  departures={departures}
+   journeyId={journeyId}
+/>
 
-    <JourneyPricing/>
-     <Footer />
+
+
+      <Footer />
     </>
   );
 }
