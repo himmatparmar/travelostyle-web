@@ -248,6 +248,8 @@ export default function JourneyDetailClient({
         departures={departures}
         inclusions={inclusions}
         exclusions={exclusions}
+        rawItem={initialData?.data}
+        included={initialData?.included || []}
       />
       <TrustBar />
       <DetailTabs
