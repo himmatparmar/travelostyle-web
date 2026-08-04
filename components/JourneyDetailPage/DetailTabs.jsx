@@ -5,6 +5,7 @@ import HighlightsSection from "./HighlightsSection";
 import ItinerarySection from "./ItinerarySection";
 import StaysSection from "./StaysSection";
 import CtaBanner from "./CtaBanner";
+import InclusionsExclusions from "./Inclusionexclusion";
 import JourneyPricing from "./DatePricing";
 const TABS = [
   "Highlights",
@@ -18,9 +19,14 @@ const TABS = [
 export default function DetailTabs({
   journey,
   departures,
-   journeyId,
+  journeyId,
+  inclusions,
+  exclusions,
 }) {
+  
   const [activeTab, setActiveTab] = useState("Highlights");
+ console.log("DETAIL TABS INCLUSIONS", inclusions);
+  console.log("DETAIL TABS EXCLUSIONS", exclusions);
 
   return (
     <>
@@ -71,18 +77,36 @@ export default function DetailTabs({
             drupalData={journey?.tabStays}
           />
         )}
+        {activeTab === "Stays" && (
+  <StaysSection
+    stays={journey?.stays}
+    drupalData={journey?.tabStays}
+  />
+)}
 
-        {activeTab === "Inclusions & Exclusions" && (
-          <div className="px-[5.5vw] py-[3vw] text-[0.85vw] text-[#666]">
-            Inclusions &amp; exclusions coming soon.
-          </div>
-        )}
+{activeTab === "Inclusions & Exclusions" && (
+  <InclusionsExclusions
+    inclusions={inclusions}
+    exclusions={exclusions}
+  />
+)}
+
+{activeTab === "Inclusions & Exclusions" && (
+  <InclusionsExclusions
+    inclusions={inclusions}
+    exclusions={exclusions}
+  />
+)}
+    
 
 {activeTab === "Dates & Pricing" && (
  <JourneyPricing
   journey={journey}
   departures={departures}
    journeyId={journeyId}
+  inclusions={inclusions}
+  exclusions={exclusions}
+
 />
 )}
 
