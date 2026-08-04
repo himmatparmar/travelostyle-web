@@ -111,7 +111,7 @@ const drupalJourneys = (json.data || []).map((item, index) => {
           // this link always matches what /api/journey/{slug} will resolve.
           // Fall back to a client-computed slug only if path/alias is missing.
           const alias = item.attributes?.path?.alias || "";
-          const aliasSlug = alias.replace(/^\/journey\//, "");
+          const aliasSlug = alias.replace(/^\/journeys?\//, "");
           const titleSlug = aliasSlug || slugify(item.attributes.title || "");
           let viewTripUrl = `/journeys/${titleSlug}`;
 
