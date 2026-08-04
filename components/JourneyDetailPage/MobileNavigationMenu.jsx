@@ -78,7 +78,7 @@ if (activeView === "additional-information") {
   return (
     <MobileAdditionalInformation
       onBack={() => setActiveView("menu")}
-     
+      drupalData={journey.tabAdditionalInfo}
     />
   );
 }

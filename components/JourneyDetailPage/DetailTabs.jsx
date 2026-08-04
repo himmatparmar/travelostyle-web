@@ -6,6 +6,7 @@ import ItinerarySection from "./ItinerarySection";
 import StaysSection from "./StaysSection";
 import CtaBanner from "./CtaBanner";
 import JourneyPricing from "./DatePricing";
+import AdditionalInformationSection from "./AdditionalInformationSection";
 const TABS = [
   "Highlights",
   "Itinerary",
@@ -26,20 +27,20 @@ export default function DetailTabs({
     <>
     <div className="bg-white hidden md:block">
       <div className="sticky top-0 z-20 bg-white border-b border-[#E5E5E5] px-[5.5vw]">
-        <div className="flex items-center gap-[2.5vw]">
+        <div className="flex items-center">
           {TABS.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`relative py-[1.1vw] text-[0.82vw] transition-colors whitespace-nowrap ${
+              className={`relative px-[1.75vw] py-[1.1vw] whitespace-nowrap text-[21px] leading-[32px] tracking-[0.05em] transition-colors ${
                 activeTab === tab
-                  ? "font-semibold text-[#1A1A1A]"
-                  : "font-medium text-[#888] hover:text-[#444]"
+                  ? "font-bold text-black"
+                  : "font-light text-black/50 hover:text-black/80"
               }`}
             >
               {tab}
               {activeTab === tab && (
-                <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#1A1A1A]" />
+                <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-black" />
               )}
             </button>
           ))}
@@ -87,9 +88,9 @@ export default function DetailTabs({
 )}
 
         {activeTab === "Additional Information" && (
-          <div className="px-[5.5vw] py-[3vw] text-[0.85vw] text-[#666]">
-            Additional information coming soon.
-          </div>
+          <AdditionalInformationSection
+            drupalData={journey?.tabAdditionalInfo}
+          />
         )}
       </div>
 

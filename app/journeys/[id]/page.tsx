@@ -21,6 +21,7 @@ const INCLUDE = [
   "field_journey_tabs_section.field_section_tabs.field_hotels",
   "field_journey_tabs_section.field_section_tabs.field_hotels.field_featured_image.field_media_image",
   "field_journey_tabs_section.field_section_tabs.field_hotels.field_gallery.field_media_image",
+  "field_journey_tabs_section.field_section_tabs.field_information_item",
 ].join(",");
 
 export default async function JourneyDetailPage({

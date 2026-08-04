@@ -194,6 +194,31 @@ function resolveTabSections(item, included) {
           .filter(Boolean);
         break;
       }
+
+      // ── ADDITIONAL INFORMATION ────────────────────────────────────────
+      // Multiple paragraphs of this type can appear (one per group, e.g.
+      // "Things To Know Before You Book" / "...Before You Travel"), so they
+      // accumulate into an array rather than a single tabs.* value.
+      case "paragraph--additional_information_section": {
+        const itemRefs = para.relationships?.field_information_item?.data || [];
+        const items = itemRefs
+          .map((r) => {
+            const info = included.find((inc) => inc.id === r.id);
+            if (!info) return null;
+            return {
+              title: info.attributes?.field_information_title || "",
+              content: info.attributes?.field_content?.processed || "",
+            };
+          })
+          .filter(Boolean);
+
+        if (!tabs.additionalInfo) tabs.additionalInfo = [];
+        tabs.additionalInfo.push({
+          title: para.attributes?.field_section_title || "",
+          items,
+        });
+        break;
+      }
     }
   });
 
@@ -221,6 +246,7 @@ function transformItem(item, included) {
     tabHighlights: tabSections.highlights || null,
     tabItinerary: tabSections.itinerary || null,
     tabStays: tabSections.stays || null,
+    tabAdditionalInfo: tabSections.additionalInfo || null,
   };
 }
 
