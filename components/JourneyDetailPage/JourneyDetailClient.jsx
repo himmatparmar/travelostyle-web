@@ -21,6 +21,7 @@ const MOCK_JOURNEY = {
   bestSeason: "Jan–March, July–Sep",
   pace: "Moderate",
   offer: "Black Friday offer available for August & September departure/s",
+  earlyBird: true,
   highlights: [
     {
       type: "text",
@@ -212,6 +213,10 @@ function transformItem(item, included) {
     destinations: `${item.attributes.field_destinations_count || 10} Destinations`,
     price: `$${Number(item.attributes.field_offer_price) || 5000}`,
     offer: item.attributes.field_offer_message || MOCK_JOURNEY.offer,
+    // field_early_bird is a plain Boolean attribute on the journey node
+    // (not a relationship), so it's already present in item.attributes —
+    // no change to the `include` param needed to fetch it.
+    earlyBird: Boolean(item.attributes.field_early_bird),
     tags: resolveTags(item, included),
     startCity: resolveLocation(item.relationships?.field_starts_in, included) || MOCK_JOURNEY.startCity,
     endCity: resolveLocation(item.relationships?.field_ends_in, included) || MOCK_JOURNEY.endCity,
