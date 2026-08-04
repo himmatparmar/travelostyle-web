@@ -20,6 +20,7 @@ export default function HeroSection({
   exclusions
 }) {
   const [activeView, setActiveView] = useState("menu");
+  const categories = rawItem ? resolveCategories(rawItem, included) : MOCK_CATEGORIES;
   return (
     <>
       <section className="w-full bg-white hidden md:block">
@@ -193,22 +194,35 @@ export default function HeroSection({
                   <span className="font-bold">Group Size:</span> upto 18 guests
                 </div>
               </div>
-              <div className="mt-5 flex flex-wrap gap-3">
-                <span className="rounded bg-[#DDEDFB] px-4 py-2 text-[14px] font-medium">
-                  Culture & Heritage
-                </span>
+              <div className="mt-5 flex flex-wrap gap-[10px]">
+                {journey?.offer && (
+                  <span
+                    className="rounded-[5px] px-3 py-2 text-[14px] font-semibold tracking-[0.05em]"
+                    style={{ backgroundColor: "#F2E2DA", color: "#000000" }}
+                  >
+                    {journey.offer}
+                  </span>
+                )}
 
-                <span className="rounded bg-[#DDEDFB] px-4 py-2 text-[14px] font-medium">
-                  Leisure
-                </span>
+                {categories?.map((category) => (
+                  <span
+                    key={category}
+                    className="rounded-[5px] px-3 py-2 text-[14px] font-semibold tracking-[0.05em]"
+                    style={{ backgroundColor: "#C2E5FF", color: "#000000" }}
+                  >
+                    {category}
+                  </span>
+                ))}
 
-                <span className="rounded bg-[#E8EBCF] px-4 py-2 text-[14px] font-medium">
-                  Group Journey
-                </span>
-
-                <span className="rounded bg-[#E8EBCF] px-4 py-2 text-[14px] font-medium">
-                  Private Journey
-                </span>
+                {journey?.tags?.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-[5px] px-3 py-2 text-[14px] font-semibold tracking-[0.05em]"
+                    style={{ backgroundColor: "#EFF3CF", color: "#000000" }}
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
@@ -229,16 +243,15 @@ export default function HeroSection({
                   was $6500
                 </p>
               </div>
-
-              <div className="w-[52%] bg-[#F6EEE8] p-4">
-                <div className="flex gap-2">
-                  <Info size={20} />
-                  <p className="text-[15px] leading-[24px]">
-                    Early Bird Offers available for August & September
-                    Departures
-                  </p>
-                </div>
-              </div>
+<div className="w-[52%] bg-[#F6EEE8] p-4">
+  <div className="flex gap-2">
+    <Info size={20} />
+    <p className="text-[15px] leading-[24px]">
+      {journey.offer ||
+        "Early Bird Offers available for August & September Departures"}
+    </p>
+  </div>
+</div>
             </div>
             <div className="flex items-center justify-center gap-3 border-t border-[#2E2E2E] bg-white px-4 py-3">
               <button className="rounded-full bg-[#2B2D82] px-6 py-2 text-[15px] font-semibold text-white">
