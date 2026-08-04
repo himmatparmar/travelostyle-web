@@ -5,195 +5,151 @@ import { Clock3, MapPin, Info } from "lucide-react";
 import MobileNavigationMenu from "./MobileNavigationMenu";
 import { useState } from "react";
 
-// Fixed badge colors matching the design (Figma) reference:
-// Early Bird / offer = peach, tags (field_journey_tag, e.g. Group/Private
-// Journey) = green, categories (field_category, e.g. Culture & Heritage,
-// Leisure) = blue. All badge text is black, font-semibold, rounded-[5px].
-
-// field_category is an entity reference to the "Category" taxonomy
-// vocabulary (unlimited cardinality) on the journey node. We resolve it
-// right here from the raw JSON:API item + included data (rather than in
-// JourneyDetailClient) so all category-related logic stays in one place.
-// Matching by id only (not resource type) since ids are unique across the
-// whole `included` array.
-function resolveCategories(item, included) {
-  const data = item?.relationships?.field_category?.data;
-  const arr = Array.isArray(data) ? data : data ? [data] : [];
-  return arr
-    .map((c) => {
-      const e = included.find((i) => i.id === c.id);
-      return e?.attributes?.name;
-    })
-    .filter(Boolean);
-}
-
-const MOCK_CATEGORIES = ["Culture & Heritage", "Leisure"];
-
+// Each tag has its own bg/text color matching the screenshot
+const CATEGORY_TAGS = [
+  { label: "Early Bird Offer", bg: "#F5DFC9", text: "#6A5B4E" },
+  { label: "Culture & Heritage", bg: "#D8E8F8", text: "#1B4F72" },
+  { label: "Leisure", bg: "#D8E8F8", text: "#1B4F72" },
+  { label: "Group Journey", bg: "#D8E8F8", text: "#1B4F72" },
+  { label: "Private Journey", bg: "#D8E8F8", text: "#1B4F72" },
+];
 export default function HeroSection({
   journey,
   departures,
-  rawItem,
-  included = [],
+  inclusions,
+  exclusions
 }) {
   const [activeView, setActiveView] = useState("menu");
   const categories = rawItem ? resolveCategories(rawItem, included) : MOCK_CATEGORIES;
   return (
     <>
-    <section className="w-full bg-white hidden md:block">
-      <div className="flex items-center justify-between border-b border-[#E8E8E8] bg-white px-[3vw] py-[0.55vw]">
+      <section className="w-full bg-white hidden md:block">
+        <div className="flex items-center justify-between border-b border-[#E8E8E8] bg-white px-[3vw] py-[0.55vw]">
 
-<div className="flex items-center gap-[10px] flex-wrap">
-  {journey?.offer && (
-    <span
-      className="cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
-      style={{
-        backgroundColor: "#F2E2DA",
-        color: "#000000",
-      }}
-    >
-      {journey.offer}
-    </span>
-  )}
-
-  {journey?.tags?.map((tag) => (
-    <span
-      key={tag}
-      className="cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
-      style={{
-        backgroundColor: "#EFF3CF",
-        color: "#000000",
-      }}
-    >
-      {tag}
-    </span>
-  ))}
-
-  {categories?.map((category) => (
-    <span
-      key={category}
-      className="cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
-      style={{
-        backgroundColor: "#C2E5FF",
-        color: "#000000",
-      }}
-    >
-      {category}
-    </span>
-  ))}
-</div>
-        <div className="flex items-center gap-[0.3vw] text-[0.63vw] text-[#888]">
-          <span className="cursor-pointer hover:underline">Home</span>
-          <span className="text-[#BBB]">&gt;</span>
-          <span className="cursor-pointer hover:underline">All Journeys</span>
-          <span className="text-[#BBB]">&gt;</span>
-          <span className="text-[#1A1A1A]">{journey.title}</span>
+          <div className="flex items-center gap-[0.45vw]">
+            {CATEGORY_TAGS.map((tag) => (
+              <span
+                key={tag.label}
+                className="cursor-pointer rounded-full px-[0.85vw] py-[0.28vw] text-[0.63vw] font-medium"
+                style={{ backgroundColor: tag.bg, color: tag.text }}
+              >
+                {tag.label}
+              </span>
+            ))}
+          </div>
+          <div className="flex items-center gap-[0.3vw] text-[0.63vw] text-[#888]">
+            <span className="cursor-pointer hover:underline">Home</span>
+            <span className="text-[#BBB]">&gt;</span>
+            <span className="cursor-pointer hover:underline">All Journeys</span>
+            <span className="text-[#BBB]">&gt;</span>
+            <span className="text-[#1A1A1A]">{journey.title}</span>
+          </div>
         </div>
-      </div>
 
-      <div className="relative w-full overflow-hidden  " style={{ height: "40vw" }}>
-        <Image
-          src={journey.image || "/Morocco.svg"}
-          alt={journey.title || "Journey"}
-          fill
-          unoptimized
-          className="object-cover"
-          priority
-        />
+        <div className="relative w-full overflow-hidden  " style={{ height: "40vw" }}>
+          <Image
+            src={journey.image || "/Morocco.svg"}
+            alt={journey.title || "Journey"}
+            fill
+            unoptimized
+            className="object-cover"
+            priority
+          />
 
-        <div
-          className="absolute left-[3vw] top-[5vw] z-10 w-[18vw] rounded-[0.35vw] border-2 border-[#2f2d89] bg-white shadow-[0_6px_28px_rgba(0,0,0,0.22)]"
-          style={{ padding: "1.3vw" }}
-        >
-          <h1 className="text-[1.2vw] font-bold leading-[1.28] text-[#1A1A1A]">
-            {journey.title}
-          </h1>
-          <p className="mt-[0.5vw] text-[0.63vw] leading-[1.6] text-[#444]">
-            {journey.desc}
-          </p>
-          <div className="mt-[0.75vw] flex items-center gap-[1vw] text-[0.6vw] text-[#333]">
-            <div className="flex items-center gap-[0.28vw]">
-              <Clock3 size={11} strokeWidth={1.8} />
-              <span>{journey.days || "13 Days | 12 Nights"}</span>
-            </div>
-            <div className="flex items-center gap-[0.28vw]">
-              <MapPin size={11} strokeWidth={1.8} />
-              <span>{journey.destinations || "10 Destinations"}</span>
-            </div>
-          </div>
-
-          <div className="my-[0.7vw] border-t border-[#EBEBEB]" />
-
-          <div className="flex flex-col gap-[0.3vw] text-[0.63vw]">
-            <div>
-              <span className="font-bold text-[#1A1A1A]">Starts In: </span>
-              <span className="text-[#444]">{journey.startCity || "Casablanca"}</span>
-            </div>
-            <div>
-              <span className="font-bold text-[#1A1A1A]">Ends In: </span>
-              <span className="text-[#444]">{journey.endCity || "Marrakech"}</span>
-            </div>
-            <div>
-              <span className="font-bold text-[#1A1A1A]">Best Seasons: </span>
-              <span className="text-[#444]">{journey.bestSeason || "Jan–March, July–Sep"}</span>
-            </div>
-            <div>
-              <span className="font-bold text-[#1A1A1A]">Pace: </span>
-              <span className="text-[#444]">{journey.pace }</span>
-            </div>
-          </div>
-
-          {/* Divider */}
-          <div className="my-[0.7vw] border-t border-[#EBEBEB]" />
-
-          <div className="flex items-start gap-[0.7vw]">
-            <div className="shrink-0">
-              <p className="text-[0.52vw] text-[#787878]">from</p>
-              <p className="text-[1.55vw] font-bold leading-none text-[#1D1D1D]">
-                {journey.price || "$5000"}
-                <span className="text-[0.75vw]">*</span>
-              </p>
-              <p className="mt-[0.1vw] text-[0.46vw] leading-[1.3] text-[#777]">
-                /person
-                <br />
-                double occupancy*
-              </p>
+          <div
+            className="absolute left-[3vw] top-[5vw] z-10 w-[18vw] rounded-[0.35vw] border-2 border-[#2f2d89] bg-white shadow-[0_6px_28px_rgba(0,0,0,0.22)]"
+            style={{ padding: "1.3vw" }}
+          >
+            <h1 className="text-[1.2vw] font-bold leading-[1.28] text-[#1A1A1A]">
+              {journey.title}
+            </h1>
+            <p className="mt-[0.5vw] text-[0.63vw] leading-[1.6] text-[#444]">
+              {journey.desc}
+            </p>
+            <div className="mt-[0.75vw] flex items-center gap-[1vw] text-[0.6vw] text-[#333]">
+              <div className="flex items-center gap-[0.28vw]">
+                <Clock3 size={11} strokeWidth={1.8} />
+                <span>{journey.days || "13 Days | 12 Nights"}</span>
+              </div>
+              <div className="flex items-center gap-[0.28vw]">
+                <MapPin size={11} strokeWidth={1.8} />
+                <span>{journey.destinations || "10 Destinations"}</span>
+              </div>
             </div>
 
-            <div className="flex flex-1 items-start gap-[0.3vw] rounded-[0.3vw] border border-[#D8D8D8] bg-[#F5DFC9] px-[0.5vw] py-[0.45vw]">
-              <Info
-                size={10}
-                className="mt-[0.1vw] shrink-0 text-[#555]"
-              />
-              <p className="text-[0.5vw] leading-[1.4] text-[#555]">
-                {journey.offer ||
-                  "Black Friday offer available for August & September departure/s"}
-              </p>
+            <div className="my-[0.7vw] border-t border-[#EBEBEB]" />
+
+            <div className="flex flex-col gap-[0.3vw] text-[0.63vw]">
+              <div>
+                <span className="font-bold text-[#1A1A1A]">Starts In: </span>
+                <span className="text-[#444]">{journey.startCity || "Casablanca"}</span>
+              </div>
+              <div>
+                <span className="font-bold text-[#1A1A1A]">Ends In: </span>
+                <span className="text-[#444]">{journey.endCity || "Marrakech"}</span>
+              </div>
+              <div>
+                <span className="font-bold text-[#1A1A1A]">Best Seasons: </span>
+                <span className="text-[#444]">{journey.bestSeason || "Jan–March, July–Sep"}</span>
+              </div>
+              <div>
+                <span className="font-bold text-[#1A1A1A]">Pace: </span>
+                <span className="text-[#444]">{journey.pace}</span>
+              </div>
             </div>
-          </div>
 
-          <button className="mt-[0.8vw] h-[2vw] w-full rounded-full bg-[#2D3482] text-[0.7vw] font-semibold text-white transition hover:bg-[#252b78]">
-            Request a Private Journey
-          </button>
+            {/* Divider */}
+            <div className="my-[0.7vw] border-t border-[#EBEBEB]" />
 
-          <div className="mt-[0.65vw] text-[0.57vw] text-[#555]">
-            Want to make this itinerary entirely your own?
-            <br />
-            <button className="mt-[0.1vw] font-bold text-[#1A1A1A] underline underline-offset-[2px]">
-              Tailor This Journey For You
+            <div className="flex items-start gap-[0.7vw]">
+              <div className="shrink-0">
+                <p className="text-[0.52vw] text-[#787878]">from</p>
+                <p className="text-[1.55vw] font-bold leading-none text-[#1D1D1D]">
+                  {journey.price || "$5000"}
+                  <span className="text-[0.75vw]">*</span>
+                </p>
+                <p className="mt-[0.1vw] text-[0.46vw] leading-[1.3] text-[#777]">
+                  /person
+                  <br />
+                  double occupancy*
+                </p>
+              </div>
+
+              <div className="flex flex-1 items-start gap-[0.3vw] rounded-[0.3vw] border border-[#D8D8D8] bg-[#F5DFC9] px-[0.5vw] py-[0.45vw]">
+                <Info
+                  size={10}
+                  className="mt-[0.1vw] shrink-0 text-[#555]"
+                />
+                <p className="text-[0.5vw] leading-[1.4] text-[#555]">
+                  {journey.offer ||
+                    "Black Friday offer available for August & September departure/s"}
+                </p>
+              </div>
+            </div>
+
+            <button className="mt-[0.8vw] h-[2vw] w-full rounded-full bg-[#2D3482] text-[0.7vw] font-semibold text-white transition hover:bg-[#252b78]">
+              Request a Private Journey
             </button>
+
+            <div className="mt-[0.65vw] text-[0.57vw] text-[#555]">
+              Want to make this itinerary entirely your own?
+              <br />
+              <button className="mt-[0.1vw] font-bold text-[#1A1A1A] underline underline-offset-[2px]">
+                Tailor This Journey For You
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-     {/* ================= MOBILE DESIGN ================= */}
-     <div className="block md:hidden   ">
+      {/* ================= MOBILE DESIGN ================= */}
+      <div className="block md:hidden   ">
         <div className="px-4 py-3 text-[11px] text-[#666]">
           Home &gt; All Journeys &gt;
           <span className="font-medium text-[#222]"> {journey.title}</span>
         </div>
-          
-       {activeView === "menu"&&<div className="relative">
+
+        {activeView === "menu" && <div className="relative">
           <div className="relative h-[580px] w-full">
             <Image
               src={journey.image || "/Morocco.svg"}
@@ -311,12 +267,15 @@ export default function HeroSection({
           </div>
         </div>}
       </div>
-        <MobileNavigationMenu
-  journey={journey}
-  departures={departures}
-  activeView={activeView}
-  setActiveView={setActiveView}
-/>
+      <MobileNavigationMenu
+        journey={journey}
+        departures={departures}
+        activeView={activeView}
+        inclusions={inclusions}
+        exclusions={exclusions}
+        setActiveView={setActiveView}
+      />
+
     </>
   );
 }
