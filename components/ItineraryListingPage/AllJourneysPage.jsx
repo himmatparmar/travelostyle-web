@@ -45,7 +45,9 @@ export default function AllJourneysPage() {
   `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month`,
 );
 
+
         const json = await res.json();
+        
         console.log(
   "Relationships:",
   json.data?.[0]?.relationships
