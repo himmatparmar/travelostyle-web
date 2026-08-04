@@ -111,7 +111,7 @@ export default function Destination() {
               const cta = item.attributes?.field_cta;
 
 const alias = item.attributes?.path?.alias || "";
-const aliasSlug = alias.replace(/^\/journey\//, "");
+const aliasSlug = alias.replace(/^\/journeys?\//, "");
 const titleSlug = aliasSlug || slugify(item.attributes?.title || "");
 
 let viewTripUrl = `/journeys/${titleSlug}`;
