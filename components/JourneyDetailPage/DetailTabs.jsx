@@ -72,12 +72,7 @@ export default function DetailTabs({
           />
         )}
 
-        {activeTab === "Stays" && (
-          <StaysSection
-            stays={journey?.stays}
-            drupalData={journey?.tabStays}
-          />
-        )}
+       
         {activeTab === "Stays" && (
   <StaysSection
     stays={journey?.stays}
@@ -85,12 +80,6 @@ export default function DetailTabs({
   />
 )}
 
-{activeTab === "Inclusions & Exclusions" && (
-  <InclusionsExclusions
-    inclusions={inclusions}
-    exclusions={exclusions}
-  />
-)}
 
 {activeTab === "Inclusions & Exclusions" && (
   <InclusionsExclusions
@@ -105,8 +94,7 @@ export default function DetailTabs({
   journey={journey}
   departures={departures}
    journeyId={journeyId}
-  inclusions={inclusions}
-  exclusions={exclusions}
+ 
 
 />
 )}

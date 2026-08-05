@@ -55,15 +55,16 @@ border-b-2
 
             {(items || []).map((item, index) => (
                 <div
-                    key={item.title + index}
-                    className={`
-  grid
-  grid-cols-[220px_1fr]
-  border-b-2
-  ${current.border}
-  last:border-b-0
-`}
-                >
+  key={item.title + index}
+  className={`
+    grid
+    grid-cols-[220px_1fr]
+    border-b-2
+    ${current.border}
+    last:border-b-0
+    h-[140px]
+  `}
+>
 
                     {/* Icon + Title fixed column */}
                     <div
@@ -153,22 +154,12 @@ function MobileInclusions({
         <div className="block md:hidden px-4 py-5">
 
 
-            <div className="
-flex gap-3 
-bg-[#FAF0E6]
-rounded-lg
-p-4
-text-xs
-mb-5
-">
-
-                <Info size={16} />
-
-                <p>
-                    Everything listed below is included in your journey pricing.
-                </p>
-
-            </div>
+     <div className="rounded-xl border border-black bg-[#EFF3CF] p-4 mb-5 flex gap-2 items-start">
+    <Info size={16} className="shrink-0 mt-1" />
+    <p>
+        Everything listed below is included in your journey pricing.
+    </p>
+</div>
 
 
 
@@ -205,49 +196,37 @@ font-bold
                 </button>
 
 
-                {
-                    openInc &&
-                    (inclusions || []).map((item, index) => (
+               {
+  openInc &&
+  (inclusions?.length > 0 ? (
+    inclusions.map((item, index) => (
+      <div
+        key={index}
+        className="p-4 border-t border-black"
+      >
+        <div className="flex gap-3 font-bold text-sm">
+          {item.icon && (
+            <img
+              src={item.icon}
+              alt={item.title}
+              className="w-6 h-6 object-contain"
+            />
+          )}
 
-                        <div
-                            key={index}
-                            className="
-p-4
-border-t
-border-black
-"
-                        >
+          <span>{item.title}</span>
+        </div>
 
-                            <div className="
-flex
-gap-3
-font-bold
-text-sm
-">
-
-                                <img
-                                    src={item.icon}
-                                    className="w-6 h-6"
-                                />
-
-                                {item.title}
-
-                            </div>
-
-
-                            <p className="
-text-xs
-mt-2
-">
-                                {item.description}
-                            </p>
-
-
-                        </div>
-
-                    ))
-                }
-
+        <p className="text-xs mt-2 text-gray-700">
+          {item.description}
+        </p>
+      </div>
+    ))
+  ) : (
+    <div className="p-4 text-center text-gray-500 border-t border-black">
+      No inclusions available.
+    </div>
+  ))
+}
 
             </div>
 
@@ -257,11 +236,9 @@ mt-2
             {/* EXCLUSIONS */}
 
             <div className="
-rounded-xl
-border
-border-black
-overflow-hidden
-">
+              rounded-xl
+            border border-black overflow-hidden
+                 ">
 
 
                 <button
@@ -287,58 +264,41 @@ font-bold
 
 
 
-                {
-                    openExc &&
-                    exclusions.map((item, index) => (
+             {
+  openExc &&
+  (exclusions?.length > 0 ? (
+    exclusions.map((item, index) => (
+      <div
+        key={index}
+        className="p-4 border-t border-black"
+      >
+        <div className="flex gap-3 font-bold text-sm">
+          {item.icon && (
+            <img
+              src={item.icon}
+              alt={item.title}
+              className="w-6 h-6 object-contain"
+            />
+          )}
 
-                        <div
-                            key={index}
-                            className="
-p-4
-border-t
-border-black
-"
-                        >
-
-                            <div className="
-flex
-gap-3
-font-bold
-text-sm
-">
-
-                                <img
-                                    src={item.icon}
-                                    className="w-6 h-6"
-                                />
-
-                                {item.title}
-
-                            </div>
-
-
-                            <p className="
-text-xs
-mt-2
-">
-                                {item.description}
-                            </p>
-
-
-                        </div>
-
-                    ))
-                }
-
-
-
-            </div>
-
-
+          <span>{item.title}</span>
         </div>
 
-    )
+        <p className="text-xs mt-2 text-gray-700">
+          {item.description}
+        </p>
+      </div>
+    ))
 
+  ) : (
+    <div className="p-4 text-center text-gray-500 border-t border-black">
+      No exclusions available.
+    </div>
+  ))
+}
+</div>
+</div>
+    )
 }        // closes TableCard
 export default function InclusionsExclusions({
     inclusions,
@@ -352,23 +312,35 @@ export default function InclusionsExclusions({
     return (
         <>
             {/* DESKTOP ONLY */}
-            <section className="hidden md:block max-w-7xl mx-auto px-4 py-10">
-                <div className="grid lg:grid-cols-2 gap-8 items-start">
-                    <TableCard
-                        title="Inclusions"
-                        items={inclusions}
-                        theme="inclusion"
-                    />
+           <section className="hidden md:block max-w-7xl mx-auto px-4 py-10">
+  <div className="grid lg:grid-cols-2 gap-8 items-start">
 
-                    <TableCard
-                        title="Exclusions"
-                        items={exclusions}
-                        theme="exclusion"
-                    />
+    {inclusions?.length > 0 ? (
+      <TableCard
+        title="Inclusions"
+        items={inclusions}
+        theme="inclusion"
+      />
+    ) : (
+      <div className="border-2 rounded-lg p-8 text-center text-gray-500">
+        No inclusions available.
+      </div>
+    )}
 
-                </div>
-            </section>
+    {exclusions?.length > 0 ? (
+      <TableCard
+        title="Exclusions"
+        items={exclusions}
+        theme="exclusion"
+      />
+    ) : (
+      <div className="border-2 rounded-lg p-8 text-center text-gray-500">
+        No exclusions available.
+      </div>
+    )}
 
+  </div>
+</section>
 
 
             {/* MOBILE ONLY */}

@@ -6,8 +6,13 @@ import JourneyPricing from "@/components/JourneyDetailPage/DatePricing";
 import { API_BASE_URL } from "@/lib/config";
 import InclusionExclusion from "@/components/JourneyDetailPage/Inclusionexclusion";
 import MobileInclusionsExclusions from "@/components/JourneyDetailPage/MobileInclusionsExclusions";
-function stripHtml(html: string): string {
-  return html.replace(/<[^>]*>/g, "");
+function stripHtml(html = "") {
+  return html
+    .replace(/<[^>]*>/g, "")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 const INCLUDE = [
   "field_journey_image.field_media_image",
