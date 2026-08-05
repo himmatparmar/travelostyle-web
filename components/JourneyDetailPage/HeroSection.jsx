@@ -43,7 +43,7 @@ export default function HeroSection({
       <div className="flex items-center justify-between border-b border-[#E8E8E8] bg-white px-[3vw] py-[0.55vw]">
 
 <div className="flex items-center gap-[10px] flex-wrap">
-  {journey?.offer && journey?.earlyBird && (
+  {journey?.earlyBird && (
     <span
       className="cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
       style={{
@@ -51,7 +51,7 @@ export default function HeroSection({
         color: "#000000",
       }}
     >
-      {journey.offer}
+      Early Bird
     </span>
   )}
 
@@ -159,16 +159,17 @@ export default function HeroSection({
               </p>
             </div>
 
-            <div className="flex flex-1 items-start gap-[0.3vw] rounded-[0.3vw] border border-[#D8D8D8] bg-[#F5DFC9] px-[0.5vw] py-[0.45vw]">
-              <Info
-                size={10}
-                className="mt-[0.1vw] shrink-0 text-[#555]"
-              />
-              <p className="text-[0.5vw] leading-[1.4] text-[#555]">
-                {journey.offer ||
-                  "Black Friday offer available for August & September departure/s"}
-              </p>
-            </div>
+            {journey?.earlyBird && (
+              <div className="flex flex-1 items-start gap-[0.3vw] rounded-[0.3vw] border border-[#D8D8D8] bg-[#F5DFC9] px-[0.5vw] py-[0.45vw]">
+                <Info
+                  size={10}
+                  className="mt-[0.1vw] shrink-0 text-[#555]"
+                />
+                <p className="text-[0.5vw] leading-[1.4] text-[#555]">
+                  Early Bird
+                </p>
+              </div>
+            )}
           </div>
 
           <button className="mt-[0.8vw] h-[2vw] w-full rounded-full bg-[#2D3482] text-[0.7vw] font-semibold text-white transition hover:bg-[#252b78]">
@@ -239,12 +240,12 @@ export default function HeroSection({
                 </div>
               </div>
               <div className="mt-5 flex flex-wrap gap-[10px]">
-                {journey?.offer && journey?.earlyBird && (
+                {journey?.earlyBird && (
                   <span
                     className="rounded-[5px] px-3 py-2 text-[14px] font-semibold tracking-[0.05em]"
                     style={{ backgroundColor: "#F2E2DA", color: "#000000" }}
                   >
-                    {journey.offer}
+                    Early Bird
                   </span>
                 )}
 
@@ -287,15 +288,16 @@ export default function HeroSection({
                   was $6500
                 </p>
               </div>
+{journey?.earlyBird && (
 <div className="w-[52%] bg-[#F6EEE8] p-4">
-  <div className="flex gap-2">
-    <Info size={20} />
-    <p className="text-[15px] leading-[24px]">
-      {journey.offer ||
-        "Early Bird Offers available for August & September Departures"}
-    </p>
-  </div>
+  <div className="flex gap-2">
+    <Info size={20} />
+    <p className="text-[15px] leading-[24px]">
+      Early Bird
+    </p>
+  </div>
 </div>
+)}
             </div>
             <div className="flex items-center justify-center gap-3 border-t border-[#2E2E2E] bg-white px-4 py-3">
               <button className="rounded-full bg-[#2B2D82] px-6 py-2 text-[15px] font-semibold text-white">
