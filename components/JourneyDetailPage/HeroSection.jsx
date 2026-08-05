@@ -32,6 +32,8 @@ const MOCK_CATEGORIES = ["Culture & Heritage", "Leisure"];
 export default function HeroSection({
   journey,
   departures,
+  inclusions,
+  exclusions,
   rawItem,
   included = [],
 }) {
@@ -315,6 +317,8 @@ export default function HeroSection({
   journey={journey}
   departures={departures}
   activeView={activeView}
+  inclusions={inclusions}
+  exclusions={exclusions}
   setActiveView={setActiveView}
 />
     </>
