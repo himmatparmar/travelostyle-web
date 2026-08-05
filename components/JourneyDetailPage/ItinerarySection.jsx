@@ -50,7 +50,7 @@ const DEFAULT_ITINERARY = [
 
 function DayAccordion({ item, isOpen, onToggle }) {
   return (
-    <div className="border border-[#E0E0E0] rounded-[0.5vw] overflow-hidden">
+    <div className="border-2 border-black rounded-[0.5vw] overflow-hidden">
       <button
         onClick={onToggle}
         className="w-full flex items-start justify-between px-[1.2vw] py-[1vw] text-left"
@@ -71,7 +71,7 @@ function DayAccordion({ item, isOpen, onToggle }) {
             </p>
           )}
         </div>
-        <div className="flex-shrink-0 mt-[0.2vw]">
+        <div className="flex h-[2.2vw] w-[2.2vw] shrink-0 items-center justify-center rounded-full bg-[#F2E2DA]">
           {isOpen ? (
             <Minus size={16} className="text-[#1A1A1A]" />
           ) : (
@@ -97,8 +97,8 @@ export default function ItinerarySection({ itinerary = DEFAULT_ITINERARY, drupal
 
       <div className="grid grid-cols-[2fr_3fr] gap-[2vw]">
         {/* Left: Map placeholder */}
-        <div className="border-2 border-dashed border-[#CCCCCC] rounded-[0.5vw] flex items-center justify-center min-h-[30vw]">
-          <span className="text-[1.2vw] text-[#AAAAAA] font-medium">Map</span>
+        <div className="border border-[#D9D9D9] rounded-[0.4vw] flex items-center justify-center min-h-[30vw] sticky top-[1vw] self-start">
+          <span className="text-[1.3vw] text-[#1A1A1A] font-medium">Map</span>
         </div>
 
         {/* Right: Day accordion */}
