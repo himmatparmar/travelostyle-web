@@ -53,8 +53,8 @@ export default function JourneysWeLove() {
             .filter(Boolean);
 
           const cta = item.attributes?.field_cta;
-          const titleSlug = slugify(item.attributes?.title || "");
-          let viewTripUrl = `/journeys/${titleSlug}`;
+          const alias = item.attributes?.path?.alias || "";
+          let viewTripUrl = alias || `/journey/${slugify(item.attributes?.title || "")}`;
           if (cta?.uri && !cta.uri.startsWith("entity:")) {
             viewTripUrl = cta.uri;
           }

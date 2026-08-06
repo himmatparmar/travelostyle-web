@@ -6,13 +6,8 @@ import JourneyPricing from "@/components/JourneyDetailPage/DatePricing";
 import { API_BASE_URL } from "@/lib/config";
 import InclusionExclusion from "@/components/JourneyDetailPage/Inclusionexclusion";
 import MobileInclusionsExclusions from "@/components/JourneyDetailPage/MobileInclusionsExclusions";
-function stripHtml(html = "") {
-  return html
-    .replace(/<[^>]*>/g, "")
-    .replace(/&nbsp;/gi, " ")
-    .replace(/&amp;/gi, "&")
-    .replace(/\s+/g, " ")
-    .trim();
+function stripHtml(html: string): string {
+  return html.replace(/<[^>]*>/g, "");
 }
 const INCLUDE = [
   "field_journey_image.field_media_image",
@@ -98,7 +93,7 @@ export default async function JourneyDetailPage({
 
 
   const journeyData = await journeyRes.json();
-  
+
   console.log(
     JSON.stringify(
       journeyData.included.filter(

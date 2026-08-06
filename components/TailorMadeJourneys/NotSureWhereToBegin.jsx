@@ -216,11 +216,7 @@ export default function NotSureWhereToBegin() {
                 const cta = item.attributes?.field_cta;
 
           const alias = item.attributes?.path?.alias || "";
-          const aliasSlug = alias.replace(/^\/journeys?\//, "");
-
-          const titleSlug = aliasSlug || slugify(item.attributes?.title || "");
-
-          let viewTripUrl = `/journeys/${titleSlug}`;
+          let viewTripUrl = alias || `/journey/${slugify(item.attributes?.title || "")}`;
 
           if (cta?.uri && !cta.uri.startsWith("entity:")) {
             viewTripUrl = cta.uri;

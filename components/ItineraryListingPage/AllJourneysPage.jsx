@@ -108,14 +108,13 @@ const drupalJourneys = (json.data || []).map((item, index) => {
 
           const cta = item.attributes?.field_cta;
 
-          // Use Drupal's real Pathauto-generated alias (already present on
-          // every node's JSON:API "path" attribute, no include needed) so
-          // this link always matches what /api/journey/{slug} will resolve.
+          // Use Drupal's real Pathauto-generated alias as-is (already present
+          // on every node's JSON:API "path" attribute, no include needed) so
+          // this link always matches whatever URL pattern Drupal is
+          // currently configured with, without hardcoding a prefix here.
           // Fall back to a client-computed slug only if path/alias is missing.
           const alias = item.attributes?.path?.alias || "";
-          const aliasSlug = alias.replace(/^\/journeys?\//, "");
-          const titleSlug = aliasSlug || slugify(item.attributes.title || "");
-          let viewTripUrl = `/journeys/${titleSlug}`;
+          let viewTripUrl = alias || `/journey/${slugify(item.attributes.title || "")}`;
 
           if (cta?.uri && !cta.uri.startsWith("entity:")) {
             viewTripUrl = cta.uri;
