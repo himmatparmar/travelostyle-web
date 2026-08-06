@@ -23,6 +23,7 @@ const MOCK_JOURNEY = {
   bestSeason: "Jan–March, July–Sep",
   pace: "Moderate",
   offer: "Black Friday offer available for August & September departure/s",
+  earlyBird: true,
   highlights: [
     {
       type: "text",
@@ -194,6 +195,31 @@ function resolveTabSections(item, included) {
           .filter(Boolean);
         break;
       }
+
+      // ── ADDITIONAL INFORMATION ────────────────────────────────────────
+      // Multiple paragraphs of this type can appear (one per group, e.g.
+      // "Things To Know Before You Book" / "...Before You Travel"), so they
+      // accumulate into an array rather than a single tabs.* value.
+      case "paragraph--additional_information_section": {
+        const itemRefs = para.relationships?.field_information_item?.data || [];
+        const items = itemRefs
+          .map((r) => {
+            const info = included.find((inc) => inc.id === r.id);
+            if (!info) return null;
+            return {
+              title: info.attributes?.field_information_title || "",
+              content: info.attributes?.field_content?.processed || "",
+            };
+          })
+          .filter(Boolean);
+
+        if (!tabs.additionalInfo) tabs.additionalInfo = [];
+        tabs.additionalInfo.push({
+          title: para.attributes?.field_section_title || "",
+          items,
+        });
+        break;
+      }
     }
   });
 
@@ -210,8 +236,13 @@ function transformItem(item, included) {
     image: resolveImage(item, included),
     days: `${item.attributes.field_duration_days || 13} Days | ${item.attributes.field_duration_nights || 12} Nights`,
     destinations: `${item.attributes.field_destinations_count || 10} Destinations`,
-    price: `$${Number(item.attributes.field_offer_price) || 5000}`,
-    offer: item.attributes.field_offer_message || MOCK_JOURNEY.offer,
+    price: `$${Number(item.attributes.field_original_price)}`,
+    offer: item.attributes.field_offer_message || "",
+    
+    // field_early_bird is a plain Boolean attribute on the journey node
+    // (not a relationship), so it's already present in item.attributes —
+    // no change to the `include` param needed to fetch it.
+    earlyBird: Boolean(item.attributes.field_early_bird),
     tags: resolveTags(item, included),
     startCity: resolveLocation(item.relationships?.field_starts_in, included) || MOCK_JOURNEY.startCity,
     endCity: resolveLocation(item.relationships?.field_ends_in, included) || MOCK_JOURNEY.endCity,
@@ -221,6 +252,7 @@ function transformItem(item, included) {
     tabHighlights: tabSections.highlights || null,
     tabItinerary: tabSections.itinerary || null,
     tabStays: tabSections.stays || null,
+    tabAdditionalInfo: tabSections.additionalInfo || null,
   };
 }
 
@@ -243,6 +275,8 @@ export default function JourneyDetailClient({
         departures={departures}
         inclusions={inclusions}
         exclusions={exclusions}
+        rawItem={initialData?.data}
+        included={initialData?.included || []}
       />
       <TrustBar />
       <DetailTabs

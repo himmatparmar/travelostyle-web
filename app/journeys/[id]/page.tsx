@@ -2,21 +2,14 @@ import { notFound } from "next/navigation";
 import SearchBar from "@/components/JourneyDetailPage/SearchBar";
 import JourneyDetailClient from "@/components/JourneyDetailPage/JourneyDetailClient";
 import Footer from "@/components/Footer";
-import JourneyPricing from "@/components/JourneyDetailPage/DatePricing";
 import { API_BASE_URL } from "@/lib/config";
-import InclusionExclusion from "@/components/JourneyDetailPage/Inclusionexclusion";
-import MobileInclusionsExclusions from "@/components/JourneyDetailPage/MobileInclusionsExclusions";
-function stripHtml(html = "") {
-  return html
-    .replace(/<[^>]*>/g, "")
-    .replace(/&nbsp;/gi, " ")
-    .replace(/&amp;/gi, "&")
-    .replace(/\s+/g, " ")
-    .trim();
+function stripHtml(html: string): string {
+  return html.replace(/<[^>]*>/g, "");
 }
 const INCLUDE = [
   "field_journey_image.field_media_image",
   "field_journey_tag",
+  "field_category",
   "field_month",
   "field_starts_in",
   "field_ends_in",
@@ -45,6 +38,7 @@ const INCLUDE = [
   "field_journey_tabs_section.field_section_tabs.field_days.field_stay",
   "field_journey_tabs_section.field_section_tabs.field_hotels.field_featured_image.field_media_image",
   "field_journey_tabs_section.field_section_tabs.field_hotels.field_gallery.field_media_image",
+  "field_journey_tabs_section.field_section_tabs.field_information_item",
   // "field_journey_tabs_section.field_section_tabs.field_inclusions.field_inclusion.field_icon",
   // "field_journey_tabs_section.field_section_tabs.field_exclusions.field_exclusion.field_icon",
   // "field_journey_tabs_section.field_section_tabs.field_inclusions.field_inclusion.field_icon.field_media_image",
@@ -96,7 +90,7 @@ export default async function JourneyDetailPage({
 
 
   const journeyData = await journeyRes.json();
-  
+
   console.log(
     JSON.stringify(
       journeyData.included.filter(
