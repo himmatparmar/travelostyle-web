@@ -17,19 +17,40 @@ export default function JourneyPricing({
     };
     const [selectedYear, setSelectedYear] = useState("2026");
 
-    const trips = departures.map((item) => ({
+   const trips = departures.map((item) => {
+    // Price comes from the DEPARTURE content
+    const originalPrice = Number(
+        item.attributes?.field__pricing || 0
+    );
+
+    // Offer also comes from the DEPARTURE content
+    const offerPercentage = Number(
+        item.attributes?.field_offer || 0
+    );
+
+    const discountedPrice =
+        offerPercentage > 0
+            ? originalPrice * (1 - offerPercentage / 100)
+            : originalPrice;
+
+    return {
         id: item.id,
+
         startDate: item.attributes?.field_departure_date,
         endDate: item.attributes?.field_return_date,
+
         statusType: item.attributes?.field_status,
-        originalPrice: journey?.price,
-        discountedPrice: journey?.price,
-        offer: item.attributes?.field_offer,
+
+        originalPrice,
+        offerPercentage,
+        discountedPrice,
+
         button:
             item.attributes?.field_status === "soldout"
                 ? "Request a Private Journey"
                 : "Enquire For This Date",
-    }));
+    };
+});
     const filteredTrips = trips.filter((trip) => {
         const year = new Date(trip.startDate)
             .getFullYear()
@@ -83,7 +104,8 @@ export default function JourneyPricing({
         new Date(date).toLocaleDateString("en-GB", {
             weekday: "long",
         });
-
+       const formatPrice = (price) =>
+    `$${Math.round(Number(price))}`;
 
     return (
         <section className="w-full max-w-full px-4 py-6 overflow-x-hidden">
@@ -165,15 +187,26 @@ export default function JourneyPricing({
                                     </div>
 
                                     <div className="text-right">
-                                        <p className="text-[10px] text-gray-500">from</p>
+                                      <p className="text-[10px] text-gray-500">
+    from
+</p>
 
-                                        <p className="text-[22px] font-bold">
-                                            {trip.discountedPrice || trip.originalPrice}
-                                        </p>
+<p className="text-[22px] font-bold">
+    {formatPrice(trip.discountedPrice)}
+</p>
 
-                                        <p className="text-[10px] text-gray-500">
-                                            / person
-                                        </p>
+{trip.offerPercentage > 0 && (
+   <div className="text-[10px] text-[#9CA3AF]">
+    was{" "}
+    <span className="line-through">
+        {formatPrice(trip.originalPrice)}
+    </span>
+</div>
+)}
+
+<p className="text-[10px] text-gray-500">
+    / person
+</p>
                                     </div>
                                 </div>
                             </div>
@@ -298,35 +331,44 @@ export default function JourneyPricing({
                                                 </div>
                                             )}
                                         </td>
-                                        <td className="border px-4 py-5">
-                                            <div className="flex items-baseline gap-[2px]">
-                                                <span className="text-[20px] font-semibold">
-                                                    {trip.discountedPrice || trip.originalPrice}
-                                                </span>
+                                      <td className="border px-4 py-5">
+    {/* From */}
+    <div className="text-[10px] text-gray-500 mb-1">
+        from
+    </div>
 
-                                                <span className="text-[12px]">
-                                                    / per person
-                                                </span>
-                                            </div>
+    {/* Discounted price */}
+    <div className="flex items-baseline gap-[2px]">
+        <span className="text-[20px] font-semibold">
+            {formatPrice(trip.discountedPrice)}
+        </span>
 
-                                            {trip.discountedPrice && (
-                                                <div className="text-[10px] text-[#9CA3AF]">
-                                                    was ${trip.originalPrice}
-                                                </div>
-                                            )}
-                                        </td>
+        <span className="text-[12px]">
+            / per person
+        </span>
+    </div>
 
-                                        <td className="border px-4 py-5">
-                                            {trip.offer ? (
-                                                <div className="text-[14px] text-[#128914]">
-                                                    {trip.offer}
-                                                </div>
-                                            ) : (
-                                                <div className="text-[14px] text-[#4B5563]">
-                                                    No offers available
-                                                </div>
-                                            )}
-                                        </td>
+    {/* Original price */}
+    {trip.offerPercentage > 0 && (
+       <div className="text-[10px] text-[#9CA3AF]">
+    was{" "}
+    <span className="line-through">
+        {formatPrice(trip.originalPrice)}
+    </span>
+</div>
+    )}
+</td>
+                                      <td className="border px-4 py-5">
+    {trip.offerPercentage > 0 ? (
+        <div className="text-[14px] text-[#128914]">
+            {trip.offerPercentage}% off
+        </div>
+    ) : (
+        <div className="text-[14px] text-[#4B5563]">
+            No offers available
+        </div>
+    )}
+</td>
                                         <td className="border px-4 py-5 text-center">
                                             {trip.statusType === "soldout" ? (
                                                 <span

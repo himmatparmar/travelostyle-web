@@ -138,23 +138,71 @@ function resolveTabSections(item, included) {
       // ── ITINERARY ──────────────────────────────────────────────────────
       case "paragraph--itinerary_tab": {
         const dayRefs = para.relationships?.field_days?.data || [];
-        tabs.itinerary = dayRefs
-          .map((r) => {
-            const day = included.find((inc) => inc.id === r.id);
-            if (!day) return null;
-            const a = day.attributes || {};
-            const hotelId = day.relationships?.field_stay?.data?.id;
-            const hotel = hotelId ? included.find((inc) => inc.id === hotelId) : null;
-            return {
-              day: a.field_day_number,
-              title: a.field_day_title || "",
-              stay: hotel?.attributes?.title || "",
-              description: stripHtml(a.field_description?.processed),
-            };
-          })
-          .filter(Boolean);
-        break;
-      }
+         const mapMediaId =
+    para.relationships?.field_journey_map?.data?.id;
+
+  const mapMedia = included.find(
+    (inc) =>
+      inc.type === "media--image" &&
+      inc.id === mapMediaId
+  );
+
+  const mapFileId =
+    mapMedia?.relationships?.field_media_image?.data?.id;
+
+  const mapFile = included.find(
+    (inc) =>
+      inc.type === "file--file" &&
+      inc.id === mapFileId
+  );
+
+  const mapImage =
+    buildFileUrl(
+      mapFile?.attributes?.uri?.url
+    );
+
+  console.log("MAP IMAGE:", mapImage);
+  // MAP IMAGE END
+
+tabs.itinerary = {
+    days: dayRefs
+      .map((r) => {
+
+        const day = included.find(
+          (inc) => inc.id === r.id
+        );
+
+        if (!day) return null;
+
+        const a = day.attributes || {};
+
+        const hotelId =
+          day.relationships?.field_stay?.data?.id;
+
+        const hotel = hotelId
+          ? included.find(
+              (inc) => inc.id === hotelId
+            )
+          : null;
+
+        return {
+          day: a.field_day_number,
+          title: a.field_day_title || "",
+          stay: hotel?.attributes?.title || "",
+          description: stripHtml(
+            a.field_description?.processed
+          ),
+        };
+
+      })
+      .filter(Boolean),
+
+    mapImage,
+  };
+
+
+  break;
+}
 
       // ── STAYS ──────────────────────────────────────────────────────────
       case "paragraph--stays_tab": {
@@ -236,8 +284,10 @@ function transformItem(item, included) {
     image: resolveImage(item, included),
     days: `${item.attributes.field_duration_days || 13} Days | ${item.attributes.field_duration_nights || 12} Nights`,
     destinations: `${item.attributes.field_destinations_count || 10} Destinations`,
-    price: `$${Number(item.attributes.field_original_price)}`,
+    offerPrice: item.attributes.field_offer_price,
+originalPrice: item.attributes.field_original_price,
     offer: item.attributes.field_offer_message || "",
+
     
     // field_early_bird is a plain Boolean attribute on the journey node
     // (not a relationship), so it's already present in item.attributes —
@@ -250,7 +300,9 @@ function transformItem(item, included) {
     pace: resolvePace(item, included) || MOCK_JOURNEY.pace,
     // Tab section data from field_journey_tabs_section paragraphs
     tabHighlights: tabSections.highlights || null,
-    tabItinerary: tabSections.itinerary || null,
+   tabItinerary: tabSections.itinerary?.days || null,
+
+mapImage: tabSections.itinerary?.mapImage || null,
     tabStays: tabSections.stays || null,
     tabAdditionalInfo: tabSections.additionalInfo || null,
   };

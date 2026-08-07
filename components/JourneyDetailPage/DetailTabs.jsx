@@ -69,6 +69,8 @@ export default function DetailTabs({
           <ItinerarySection
             itinerary={journey?.itinerary}
             drupalData={journey?.tabItinerary}
+              mapImage={journey.mapImage}
+
           />
         )}
 

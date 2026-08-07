@@ -33,6 +33,8 @@ const INCLUDE = [
   "field_journey_tabs_section.field_section_tabs.field_hotels",
   "field_journey_tabs_section.field_section_tabs.field_include_exclude.field_inclusion",
 "field_journey_tabs_section.field_section_tabs.field_include_exclude.field_exclusion",
+  "field_journey_tabs_section.field_section_tabs.field_journey_map",
+  "field_journey_tabs_section.field_section_tabs.field_journey_map.field_media_image",
 "field_journey_tabs_section.field_section_tabs.field_include_exclude.field_inclusion.field_icon.field_media_image",
 "field_journey_tabs_section.field_section_tabs.field_include_exclude.field_exclusion.field_icon.field_media_image",
   // "field_journey_tabs_section.field_section_tabs.field_inclusions.field_inclusion.field_icon.field_media_image",
@@ -303,6 +305,7 @@ console.log(
         journeyId={journeyId}
         inclusions={inclusions}
         exclusions={exclusions}
+        
       />
 
       <Footer />
