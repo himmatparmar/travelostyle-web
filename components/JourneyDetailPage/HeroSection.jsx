@@ -161,17 +161,17 @@ export default function HeroSection({
               </p>
             </div>
 
-            {journey?.earlyBird && (
-              <div className="flex flex-1 items-start gap-[0.3vw] rounded-[0.3vw] border border-[#D8D8D8] bg-[#F5DFC9] px-[0.5vw] py-[0.45vw]">
-                <Info
-                  size={10}
-                  className="mt-[0.1vw] shrink-0 text-[#555]"
-                />
-                <p className="text-[0.5vw] leading-[1.4] text-[#555]">
-                  Early Bird
-                </p>
-              </div>
-            )}
+          {journey?.offer && (
+  <span
+    className="cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
+    style={{
+      backgroundColor: "#F2E2DA",
+      color: "#000000",
+    }}
+  >
+    {journey.offer}
+  </span>
+)}
           </div>
 
           <button className="mt-[0.8vw] h-[2vw] w-full rounded-full bg-[#2D3482] text-[0.7vw] font-semibold text-white transition hover:bg-[#252b78]">
@@ -242,14 +242,14 @@ export default function HeroSection({
                 </div>
               </div>
               <div className="mt-5 flex flex-wrap gap-[10px]">
-                {journey?.earlyBird && (
-                  <span
-                    className="rounded-[5px] px-3 py-2 text-[14px] font-semibold tracking-[0.05em]"
-                    style={{ backgroundColor: "#F2E2DA", color: "#000000" }}
-                  >
-                    Early Bird
-                  </span>
-                )}
+               {journey?.offer && (
+  <div className="flex flex-1 items-start gap-[0.3vw] rounded-[0.3vw] border border-[#D8D8D8] bg-[#F5DFC9] px-[0.5vw] py-[0.45vw]">
+    <Info size={10} className="mt-[0.1vw] shrink-0 text-[#555]" />
+    <p className="text-[0.5vw] leading-[1.4] text-[#555]">
+      {journey.offer}
+    </p>
+  </div>
+)}
 
                 {categories?.map((category) => (
                   <span

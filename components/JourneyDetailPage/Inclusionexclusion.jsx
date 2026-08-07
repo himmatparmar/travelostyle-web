@@ -1,16 +1,4 @@
 "use client";
-import {
-    Utensils,
-    Hotel,
-    Briefcase,
-    Car,
-    UserCheck,
-    Plane,
-    Shield,
-    Wallet,
-    FileText,
-    HandCoins,
-} from "lucide-react";
 
 import { useState } from "react";
 import { Info } from "lucide-react";

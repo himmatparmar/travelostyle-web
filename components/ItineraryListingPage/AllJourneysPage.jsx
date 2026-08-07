@@ -147,8 +147,10 @@ console.log({
               item.attributes.field_destinations_count || 0
             } Destinations`,
 
-            price: Number(item.attributes.field_offer_price) || 0,
-            offer: item.attributes.field_offer_message || "",
+price:
+  item.attributes.field_original_price != null
+    ? Number(item.attributes.field_original_price)
+    : null,            offer: item.attributes.field_offer_message || "",
 
             image: imageUrl,
 

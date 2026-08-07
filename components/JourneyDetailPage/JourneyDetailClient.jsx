@@ -236,8 +236,9 @@ function transformItem(item, included) {
     image: resolveImage(item, included),
     days: `${item.attributes.field_duration_days || 13} Days | ${item.attributes.field_duration_nights || 12} Nights`,
     destinations: `${item.attributes.field_destinations_count || 10} Destinations`,
-    price: `$${Number(item.attributes.field_offer_price) || 5000}`,
-    offer: item.attributes.field_offer_message || MOCK_JOURNEY.offer,
+    price: `$${Number(item.attributes.field_original_price)}`,
+    offer: item.attributes.field_offer_message || "",
+    
     // field_early_bird is a plain Boolean attribute on the journey node
     // (not a relationship), so it's already present in item.attributes —
     // no change to the `include` param needed to fetch it.
