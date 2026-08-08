@@ -73,11 +73,23 @@ function resolveTags(item, included) {
 
 function resolveLocation(rel, included) {
   const id = rel?.data?.id;
-  if (!id) return "";
-  const node = included.find((i) => i.type === "node--location" && i.id === id);
-  return node?.attributes?.title || "";
-}
 
+  if (!id) return "";
+
+  const node = included.find(
+    (i) =>
+      i.type === "node--location" &&
+      i.id === id
+  );
+
+  if (!node) return "";
+
+  const locality = node.attributes?.field_address?.locality;
+
+  return locality
+    ? locality.charAt(0).toUpperCase() + locality.slice(1)
+    : "";
+}
 function resolveBestSeasons(item, included) {
   const data = item.relationships?.field_best_seasons?.data || [];
   return data

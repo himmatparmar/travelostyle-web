@@ -18,12 +18,13 @@ export default function JourneyPricing({
     const [selectedYear, setSelectedYear] = useState("2026");
 
    const trips = departures.map((item) => {
-    // Price comes from the DEPARTURE content
+
+    // Original Price comes from Drupal field_original_price
     const originalPrice = Number(
-        item.attributes?.field__pricing || 0
+        item.attributes?.field_original_price || 0
     );
 
-    // Offer also comes from the DEPARTURE content
+    // Offer comes from Drupal field_offer
     const offerPercentage = Number(
         item.attributes?.field_offer || 0
     );

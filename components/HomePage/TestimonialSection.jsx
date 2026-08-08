@@ -1,41 +1,113 @@
+
 "use client";
 
 import { useState } from "react";
 import Image from "next/image";
+import { API_BASE_URL } from "@/lib/config";
 
-const TESTIMONIALS_DATA = [
-  {
-    id: 1,
-    name: "John & John Doe",
-    image: "/GoldenTriange.svg",
-    quote:
-      "I really had the time of my life. What a trip! Everything felt clearer than expected, right from the first conversation.",
-  },
-  {
-    id: 2,
-    name: "Jane & Sarah Doe",
-    image: "/TwoMan.svg",
-    quote:
-      "An unforgettable journey! The itinerary was perfectly structured, and the team handled everything flawlessly. Highly recommended!",
-  },
-];
+export default function TestimonialSection({ testimonialData }) {
+  const testimonials = (testimonialData?.data || []).map((item) => {
+    const included = testimonialData?.included || [];
 
-export default function TestimonialSection() {
+    // IMAGE
+    const imageId =
+      item.relationships?.field_testimonial_image?.data?.id;
+
+    const media = included.find(
+      (inc) =>
+        inc.type === "media--image" &&
+        inc.id === imageId
+    );
+
+    const fileId =
+      media?.relationships?.field_media_image?.data?.id;
+
+    const file = included.find(
+      (inc) =>
+        inc.type === "file--file" &&
+        inc.id === fileId
+    );
+
+    const imageUrl = file?.attributes?.uri?.url
+      ? `${API_BASE_URL}${file.attributes.uri.url}`
+      : "/Morocco.svg";
+
+    // NAME
+    const name =
+      item.attributes?.field_testimonial_name ||
+      item.attributes?.title ||
+      "";
+
+    // QUOTE
+    const attributes = item.attributes || {};
+
+    let quote = "";
+
+    const possibleFields = [
+      "field_testimonial_description",
+      "field_testimonial_content",
+      "field_description",
+      "field_content",
+      "body",
+    ];
+
+    for (const field of possibleFields) {
+      const value = attributes[field];
+
+      if (!value) continue;
+
+      if (typeof value === "string") {
+        quote = value;
+        break;
+      }
+
+      if (value.processed) {
+        quote = value.processed;
+        break;
+      }
+
+      if (value.value) {
+        quote = value.value;
+        break;
+      }
+    }
+
+    quote = quote
+      .replace(/<[^>]*>/g, "")
+      .replace(/&nbsp;/g, " ")
+      .replace(/\u00a0/g, " ")
+      .trim();
+
+    return {
+      id: item.id,
+      name,
+      image: imageUrl,
+      quote,
+    };
+  });
+
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  if (!testimonials.length) {
+    return null;
+  }
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? TESTIMONIALS_DATA.length - 1 : prevIndex - 1,
+      prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1,
     );
   };
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === TESTIMONIALS_DATA.length - 1 ? 0 : prevIndex + 1,
+      prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1,
     );
   };
 
-  const current = TESTIMONIALS_DATA[currentIndex];
+  const current = testimonials[currentIndex];
+
+
+
 
   return (
     <section className="py-16 md:py-20 select-none overflow-hidden bg-[#fbfbfb]">

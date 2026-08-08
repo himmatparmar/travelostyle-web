@@ -70,7 +70,7 @@ export default function FilterSidebar({
   const [loading, setLoading] = useState(false);
     const searchParams = useSearchParams();
 
-  useEffect(() => {
+ useEffect(() => {
   const regionParam = searchParams.get("region");
 
   if (regionParam) {
@@ -79,7 +79,7 @@ export default function FilterSidebar({
       region: [regionParam],
     }));
   }
-}, [searchParams]);
+}, [searchParams, setFilters]);
 
   // ================= CLEAR =================
   const clearAll = () => {
@@ -164,10 +164,19 @@ export default function FilterSidebar({
       }
     }).length;
   };
-  const filteredJourneys = journeys.filter((item) => {
+ const filteredJourneys = journeys.filter((item) => {
+  const journeyRegion =
+    typeof item.region === "string"
+      ? item.region.trim().toLowerCase()
+      : item.region?.name?.trim().toLowerCase();
+
+  const selectedRegions = filters.region.map((region) =>
+    region.trim().toLowerCase()
+  );
+
   const regionMatch =
-    filters.region.length === 0 ||
-    filters.region.includes(item.region);
+    selectedRegions.length === 0 ||
+    selectedRegions.includes(journeyRegion);
 
   return regionMatch;
 });

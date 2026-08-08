@@ -57,18 +57,7 @@ export default function HeroSection({
     </span>
   )}
 
-  {journey?.tags?.map((tag) => (
-    <span
-      key={tag}
-      className="cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
-      style={{
-        backgroundColor: "#EFF3CF",
-        color: "#000000",
-      }}
-    >
-      {tag}
-    </span>
-  ))}
+  
 
   {categories?.map((category) => (
     <span
@@ -80,6 +69,18 @@ export default function HeroSection({
       }}
     >
       {category}
+    </span>
+  ))}
+   {journey?.tags?.map((tag) => (
+    <span
+      key={tag}
+      className="cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
+      style={{
+        backgroundColor: "#EFF3CF",
+        color: "#000000",
+      }}
+    >
+      {tag}
     </span>
   ))}
 </div>
@@ -310,27 +311,6 @@ export default function HeroSection({
       /person
     </span>
   </div>
-
-  {/* Original Price */}
-  {journey.originalPrice && (
-    <p className="mt-2 text-[14px] font-medium text-[#777]">
-      was{" "}
-      <span className="line-through">
-        ${Number(journey.originalPrice).toLocaleString()}
-      </span>
-    </p>
-  )}
-
-
-    {/* ORIGINAL PRICE */}
-    {journey.originalPrice && (
-        <p className="text-[14px] text-[#777]">
-            was{" "}
-            <span className="line-through">
-                {journey.originalPrice}
-            </span>
-        </p>
-    )}
 
 
   {/* Original Price */}
