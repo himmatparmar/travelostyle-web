@@ -57,18 +57,7 @@ export default function HeroSection({
     </span>
   )}
 
-  {journey?.tags?.map((tag) => (
-    <span
-      key={tag}
-      className="cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
-      style={{
-        backgroundColor: "#EFF3CF",
-        color: "#000000",
-      }}
-    >
-      {tag}
-    </span>
-  ))}
+  
 
   {categories?.map((category) => (
     <span
@@ -80,6 +69,18 @@ export default function HeroSection({
       }}
     >
       {category}
+    </span>
+  ))}
+   {journey?.tags?.map((tag) => (
+    <span
+      key={tag}
+      className="cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
+      style={{
+        backgroundColor: "#EFF3CF",
+        color: "#000000",
+      }}
+    >
+      {tag}
     </span>
   ))}
 </div>
@@ -145,33 +146,50 @@ export default function HeroSection({
           </div>
 
           {/* Divider */}
-          <div className="my-[0.7vw] border-t border-[#EBEBEB]" />
+         <div className="flex items-start gap-[0.7vw]">
+  <div className="shrink-0">
 
-          <div className="flex items-start gap-[0.7vw]">
-            <div className="shrink-0">
-              <p className="text-[0.52vw] text-[#787878]">from</p>
-              <p className="text-[1.55vw] font-bold leading-none text-[#1D1D1D]">
-                {journey.price || "$5000"}
-                <span className="text-[0.75vw]">*</span>
-              </p>
-              <p className="mt-[0.1vw] text-[0.46vw] leading-[1.3] text-[#777]">
-                /person
-                <br />
-                double occupancy*
-              </p>
-            </div>
+    {/* From */}
+    <p className="text-[0.52vw] text-[#787878]">
+      from
+    </p>
 
-            {journey?.earlyBird && (
-              <div className="flex flex-1 items-start gap-[0.3vw] rounded-[0.3vw] border border-[#D8D8D8] bg-[#F5DFC9] px-[0.5vw] py-[0.45vw]">
-                <Info
-                  size={10}
-                  className="mt-[0.1vw] shrink-0 text-[#555]"
-                />
-                <p className="text-[0.5vw] leading-[1.4] text-[#555]">
-                  Early Bird
-                </p>
-              </div>
-            )}
+    {/* Offer Price */}
+    <p className="text-[1.15vw] font-bold leading-none text-[#1D1D1D]">
+      ${Number(journey.offerPrice).toLocaleString()}
+      <span className="text-[0.55vw]">*</span>
+    </p>
+
+    {/* Original Price */}
+    {journey.originalPrice && (
+      <p className="mt-[0.25vw] text-[0.55vw] font-medium text-[#777]">
+        was{" "}
+        <span className="line-through">
+          ${Number(journey.originalPrice).toLocaleString()}
+        </span>
+      </p>
+    )}
+
+    {/* Per person */}
+    <p className="mt-[0.12vw] text-[0.46vw] leading-[1.3] text-[#777]">
+      /person
+      <br />
+      double occupancy*
+    </p>
+
+  </div>
+
+          {journey?.offer && (
+  <span
+    className="cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
+    style={{
+      backgroundColor: "#F2E2DA",
+      color: "#000000",
+    }}
+  >
+    {journey.offer}
+  </span>
+)}
           </div>
 
           <button className="mt-[0.8vw] h-[2vw] w-full rounded-full bg-[#2D3482] text-[0.7vw] font-semibold text-white transition hover:bg-[#252b78]">
@@ -242,14 +260,14 @@ export default function HeroSection({
                 </div>
               </div>
               <div className="mt-5 flex flex-wrap gap-[10px]">
-                {journey?.earlyBird && (
-                  <span
-                    className="rounded-[5px] px-3 py-2 text-[14px] font-semibold tracking-[0.05em]"
-                    style={{ backgroundColor: "#F2E2DA", color: "#000000" }}
-                  >
-                    Early Bird
-                  </span>
-                )}
+               {journey?.offer && (
+  <div className="flex flex-1 items-start gap-[0.3vw] rounded-[0.3vw] border border-[#D8D8D8] bg-[#F5DFC9] px-[0.5vw] py-[0.45vw]">
+    <Info size={10} className="mt-[0.1vw] shrink-0 text-[#555]" />
+    <p className="text-[0.5vw] leading-[1.4] text-[#555]">
+      {journey.offer}
+    </p>
+  </div>
+)}
 
                 {categories?.map((category) => (
                   <span
@@ -276,20 +294,35 @@ export default function HeroSection({
 
           <div className="-mt-2 overflow-hidden rounded-t-[20px] border-2 border-[#333] bg-white">
             <div className="flex border-b">
-              <div className="flex-1 p-4">
-                <p className="text-[12px] text-[#666]">from</p>
+           <div className="flex-1 p-4">
 
-                <div className="flex items-end">
-                  <span className="text-[42px] font-bold">
-                    {journey.price || "$5000"}
-                  </span>
-                  <span className="mb-1 ml-1 text-[16px]">/person</span>
-                </div>
+  {/* From */}
+  <p className="text-[12px] text-[#666]">
+    from
+  </p>
 
-                <p className="text-[14px] text-[#777] line-through">
-                  was $6500
-                </p>
-              </div>
+  {/* Offer Price */}
+  <div className="flex items-end">
+    <span className="text-[36px] font-bold leading-none">
+      ${Number(journey.offerPrice).toLocaleString()}
+    </span>
+
+    <span className="mb-1 ml-1 text-[16px]">
+      /person
+    </span>
+  </div>
+
+
+  {/* Original Price */}
+  {journey.originalPrice && (
+    <p className="text-[14px] text-[#777]">
+      was{" "}
+      <span className="line-through">
+        {journey.originalPrice}
+      </span>
+    </p>
+  )}
+</div>
 {journey?.earlyBird && (
 <div className="w-[52%] bg-[#F6EEE8] p-4">
   <div className="flex gap-2">

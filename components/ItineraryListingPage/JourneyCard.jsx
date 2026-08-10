@@ -140,23 +140,28 @@ existingTrips.push(trip);
         </div>
 
         <div className="mt-[1vw] flex items-end justify-between">
-          <div>
-            <p className="text-[0.62vw] lowercase text-[#787878]">
-              from
-            </p>
+ <div className="flex items-end gap-[0.2vw]">
+  <div className="flex flex-col">
+    <h4 className="text-[1.45vw] font-semibold leading-none text-[#1D1D1D]">
+      ${Number(trip.price).toLocaleString()}*
+    </h4>
 
-            <div className="flex items-end gap-[0.2vw]">
-              <h4 className="text-[1.45vw] font-semibold leading-none text-[#1D1D1D]">
-                ${Number(trip.price).toLocaleString()}*
-              </h4>
+  {trip.originalPrice > trip.price && (
+  <span className="mt-[0.12vw] text-[0.62vw] text-[#7B7B7B] leading-none">
+    was{" "}
+    <span className="line-through">
+      ${Number(trip.originalPrice).toLocaleString()}
+    </span>
+  </span>
+)}
+  </div>
 
-              <span className="mb-[0.12vw] text-[0.52vw] leading-[1.15] text-[#7B7B7B]">
-                /person
-                <br />
-                double occupancy*
-              </span>
-            </div>
-          </div>
+  <span className="mb-[0.12vw] text-[0.52vw] leading-[1.15] text-[#7B7B7B]">
+    /person
+    <br />
+    double occupancy*
+  </span>
+</div>
 
           <a
   href={trip.viewTripUrl}

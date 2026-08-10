@@ -1,16 +1,4 @@
 "use client";
-import {
-    Utensils,
-    Hotel,
-    Briefcase,
-    Car,
-    UserCheck,
-    Plane,
-    Shield,
-    Wallet,
-    FileText,
-    HandCoins,
-} from "lucide-react";
 
 import { useState } from "react";
 import { Info } from "lucide-react";
@@ -165,12 +153,13 @@ function MobileInclusions({
 
             {/* INCLUSIONS */}
 
-            <div className="
-rounded-xl
-border
-border-black
-overflow-hidden
-mb-5
+           <div className="
+  rounded-xl
+  border
+  border-black
+  overflow-hidden
+  mb-5
+  bg-[#EFF3CF]
 ">
 
 
@@ -180,7 +169,7 @@ mb-5
 w-full
 flex
 justify-between
-bg-[#EBF3CE]
+bg-[#EFF3CF]
 px-4
 py-4
 font-bold
@@ -236,10 +225,11 @@ font-bold
             {/* EXCLUSIONS */}
 
             <div className="
-              rounded-xl
-            border border-black overflow-hidden
-                 ">
-
+  rounded-xl
+  border border-black
+  overflow-hidden
+  bg-[#FADBD8]
+">
 
                 <button
                     onClick={() => setOpenExc(!openExc)}

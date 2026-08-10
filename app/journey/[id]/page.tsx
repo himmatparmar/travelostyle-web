@@ -2,12 +2,17 @@ import { notFound } from "next/navigation";
 import SearchBar from "@/components/JourneyDetailPage/SearchBar";
 import JourneyDetailClient from "@/components/JourneyDetailPage/JourneyDetailClient";
 import Footer from "@/components/Footer";
-import JourneyPricing from "@/components/JourneyDetailPage/DatePricing";
+import TestimonialSection from "@/components/HomePage/TestimonialSection";
 import { API_BASE_URL } from "@/lib/config";
-import InclusionExclusion from "@/components/JourneyDetailPage/Inclusionexclusion";
-import MobileInclusionsExclusions from "@/components/JourneyDetailPage/MobileInclusionsExclusions";
 function stripHtml(html: string): string {
-  return html.replace(/<[^>]*>/g, "");
+  return html
+    .replace(/<[^>]*>/g, "")
+    .replace(/&amp;/g, "&")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
 }
 const INCLUDE = [
   "field_journey_image.field_media_image",
@@ -33,6 +38,8 @@ const INCLUDE = [
   "field_journey_tabs_section.field_section_tabs.field_hotels",
   "field_journey_tabs_section.field_section_tabs.field_include_exclude.field_inclusion",
 "field_journey_tabs_section.field_section_tabs.field_include_exclude.field_exclusion",
+  "field_journey_tabs_section.field_section_tabs.field_journey_map",
+  "field_journey_tabs_section.field_section_tabs.field_journey_map.field_media_image",
 "field_journey_tabs_section.field_section_tabs.field_include_exclude.field_inclusion.field_icon.field_media_image",
 "field_journey_tabs_section.field_section_tabs.field_include_exclude.field_exclusion.field_icon.field_media_image",
   // "field_journey_tabs_section.field_section_tabs.field_inclusions.field_inclusion.field_icon.field_media_image",
@@ -48,12 +55,31 @@ const INCLUDE = [
   // "field_journey_tabs_section.field_section_tabs.field_exclusions.field_exclusion.field_icon.field_media_image",
 
 ].join(",");
+const TESTIMONIAL_INCLUDE =
+  "field_testimonial_image.field_media_image,field_testimonial_journey";
+
+async function getTestimonials() {
+  const res = await fetch(
+    `${API_BASE_URL}/jsonapi/node/testimonial?include=${TESTIMONIAL_INCLUDE}`,
+    {
+      cache: "no-store",
+    }
+  );
+
+  if (!res.ok) {
+    console.error("Failed to fetch testimonials");
+    return { data: [], included: [] };
+  }
+
+  return res.json();
+}
 export default async function JourneyDetailPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+
 
   // Custom Drupal endpoint: resolves the /journey/{slug} alias to its node
   // internally and returns the same JSON:API shape for that node.
@@ -263,7 +289,29 @@ console.log(
 
   // Example (adjust based on actual response shape)
   const journeyId = journeyData.data.id;
+  const testimonialData = await getTestimonials();
 
+const journeyTestimonials = {
+  ...testimonialData,
+
+  data: (testimonialData.data || []).filter((testimonial: any) => {
+    const relationshipData =
+      testimonial.relationships?.field_testimonial_journey?.data;
+
+    // Drupal can return either:
+    // 1. an array when multiple journeys are allowed
+    // 2. an object when only one journey is allowed
+    const testimonialJourneys = Array.isArray(relationshipData)
+      ? relationshipData
+      : relationshipData
+        ? [relationshipData]
+        : [];
+
+    return testimonialJourneys.some(
+      (journey: any) => journey.id === journeyId
+    );
+  }),
+};
   // Fetch departures linked to this journey
   const departureRes = await fetch(
     `${API_BASE_URL}/jsonapi/node/book_your_journey`,
@@ -303,7 +351,11 @@ console.log(
         journeyId={journeyId}
         inclusions={inclusions}
         exclusions={exclusions}
+        
       />
+     <TestimonialSection
+  testimonialData={journeyTestimonials}
+/>
 
       <Footer />
     </>

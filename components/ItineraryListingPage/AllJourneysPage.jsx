@@ -41,8 +41,8 @@ export default function AllJourneysPage() {
       try {
         setLoading(true);
 
-        const res = await fetch(
-  `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month`,
+       const res = await fetch(
+  `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month`
 );
 
 
@@ -119,21 +119,44 @@ const drupalJourneys = (json.data || []).map((item, index) => {
           if (cta?.uri && !cta.uri.startsWith("entity:")) {
             viewTripUrl = cta.uri;
           }
-            const regionId = item.relationships?.field_region?.data?.id;
+          const regionRelationship =
+  item.relationships?.field_region?.data ||
+  item.relationships?.field_country?.data;
 
-const regionEntity = included.find(
-  (inc) =>
-    inc.type === "taxonomy_term--region" &&
-    inc.id === regionId
-);
+const regionArray = Array.isArray(regionRelationship)
+  ? regionRelationship
+  : regionRelationship
+    ? [regionRelationship]
+    : [];
 
-const regionName = regionEntity?.attributes?.name || "";
-console.log({
+const regionNames = regionArray
+  .map((relation) => {
+    const regionEntity = included.find(
+      (inc) =>
+        inc.id === relation.id &&
+        (
+          inc.type === "taxonomy_term--region" ||
+          inc.type === "taxonomy_term--country"
+        )
+    );
+
+    return regionEntity?.attributes?.name || "";
+  })
+  .filter(Boolean);
+
+const regionName = regionNames[0] || "";
+
+console.log("REGION DEBUG:", {
   title: item.attributes?.title,
-  regionId,
+  fieldRegion: item.relationships?.field_region,
+  fieldCountry: item.relationships?.field_country,
   regionName,
+  includedRegions: included.filter(
+    (inc) =>
+      inc.type === "taxonomy_term--region" ||
+      inc.type === "taxonomy_term--country"
+  ),
 });
-
           return {
             id: item.id,
             title: item.attributes.title || "",
@@ -147,9 +170,9 @@ console.log({
               item.attributes.field_destinations_count || 0
             } Destinations`,
 
-            price: Number(item.attributes.field_offer_price) || 0,
-            offer: item.attributes.field_offer_message || "",
-
+           price: Number(item.attributes.field_offer_price) || 0,
+originalPrice: Number(item.attributes.field_original_price) || 0,
+offer: item.attributes.field_offer_message || "",
             image: imageUrl,
 
             tags: tagNames,
@@ -221,9 +244,18 @@ console.log({
       data = data.filter((item) => !item.offer);
     }
 
-    if (filters.region.length) {
-      data = data.filter((item) => filters.region.includes(item.region));
-    }
+   if (filters.region.length) {
+  data = data.filter((item) => {
+    const journeyRegion = String(item.region || "")
+      .trim()
+      .toLowerCase();
+
+    return filters.region.some(
+      (region) =>
+        String(region || "").trim().toLowerCase() === journeyRegion
+    );
+  });
+}
 
     if (filters.style.length) {
       data = data.filter((item) =>
@@ -332,7 +364,8 @@ console.log({
           filters={filters}
           setFilters={setFilters}
           filterOptions={filterOptions}
-          journeys={filteredJourneys}
+           journeys={journeys}
+
         />
 
         <div className="flex-1 min-w-0">

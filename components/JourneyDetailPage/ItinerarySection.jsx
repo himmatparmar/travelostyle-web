@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
+import Image from "next/image";
+
 
 const DEFAULT_ITINERARY = [
   {
@@ -83,7 +85,7 @@ function DayAccordion({ item, isOpen, onToggle }) {
   );
 }
 
-export default function ItinerarySection({ itinerary = DEFAULT_ITINERARY, drupalData }) {
+export default function ItinerarySection({ itinerary = DEFAULT_ITINERARY, drupalData ,mapImage, }) {
   const days = (drupalData && drupalData.length > 0) ? drupalData : itinerary;
   const [openDay, setOpenDay] = useState(null);
 
@@ -97,10 +99,20 @@ export default function ItinerarySection({ itinerary = DEFAULT_ITINERARY, drupal
 
       <div className="grid grid-cols-[2fr_3fr] gap-[2vw]">
         {/* Left: Map placeholder */}
-        <div className="border border-[#D9D9D9] rounded-[0.4vw] flex items-center justify-center min-h-[30vw] sticky top-[1vw] self-start">
-          <span className="text-[1.3vw] text-[#1A1A1A] font-medium">Map</span>
-        </div>
-
+      <div className="border border-[#D9D9D9] rounded-[0.4vw] overflow-hidden min-h-[30vw] sticky top-[1vw] self-start relative">
+  {mapImage ? (
+    <Image
+      src={mapImage}
+      alt="Journey Map"
+      fill
+      className="object-cover"
+    />
+  ) : (
+    <div className="flex items-center justify-center h-full">
+      No map available
+    </div>
+  )}
+</div>
         {/* Right: Day accordion */}
         <div className="flex flex-col gap-[0.7vw]">
           {days.map((item) => (

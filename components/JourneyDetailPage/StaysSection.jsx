@@ -4,38 +4,6 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { Info, X, ChevronLeft, ChevronRight } from "lucide-react";
 
-const DEFAULT_STAYS = [
-  {
-    name: "Kaan Casablanca",
-    desc: "A city hotel in the heart of Casablanca",
-    image: "/Morocco.svg",
-  },
-  {
-    name: "Riad Salam Fes",
-    desc: "A boutique riad in the heart of Fez with traditional courtyard that makes you want to linger",
-    image: "/Morocco.svg",
-  },
-  {
-    name: "Kasbah Hotel Xaluca Arfoud",
-    desc: "A comfortable lodge in Erfoud — The last proper town before the dunes begin.",
-    image: "/Kenya.svg",
-  },
-  {
-    name: "Auberge du Sud, Erg Chébbi",
-    desc: "A tented camp at the heart of the Moroccan Sahara between tradition and modernity.",
-    image: "/Kenya.svg",
-  },
-  {
-    name: "Le Berbere Palace, Ouarzazate",
-    desc: "A kasbah-style hotel on the edge of the city — bungalow complex with easy access to the sites.",
-    image: "/Morocco.svg",
-  },
-  {
-    name: "Riad Melhoun & Spa, Marrakech",
-    desc: "A boutique riad with 8 rooms in the heart of Marrakech, tranquil and perfect right after the Atlas.",
-    image: "/Kenya.svg",
-  },
-];
 
 function Lightbox({ images, name, startIndex, onClose }) {
   const [current, setCurrent] = useState(startIndex);
@@ -171,23 +139,39 @@ function HotelCard({ hotel, onGalleryOpen }) {
   );
 }
 
-export default function StaysSection({ stays = DEFAULT_STAYS, drupalData }) {
-  const hotels = (drupalData && drupalData.length > 0) ? drupalData : stays;
+export default function StaysSection({ drupalData }) {
+  const hotels = Array.isArray(drupalData) ? drupalData : [];
   const [lightbox, setLightbox] = useState(null); // { images, name }
 
   return (
     <div className="px-[5.5vw] py-[3vw]">
       <div className="grid grid-cols-4 gap-[1.2vw]">
-        {hotels.map((hotel, i) => {
-          const images = hotel.images?.length ? hotel.images : [hotel.image];
-          return (
-            <HotelCard
-              key={i}
-              hotel={hotel}
-              onGalleryOpen={() => setLightbox({ images, name: hotel.name })}
-            />
-          );
-        })}
+      {hotels.length > 0 ? (
+  hotels.map((hotel, i) => {
+    const images = hotel.images?.length
+      ? hotel.images
+      : hotel.image
+        ? [hotel.image]
+        : [];
+
+    return (
+      <HotelCard
+        key={i}
+        hotel={hotel}
+        onGalleryOpen={() =>
+          setLightbox({
+            images,
+            name: hotel.name,
+          })
+        }
+      />
+    );
+  })
+) : (
+  <p className="text-center text-[1vw] text-[#555] py-[2vw]">
+    Coming soon
+  </p>
+)}
       </div>
 
       {/* Disclaimer */}
