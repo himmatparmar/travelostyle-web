@@ -42,7 +42,7 @@ export default function AllJourneysPage() {
         setLoading(true);
 
        const res = await fetch(
-  `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month`
+  `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month,field_category,field_region`
 );
 
 
@@ -157,6 +157,30 @@ console.log("REGION DEBUG:", {
       inc.type === "taxonomy_term--country"
   ),
 });
+
+          // field_category is a taxonomy-term relationship, not a plain
+          // attribute — resolved the same way as region/tags above (a
+          // journey can carry more than one category).
+          const categoryRelationship = item.relationships?.field_category?.data;
+
+          const categoryArray = Array.isArray(categoryRelationship)
+            ? categoryRelationship
+            : categoryRelationship
+              ? [categoryRelationship]
+              : [];
+
+          const categoryNames = categoryArray
+            .map((relation) => {
+              const categoryEntity = included.find(
+                (inc) =>
+                  inc.id === relation.id &&
+                  inc.type === "taxonomy_term--category"
+              );
+
+              return categoryEntity?.attributes?.name || "";
+            })
+            .filter(Boolean);
+
           return {
             id: item.id,
             title: item.attributes.title || "",
@@ -178,7 +202,7 @@ offer: item.attributes.field_offer_message || "",
             tags: tagNames,
             style: tagNames[0] || "Group Journey",
             region: regionName,
-            category: item.attributes?.field_category || "",
+            category: categoryNames,
             month: monthName,
 
             viewTripUrl,
@@ -268,7 +292,9 @@ offer: item.attributes.field_offer_message || "",
     }
 
     if (filters.category.length) {
-      data = data.filter((item) => filters.category.includes(item.category));
+      data = data.filter((item) =>
+        item.category?.some((c) => filters.category.includes(c)),
+      );
     }
 
     if (filters.month.length) {
@@ -340,7 +366,7 @@ offer: item.attributes.field_offer_message || "",
     <div className="min-h-screen bg-[#fafafa] font-sans px-14">
       <div className="flex gap-[2vw] py-[0.8vw] items-baseline">
         {/* Breadcrumb — aligns with filter sidebar column */}
-        <div className="w-[220px] shrink-0">
+        <div className="w-[300px] shrink-0">
           <nav className="text-[0.72vw] text-[#888]">
             <span>home</span>
             <span className="mx-[0.3vw]">&gt;</span>
