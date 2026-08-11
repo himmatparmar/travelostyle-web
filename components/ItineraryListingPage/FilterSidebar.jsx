@@ -1,46 +1,58 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
+import { Plus, Minus, ChevronDown, ChevronUp, Check } from "lucide-react";
 
 const FilterSection = ({ title, children, defaultOpen = true }) => {
   const [open, setOpen] = useState(defaultOpen);
-  
+
 
   return (
-    
 
-    <div className="border-b border-[#E8E8E8] py-[1.2vw]">
+
+    <div className="border-b border-[#E5E5E5] py-[1.4vw]">
       <button
         onClick={() => setOpen(!open)}
         className="flex w-full items-center justify-between"
       >
-        <span className="text-[0.85vw] font-semibold text-[#1a1a1a] uppercase tracking-[0.06em]">
+        <span className="text-[1.05vw] font-semibold text-[#1A1A1A]">
           {title}
         </span>
 
-        <span className="text-[1vw] text-[#888]">{open ? "−" : "+"}</span>
+        <div className="flex h-[1.9vw] w-[1.9vw] shrink-0 items-center justify-center rounded-full bg-[#F2E2DA]">
+          {open ? (
+            <Minus size={14} className="text-[#1A1A1A]" />
+          ) : (
+            <Plus size={14} className="text-[#1A1A1A]" />
+          )}
+        </div>
       </button>
 
-      {open && <div className="mt-[0.8vw]">{children}</div>}
+      {open && <div className="mt-[1vw]">{children}</div>}
     </div>
   );
 };
 
 const CheckboxItem = ({ label, checked, onChange, count = 0 }) => {
   return (
-    <label className="flex items-center justify-between py-[0.3vw] cursor-pointer">
-      <div className="flex items-center gap-[0.5vw]">
+    <label className="flex items-center gap-[0.6vw] py-[0.45vw] cursor-pointer">
+      <span className="relative flex h-[1.1vw] w-[1.1vw] shrink-0 items-center justify-center leading-none">
         <input
           type="checkbox"
           checked={checked}
           onChange={onChange}
-          className="accent-[#2f2d89]"
+          className="peer block h-full w-full cursor-pointer appearance-none rounded-none border-[1.5px] border-[#1A1A1A] checked:bg-[#1A1A1A]"
         />
+        <Check
+          size={11}
+          strokeWidth={3}
+          className="pointer-events-none absolute text-white opacity-0 peer-checked:opacity-100"
+        />
+      </span>
 
-        <span className="text-[0.78vw] text-[#444]">{label}</span>
-      </div>
-
-      <span className="text-[0.72vw] text-[#888]">({count})</span>
+      <span className="text-[0.85vw] leading-[1.1vw] text-[#333]">
+        {label} <span className="text-[#999]">({count})</span>
+      </span>
     </label>
   );
 };
@@ -49,9 +61,11 @@ const MonthPill = ({ label, active, onClick }) => {
   return (
     <button
       onClick={onClick}
-      className={`rounded-full border px-[0.7vw] py-[0.25vw] text-[0.72vw]
+      className={`rounded-full border px-[0.9vw] py-[0.4vw] text-[0.8vw]
       ${
-        active ? "bg-[#2f2d89] text-white border-[#2f2d89]" : "border-[#d0d0d0] text-[#444]"
+        active
+          ? "bg-[#F5DFC9] text-[#6A5B4E] border-[#F5DFC9]"
+          : "border-[#D9D9D9] text-[#444]"
       }`}
     >
       {label}
@@ -117,7 +131,7 @@ export default function FilterSidebar({
           return item.offer === value;
 
         case "category":
-          return item.category === value;
+          return item.category?.includes(value);
 
         case "month":
           return item.month === value;
@@ -181,7 +195,7 @@ export default function FilterSidebar({
   return regionMatch;
 });
   return (
-    <aside className="w-[220px] shrink-0">
+    <aside className="w-[300px] shrink-0">
       {/* HEADER */}
       <div className="flex items-center justify-between pb-[1vw] border-b border-[#E8E8E8]">
         <span className="text-[0.85vw] font-semibold">Filters</span>
@@ -213,7 +227,7 @@ export default function FilterSidebar({
       </div>
 
       {/* MAIN FILTER WRAPPER */}
-      <div className="rounded-[0.4vw] border border-[#000] px-[0.7vw] py-[0.45vw]">
+      <div className="rounded-[1vw] border border-[#000000] px-[1vw] py-[0.3vw]">
         {/* REGION (Drupal: country) */}
         <FilterSection title="Region">
           {(filterOptions.region || []).map((item) => (
@@ -297,11 +311,18 @@ export default function FilterSidebar({
           {(filterOptions.category || []).length > 7 && (
             <button
               onClick={() => setShowMoreCategories((prev) => !prev)}
-              className="text-[0.75vw] text-[#1a1a1a] mt-2 flex items-center gap-[0.3vw]"
+              className="mt-[0.6vw] flex items-center gap-[0.3vw] text-[0.8vw] text-[#1A1A1A]"
             >
-              {showMoreCategories
-                ? "See Less ▲"
-                : `See ${(filterOptions.category || []).length - 7} more ▼`}
+              {showMoreCategories ? (
+                <>
+                  See Less <ChevronUp size={14} />
+                </>
+              ) : (
+                <>
+                  See {(filterOptions.category || []).length - 7} more{" "}
+                  <ChevronDown size={14} />
+                </>
+              )}
             </button>
           )}
         </FilterSection>

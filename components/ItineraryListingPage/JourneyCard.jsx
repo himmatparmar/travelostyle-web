@@ -91,7 +91,7 @@ existingTrips.push(trip);
           : "border border-[#E8E8E8]"
       }`}
     >
-      <div className="mb-[0.8vw] flex flex-wrap gap-[0.45vw]">
+      <div className="mb-[0.8vw] flex min-h-[1.6vw] flex-wrap gap-[0.45vw]">
         {(trip.tags || []).map((tag) => (
           <span
             key={tag}
