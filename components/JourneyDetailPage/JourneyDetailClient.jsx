@@ -110,6 +110,27 @@ function resolvePace(item, included) {
   return e?.attributes?.name || "";
 }
 
+// Geofield values come back from JSON:API with lat/lon keys directly on the
+// field object, so no WKT parsing is needed.
+function resolveStayGeoLocation(hotel, included) {
+  const locationId = hotel?.relationships?.field_location?.data?.id;
+  if (!locationId) return null;
+
+  const location = included.find(
+    (i) => i.type === "node--location" && i.id === locationId
+  );
+  if (!location) return null;
+
+  const geo = location?.attributes?.field_geolocation;
+  if (!geo) return null;
+
+  const lat = parseFloat(geo.lat);
+  const lon = parseFloat(geo.lon ?? geo.lng);
+  if (Number.isNaN(lat) || Number.isNaN(lon)) return null;
+
+  return { lat, lon };
+}
+
 
 
 function resolveTabSections(item, included) {
@@ -197,6 +218,10 @@ tabs.itinerary = {
             )
           : null;
 
+        // Missing stay/location/geolocation just means this day can't
+        // contribute a map point — it still renders in the day list.
+        const geo = hotel ? resolveStayGeoLocation(hotel, included) : null;
+
         return {
           day: a.field_day_number,
           title: a.field_day_title || "",
@@ -204,10 +229,13 @@ tabs.itinerary = {
           description: stripHtml(
             a.field_description?.processed
           ),
+          lat: geo?.lat ?? null,
+          lon: geo?.lon ?? null,
         };
 
       })
-      .filter(Boolean),
+      .filter(Boolean)
+      .sort((a, b) => (a.day ?? 0) - (b.day ?? 0)),
 
     mapImage,
   };

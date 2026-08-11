@@ -46,6 +46,7 @@ const INCLUDE = [
   // "field_journey_tabs_section.field_section_tabs.field_exclusions.field_exclusion.field_icon.field_media_image",
 
   "field_journey_tabs_section.field_section_tabs.field_days.field_stay",
+  "field_journey_tabs_section.field_section_tabs.field_days.field_stay.field_location",
   "field_journey_tabs_section.field_section_tabs.field_hotels.field_featured_image.field_media_image",
   "field_journey_tabs_section.field_section_tabs.field_hotels.field_gallery.field_media_image",
   "field_journey_tabs_section.field_section_tabs.field_information_item",
@@ -58,9 +59,11 @@ const INCLUDE = [
 const TESTIMONIAL_INCLUDE =
   "field_testimonial_image.field_media_image,field_testimonial_journey";
 
-async function getTestimonials() {
+async function getTestimonials(journeyId: string) {
   const res = await fetch(
-    `${API_BASE_URL}/jsonapi/node/testimonial?include=${TESTIMONIAL_INCLUDE}`,
+    `${API_BASE_URL}/jsonapi/node/testimonial?filter[field_testimonial_journey.id]=${encodeURIComponent(
+      journeyId
+    )}&include=${TESTIMONIAL_INCLUDE}`,
     {
       cache: "no-store",
     }
@@ -89,36 +92,19 @@ export default async function JourneyDetailPage({
       cache: "no-store",
     });
   } catch {
-    // Connection failure (backend truly unreachable) — fall back to mock
-    // data below rather than a hard 404.
+    // Connection failure (backend truly unreachable).
   }
 
-  let initialData = null;
-
-  if (res) {
-    // The backend answered at all, so any non-2xx here is Drupal genuinely
-    // saying this alias doesn't resolve — a real 404. notFound() throws, so
-    // it must stay outside the try/catch above or it'd be swallowed as a
-    // network failure.
-    if (!res.ok) {
-      notFound();
-    }
-    initialData = await res.json();
-
-  }
-  const journeyRes = await fetch(
-    `${API_BASE_URL}/api/journey/${id}?include=${INCLUDE}`,
-    {
-      cache: "no-store",
-    }
-  );
-
-  if (!journeyRes.ok) {
+  // The backend answered at all, so any non-2xx here is Drupal genuinely
+  // saying this alias doesn't resolve — a real 404. notFound() throws, so
+  // it must stay outside the try/catch above or it'd be swallowed as a
+  // network failure.
+  if (!res || !res.ok) {
     notFound();
   }
 
-
-  const journeyData = await journeyRes.json();
+  const journeyData = await res.json();
+  const initialData = journeyData;
 
   console.log(
     JSON.stringify(
@@ -289,36 +275,25 @@ console.log(
 
   // Example (adjust based on actual response shape)
   const journeyId = journeyData.data.id;
-  const testimonialData = await getTestimonials();
+  const journeyTestimonials = await getTestimonials(journeyId);
 
-const journeyTestimonials = {
-  ...testimonialData,
-
-  data: (testimonialData.data || []).filter((testimonial: any) => {
-    const relationshipData =
-      testimonial.relationships?.field_testimonial_journey?.data;
-
-    // Drupal can return either:
-    // 1. an array when multiple journeys are allowed
-    // 2. an object when only one journey is allowed
-    const testimonialJourneys = Array.isArray(relationshipData)
-      ? relationshipData
-      : relationshipData
-        ? [relationshipData]
-        : [];
-
-    return testimonialJourneys.some(
-      (journey: any) => journey.id === journeyId
-    );
-  }),
-};
   // Fetch departures linked to this journey
-  const departureRes = await fetch(
-    `${API_BASE_URL}/jsonapi/node/book_your_journey`,
-    { cache: "no-store" }
-  );
+  let departures: any[] = [];
+  try {
+    const departureRes = await fetch(
+      `${API_BASE_URL}/jsonapi/node/book_your_journey?filter[field_journey.id]=${encodeURIComponent(
+        journeyId
+      )}`,
+      { cache: "no-store" }
+    );
+    if (departureRes.ok) {
+      const departureData = await departureRes.json();
+      departures = departureData.data || [];
+    }
+  } catch {
+    // Backend unreachable — page still renders without departure dates.
+  }
 
-  const departureData = await departureRes.json();
   console.log("JOURNEY DATA", journeyData);
 
 console.log(
@@ -331,12 +306,6 @@ console.log(
   JSON.stringify(journeyData.included, null, 2)
 );
 
-  const departures = departureData.data.filter(
-    (departure: any) =>
-      departure.relationships?.field_journey?.data?.id === journeyId
-  );
-
-  console.log("All Departures:", departures);
   console.log("Journey ID:", journeyId);
   console.log("Filtered Departures:", departures);
 
