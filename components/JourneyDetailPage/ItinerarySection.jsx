@@ -85,8 +85,11 @@ function DayAccordion({ item, isOpen, onToggle }) {
   );
 }
 
-export default function ItinerarySection({ itinerary = DEFAULT_ITINERARY, drupalData ,mapImage, }) {
-  const days = (drupalData && drupalData.length > 0) ? drupalData : itinerary;
+export default function ItinerarySection({
+  drupalData,
+  mapImage,
+}) {
+  const days = drupalData || [];
   const [openDay, setOpenDay] = useState(null);
 
   const toggle = (day) => setOpenDay((prev) => (prev === day ? null : day));
@@ -115,14 +118,23 @@ export default function ItinerarySection({ itinerary = DEFAULT_ITINERARY, drupal
 </div>
         {/* Right: Day accordion */}
         <div className="flex flex-col gap-[0.7vw]">
-          {days.map((item) => (
-            <DayAccordion
-              key={item.day}
-              item={item}
-              isOpen={openDay === item.day}
-              onToggle={() => toggle(item.day)}
-            />
-          ))}
+        
+       {days.length === 0 ? (
+  <div className="flex items-center justify-center min-h-[200px]">
+    <p className="text-[24px] font-medium text-[#1A1A1A]">
+      Coming Soon
+    </p>
+  </div>
+) : (
+  days.map((item, index) => (
+    <DayAccordion
+      key={item.day ?? index}
+      item={item}
+      isOpen={openDay === item.day}
+      onToggle={() => toggle(item.day)}
+    />
+  ))
+)}
         </div>
       </div>
     </div>

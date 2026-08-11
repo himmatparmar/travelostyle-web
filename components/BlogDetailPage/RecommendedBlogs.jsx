@@ -1,8 +1,6 @@
 import Image from "next/image";
 
-export default async function RecommendedBlogs({
-  currentBlogId,
-}) {
+export default async function RecommendedBlogs({ currentBlogId }) {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/jsonapi/node/blog_detail?include=field_banner_image,field_banner_image.field_media_image,field_categories`,
     {
@@ -12,9 +10,7 @@ export default async function RecommendedBlogs({
 
   const { data, included } = await res.json();
 
-  const filteredBlogs = data.filter(
-    (item) => item.id !== currentBlogId
-  );
+  const filteredBlogs = data.filter((item) => item.id !== currentBlogId);
 
   return (
     <>
@@ -35,8 +31,7 @@ export default async function RecommendedBlogs({
           ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${file.attributes.uri.url}`
           : "/recommended-blog.svg";
 
-        const categoryId =
-          blog.relationships.field_categories.data[0]?.id;
+        const categoryId = blog.relationships.field_categories.data[0]?.id;
 
         const category = included.find(
           (item) =>
@@ -49,11 +44,11 @@ export default async function RecommendedBlogs({
         return (
           <div
             key={blog.id}
-           className="mt-5 flex flex-col overflow-hidden rounded-[10px] border-2 border-[#1A1A1A] bg-[#FAFAFA]"
+            className="mt-5 flex flex-col overflow-hidden rounded-[10px] border-2 border-[#1A1A1A] bg-[#FAFAFA]"
           >
             {/* Top */}
-            <div className="flex items-center justify-between px-[16px] py-[14px]">
-              <p className="text-[12px] font-semibold text-[#1A1A1A]">
+            <div className="flex items-center justify-between px-[14px] py-[12px]">
+              <p className="text-[11px] font-semibold text-[#1A1A1A]">
                 {new Date(blog.attributes.created).toLocaleDateString(
                   "en-US",
                   {
@@ -64,44 +59,41 @@ export default async function RecommendedBlogs({
                 )}
               </p>
 
-              <button className="flex h-[31px] items-center justify-center rounded-full border border-[#1A1A1A] bg-white px-[16px] text-[12px] text-[#1A1A1A]">
+              <button className="flex h-[26px] items-center justify-center rounded-full border border-[#1A1A1A] bg-white px-[12px] text-[11px] text-[#1A1A1A]">
                 {categoryName}
               </button>
             </div>
 
             {/* Image */}
-            <div className="px-[16px]">
-              <Image
-                src={imageUrl}
-                alt="Recommended Blog"
-                width={524}
-                height={296}
-                className="w-full h-[220px] lg:w-[524px] lg:h-[296px] object-cover"
-              />
+            <div className="px-[14px]">
+              <div className="relative w-full aspect-[524/296]">
+                <Image
+                  src={imageUrl}
+                  alt="Recommended Blog"
+                  fill
+                  className="object-cover"
+                />
+              </div>
             </div>
 
             {/* Title */}
-            <div className="min-h-[170px] px-[16px] pt-[16px]">
-              <h4 className="text-[18px] font-semibold leading-[32px] tracking-[0.05em] text-[#1A1A1A]">
-                {blog.attributes.title}
-              </h4>
-            </div>
+                <div className="min-h-[105px] px-[12px] pt-[12px]">
+  <h4 className="text-[14px] font-semibold leading-[20px] tracking-[0.02em] text-[#1A1A1A]">
+    {blog.attributes.title}
+  </h4>
+</div>
 
-            {/* Bottom */}
-            <div className="mt-auto px-[16px] pt-[20px] pb-[14px]">
-              <div className="border-t border-[#1A1A1A]" />
+{/* Bottom */}
+<div className="mt-[10px] px-[14px] pb-[12px]">
+  <div className="border-t border-[#1A1A1A]" />
+  <div className="mt-[10px] flex items-center justify-between">
+    <span className="text-[11px] font-semibold tracking-[0.06em] text-[#1A1A1A]">
+      READ MORE
+    </span>
+    <Image src="/ArrowUpRight.svg" alt="Arrow" width={16} height={16} />
 
-              <div className="mt-[14px] flex items-center justify-between">
-                <span className="text-[12px] font-semibold tracking-[0.08em] text-[#1A1A1A]">
-                  READ MORE
-                </span>
 
-                <Image
-                  src="/ArrowUpRight.svg"
-                  alt="Arrow"
-                  width={20}
-                  height={20}
-                />
+             
               </div>
             </div>
           </div>

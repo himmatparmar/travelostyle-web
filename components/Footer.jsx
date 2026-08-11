@@ -61,8 +61,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="flex flex-col md:grid md:grid-cols-[120px_120px_180px_180px_minmax(0,1fr)] gap-10 md:gap-16 mt-16 md:mt-24 max-w-[340px] md:max-w-none mx-auto">
-        
+<div className="flex flex-col md:grid md:grid-cols-[120px_120px_180px_180px_minmax(0,1fr)] gap-10 md:gap-16 mt-16 md:mt-24 max-w-[340px] md:max-w-none mx-auto min-w-0">        
    
         <div className="grid grid-cols-2 gap-6 md:contents">
       
@@ -167,7 +166,7 @@ export default function Footer() {
           </div>
           <button
             onClick={handleSubscribe}
-            className="mt-8 md:mt-10 w-full md:w-[366px] h-[44px] rounded-[100px] bg-[#FAFAFA] text-[#2C3078] text-[13px] md:text-[14px] font-bold md:font-semibold tracking-wide active:scale-95 transition-transform"
+            className="overflow-hidden mt-8 md:mt-10 w-full md:w-[366px] h-[44px] rounded-[100px] bg-[#FAFAFA] text-[#2C3078] text-[13px] md:text-[14px] font-bold md:font-semibold tracking-wide active:scale-95 transition-transform"
           >
             Subscribe To Our Newsletter
           </button>
