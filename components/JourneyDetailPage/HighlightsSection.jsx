@@ -1,34 +1,5 @@
 import Image from "next/image";
 
-export const DEFAULT_HIGHLIGHTS = [
-  {
-    type: "text",
-    text: "Ancient Medinas where the call to prayer still echoes off the same walls of always-narrow alleyways, where the spice merchant and silk traders are still there.",
-  },
-  {
-    type: "image",
-    image: "/Morocco.svg",
-    alt: "Roman ruins in Morocco",
-  },
-  {
-    type: "text",
-    text: "Cedar Forests, mountain passes, a valley that seems to go on forever — this is the Morocco that changes you. All of it.",
-  },
-  {
-    type: "text",
-    text: "You've seen Ait Benhaddou in the films. Nothing prepares you for it in person.",
-  },
-  {
-    type: "text",
-    text: "Three days in Marrakech — the souks at dawn, the square at dusk, and a garden you won't forget where you are.",
-  },
-  {
-    type: "image",
-    image: "/Kenya.svg",
-    alt: "Marrakech",
-    caption: "Marrakech — Show Me It Is If Necessary",
-  },
-];
 
 function HighlightCard({ card, tall = false }) {
   const height = tall ? "17vw" : "13vw";
@@ -67,7 +38,21 @@ function HighlightCard({ card, tall = false }) {
   );
 }
 
-export default function HighlightsSection({ highlights = DEFAULT_HIGHLIGHTS, drupalData }) {
+export default function HighlightsSection({ drupalData }) {
+  // No Drupal data → show Coming Soon
+  if (!drupalData || drupalData.length === 0) {
+    return (
+          <div className="flex w-full justify-center">
+
+      <div className="mt-10 mb-10 flex min-h-[20px] w-[75%] items-center justify-center rounded-[0.5vw] border border-[#C8CE90] bg-[#EAEDC9]">
+        <p className="text-[24px] font-medium text-[#1A1A1A]">
+          Coming Soon
+        </p>
+      </div>
+      </div>
+    );
+  }
+
   const cards = (drupalData && drupalData.length > 0) ? drupalData : highlights;
   const firstRow = cards.slice(0, 4);
   const secondRow = cards.slice(4);

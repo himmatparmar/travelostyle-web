@@ -95,7 +95,7 @@ export default function HeroSection({
 
       <div className="relative w-full overflow-hidden  " style={{ height: "40vw" }}>
         <Image
-          src={journey.image || "/Morocco.svg"}
+          src={journey.image || "/Morocco.jpg"}
           alt={journey.title || "Journey"}
           fill
           unoptimized

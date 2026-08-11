@@ -1,4 +1,5 @@
-"use"
+"use server";
+
 import SearchBar from "../components/HomePage/FindYourJourney/SearchBar";
 import Index from "../components/HomePage/GroupJourneys";
 import JourneySection from "../components/HomePage/JourneySection";
@@ -16,6 +17,29 @@ import { API_BASE_URL } from "@/lib/config";
 const TESTIMONIAL_INCLUDE =
   "field_testimonial_image.field_media_image,field_testimonial_journey";
 
+// ------------------------------------
+// JOURNEY TYPE
+// ------------------------------------
+type Journey = {
+  type: string;
+  id: string;
+  attributes?: {
+    title?: string;
+    field_is_popular?: boolean | null;
+  };
+  relationships?: {
+    field_journey_image?: {
+      data?: {
+        id: string;
+        type: string;
+      } | null;
+    };
+  };
+};
+
+// ------------------------------------
+// TESTIMONIALS
+// ------------------------------------
 async function getTestimonials() {
   const res = await fetch(
     `${API_BASE_URL}/jsonapi/node/testimonial?include=${TESTIMONIAL_INCLUDE}`,
@@ -26,6 +50,7 @@ async function getTestimonials() {
 
   if (!res.ok) {
     console.error("Failed to fetch testimonials");
+
     return {
       data: [],
       included: [],
@@ -35,25 +60,85 @@ async function getTestimonials() {
   return res.json();
 }
 
+// ------------------------------------
+// GET ALL JOURNEYS FROM DRUPAL
+// ------------------------------------
+async function getJourneys(): Promise<{
+  data: Journey[];
+  included: any[];
+}> {
+  const res = await fetch(
+    `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month`,
+    {
+      cache: "no-store",
+    }
+  );
+
+  if (!res.ok) {
+    console.error("Failed to fetch journeys");
+
+    return {
+      data: [],
+      included: [],
+    };
+  }
+
+  return res.json();
+}
+
+// ------------------------------------
+// HOME
+// ------------------------------------
 export default async function Home() {
   const testimonialData = await getTestimonials();
 
-   return (
-    
-    <div >
-     <SearchBar/>
-     <PopularDestinations/>
-     <JourneySection/>
-     <YourNextTrip/>
-     <Index/>
-     <ContactInquiry/>
-     <ExperienceTravelSection/>
-     <TimingSection/>
-     <Map/>
- <TestimonialSection
-        testimonialData={testimonialData}
-      />     <TravelOStylePromise/>
-     <Footer />
+  // Get ALL journeys
+  const journeyData = await getJourneys();
+
+  // ------------------------------------
+  // ONLY POPULAR JOURNEYS
+  // field_is_popular === true
+  // ------------------------------------
+  const popularJourneys: Journey[] = journeyData.data.filter(
+    (journey: Journey) =>
+      journey.attributes?.field_is_popular === true
+  );
+
+  console.log(
+    "POPULAR JOURNEYS FROM PAGE:",
+    popularJourneys.map(
+      (journey: Journey) => journey.attributes?.title
+    )
+  );
+
+  return (
+    <div>
+      <SearchBar />
+
+      {/* ONLY POPULAR JOURNEYS */}
+      <PopularDestinations
+  journeys={popularJourneys as any[]}
+  included={journeyData.included as any[]}
+/>
+      <JourneySection />
+
+      <YourNextTrip />
+
+      <Index />
+
+      <ContactInquiry />
+
+      <ExperienceTravelSection />
+
+      <TimingSection />
+
+      <Map />
+
+      <TestimonialSection testimonialData={testimonialData} />
+
+      <TravelOStylePromise />
+
+      <Footer />
     </div>
   );
 }

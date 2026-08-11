@@ -34,7 +34,7 @@ export default function Hero({ blog, categories }) {
 
       <div className="mt-[24px] border-b border-[#2B2B2B]" />
 
-      <h1 className="mt-8 w-full lg:w-[1300px] text-[36px] sm:text-[42px] lg:text-[50px] leading-[48px] sm:leading-[58px] lg:leading-[70px] font-semibold tracking-[-0.02em] text-[#1A1A1A]">
+      <h1 className="mt-8 w-full text-[36px] sm:text-[42px] lg:text-[50px] leading-[48px] sm:leading-[58px] lg:leading-[70px] font-semibold tracking-[-0.02em] text-[#1A1A1A]">
         {blog.attributes.title}
       </h1>
 
