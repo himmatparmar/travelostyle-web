@@ -1,7 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 export default function PopularRegionCard({regions}) {
+  const router = useRouter();
 
   return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -30,13 +34,21 @@ export default function PopularRegionCard({regions}) {
               </div>
 
               <div className="space-y-2.5">
-                <p className="text-sm sm:text-[15px] text-white tracking-wide drop-shadow-sm leading-snug">
-                  {region.subtitle}
-                </p>
+                <p
+                  className="text-sm sm:text-[15px] text-white tracking-wide drop-shadow-sm leading-snug"
+                  dangerouslySetInnerHTML={{ __html: region.subtitle }}
+                />
 
                 <div className="w-full h-[1.5px] bg-white/90" />
                 <div className="pt-1">
-                  <button className="bg-white text-[#3c4082] text-xs sm:text-sm font-bold px-5 py-1.5 rounded-full hover:bg-gray-100 transition-colors shadow-md">
+                  <button
+                    onClick={() =>
+                      router.push(
+                        `/itinerary?region=${encodeURIComponent(region.title)}`,
+                      )
+                    }
+                    className="bg-white text-[#3c4082] text-xs sm:text-sm font-bold px-5 py-1.5 rounded-full hover:bg-gray-100 transition-colors shadow-md"
+                  >
                     Explore Journeys
                   </button>
                 </div>

@@ -1,13 +1,12 @@
 import Image from 'next/image';
 
 export default function GalleryMobileView({ selectedStay, onBack }) {
-  const galleryImages = [
-    { id: 1, url: selectedStay.image },
-    { id: 2, url: selectedStay.image },
-    { id: 3, url: selectedStay.image },
-  ];
+  const galleryImages = (
+    selectedStay.images?.length ? selectedStay.images : [selectedStay.image]
+  )
+    .filter(Boolean)
+    .map((url, id) => ({ id, url }));
 
-  console.log(11,selectedStay.image)
   return (
     <div className="w-full max-w-md p-6 flex flex-col">
       <div className="mb-4 flex items-center justify-between pb-3">

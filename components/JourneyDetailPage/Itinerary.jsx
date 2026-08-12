@@ -2,78 +2,10 @@
 
 import Image from "next/image";
 import React, { useState } from "react";
-const itineraryData = [
-  {
-    day: 1,
-    title: "Casablanca Calling",
-    stay: "Kaan Casablanca",
-    description:
-      "The road north takes you first to Rabat, Morocco's quiet, elegant capital. The Royal Palace, the Hassan Tower (an unfinished minaret from the 12th century that somehow feels complete as a ruin), and the Oudayas Kasbah — a blue-and-white walled quarter overlooking the river — make for a morning worth taking slowly.\n\nAfter lunch, the drive continues through Morocco's fertile plains toward Fez. Arrive as the evening settles over the medina and check into your riad — dinner in the courtyard, if the mood takes you.",
-  },
-  {
-    day: 2,
-    title: "Royal Roads to Fez",
-    stay: "Riad Salam Fes",
-    description:
-      "Explore the scenic paths, ancient fortified walls, and deep heritage on the way into the old imperial capital. Witness the transition from coastal plains to the historic heart of Moroccan culture.",
-  },
-  {
-    day: 3,
-    title: "The Labyrinth of Fes",
-    stay: "Riad Salam Fes",
-    description:
-      "Get lost in the vibrant, sprawling alleys of the world's largest car-free urban area. Discover bustling souks, historic tanneries, and hidden madrasas that have stood for centuries.",
-  },
-  {
-    day: 4,
-    title: "Echoes of Empire",
-    stay: "Riad Salam Fes",
-    description:
-      "Discover Roman ruins at Volubilis and imperial history surrounding the ancient cultural capital of Meknes, exploring the layers of civilizations that shaped the region.",
-  },
-  {
-    day: 5,
-    title: "Into the Atlas",
-    stay: "Riad Salam Fes",
-    description:
-      "Journey into the breathtaking landscapes, alpine towns like Ifrane, and dense cedar forests of the Middle Atlas mountains, meeting local communities along the way.",
-  },
-  {
-    day: 6,
-    title: "Sand of Time",
-    stay: "Riad Salam Fes",
-    description:
-      "Experience the edge of the desert, watching the terrain shift into majestic golden dunes, and transition into a timeless landscape under the vast desert sky.",
-  },
-  {
-    day: 7,
-    title: "Through the Valley",
-    stay: "Riad Salam Fes",
-    description:
-      "Travel through striking gorges, deep valleys, lush palm oases, and stunning geological formations that define Morocco's rugged and beautiful interior.",
-  },
-  {
-    day: 8,
-    title: "Kasbah Chronicles",
-    stay: "Riad Salam Fes",
-    description:
-      "Tour the famous fortified earthen cities, including iconic UNESCO World Heritage sites like Aït Benhaddou, and explore film-famous desert heritage structures.",
-  },
-  {
-    day: 9,
-    title: "Crossing the High Atlas",
-    stay: "Riad Salam Fes",
-    description:
-      "Wind through the dramatic mountain passes and high-altitude panoramic views back toward Marrakech, closing an unforgettable loop of discovery.",
-  },
-];
 
-export default function MobileItinerary({ onBack,itineraryRecord }) {
+export default function MobileItinerary({ onBack, itineraryRecord, mapImage }) {
   const [openDay, setOpenDay] = useState(1);
-  const itinerary =
-    Array.isArray(itineraryRecord) && itineraryRecord.length > 0
-      ? itineraryRecord
-      : itineraryData;
+  const itinerary = Array.isArray(itineraryRecord) ? itineraryRecord : [];
   const toggleDay = (dayNum) => {
     setOpenDay(openDay === dayNum ? null : dayNum);
   };
@@ -98,13 +30,28 @@ export default function MobileItinerary({ onBack,itineraryRecord }) {
         Learn How Your Days Unfold
       </h2>
 
-      <div className="w-full h-52 bg-white border-2 border-neutral-800 rounded-xl flex items-center justify-center mb-4 shadow-[1px_1px_0px_rgba(0,0,0,1)]">
-        <span className="text-xs font-semibold text-neutral-700 tracking-wide">
-          Map
-        </span>
+      <div className="relative w-full h-52 bg-white border-2 border-neutral-800 rounded-xl overflow-hidden flex items-center justify-center mb-4 shadow-[1px_1px_0px_rgba(0,0,0,1)]">
+        {mapImage ? (
+          <Image
+            src={mapImage}
+            alt="Journey Map"
+            fill
+            unoptimized
+            className="object-cover"
+          />
+        ) : (
+          <span className="text-xs font-semibold text-neutral-700 tracking-wide">
+            No map available
+          </span>
+        )}
       </div>
       <div className="space-y-3 pb-8">
-        {itinerary.map((item) => {
+        {itinerary.length === 0 ? (
+          <div className="flex min-h-[120px] items-center justify-center rounded-xl border p-4">
+            <p className="text-base font-medium text-[#1A1A1A]">Coming Soon</p>
+          </div>
+        ) : (
+        itinerary.map((item) => {
           const isOpen = openDay === item.day;
 
           return (
@@ -146,7 +93,8 @@ export default function MobileItinerary({ onBack,itineraryRecord }) {
               </div>
             </div>
           );
-        })}
+        })
+        )}
       </div>
     </div>
   );

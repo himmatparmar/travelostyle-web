@@ -5,6 +5,11 @@ import { useState } from "react";
 import Image from "next/image";
 import { API_BASE_URL } from "@/lib/config";
 
+function capitalizeFirst(str) {
+  if (!str) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 export default function TestimonialSection({ testimonialData }) {
   const testimonials = (testimonialData?.data || []).map((item) => {
     const included = testimonialData?.included || [];
@@ -80,9 +85,9 @@ export default function TestimonialSection({ testimonialData }) {
 
     return {
       id: item.id,
-      name,
+      name: capitalizeFirst(name),
       image: imageUrl,
-      quote,
+      quote: capitalizeFirst(quote),
     };
   });
 

@@ -1,58 +1,74 @@
-import React from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 import PopularRegionCard from "../PopularRegionCard";
+import { API_BASE_URL, buildFileUrl } from "@/lib/config";
 
 export default function PopularRegions() {
-  const regions = [
-    {
-      id: 1,
-      title: "Africa",
-      subtitle: "Kenya, Cape Town, Morocco and more",
-      image:
-        "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=800&q=80",
-    },
-    {
-      id: 2,
-      title: "Europe",
-      subtitle: "France, Italy, Spain and more",
-      image:
-        "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80",
-    },
-    {
-      id: 3,
-      title: "Far-East Asia",
-      subtitle: "China, Japan, South Korea and more",
-      image:
-        "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80",
-    },
-    {
-      id: 4,
-      title: "North America",
-      subtitle: "USA, Canada, Mexico and more",
-      image:
-        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-    },
-    {
-      id: 5,
-      title: "Central America",
-      subtitle: "Costa Rica, Panama, Honduras and more",
-      image:
-        "https://images.unsplash.com/photo-1518638150340-f706e86654de?auto=format&fit=crop&w=800&q=80",
-    },
-    {
-      id: 6,
-      title: "South America",
-      subtitle: "Peru, Brazil, Argentina and more",
-      image:
-        "https://images.unsplash.com/photo-1526392060635-9d6019884377?auto=format&fit=crop&w=800&q=80",
-    },
-  ];
+  const [regions, setRegions] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadRegions() {
+      try {
+        const res = await fetch(
+          `${API_BASE_URL}/jsonapi/taxonomy_term/region?include=field_region_image.field_media_image`,
+        );
+
+        const json = await res.json();
+        const included = json.included || [];
+
+        const regionData = (json.data || []).map((item) => {
+          const mediaId = item.relationships?.field_region_image?.data?.id;
+
+          const mediaEntity = included.find(
+            (inc) => inc.type === "media--image" && inc.id === mediaId,
+          );
+
+          const fileId =
+            mediaEntity?.relationships?.field_media_image?.data?.id;
+
+          const fileEntity = included.find(
+            (inc) => inc.type === "file--file" && inc.id === fileId,
+          );
+
+          const image =
+            buildFileUrl(fileEntity?.attributes?.uri?.url) ||
+            "/placeholder.jpg";
+
+          return {
+            id: item.id,
+            title: item.attributes?.name || "",
+            subtitle:
+              item.attributes?.description?.processed ||
+              item.attributes?.description?.value ||
+              "",
+            image,
+          };
+        });
+
+        setRegions(regionData);
+      } catch (err) {
+        console.error("Region API Error:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadRegions();
+  }, []);
+
   return (
     <div className="bg-white px-4 sm:px-8 lg:px-16 max-w-7xl mx-auto">
       {" "}
       <h3 className="text-gray-900 font-bold text-sm sm:text-base tracking-tight mb-6 sm:mb-8">
         Explore some of our popular regions!
       </h3>
-      <PopularRegionCard regions={regions} />
+      {loading ? (
+        <p className="text-sm text-gray-500">Loading regions...</p>
+      ) : (
+        <PopularRegionCard regions={regions} />
+      )}
     </div>
   );
 }

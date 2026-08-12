@@ -44,7 +44,7 @@ export default function HighlightsSection({ drupalData }) {
     return (
           <div className="flex w-full justify-center">
 
-      <div className="mt-10 mb-10 flex min-h-[20px] w-[75%] items-center justify-center rounded-[0.5vw] border border-[#C8CE90] bg-[#EAEDC9]">
+      <div className="mt-10 mb-10 flex min-h-[20px] w-[75%] items-center justify-center rounded-[0.5vw] border ">
         <p className="text-[24px] font-medium text-[#1A1A1A]">
           Coming Soon
         </p>
@@ -53,7 +53,7 @@ export default function HighlightsSection({ drupalData }) {
     );
   }
 
-  const cards = (drupalData && drupalData.length > 0) ? drupalData : highlights;
+  const cards = drupalData;
   const firstRow = cards.slice(0, 4);
   const secondRow = cards.slice(4);
 

@@ -3,34 +3,7 @@ import React, { useState } from "react";
 import GalleryMobileView from "./GalleryMobileView";
 
 export default function MobileStays({ onBack, StaysRecord }) {
-  const staysData = [
-    {
-      id: 1,
-      name: "Kaan Casablanca",
-      description: "A city hotel in the heart of Casablanca",
-      image: "/Casablanca.svg",
-    },
-    {
-      id: 2,
-      name: "Riad Salam Fez",
-      description: "A boutique riad in the heart of Fez",
-      image: "/RiadSalamFez.svg"
-    },
-    {
-      id: 3,
-      name: "Kasbah Hotel Xaluca Arfoud",
-      description: "A city hotel in the heart of Casablanca",
-      image:
-        "/XalucaArfoud.svg",
-    },
-    {
-      id: 4,
-      name: "Auberge du Sud, Erg Chebbi",
-      description: "A tented camp at the heart of the Moroccan Sahara",
-      image:
-        "/Auberge.svg",
-    },
-  ];
+  const staysData = Array.isArray(StaysRecord) ? StaysRecord : [];
 
   const [selectedStay, setSelectedStay] = useState(null);
 
@@ -58,39 +31,45 @@ export default function MobileStays({ onBack, StaysRecord }) {
 
         <div className="w-12" />
       </div>
-      <div className="grid grid-cols-2 gap-4">
-        {staysData.map((stay) => (
-          <div
-            key={stay.id}
-            className="bg-white border-2 border-neutral-800 rounded-lg overflow-hidden shadow-sm"
-          >
-            {/* Image Container */}
-            <div className="h-28 w-full relative overflow-hidden border-b-2 border-neutral-800">
-              <img
-                src={stay.image}
-                alt={stay.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="p-3">
-              <div>
-                <h2 className="font-bold text-[13px] leading-tight text-neutral-950 mb-1 line-clamp-2">
-                  {stay.name}
-                </h2>
-                <p className="text-[10px] text-neutral-500 leading-snug line-clamp-3">
-                  {stay.description}
-                </p>
-              </div>
-            </div>
-            <button
-              onClick={() => setSelectedStay(stay)}
-              className="w-full py-2 bg-white border-t-2 border-neutral-800 text-[11px] font-bold text-neutral-900 underline underline-offset-2 hover:bg-neutral-50 transition-colors"
+      {staysData.length === 0 ? (
+        <div className="flex min-h-[120px] items-center justify-center rounded-lg border p-4">
+          <p className="text-base font-medium text-[#1A1A1A]">Coming Soon</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-4">
+          {staysData.map((stay, index) => (
+            <div
+              key={index}
+              className="bg-white border-2 border-neutral-800 rounded-lg overflow-hidden shadow-sm"
             >
-              View Gallery
-            </button>
-          </div>
-        ))}
-      </div>
+              {/* Image Container */}
+              <div className="h-28 w-full relative overflow-hidden border-b-2 border-neutral-800">
+                <img
+                  src={stay.image}
+                  alt={stay.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-3">
+                <div>
+                  <h2 className="font-bold text-[13px] leading-tight text-neutral-950 mb-1 line-clamp-2">
+                    {stay.name}
+                  </h2>
+                  <p className="text-[10px] text-neutral-500 leading-snug line-clamp-3">
+                    {stay.desc}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setSelectedStay(stay)}
+                className="w-full py-2 bg-white border-t-2 border-neutral-800 text-[11px] font-bold text-neutral-900 underline underline-offset-2 hover:bg-neutral-50 transition-colors"
+              >
+                View Gallery
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
