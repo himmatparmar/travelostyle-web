@@ -24,11 +24,41 @@ export default function ContactInquiry() {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-    alert("Form Submitted!");
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const response = await fetch(
+`${process.env.NEXT_PUBLIC_API_BASE_URL}/webform_rest/submit`,  {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        webform_id: "contact_inquiry",
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        title: formData.title,
+        email_id: formData.email,
+        country_code: formData.countryCode,
+        phone: formData.phone,
+        message: formData.message,
+        consent: formData.consent,
+      }),
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    console.error(data);
+    alert(data.message);
+    return;
+  }
+
+  console.log(data);
+  alert("Form Submitted Successfully!");
+};
 
   return (
     <section className="w-full px-[1vw] py-[1vw] max-md:px-0 max-md:py-0 mt-8">
