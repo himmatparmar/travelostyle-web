@@ -36,31 +36,33 @@ export default function BlogGrid({ blogs, categories }) {
   return (
     <>
       {/* Categories */}
-      <div className="mb-5 flex items-center justify-between">
-        <h2 className="text-[11px] font-medium text-[#222] sm:text-[13px]">
+      <div className="mb-[24px] flex items-center justify-between">
+        <h2 className="font-[Nohemi] text-[24px] font-semibold leading-[40px] tracking-[0.05em] text-[#000000]">
           Categories
         </h2>
 
-        <div className="flex flex-wrap justify-end gap-1.5 sm:gap-2">
+        <div className="flex flex-wrap items-center justify-end gap-[10px]">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => handleCategoryClick(category)}
               className={`
+                flex
+                items-center
+                justify-center
                 rounded-full
                 border
-                px-2.5
-                py-[4px]
-                text-[6px]
+                border-[#1A1A1A]
+                px-[16px]
+                py-[10px]
+                text-[16px]
                 leading-none
-                sm:px-3
-                sm:py-[5px]
-                sm:text-[8px]
+                text-[#1A1A1A]
 
                 ${
                   selectedCategory === category
-                    ? "border-[#1A1A1A] bg-[#F2E2DA] text-Black"
-                    : "border-[#9B9B9B] bg-white text-[#333]"
+                    ? "bg-[#F2E2DA]"
+                    : "bg-white"
                 }
               `}
             >
@@ -70,7 +72,7 @@ export default function BlogGrid({ blogs, categories }) {
         </div>
       </div>
 
-      <div className="mb-5 w-full h-[2px] bg-[#1A1A1A]" />
+      <div className="mb-[24px] w-full h-[2px] bg-[#1A1A1A]" />
 
       {/* =====================================================
           BLOG GRID
@@ -103,22 +105,23 @@ export default function BlogGrid({ blogs, categories }) {
           >
             {/* TOP */}
             <div className="flex items-center justify-between px-[12px] py-[10px]">
-              <p className="text-[9px] font-semibold text-[#1A1A1A]">
+              <p className="font-[Nohemi] text-[16px] font-semibold leading-[40px] tracking-[0.05em] text-[#000000]">
                 {blog.dateLabel}
               </p>
 
               <button
                 className="
                   flex
-                  h-[25px]
+                  h-[31px]
                   items-center
                   justify-center
                   rounded-full
                   border
                   border-[#1A1A1A]
                   bg-white
-                  px-[10px]
-                  text-[8px]
+                  px-[16px]
+                  text-[16px]
+                  leading-none
                   text-[#1A1A1A]
                 "
               >
@@ -146,10 +149,11 @@ export default function BlogGrid({ blogs, categories }) {
             <div className="min-h-[105px] px-[12px] pt-[12px]">
               <h4
                 className="
-                  text-[11px]
+                  font-[Nohemi]
+                  text-[21px]
                   font-semibold
-                  leading-[18px]
-                  tracking-[0.02em]
+                  leading-[32px]
+                  tracking-[0.05em]
                   text-[#1A1A1A]
                 "
               >
@@ -167,9 +171,11 @@ export default function BlogGrid({ blogs, categories }) {
               >
                 <span
                   className="
-                    text-[8px]
+                    font-[Nohemi]
+                    text-[16px]
                     font-semibold
-                    tracking-[0.08em]
+                    leading-[40px]
+                    tracking-[0.05em]
                     text-[#1A1A1A]
                   "
                 >
@@ -179,8 +185,8 @@ export default function BlogGrid({ blogs, categories }) {
                 <Image
                   src="/ArrowUpRight.svg"
                   alt="Arrow"
-                  width={16}
-                  height={16}
+                  width={24}
+                  height={24}
                 />
               </Link>
             </div>
