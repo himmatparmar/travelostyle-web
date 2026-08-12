@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function Journey({
@@ -10,6 +11,7 @@ export default function Journey({
   steps,
   btnText,
   bgColor,
+  href,
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -71,9 +73,18 @@ export default function Journey({
                   </div>
 
                   <div className="border-t border-[#4A4A4A] px-[1.2vw] py-[0.8vw]">
-                    <button className="rounded-full bg-[#2f3695] px-5 py-2 text-[1.05vw] font-semibold text-white transition duration-300 hover:bg-[#232a7c]">
-                      {btnText}
-                    </button>
+                    {href ? (
+                      <Link
+                        href={href}
+                        className="inline-block rounded-full bg-[#2f3695] px-5 py-2 text-[1.05vw] font-semibold text-white transition duration-300 hover:bg-[#232a7c]"
+                      >
+                        {btnText}
+                      </Link>
+                    ) : (
+                      <button className="rounded-full bg-[#2f3695] px-5 py-2 text-[1.05vw] font-semibold text-white transition duration-300 hover:bg-[#232a7c]">
+                        {btnText}
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -154,9 +165,18 @@ export default function Journey({
         <div className="py-5">
           <hr className="border-0 border-t border-[#575757] mb-5" />
           <div className="px-4">
-            <button className="w-full rounded-full bg-[#24398D] py-[11px] text-white text-[18px] font-semibold">
-              {btnText}
-            </button>
+            {href ? (
+              <Link
+                href={href}
+                className="block w-full text-center rounded-full bg-[#24398D] py-[11px] text-white text-[18px] font-semibold"
+              >
+                {btnText}
+              </Link>
+            ) : (
+              <button className="w-full rounded-full bg-[#24398D] py-[11px] text-white text-[18px] font-semibold">
+                {btnText}
+              </button>
+            )}
           </div>
         </div>
       </div>

@@ -12,47 +12,55 @@ export default function BlogContent({
       <div className="mt-8 lg:mt-[44px] flex flex-col lg:flex-row items-start gap-10 lg:gap-[48px]">
         {/* LEFT SIDE */}
         <div className="min-w-0 flex-1 min-w-0 lg:max-w-[1008px]">
-          <div
-          className="min-w-0 max-w-full overflow-hidden text-[16px] leading-[30px] tracking-[0.02em] text-[#1A1A1A]"
-            dangerouslySetInnerHTML={{
-              __html: blog.attributes.field_introduction.processed,
-            }}
-          />
-          <Image
-            src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${bannerImage.attributes.uri.url}`}
-            alt="Golden Triangle"
-            width={1008}
-            height={410}
-           className="mt-8 w-full h-auto lg:h-[410px] object-cover"
-          />
+          {blog.attributes.field_introduction?.processed && (
+            <div
+              className="min-w-0 max-w-full overflow-hidden text-[16px] leading-[30px] tracking-[0.02em] text-[#1A1A1A]"
+              dangerouslySetInnerHTML={{
+                __html: blog.attributes.field_introduction.processed,
+              }}
+            />
+          )}
+          {bannerImage?.attributes?.uri?.url && (
+            <Image
+              src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${bannerImage.attributes.uri.url}`}
+              alt="Golden Triangle"
+              width={1008}
+              height={410}
+              className="mt-8 w-full h-auto lg:h-[410px] object-cover"
+            />
+          )}
 
           <h2 className="mt-[40px] text-[22px] font-semibold leading-[32px] tracking-[0.02em] text-[#1A1A1A]">
             Delhi: Where the Journey Begins
           </h2>
 
-          <div
-           className="min-w-0 max-w-full overflow-hidden mt-[16px] text-[16px] leading-[30px] tracking-[0.02em] text-[#1A1A1A]"
-            dangerouslySetInnerHTML={{
-              __html: blog.attributes.field_body.processed,
-            }}
-          />
+          {blog.attributes.field_body?.processed && (
+            <div
+              className="min-w-0 max-w-full overflow-hidden mt-[16px] text-[16px] leading-[30px] tracking-[0.02em] text-[#1A1A1A]"
+              dangerouslySetInnerHTML={{
+                __html: blog.attributes.field_body.processed,
+              }}
+            />
+          )}
 
-          <div className="mt-10 flex flex-col sm:flex-row gap-6 lg:gap-[24px]">
-            <Image
-              src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${galleryImage.attributes.uri.url}`}
-              alt="Agra"
-              width={408}
-              height={280}
-              className="w-full sm:w-1/2 h-auto object-cover object-center"
-            />
-            <Image
-              src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${galleryImage.attributes.uri.url}`}
-              alt="Taj Mahal"
-              width={408}
-              height={280}
-              className="w-full sm:w-1/2 h-auto object-cover object-center"
-            />
-          </div>
+          {galleryImage?.attributes?.uri?.url && (
+            <div className="mt-10 flex flex-col sm:flex-row gap-6 lg:gap-[24px]">
+              <Image
+                src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${galleryImage.attributes.uri.url}`}
+                alt="Agra"
+                width={408}
+                height={280}
+                className="w-full sm:w-1/2 h-auto object-cover object-center"
+              />
+              <Image
+                src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${galleryImage.attributes.uri.url}`}
+                alt="Taj Mahal"
+                width={408}
+                height={280}
+                className="w-full sm:w-1/2 h-auto object-cover object-center"
+              />
+            </div>
+          )}
 
           <h2 className="mt-[40px] text-[22px] font-semibold leading-[32px] tracking-[0.02em] text-[#1A1A1A]">
             Agra: The Magic of the Taj Mahal
