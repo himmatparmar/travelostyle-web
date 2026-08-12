@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { slugify } from "@/lib/slugify";
 
 export default async function RecommendedBlogs({ currentBlogId }) {
   const res = await fetch(
@@ -40,6 +42,12 @@ export default async function RecommendedBlogs({ currentBlogId }) {
         );
 
         const categoryName = category?.attributes?.name || "Experiences";
+
+        const alias = (blog.attributes?.path?.alias || "").replace(
+          /^\/+/,
+          ""
+        );
+        const slug = alias || slugify(blog.attributes.title || "");
 
         return (
           <div
@@ -86,15 +94,15 @@ export default async function RecommendedBlogs({ currentBlogId }) {
 {/* Bottom */}
 <div className="mt-[10px] px-[14px] pb-[12px]">
   <div className="border-t border-[#1A1A1A]" />
-  <div className="mt-[10px] flex items-center justify-between">
+  <Link
+    href={`/blog-detail/${slug}`}
+    className="mt-[10px] flex items-center justify-between"
+  >
     <span className="text-[11px] font-semibold tracking-[0.06em] text-[#1A1A1A]">
       READ MORE
     </span>
     <Image src="/ArrowUpRight.svg" alt="Arrow" width={16} height={16} />
-
-
-             
-              </div>
+  </Link>
             </div>
           </div>
         );

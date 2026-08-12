@@ -9,7 +9,7 @@ export default function YourNextTrip() {
 
   return (
     <section className="overflow-hidden py-[5vw]">
-      <div className="mx-auto w-[100%]">
+      <div className="mx-auto w-full">
         <div className="text-center">
           <h2 className="text-[3vw] font-semibold tracking-[-0.08vw] text-[#1B1B1B]">
             Take your next trip with TravelOStyle

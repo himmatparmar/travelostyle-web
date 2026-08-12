@@ -47,6 +47,7 @@ export default function Index() {
         ]}
         btnText="Explore Group Journeys"
         bgColor="#E6ECCE"
+        href="/group-rtb-journeys"
       />
       <Journey
         title="PRIVATE JOURNEYS"
@@ -72,6 +73,7 @@ export default function Index() {
         ]}
         btnText="Get Inspired"
         bgColor="#F2E2DA"
+        href="/private-rtb-journeys"
       />
 
       <Journey
@@ -98,6 +100,7 @@ export default function Index() {
         ]}
         btnText="Build Your Journey"
         bgColor="#FFDDBD"
+        href="/tailor-made-journeys"
       />
     </div>
   );

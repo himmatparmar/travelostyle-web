@@ -1,6 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import heroImage from "./Hero.png";
+import BlogGrid from "./BlogGrid";
+import { slugify } from "@/lib/slugify";
 
 export default async function Blog() {
   const res = await fetch(
@@ -12,22 +13,77 @@ export default async function Blog() {
 
   const { data, included = [] } = await res.json();
 
-  // Show first 9 blogs = 3 columns x 3 rows
-  const blogs = data.slice(0, 9);
+  // Pagination (9 per page = 3 columns x 3 rows) is handled client-side
+  // inside BlogGrid, so all blogs are resolved here.
+  const blogs = data;
 
   const categoryRes = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/jsonapi/taxonomy_term/categories`,
     {
-      cache: "no-store",
+      cache: "no-store",
     }
   );
 
-  const { data: categoryData = [] } = await categoryRes.json();
+  const { data: categoryData = [] } = await categoryRes.json();
 
-  const categories = [
-    "All",
-    ...categoryData.map((cat) => cat.attributes.name),
-  ];
+  const categories = [
+    "All",
+    ...categoryData.map((cat) => cat.attributes.name),
+  ];
+
+  const resolvedBlogs = blogs.map((blog) => {
+    const mediaId = blog.relationships?.field_banner_image?.data?.id;
+
+    const media = included.find(
+      (item) => item.type === "media--image" && item.id === mediaId
+    );
+
+    const fileId = media?.relationships?.field_media_image?.data?.id;
+
+    const file = included.find(
+      (item) => item.type === "file--file" && item.id === fileId
+    );
+
+    const imageUrl = file
+      ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${file.attributes.uri.url}`
+      : "/recommended-blog.svg";
+
+    const categoryRefs = blog.relationships?.field_categories?.data || [];
+
+    const categoryNames = categoryRefs
+      .map((ref) => {
+        const cat = included.find(
+          (item) =>
+            item.type === "taxonomy_term--categories" && item.id === ref.id
+        );
+        return cat?.attributes?.name;
+      })
+      .filter(Boolean);
+
+    const categoryName = categoryNames[0] || "Experiences";
+
+    const dateLabel = new Date(blog.attributes.created).toLocaleDateString(
+      "en-US",
+      {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      }
+    );
+
+    const alias = (blog.attributes?.path?.alias || "").replace(/^\/+/, "");
+    const slug = alias || slugify(blog.attributes.title || "");
+
+    return {
+      id: blog.id,
+      title: blog.attributes.title,
+      imageUrl,
+      categoryName,
+      categoryNames,
+      dateLabel,
+      slug,
+    };
+  });
 
   return (
     <section className="w-full bg-white">
@@ -162,265 +218,7 @@ export default async function Blog() {
       ===================================================== */}
       <div className="mx-auto w-full max-w-[1280px] px-5 pb-12 sm:px-8 lg:px-12">
 
-        {/* Categories */}
-        <div className="mb-5 flex items-center justify-between">
-
-          <h2 className="text-[11px] font-medium text-[#222] sm:text-[13px]">
-            Categories
-          </h2>
-
-          <div className="flex flex-wrap justify-end gap-1.5 sm:gap-2">
-
-            {categories.map((category, index) => (
-              <button
-                key={category}
-                className={`
-                  rounded-full
-                  border
-                  px-2.5
-                  py-[4px]
-                  text-[6px]
-                  leading-none
-                  sm:px-3
-                  sm:py-[5px]
-                  sm:text-[8px]
-
-                  ${
-                    index === 0
-                      ? "border-[#292D73] bg-[#292D73] text-white"
-                      : "border-[#9B9B9B] bg-white text-[#333]"
-                  }
-                `}
-              >
-                {category}
-              </button>
-            ))}
-
-          </div>
-
-        </div>
-
-<div className="mb-5 w-full h-[2px] bg-[#1A1A1A]" />
-        {/* =====================================================
-            BLOG GRID
-        ===================================================== */}
-
-<div
-  className="
-    grid
-    grid-cols-1
-    gap-5
-    sm:grid-cols-2
-    lg:grid-cols-3
-    lg:[grid-template-columns:repeat(3,524px)]
-  "
->
-          {blogs.map((blog) => {
-
-            /* ===============================================
-               IMAGE RESOLUTION
-            =============================================== */
-
-            const mediaId =
-              blog.relationships?.field_banner_image?.data?.id;
-
-            const media = included.find(
-              (item) =>
-                item.type === "media--image" &&
-                item.id === mediaId
-            );
-
-            const fileId =
-              media?.relationships?.field_media_image?.data?.id;
-
-            const file = included.find(
-              (item) =>
-                item.type === "file--file" &&
-                item.id === fileId
-            );
-
-            const imageUrl = file
-              ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${file.attributes.uri.url}`
-              : "/recommended-blog.svg";
-
-
-            /* ===============================================
-               CATEGORY RESOLUTION
-            =============================================== */
-
-            const categoryId =
-              blog.relationships?.field_categories?.data?.[0]?.id;
-
-            const category = included.find(
-              (item) =>
-                item.type === "taxonomy_term--categories" &&
-                item.id === categoryId
-            );
-
-            const categoryName =
-              category?.attributes?.name || "Experiences";
-
-
-            /* ===============================================
-               CARD
-            =============================================== */
-
-            return (
-             <div
-  key={blog.id}
-  className="
-    flex
-    w-[524px]
-    max-w-full
-    flex-col
-    overflow-hidden
-    rounded-[10px]
-    border-2
-    border-[#1A1A1A]
-    bg-[#FAFAFA]
-  "
->
-
-                {/* TOP */}
-                <div className="flex items-center justify-between px-[12px] py-[10px]">
-
-                  <p className="text-[9px] font-semibold text-[#1A1A1A]">
-                    {new Date(
-                      blog.attributes.created
-                    ).toLocaleDateString("en-US", {
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
-                  </p>
-
-                  <button
-                    className="
-                      flex
-                      h-[25px]
-                      items-center
-                      justify-center
-                      rounded-full
-                      border
-                      border-[#1A1A1A]
-                      bg-white
-                      px-[10px]
-                      text-[8px]
-                      text-[#1A1A1A]
-                    "
-                  >
-                    {categoryName}
-                  </button>
-
-                </div>
-
-
-                {/* IMAGE */}
-               {/* IMAGE */}
-
- {/* IMAGE */}
-<div className="px-[12px]">
-
-  <Image
-    src={imageUrl}
-    alt={blog.attributes.title || "Blog"}
-    width={524}
-    height={296}
-    className="
-      block
-      h-[296px]
-      w-full
-      object-cover
-    "
-  />
-
-</div>   
-
-
-                {/* TITLE */}
-                <div className="min-h-[105px] px-[12px] pt-[12px]">
-
-                  <h4
-                    className="
-                      text-[11px]
-                      font-semibold
-                      leading-[18px]
-                      tracking-[0.02em]
-                      text-[#1A1A1A]
-                    "
-                  >
-                    {blog.attributes.title}
-                  </h4>
-
-                </div>
-
-
-                {/* BOTTOM */}
-                <div className="mt-auto px-[12px] pb-[10px]">
-
-                  <div className="border-t border-[#1A1A1A]" />
-
-                  <Link
-                    href={`/blog/${blog.id}`}
-                    className="mt-[10px] flex items-center justify-between"
-                  >
-
-                    <span
-                      className="
-                        text-[8px]
-                        font-semibold
-                        tracking-[0.08em]
-                        text-[#1A1A1A]
-                      "
-                    >
-                      READ MORE
-                    </span>
-
-                    <Image
-                      src="/ArrowUpRight.svg"
-                      alt="Arrow"
-                      width={16}
-                      height={16}
-                    />
-
-                  </Link>
-
-                </div>
-
-              </div>
-            );
-          })}
-
-        </div>
-
-
-        {/* =====================================================
-            PAGINATION
-        ===================================================== */}
-
-        <div className="flex items-center justify-center gap-4 pt-8">
-
-          <button className="text-[9px] text-[#777]">
-            ←
-          </button>
-
-          <button className="text-[9px] font-semibold text-[#292D73]">
-            1
-          </button>
-
-          <button className="text-[9px] text-[#999]">
-            2
-          </button>
-
-          <button className="text-[9px] text-[#999]">
-            3
-          </button>
-
-          <button className="text-[9px] text-[#777]">
-            →
-          </button>
-
-        </div>
+        <BlogGrid blogs={resolvedBlogs} categories={categories} />
 
       </div>
 
