@@ -28,18 +28,27 @@ export default function MobileHighlights({ onBack, highlightsRecord }) {
 
             <div className="w-12" />
           </div>
-          <div className="space-y-4">
-            {highlights.map((item, index) => (
-              <div
-                key={index}
-                className="rounded-[8px] border-2 border-[#515589] bg-[#F3F6DD] p-4"
-              >
-                <p className="text-[14px] leading-[20px] font-medium text-[#2A2522]">
-                  {item.text}
-                </p>
-              </div>
-            ))}
-          </div>
+
+          {highlights.length === 0 ? (
+            <div className="flex min-h-[120px] items-center justify-center rounded-[8px] border p-4">
+              <p className="text-base font-medium text-[#1A1A1A]">
+                Coming Soon
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {highlights.map((item, index) => (
+                <div
+                  key={index}
+                  className="rounded-[8px] border-2 border-[#515589] bg-[#F3F6DD] p-4"
+                >
+                  <p className="text-[14px] leading-[20px] font-medium text-[#2A2522]">
+                    {item.text}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </main>
     </div>

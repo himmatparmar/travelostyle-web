@@ -106,11 +106,10 @@ export default function Region() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 px-4 md:px-0">
         {regions.map((region) => (
-          <div
-            key={region.id}
-            className="group relative cursor-pointer overflow-hidden rounded-[10px] border-2 border-[#1A1A1A]  w-full
-"
-          >
+         <div
+  key={region.id}
+  className="group relative cursor-pointer overflow-hidden rounded-[10px] w-full"
+>
 
             <img
               src={region.image}

@@ -5,50 +5,6 @@ import { Plus, Minus } from "lucide-react";
 import Image from "next/image";
 
 
-const DEFAULT_ITINERARY = [
-  {
-    day: 1,
-    title: "Casablanca Calling",
-    stay: "Kaan Casablanca",
-    description:
-      "Arrival at Casablanca. Your journey begins at Casablanca's Mohammed V Airport, where your private TravelOStyle guide will be waiting.",
-  },
-  {
-    day: 2,
-    title: "Royal Roads to Fez",
-    stay: "Riad Salam Fes",
-    description:
-      "The road north takes you first to Rabat, Morocco's quiet, elegant capital. The Royal Palace, the Hassan Tower (an unfinished minaret from the 12th century that somehow feels complete as a ruin), and the Oudayas Kasbah.",
-  },
-  {
-    day: 3,
-    title: "The Labyrinth of Fez",
-    stay: "Riad Salam Fes",
-    description:
-      "A full day inside one of the world's great medieval cities. The Fez Medina is a UNESCO World Heritage site — and also a living, working, genuinely chaotic place that no amount of preparation quite readies you for.",
-  },
-  {
-    day: 4,
-    title: "Fez to the High Atlas",
-    stay: "Kasbah Hotel Xaluca Arfoud",
-    description:
-      "A long drive south through cedar forests and the Middle Atlas — stopping at Ifrane (Morocco's Alpine town), Azrou, and arriving at the desert edge by evening.",
-  },
-  {
-    day: 5,
-    title: "Into the Sahara",
-    stay: "Auberge du Sud, Erg Chébbi",
-    description:
-      "The dunes of Erg Chébbi rise to 150 metres at their highest. A camel ride at sunset; a night under extraordinary sky. One of those evenings you won't easily forget.",
-  },
-  {
-    day: 6,
-    title: "Draa Valley to Ouarzazate",
-    stay: "Le Berbere Palace, Ouarzazate",
-    description:
-      "The road west follows the Draa Valley — one of the most dramatic drives in North Africa. Kasbahs, palm groves, and the ancient route of trans-Saharan caravans.",
-  },
-];
 
 function DayAccordion({ item, isOpen, onToggle }) {
   return (

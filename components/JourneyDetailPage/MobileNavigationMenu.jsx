@@ -63,8 +63,8 @@ if (activeView === "highlights") {
   return (
     <MobileHighlightsPage
       onBack={() => setActiveView("menu")}
-      highlightsRecord={journey.highlights}
-      
+      highlightsRecord={journey.tabHighlights}
+
     />
   );
 }
@@ -73,7 +73,7 @@ if (activeView === "itinerary") {
     <Itinerary
       onBack={() => setActiveView("menu")}
       itineraryRecord={journey.tabItinerary}
-      
+      mapImage={journey.mapImage}
     />
   );
 }
