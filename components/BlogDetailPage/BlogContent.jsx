@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import RecommendedBlogs from "./RecommendedBlogs";
 
 export default function BlogContent({
@@ -6,6 +7,8 @@ export default function BlogContent({
   categories,
   bannerImage,
   galleryImage,
+  previousPost,
+  nextPost,
 }) {
   return (
     <section className="px-5 md:px-8 overflow-x-hidden lg:px-[60px] pb-[60px] lg:pb-[80px]">
@@ -30,10 +33,6 @@ export default function BlogContent({
             />
           )}
 
-          <h2 className="mt-[40px] text-[22px] font-semibold leading-[32px] tracking-[0.02em] text-[#1A1A1A]">
-            Delhi: Where the Journey Begins
-          </h2>
-
           {blog.attributes.field_body?.processed && (
             <div
               className="min-w-0 max-w-full overflow-hidden mt-[16px] text-[16px] leading-[30px] tracking-[0.02em] text-[#1A1A1A]"
@@ -47,14 +46,14 @@ export default function BlogContent({
             <div className="mt-10 flex flex-col sm:flex-row gap-6 lg:gap-[24px]">
               <Image
                 src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${galleryImage.attributes.uri.url}`}
-                alt="Agra"
+                alt={blog.attributes.title || "Blog image"}
                 width={408}
                 height={280}
                 className="w-full sm:w-1/2 h-auto object-cover object-center"
               />
               <Image
                 src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${galleryImage.attributes.uri.url}`}
-                alt="Taj Mahal"
+                alt={blog.attributes.title || "Blog image"}
                 width={408}
                 height={280}
                 className="w-full sm:w-1/2 h-auto object-cover object-center"
@@ -62,119 +61,34 @@ export default function BlogContent({
             </div>
           )}
 
-          <h2 className="mt-[40px] text-[22px] font-semibold leading-[32px] tracking-[0.02em] text-[#1A1A1A]">
-            Agra: The Magic of the Taj Mahal
-          </h2>
-
-          <p className="mt-[16px] text-[16px] leading-[30px] tracking-[0.02em] text-[#1A1A1A]">
-            From Delhi, the journey continues to Agra, home to one of the most
-            admired monuments in the world: the Taj Mahal.
-          </p>
-          <p className="mt-[20px] text-[16px] leading-[30px] tracking-[0.02em] text-[#1A1A1A]">
-            No photograph truly prepares you for seeing it in person. The
-            first glimpse of its white marble dome feels almost unreal.
-            Whether seen at sunrise, when the light is soft and golden, or
-            later in the day, when the marble glows against the sky, the Taj
-            Mahal has a quiet beauty that stays with you.
-          </p>
-          <p className="mt-[20px] text-[16px] leading-[30px] tracking-[0.02em] text-[#1A1A1A]">
-            But Agra is more than just the Taj Mahal. Agra Fort is another
-            incredible highlight, with its red sandstone walls, courtyards,
-            and views across the Yamuna River. The city also offers glimpses
-            of Mughal craftsmanship, marble inlay work, local markets, and
-            traditional sweets like petha.
-          </p>
-          <p className="mt-[20px] text-[16px] leading-[30px] tracking-[0.02em] text-[#1A1A1A]">
-            Agra brings a sense of romance and wonder to the Golden Triangle.
-            It is the part of the journey where history feels emotional,
-            personal, and grand.
-          </p>
-
-          <Image
-            src="/taj-full.svg"
-            alt="Taj Mahal"
-            width={1008}
-            height={420}
-            className="mt-[32px] w-full h-auto object-cover"
-          />
-
-          {/* Jaipur Section */}
-          <h2 className="mt-[56px] text-[22px] font-semibold leading-[32px] tracking-[0.02em] text-[#1A1A1A]">
-            Jaipur: The Royal Pink City
-          </h2>
-
-          <p className="mt-[16px] text-[16px] leading-[30px] tracking-[0.02em] text-[#1A1A1A]">
-            The final stop is Jaipur, Rajasthan&apos;s famous Pink City. If
-            Delhi is energetic and Agra is poetic, Jaipur is royal,
-            colourful, and full of character.
-          </p>
-          <p className="mt-[20px] text-[16px] leading-[30px] tracking-[0.02em] text-[#1A1A1A]">
-            The city is known for its magnificent forts, palaces, textiles,
-            jewellery, and vibrant markets. Amber Fort is one of the most
-            striking experiences of the trip, rising beautifully against the
-            hills. The City Palace gives a glimpse into royal life, while
-            Hawa Mahal, with its delicate honeycomb-like façade, is one of
-            Jaipur&apos;s most photographed landmarks.
-          </p>
-          <p className="mt-[20px] text-[16px] leading-[30px] tracking-[0.02em] text-[#1A1A1A]">
-            Jaipur is also a paradise for shopping and design lovers. From
-            block-printed fabrics and blue pottery to gemstones, traditional
-            juttis, and handcrafted souvenirs, the city is full of artistry.
-            Even the streets feel visually rich, with their pink-toned
-            buildings, decorated doors, and busy bazaars. There is a warmth
-            to Jaipur that makes it a wonderful final chapter of the journey.
-            It leaves you with colour, craft, and a sense of regal charm.
-          </p>
-
-          <Image
-            src="/jaipur-image.svg"
-            alt="Jaipur"
-            width={1008}
-            height={420}
-            className="mt-[32px] w-full h-auto object-cover"
-          />
-
-          {/* Why the Golden Triangle */}
-          <h2 className="mt-[48px] text-[22px] font-semibold leading-[32px] tracking-[0.02em] text-[#1A1A1A]">
-            Why the Golden Triangle Is Such a Great Experience
-          </h2>
-          <p className="mt-[16px] text-[16px] leading-[30px] tracking-[0.02em] text-[#1A1A1A]">
-            What makes the Golden Triangle so special is the variety it
-            offers in a short period of time. In one trip, you experience
-            three very different cities, each with its own personality.
-          </p>
-          <p className="mt-[20px] text-[16px] leading-[30px] tracking-[0.02em] text-[#1A1A1A]">
-            Delhi gives you history, culture, and the excitement of a
-            capital city. Agra gives you one of the world&apos;s most
-            beautiful monuments and a powerful sense of Mughal heritage.
-            Jaipur gives you royal architecture, colour, craft, and the
-            charm of Rajasthan.
-          </p>
-          <p className="mt-[20px] text-[16px] leading-[30px] tracking-[0.02em] text-[#1A1A1A]">
-            Together, they create a complete and deeply satisfying travel
-            experience.
-          </p>
-          <p className="mt-[20px] text-[16px] leading-[30px] tracking-[0.02em] text-[#1A1A1A]">
-            The route is also very convenient, especially for first-time
-            visitors to India. The distances between the cities are
-            manageable, the road and rail connections are well established,
-            and the itinerary can be comfortably completed in around five to
-            seven days. For travellers who want a strong first impression of
-            India without feeling overwhelmed by too much distance, the
-            Golden Triangle is ideal.
-          </p>
-
           {/* Previous / Next */}
-          <div className="mt-14 flex flex-col gap-6 sm:flex-row sm:justify-between sm:items-center">
-            <button className="flex items-center gap-[12px] text-[14px] font-medium text-[#1A1A1A] self-start sm:self-auto">
-              <Image src="/ArrowLeft.svg" alt="Previous" width={24} height={24} />
-              <span>Previous Post Name</span>
-            </button>
-            <button className="flex items-center gap-[12px] text-[14px] font-medium text-[#1A1A1A] self-end sm:self-auto">
-              <span>Next Post Name</span>
-              <Image src="/ArrowUpRight.svg" alt="Next" width={24} height={24} />
-            </button>
-          </div>
+          {(previousPost || nextPost) && (
+            <div className="mt-14 flex flex-col gap-6 sm:flex-row sm:justify-between sm:items-center">
+              {previousPost ? (
+                <Link
+                  href={`/blog-detail/${previousPost.slug}`}
+                  className="flex items-center gap-[12px] text-[14px] font-medium text-[#1A1A1A] self-start sm:self-auto"
+                >
+                  <Image src="/ArrowLeft.svg" alt="Previous" width={24} height={24} />
+                  <span>Previous Post Name</span>
+                </Link>
+              ) : (
+                <span />
+              )}
+
+              {nextPost ? (
+                <Link
+                  href={`/blog-detail/${nextPost.slug}`}
+                  className="flex items-center gap-[12px] text-[14px] font-medium text-[#1A1A1A] self-end sm:self-auto"
+                >
+                  <span>Next Post Name</span>
+                  <Image src="/ArrowUpRight.svg" alt="Next" width={24} height={24} />
+                </Link>
+              ) : (
+                <span />
+              )}
+            </div>
+          )}
         </div>
 
         {/* RIGHT SIDE */}
@@ -189,7 +103,7 @@ export default function BlogContent({
             {categories.map((category) => (
               <button
                 key={category.id}
-                className="px-4 h-[36px] text-[14px] rounded-full border border-[#1A1A1A] font-normal text-[#1A1A1A]"
+                className="flex h-[31px] items-center justify-center px-[16px] text-[16px] leading-none rounded-full border border-[#1A1A1A] font-normal text-[#1A1A1A]"
               >
                 {category.attributes.name}
               </button>

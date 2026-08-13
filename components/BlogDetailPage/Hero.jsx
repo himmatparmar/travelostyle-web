@@ -12,13 +12,12 @@ export default function Hero({ blog, categories }) {
 
         <button
           className="
-          w-[134px]
           h-[31px]
           px-[16px]
           bg-[#F2E2DA]
           border
-          border-[#8E7C72]
-          rounded-[100px]
+          border-[#1A1A1A]
+          rounded-full
           text-[16px]
           font-Nohemi
           leading-none

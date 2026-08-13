@@ -106,76 +106,60 @@ export default async function Blog() {
     "
   >
 
-    {/* DOTTED CURVE */}
-  <svg
+    {/* DOTTED CURVE - upper (image to title) */}
+  <img
+  src="/blog-journal-dots.svg"
+  alt=""
+  aria-hidden="true"
   className="
     pointer-events-none
     absolute
-    left-[-10px]
-    top-[15px]
-    h-[430px]
-    w-[940px]
+    left-[350px]
+    top-[-70px]
+    h-[500px]
+    w-[550px]
    max-md:hidden
-
   "
-  viewBox="0 0 940 430"
-  fill="none"
->
- <path
-  d="
-    M -10 365
-
-    C 55 350, 105 320, 160 288
-
-    C 215 255, 270 240, 310 205
-
-    C 345 175, 365 145, 360 120
-
-    C 355 98, 368 78, 392 66
-
-    C 418 53, 448 57, 458 90
-
-    C 460 89, 458 108, 440 118
-
-    C 421 128, 398 124, 392 109
-
-    C 386 95, 397 77, 420 64
-
-    C 455 44, 505 40, 560 47
-
-    C 625 56, 690 69, 755 60
-    
-
-    C 820 51, 875 39, 925 40
-  "
-  stroke="#292D73"
-  strokeWidth="1.5"
-  strokeDasharray="5 5"
-  strokeLinecap="round"
-  strokeLinejoin="round"
 />
-</svg>
+    {/* DOTTED CURVE - lower (title to screen edge) */}
+  <img
+  src="/blog-journal-dots-bottom.svg"
+  alt=""
+  aria-hidden="true"
+  className="
+    pointer-events-none
+    absolute
+    left-[-266px]
+    top-[307px]
+    h-[300px]
+    w-[800px]
+   max-md:hidden
+  "
+/>
     {/* TITLE */}
    <div
   className="
     absolute
-    left-[70px]
-    top-[270px]
+    left-[150px]
+    top-[285px]
     z-10
-     
+
   "
 >
       <h1
         className="
+          font-taprom
           inline-block
-          bg-[#F3E5DC]
+          bg-[#F2E2DA]
           px-[5px]
           py-[2px]
-          font-serif
-          text-[30px]
-          italic
+          text-[50px]
+          font-normal
+          not-italic
           leading-none
-          text-[#171717]
+          tracking-[0.05em]
+          text-center
+          text-[#000000]
         "
       >
         The TOS Travel Journal
@@ -191,7 +175,7 @@ export default async function Blog() {
 <div
   className="
     absolute
-    right-4
+    right-15
     top-5
     h-[500px]
     w-[600px]

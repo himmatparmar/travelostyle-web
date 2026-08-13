@@ -21,15 +21,43 @@ export default async function BlogDetailBySlug({
 
   const response = await res.json();
 
-  const blog = (response.data || []).find((item: any) => {
+  const getSlug = (item: any) => {
     const alias = (item.attributes?.path?.alias || "").replace(/^\/+/, "");
-    const titleSlug = slugify(item.attributes?.title || "");
-    return alias === slug || titleSlug === slug;
-  });
+    return alias || slugify(item.attributes?.title || "");
+  };
+
+  const blog = (response.data || []).find(
+    (item: any) => getSlug(item) === slug
+  );
 
   if (!blog) {
     notFound();
   }
+
+  // Order blogs oldest -> newest so Previous/Next follow Drupal's
+  // publish order (based on the "created" date).
+  const sortedBlogs = [...(response.data || [])].sort(
+    (a: any, b: any) =>
+      new Date(a.attributes.created).getTime() -
+      new Date(b.attributes.created).getTime()
+  );
+
+  const currentIndex = sortedBlogs.findIndex((item: any) => item.id === blog.id);
+
+  const previousBlog =
+    currentIndex > 0 ? sortedBlogs[currentIndex - 1] : null;
+  const nextBlog =
+    currentIndex >= 0 && currentIndex < sortedBlogs.length - 1
+      ? sortedBlogs[currentIndex + 1]
+      : null;
+
+  const previousPost = previousBlog
+    ? { title: previousBlog.attributes.title, slug: getSlug(previousBlog) }
+    : null;
+
+  const nextPost = nextBlog
+    ? { title: nextBlog.attributes.title, slug: getSlug(nextBlog) }
+    : null;
 
   const categories =
     response.included?.filter(
@@ -71,6 +99,8 @@ export default async function BlogDetailBySlug({
         categories={categories}
         bannerImage={bannerImage}
         galleryImage={galleryImage}
+        previousPost={previousPost}
+        nextPost={nextPost}
       />
 
       <Footer />
