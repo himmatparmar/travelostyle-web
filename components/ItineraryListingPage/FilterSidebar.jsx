@@ -82,18 +82,18 @@ export default function FilterSidebar({
   const [showMoreCategories, setShowMoreCategories] = useState(false);
 
   const [loading, setLoading] = useState(false);
-    const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
 
- useEffect(() => {
-  const regionParam = searchParams.get("region");
+  useEffect(() => {
+    const regionParam = searchParams.get("region");
 
-  if (regionParam) {
-    setFilters((prev) => ({
-      ...prev,
-      region: [regionParam],
-    }));
-  }
-}, [searchParams, setFilters]);
+    if (regionParam) {
+      setFilters((prev) => ({
+        ...prev,
+        region: [regionParam],
+      }));
+    }
+  }, [searchParams, setFilters]);
 
   // ================= CLEAR =================
   const clearAll = () => {
@@ -154,8 +154,8 @@ export default function FilterSidebar({
         case "duration": {
           const days = parseInt(item.days?.split(" ")[0] || 0);
 
-          if (value === "5–8 Days") {
-            return days >= 5 && days <= 8;
+          if (value === "2-5 Days") {
+            return days >= 2 && days <= 5;
           }
 
           if (value === "8–15 Days") {
@@ -178,22 +178,108 @@ export default function FilterSidebar({
       }
     }).length;
   };
- const filteredJourneys = journeys.filter((item) => {
-  const journeyRegion =
-    typeof item.region === "string"
-      ? item.region.trim().toLowerCase()
-      : item.region?.name?.trim().toLowerCase();
 
-  const selectedRegions = filters.region.map((region) =>
-    region.trim().toLowerCase()
-  );
+  useEffect(() => {
+    if (typeof window === "undefined") return;
 
-  const regionMatch =
-    selectedRegions.length === 0 ||
-    selectedRegions.includes(journeyRegion);
+    const sessionFindJourneyData = sessionStorage.getItem("journeyData");
 
-  return regionMatch;
-});
+    if (!sessionFindJourneyData) return;
+
+    try {
+      const parsedJourneyData = JSON.parse(sessionFindJourneyData);
+
+      setFilters((prev) => {
+        const sessionJourneyFilters =
+          parsedJourneyData.filters || parsedJourneyData;
+
+        const selectedStyle =
+          sessionJourneyFilters.travelType || sessionJourneyFilters.style || "";
+
+        const matchingStyle = filterOptions.style?.find(
+          (opt) =>
+            opt.toLowerCase().replace(/[^a-z0-9]/g, "") ===
+            selectedStyle.toLowerCase().replace(/[^a-z0-9]/g, ""),
+        );
+
+        // Month
+        const selectedMonths =
+          sessionJourneyFilters.months || sessionJourneyFilters.month || [];
+
+        // Region
+        const selectedRegion =
+          sessionJourneyFilters.region || sessionJourneyFilters.regions || [];
+
+        // Pricing
+        const selectedPricing = sessionJourneyFilters.pricing || [];
+
+        // Duration
+        const selectedDuration = sessionJourneyFilters.duration || [];
+
+        // Offer
+        const selectedOffer = sessionJourneyFilters.offer || [];
+
+        // Category
+        const selectedCategory = sessionJourneyFilters.category || [];
+
+        return {
+          ...prev,
+
+          // Region
+          region: Array.isArray(selectedRegion)
+            ? selectedRegion
+            : selectedRegion
+              ? [selectedRegion]
+              : prev.region,
+
+          // Travel Style
+          style: matchingStyle
+            ? [matchingStyle]
+            : Array.isArray(selectedStyle)
+              ? selectedStyle
+              : prev.style,
+
+          // Month
+          month: Array.isArray(selectedMonths)
+            ? selectedMonths
+            : selectedMonths
+              ? [selectedMonths]
+              : prev.month,
+
+          // Pricing
+          pricing: Array.isArray(selectedPricing)
+            ? selectedPricing
+            : selectedPricing
+              ? [selectedPricing]
+              : prev.pricing,
+
+          // Duration
+          duration: Array.isArray(selectedDuration)
+            ? selectedDuration
+            : selectedDuration
+              ? [selectedDuration]
+              : prev.duration,
+
+          // Offer
+          offer: Array.isArray(selectedOffer)
+            ? selectedOffer
+            : selectedOffer
+              ? [selectedOffer]
+              : prev.offer,
+
+          // Category
+          category: Array.isArray(selectedCategory)
+            ? selectedCategory
+            : selectedCategory
+              ? [selectedCategory]
+              : prev.category,
+        };
+      });
+    } catch (error) {
+      console.error("Error reading journeyData from sessionStorage:", error);
+    }
+  }, [filterOptions.style, setFilters]);
+
   return (
     <aside className="w-[300px] shrink-0">
       {/* HEADER */}
@@ -269,7 +355,7 @@ export default function FilterSidebar({
 
         {/* DURATION */}
         <FilterSection title="Duration">
-          {["5–8 Days", "8–15 Days", "15–25 Days", "25+ Days"].map((item) => (
+          {["2-5 Days", "8-15 Days", "15–25 Days", "25+ Days"].map((item) => (
             <CheckboxItem
               key={item}
               label={item}
