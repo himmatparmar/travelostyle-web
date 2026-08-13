@@ -6,7 +6,7 @@ import TravelTypeMobile from "./TravelTypeMobile";
 import DestinationMobile from "./DestinationMobile";
 import TravelDateMobile from "./TravelDateMobile";
 
-export default function FindJourneyMobile({ onClose }) {
+export default function FindJourneyMobile({ onClose, destinations = [] }) {
   const [step, setStep] = useState(0);
     const [selectedTravelType, setSelectedTravelType] = useState("Private Journey");
   const [selectedDestinations, setSelectedDestinations] = useState([]);
@@ -47,6 +47,7 @@ export default function FindJourneyMobile({ onClose }) {
         setSelectedDestinations={setSelectedDestinations}
         openToPossibilities={openToPossibilities}
         setOpenToPossibilities={setOpenToPossibilities}
+        destinations={destinations}
       />
     );
   }
