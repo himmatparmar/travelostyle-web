@@ -21,6 +21,26 @@ export default async function BlogDetailBySlug({
 
   const response = await res.json();
 
+  if (!response.data || response.data.length === 0) {
+    return (
+      <div className="bg-[#FAFAFA] min-h-screen">
+        <SearchBar />
+
+        <div className="flex flex-col items-center justify-center py-24 text-center">
+          <h2 className="font-[Nohemi] text-[28px] font-semibold tracking-[0.05em] text-[#1A1A1A]">
+            Coming Soon
+          </h2>
+          <p className="mt-3 max-w-[420px] text-[14px] text-[#4A4A4A]">
+            We&apos;re working on new stories for The TOS Travel Journal.
+            Check back soon.
+          </p>
+        </div>
+
+        <Footer />
+      </div>
+    );
+  }
+
   const getSlug = (item: any) => {
     const alias = (item.attributes?.path?.alias || "").replace(/^\/+/, "");
     return alias || slugify(item.attributes?.title || "");
@@ -76,17 +96,20 @@ export default async function BlogDetailBySlug({
       item.id === bannerMedia?.relationships?.field_media_image?.data?.id
   );
 
-  const galleryMedia = response.included?.find(
-    (item: any) =>
-      item.type === "media--image" &&
-      item.id === blog.relationships?.field_gallery_images?.data?.[0]?.id
-  );
+  const galleryRefs = blog.relationships?.field_gallery_images?.data || [];
 
-  const galleryImage = response.included?.find(
-    (item: any) =>
-      item.type === "file--file" &&
-      item.id === galleryMedia?.relationships?.field_media_image?.data?.id
-  );
+  const galleryImages = galleryRefs
+    .map((ref: any) => {
+      const media = response.included?.find(
+        (item: any) => item.type === "media--image" && item.id === ref.id
+      );
+      return response.included?.find(
+        (item: any) =>
+          item.type === "file--file" &&
+          item.id === media?.relationships?.field_media_image?.data?.id
+      );
+    })
+    .filter(Boolean);
 
   return (
     <div className="bg-[#FAFAFA] min-h-screen">
@@ -98,7 +121,7 @@ export default async function BlogDetailBySlug({
         blog={blog}
         categories={categories}
         bannerImage={bannerImage}
-        galleryImage={galleryImage}
+        galleryImages={galleryImages}
         previousPost={previousPost}
         nextPost={nextPost}
       />

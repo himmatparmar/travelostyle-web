@@ -2,7 +2,51 @@ import Image from "next/image";
 
 export default function LetsFindOut() {
   return (
-    <section className="bg-white overflow-hidden px-[70px] py-[100px]">
+    <>
+    {/* MOBILE */}
+    <section className="lg:hidden bg-white overflow-hidden px-5 py-16">
+      <h2 className="text-[26px] font-semibold leading-[36px] text-[#1A1A2E]">
+        Curious about what&apos;s possible?
+        <br />
+        Let&apos;s find out together
+      </h2>
+
+      <div className="relative w-full max-w-[320px] h-[300px] mt-10 mx-auto">
+        <div className="absolute top-0 right-0 w-[190px] h-[220px] rotate-[9.87deg] border-2 border-[#2C3078] bg-white shadow-[0_15px_25px_rgba(26,26,26,0.12)] p-2">
+          <Image
+            src="/Dubai.svg"
+            alt=""
+            width={180}
+            height={180}
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        <div className="absolute bottom-0 left-0 w-[210px] h-[240px] rotate-[-6.48deg] border-2 border-[#2C3078] bg-white shadow-[0_15px_25px_rgba(26,26,26,0.12)] p-2 z-10">
+          <Image
+            src="/Dubai.svg"
+            alt=""
+            width={200}
+            height={200}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+
+      <p className="mt-10 text-[15px] leading-[26px] text-[#4A4A4A]">
+        Whether you know exactly where you want to go or you&apos;re still at
+        the &apos;somewhere warm, sometime soon&apos; stage – TravelOStyle is
+        here. Start a conversation, browse the journeys, or just tell us how
+        you like to travel. That&apos;s usually enough to begin.
+      </p>
+
+      <button className="mt-8 w-full h-[44px] rounded-[100px] bg-[#2C3078] text-white text-[16px] font-medium">
+        Talk to a Travel Advisor
+      </button>
+    </section>
+
+    {/* DESKTOP */}
+    <section className="hidden lg:block bg-white overflow-hidden px-[70px] py-[100px]">
       <div className="flex items-center justify-between pb-[70px]">
 
         {/* Left Content */}
@@ -53,5 +97,6 @@ export default function LetsFindOut() {
         </div>
       </div>
     </section>
+    </>
   );
 }

@@ -5,8 +5,21 @@ export default function OriginStory() {
     <section className="px-4 md:px-[60px] lg:px-[113px] py-[60px] pt-0">
       <div className="flex flex-col lg:flex-row items-end gap-8 lg:gap-[40px]">
 
-        {/* Left Images — 3 staggered columns */}
-        <div className="flex gap-3 md:gap-4 flex-shrink-0 w-full lg:w-auto mb-[50px]">
+        {/* Left Images — clean grid on mobile */}
+        <div className="grid lg:hidden grid-cols-4 gap-2 w-full mb-[30px]">
+          <Image src="/Rectangle920.svg" alt="" width={264} height={264} className="rounded-[8px] w-full aspect-square object-cover" />
+          <Image src="/Rectangle911.svg" alt="" width={264} height={264} className="rounded-[8px] w-full aspect-square object-cover" />
+          <Image src="/Rectangle914.svg" alt="" width={264} height={264} className="rounded-[8px] w-full aspect-square object-cover" />
+          <Image src="/Rectangle917.svg" alt="" width={264} height={264} className="rounded-[8px] w-full aspect-square object-cover" />
+          <Image src="/Rectangle912.svg" alt="" width={264} height={264} className="rounded-[8px] w-full aspect-square object-cover" />
+          <Image src="/Rectangle915.svg" alt="" width={264} height={264} className="rounded-[8px] w-full aspect-square object-cover" />
+          <Image src="/Rectangle918.svg" alt="" width={264} height={264} className="rounded-[8px] w-full aspect-square object-cover" />
+          <Image src="/Rectangle913.svg" alt="" width={264} height={264} className="rounded-[8px] w-full aspect-square object-cover" />
+          <Image src="/Rectangle916.svg" alt="" width={264} height={264} className="rounded-[8px] w-full aspect-square object-cover" />
+        </div>
+
+        {/* Left Images — 3 staggered columns (desktop) */}
+        <div className="hidden lg:flex gap-3 md:gap-4 flex-shrink-0 w-full lg:w-auto mb-[50px]">
 
           {/* Column 1 — 4 images, starts at top */}
           <div className="flex flex-col gap-3 md:gap-4 bg-[#EFF3CF] flex-1 lg:flex-none rounded-lg">
