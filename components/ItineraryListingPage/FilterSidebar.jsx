@@ -3,23 +3,23 @@ import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Plus, Minus, ChevronDown, ChevronUp, Check } from "lucide-react";
 
-const FilterSection = ({ title, children, defaultOpen = true }) => {
+const FilterSection = ({ title, children, defaultOpen = true, mobile = false }) => {
   const [open, setOpen] = useState(defaultOpen);
 
 
   return (
 
 
-    <div className="border-b border-[#E5E5E5] py-[1.4vw]">
+    <div className={mobile ? "border-b border-[#E5E5E5] py-4" : "border-b border-[#E5E5E5] py-[1.4vw]"}>
       <button
         onClick={() => setOpen(!open)}
         className="flex w-full items-center justify-between"
       >
-        <span className="text-[1.05vw] font-semibold text-[#1A1A1A]">
+        <span className={mobile ? "text-base font-semibold text-[#1A1A1A]" : "text-[1.05vw] font-semibold text-[#1A1A1A]"}>
           {title}
         </span>
 
-        <div className="flex h-[1.9vw] w-[1.9vw] shrink-0 items-center justify-center rounded-full bg-[#F2E2DA]">
+        <div className={mobile ? "flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F2E2DA]" : "flex h-[1.9vw] w-[1.9vw] shrink-0 items-center justify-center rounded-full bg-[#F2E2DA]"}>
           {open ? (
             <Minus size={14} className="text-[#1A1A1A]" />
           ) : (
@@ -28,12 +28,36 @@ const FilterSection = ({ title, children, defaultOpen = true }) => {
         </div>
       </button>
 
-      {open && <div className="mt-[1vw]">{children}</div>}
+      {open && <div className={mobile ? "mt-3" : "mt-[1vw]"}>{children}</div>}
     </div>
   );
 };
 
-const CheckboxItem = ({ label, checked, onChange, count = 0 }) => {
+const CheckboxItem = ({ label, checked, onChange, count = 0, mobile = false }) => {
+  if (mobile) {
+    return (
+      <label className="flex items-center gap-3 py-2 cursor-pointer">
+        <span className="relative flex h-5 w-5 shrink-0 items-center justify-center leading-none">
+          <input
+            type="checkbox"
+            checked={checked}
+            onChange={onChange}
+            className="peer block h-full w-full cursor-pointer appearance-none rounded-none border-[1.5px] border-[#1A1A1A] checked:bg-[#1A1A1A]"
+          />
+          <Check
+            size={13}
+            strokeWidth={3}
+            className="pointer-events-none absolute text-white opacity-0 peer-checked:opacity-100"
+          />
+        </span>
+
+        <span className="text-sm leading-5 text-[#333]">
+          {label} <span className="text-[#999]">({count})</span>
+        </span>
+      </label>
+    );
+  }
+
   return (
     <label className="flex items-center gap-[0.6vw] py-[0.45vw] cursor-pointer">
       <span className="relative flex h-[1.1vw] w-[1.1vw] shrink-0 items-center justify-center leading-none">
@@ -57,7 +81,23 @@ const CheckboxItem = ({ label, checked, onChange, count = 0 }) => {
   );
 };
 
-const MonthPill = ({ label, active, onClick }) => {
+const MonthPill = ({ label, active, onClick, mobile = false }) => {
+  if (mobile) {
+    return (
+      <button
+        onClick={onClick}
+        className={`rounded-full border px-4 py-2 text-sm
+        ${
+          active
+            ? "bg-[#F5DFC9] text-[#6A5B4E] border-[#F5DFC9]"
+            : "border-[#D9D9D9] text-[#444]"
+        }`}
+      >
+        {label}
+      </button>
+    );
+  }
+
   return (
     <button
       onClick={onClick}
@@ -77,7 +117,11 @@ export default function FilterSidebar({
   setFilters,
   filterOptions,
   journeys = [],
+  variant = "desktop",
+  onClose,
+  resultCount,
 }) {
+  const mobile = variant === "mobile";
 
   const [showMoreCategories, setShowMoreCategories] = useState(false);
 
@@ -194,6 +238,181 @@ export default function FilterSidebar({
 
   return regionMatch;
 });
+
+  const sections = (
+    <>
+      {/* REGION (Drupal: country) */}
+      <FilterSection title="Region" mobile={mobile}>
+        {(filterOptions.region || []).map((item) => (
+          <CheckboxItem
+            key={item}
+            label={item}
+            count={getCount("region", item)}
+            checked={filters.region.includes(item)}
+            onChange={() => toggleFilter("region", item)}
+            mobile={mobile}
+          />
+        ))}
+      </FilterSection>
+
+      {/* TRAVEL STYLE (Drupal: tags) */}
+      <FilterSection title="Travel Style" mobile={mobile}>
+        {(filterOptions.style || []).map((item) => (
+          <CheckboxItem
+            key={item}
+            label={item}
+            count={getCount("style", item)}
+            checked={filters.style.includes(item)}
+            onChange={() => toggleFilter("style", item)}
+            mobile={mobile}
+          />
+        ))}
+      </FilterSection>
+
+      {/* PRICING */}
+      <FilterSection title="Pricing" mobile={mobile}>
+        {["$3000 under", "$3,000-$8,000", "$10,000+"].map((item) => (
+          <CheckboxItem
+            key={item}
+            label={item}
+            count={getCount("pricing", item)}
+            checked={filters.pricing.includes(item)}
+            onChange={() => toggleFilter("pricing", item)}
+            mobile={mobile}
+          />
+        ))}
+      </FilterSection>
+
+      {/* DURATION */}
+      <FilterSection title="Duration" mobile={mobile}>
+        {["5–8 Days", "8–15 Days", "15–25 Days", "25+ Days"].map((item) => (
+          <CheckboxItem
+            key={item}
+            label={item}
+            count={getCount("duration", item)}
+            checked={filters.duration.includes(item)}
+            onChange={() => toggleFilter("duration", item)}
+            mobile={mobile}
+          />
+        ))}
+      </FilterSection>
+
+      {/* OFFERS */}
+      <FilterSection title="Offers" mobile={mobile}>
+        {(filterOptions.offer || []).map((item) => (
+          <CheckboxItem
+            key={item}
+            label={item}
+            count={getCount("offer", item)}
+            checked={filters.offer.includes(item)}
+            onChange={() => toggleFilter("offer", item)}
+            mobile={mobile}
+          />
+        ))}
+      </FilterSection>
+
+      {/* CATEGORY */}
+      <FilterSection title="Category" mobile={mobile}>
+        {(showMoreCategories
+          ? filterOptions.category || []
+          : (filterOptions.category || []).slice(0, 7)
+        ).map((item) => (
+          <CheckboxItem
+            key={item}
+            label={item}
+            count={getCount("category", item)}
+            checked={filters.category.includes(item)}
+            onChange={() => toggleFilter("category", item)}
+            mobile={mobile}
+          />
+        ))}
+
+        {(filterOptions.category || []).length > 7 && (
+          <button
+            onClick={() => setShowMoreCategories((prev) => !prev)}
+            className={mobile ? "mt-2 flex items-center gap-1 text-sm text-[#1A1A1A]" : "mt-[0.6vw] flex items-center gap-[0.3vw] text-[0.8vw] text-[#1A1A1A]"}
+          >
+            {showMoreCategories ? (
+              <>
+                See Less <ChevronUp size={14} />
+              </>
+            ) : (
+              <>
+                See {(filterOptions.category || []).length - 7} more{" "}
+                <ChevronDown size={14} />
+              </>
+            )}
+          </button>
+        )}
+      </FilterSection>
+
+      {/* MONTH */}
+      <FilterSection title="Month" mobile={mobile}>
+        <div className={mobile ? "flex flex-wrap gap-2" : "flex flex-wrap gap-[0.4vw]"}>
+          {(filterOptions.month || []).map((month) => (
+            <MonthPill
+              key={month}
+              label={month}
+              active={filters.month.includes(month)}
+              onClick={() => toggleFilter("month", month)}
+              mobile={mobile}
+            />
+          ))}
+        </div>
+      </FilterSection>
+    </>
+  );
+
+  if (mobile) {
+    return (
+      <div className="flex h-full flex-col">
+        {/* HEADER */}
+        <div className="flex items-center justify-between border-b border-[#E8E8E8] px-4 py-3">
+          <span className="text-base font-semibold">Filters</span>
+
+          <button onClick={clearAll} className="text-sm text-[#2f2d89]">
+            Clear All
+          </button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto px-4">
+          {/* DISPLAY ALL OFFERS */}
+          <div className="py-4">
+            <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-[#2f2d89] px-3 py-2">
+              <input
+                type="checkbox"
+                checked={filters.displayAllOffers}
+                onChange={(e) =>
+                  setFilters((prev) => ({
+                    ...prev,
+                    displayAllOffers: e.target.checked,
+                  }))
+                }
+                className="h-4 w-4 cursor-pointer accent-[#2f2d89]"
+              />
+
+              <span className="text-sm font-medium text-[#2f2d89]">
+                Display All Offers
+              </span>
+            </label>
+          </div>
+
+          {sections}
+        </div>
+
+        {/* FOOTER */}
+        <div className="border-t border-[#E8E8E8] px-4 py-3">
+          <button
+            onClick={onClose}
+            className="w-full rounded-full bg-[#2f2d89] py-3 text-sm font-semibold text-white"
+          >
+            Show {typeof resultCount === "number" ? resultCount : ""} Trips
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <aside className="w-[300px] shrink-0">
       {/* HEADER */}
@@ -228,118 +447,7 @@ export default function FilterSidebar({
 
       {/* MAIN FILTER WRAPPER */}
       <div className="rounded-[1vw] border border-[#000000] px-[1vw] py-[0.3vw]">
-        {/* REGION (Drupal: country) */}
-        <FilterSection title="Region">
-          {(filterOptions.region || []).map((item) => (
-            <CheckboxItem
-              key={item}
-              label={item}
-              count={getCount("region", item)}
-              checked={filters.region.includes(item)}
-              onChange={() => toggleFilter("region", item)}
-            />
-          ))}
-        </FilterSection>
-
-        {/* TRAVEL STYLE (Drupal: tags) */}
-        <FilterSection title="Travel Style">
-          {(filterOptions.style || []).map((item) => (
-            <CheckboxItem
-              key={item}
-              label={item}
-              count={getCount("style", item)}
-              checked={filters.style.includes(item)}
-              onChange={() => toggleFilter("style", item)}
-            />
-          ))}
-        </FilterSection>
-
-        {/* PRICING */}
-        <FilterSection title="Pricing">
-          {["$3000 under", "$3,000-$8,000", "$10,000+"].map((item) => (
-            <CheckboxItem
-              key={item}
-              label={item}
-              count={getCount("pricing", item)}
-              checked={filters.pricing.includes(item)}
-              onChange={() => toggleFilter("pricing", item)}
-            />
-          ))}
-        </FilterSection>
-
-        {/* DURATION */}
-        <FilterSection title="Duration">
-          {["5–8 Days", "8–15 Days", "15–25 Days", "25+ Days"].map((item) => (
-            <CheckboxItem
-              key={item}
-              label={item}
-              count={getCount("duration", item)}
-              checked={filters.duration.includes(item)}
-              onChange={() => toggleFilter("duration", item)}
-            />
-          ))}
-        </FilterSection>
-
-        {/* OFFERS */}
-        <FilterSection title="Offers">
-          {(filterOptions.offer || []).map((item) => (
-            <CheckboxItem
-              key={item}
-              label={item}
-              count={getCount("offer", item)}
-              checked={filters.offer.includes(item)}
-              onChange={() => toggleFilter("offer", item)}
-            />
-          ))}
-        </FilterSection>
-
-        {/* CATEGORY */}
-        <FilterSection title="Category">
-          {(showMoreCategories
-            ? filterOptions.category || []
-            : (filterOptions.category || []).slice(0, 7)
-          ).map((item) => (
-            <CheckboxItem
-              key={item}
-              label={item}
-              count={getCount("category", item)}
-              checked={filters.category.includes(item)}
-              onChange={() => toggleFilter("category", item)}
-            />
-          ))}
-
-          {(filterOptions.category || []).length > 7 && (
-            <button
-              onClick={() => setShowMoreCategories((prev) => !prev)}
-              className="mt-[0.6vw] flex items-center gap-[0.3vw] text-[0.8vw] text-[#1A1A1A]"
-            >
-              {showMoreCategories ? (
-                <>
-                  See Less <ChevronUp size={14} />
-                </>
-              ) : (
-                <>
-                  See {(filterOptions.category || []).length - 7} more{" "}
-                  <ChevronDown size={14} />
-                </>
-              )}
-            </button>
-          )}
-        </FilterSection>
-
-        {/* MONTH */}
-        <FilterSection title="Month">
-          <div className="flex flex-wrap gap-[0.4vw]">
-            {(filterOptions.month || []).map((month) => (
-              <MonthPill
-                key={month}
-                label={month}
-                active={filters.month.includes(month)}
-                onClick={() => toggleFilter("month", month)}
-              />
-            ))}
-          </div>
-        </FilterSection>
+        {sections}
       </div>
     </aside>
   );

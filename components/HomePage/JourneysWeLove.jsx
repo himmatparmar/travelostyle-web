@@ -5,7 +5,7 @@ import { CirclePlus, Info } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-export default function JourneysWeLove({ onlyPopular = false }) {
+export default function JourneysWeLove({ onlyPopular = false, onlyWithOffer = false }) {
   const [trips, setTrips] = useState([]);
 
   useEffect(() => {
@@ -17,11 +17,19 @@ export default function JourneysWeLove({ onlyPopular = false }) {
         const json = await res.json();
         const included = json.included || [];
 
-        const journeyItems = onlyPopular
-          ? (json.data || []).filter(
-              (item) => item.attributes?.field_is_popular === true,
-            )
-          : json.data || [];
+        let journeyItems = json.data || [];
+
+        if (onlyPopular) {
+          journeyItems = journeyItems.filter(
+            (item) => item.attributes?.field_is_popular === true,
+          );
+        }
+
+        if (onlyWithOffer) {
+          journeyItems = journeyItems.filter((item) =>
+            String(item.attributes?.field_offer_message || "").trim(),
+          );
+        }
 
         const drupalJourneys = journeyItems.map((item, index) => {
           const mediaId = item.relationships?.field_journey_image?.data?.id;
