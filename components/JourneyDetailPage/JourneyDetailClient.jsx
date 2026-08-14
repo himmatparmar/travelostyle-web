@@ -1,7 +1,6 @@
 "use client";
 
 import TestimonialSection from "@/components/HomePage/TestimonialSection";
-import TravelOStylePromise from "@/components/HomePage/TravelOStylePromise";
 import { buildFileUrl } from "@/lib/config";
 import DetailTabs from "./DetailTabs";
 import HeroSection from "./HeroSection";
@@ -350,8 +349,6 @@ export default function JourneyDetailClient({
         inclusions={inclusions}
         exclusions={exclusions}
       />     <OtherDestinations />
-      <TestimonialSection />
-      <TravelOStylePromise />
     </main>
   );
 }
