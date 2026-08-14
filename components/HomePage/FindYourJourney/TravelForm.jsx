@@ -41,7 +41,7 @@ const months = [
   "December",
 ];
 
-const durations = ["2-5 Days", "6-10 Days", "11-20 Days", "20+ Days"];
+const durations = ["5–8 Days", "8–15 Days", "15–25 Days", "25+ Days"];
 
 export default function TravelForm() {
   const [selectedTravelType, setSelectedTravelType] =
