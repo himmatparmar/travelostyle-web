@@ -324,6 +324,17 @@ export default function FilterSidebar({
     }
   }, [filterOptions.style, setFilters]);
 
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      sessionStorage.removeItem("journeyData");
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
   const sections = (
     <>
       {/* REGION (Drupal: country) */}
