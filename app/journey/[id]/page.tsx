@@ -3,6 +3,7 @@ import SearchBar from "@/components/JourneyDetailPage/SearchBar";
 import JourneyDetailClient from "@/components/JourneyDetailPage/JourneyDetailClient";
 import Footer from "@/components/Footer";
 import TestimonialSection from "@/components/HomePage/TestimonialSection";
+import TravelOStylePromise from "@/components/HomePage/TravelOStylePromise";
 import { API_BASE_URL } from "@/lib/config";
 function stripHtml(html: string): string {
   return html
@@ -356,6 +357,8 @@ console.log(
      <TestimonialSection
   testimonialData={journeyTestimonials}
 />
+
+      <TravelOStylePromise />
 
       <Footer />
     </>
