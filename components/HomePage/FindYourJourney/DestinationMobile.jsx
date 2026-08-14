@@ -2,18 +2,7 @@
 
 import { Search, X } from "lucide-react";
 
-const destinations = [
-  "Morocco",
-  "Orlando",
-  "Las Vegas",
-  "Cancun",
-  "India",
-  "Africa",
-  "Punta Cana",
-  "Florida",
-];
-
-export default function DestinationMobile({ onClose,onNext,selectedDestinations,setSelectedDestinations ,openToPossibilities,setOpenToPossibilities }) {
+export default function DestinationMobile({ onClose,onNext,selectedDestinations,setSelectedDestinations ,openToPossibilities,setOpenToPossibilities, destinations = [] }) {
 
   const handleSelect = (destination) => {
     setSelectedDestinations((prev) =>

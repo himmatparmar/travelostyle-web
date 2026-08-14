@@ -126,18 +126,18 @@ export default function FilterSidebar({
   const [showMoreCategories, setShowMoreCategories] = useState(false);
 
   const [loading, setLoading] = useState(false);
-    const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
 
- useEffect(() => {
-  const regionParam = searchParams.get("region");
+  useEffect(() => {
+    const regionParam = searchParams.get("region");
 
-  if (regionParam) {
-    setFilters((prev) => ({
-      ...prev,
-      region: [regionParam],
-    }));
-  }
-}, [searchParams, setFilters]);
+    if (regionParam) {
+      setFilters((prev) => ({
+        ...prev,
+        region: [regionParam],
+      }));
+    }
+  }, [searchParams, setFilters]);
 
   // ================= CLEAR =================
   const clearAll = () => {
@@ -198,8 +198,8 @@ export default function FilterSidebar({
         case "duration": {
           const days = parseInt(item.days?.split(" ")[0] || 0);
 
-          if (value === "5–8 Days") {
-            return days >= 5 && days <= 8;
+          if (value === "2-5 Days") {
+            return days >= 2 && days <= 5;
           }
 
           if (value === "8–15 Days") {
@@ -222,22 +222,110 @@ export default function FilterSidebar({
       }
     }).length;
   };
- const filteredJourneys = journeys.filter((item) => {
-  const journeyRegion =
-    typeof item.region === "string"
-      ? item.region.trim().toLowerCase()
-      : item.region?.name?.trim().toLowerCase();
 
-  const selectedRegions = filters.region.map((region) =>
-    region.trim().toLowerCase()
-  );
+  useEffect(() => {
+    if (typeof window === "undefined") return;
 
-  const regionMatch =
-    selectedRegions.length === 0 ||
-    selectedRegions.includes(journeyRegion);
+    const sessionFindJourneyData = sessionStorage.getItem("journeyData");
+
+    if (!sessionFindJourneyData) return;
+
+    try {
+      const parsedJourneyData = JSON.parse(sessionFindJourneyData);
+
+      setFilters((prev) => {
+        const sessionJourneyFilters =
+          parsedJourneyData.filters || parsedJourneyData;
+
+        const selectedStyle =
+          sessionJourneyFilters.travelType || sessionJourneyFilters.style || "";
+
+        const matchingStyle = filterOptions.style?.find(
+          (opt) =>
+            opt.toLowerCase().replace(/[^a-z0-9]/g, "") ===
+            selectedStyle.toLowerCase().replace(/[^a-z0-9]/g, ""),
+        );
+
+        // Month
+        const selectedMonths =
+          sessionJourneyFilters.months || sessionJourneyFilters.month || [];
+
+        // Region
+        const selectedRegion =
+          sessionJourneyFilters.region || sessionJourneyFilters.regions || [];
+
+        // Pricing
+        const selectedPricing = sessionJourneyFilters.pricing || [];
+
+        // Duration
+        const selectedDuration = sessionJourneyFilters.duration || [];
+
+        // Offer
+        const selectedOffer = sessionJourneyFilters.offer || [];
+
+        // Category
+        const selectedCategory = sessionJourneyFilters.category || [];
+
+        return {
+          ...prev,
+
+          // Region
+          region: Array.isArray(selectedRegion)
+            ? selectedRegion
+            : selectedRegion
+              ? [selectedRegion]
+              : prev.region,
+
+          // Travel Style
+          style: matchingStyle
+            ? [matchingStyle]
+            : Array.isArray(selectedStyle)
+              ? selectedStyle
+              : prev.style,
+
+          // Month
+          month: Array.isArray(selectedMonths)
+            ? selectedMonths
+            : selectedMonths
+              ? [selectedMonths]
+              : prev.month,
+
+          // Pricing
+          pricing: Array.isArray(selectedPricing)
+            ? selectedPricing
+            : selectedPricing
+              ? [selectedPricing]
+              : prev.pricing,
+
+          // Duration
+          duration: Array.isArray(selectedDuration)
+            ? selectedDuration
+            : selectedDuration
+              ? [selectedDuration]
+              : prev.duration,
+
+          // Offer
+          offer: Array.isArray(selectedOffer)
+            ? selectedOffer
+            : selectedOffer
+              ? [selectedOffer]
+              : prev.offer,
+
+          // Category
+          category: Array.isArray(selectedCategory)
+            ? selectedCategory
+            : selectedCategory
+              ? [selectedCategory]
+              : prev.category,
+        };
+      });
+    } catch (error) {
+      console.error("Error reading journeyData from sessionStorage:", error);
+    }
+  }, [filterOptions.style, setFilters]);
 
   return regionMatch;
-});
+};
 
   const sections = (
     <>
@@ -447,8 +535,119 @@ export default function FilterSidebar({
 
       {/* MAIN FILTER WRAPPER */}
       <div className="rounded-[1vw] border border-[#000000] px-[1vw] py-[0.3vw]">
-        {sections}
+        {/* REGION (Drupal: country) */}
+        <FilterSection title="Region">
+          {(filterOptions.region || []).map((item) => (
+            <CheckboxItem
+              key={item}
+              label={item}
+              count={getCount("region", item)}
+              checked={filters.region.includes(item)}
+              onChange={() => toggleFilter("region", item)}
+            />
+          ))}
+        </FilterSection>
+
+        {/* TRAVEL STYLE (Drupal: tags) */}
+        <FilterSection title="Travel Style">
+          {(filterOptions.style || []).map((item) => (
+            <CheckboxItem
+              key={item}
+              label={item}
+              count={getCount("style", item)}
+              checked={filters.style.includes(item)}
+              onChange={() => toggleFilter("style", item)}
+            />
+          ))}
+        </FilterSection>
+
+        {/* PRICING */}
+        <FilterSection title="Pricing">
+          {["$3000 under", "$3,000-$8,000", "$10,000+"].map((item) => (
+            <CheckboxItem
+              key={item}
+              label={item}
+              count={getCount("pricing", item)}
+              checked={filters.pricing.includes(item)}
+              onChange={() => toggleFilter("pricing", item)}
+            />
+          ))}
+        </FilterSection>
+
+        {/* DURATION */}
+        <FilterSection title="Duration">
+          {["2-5 Days", "8-15 Days", "15–25 Days", "25+ Days"].map((item) => (
+            <CheckboxItem
+              key={item}
+              label={item}
+              count={getCount("duration", item)}
+              checked={filters.duration.includes(item)}
+              onChange={() => toggleFilter("duration", item)}
+            />
+          ))}
+        </FilterSection>
+
+        {/* OFFERS */}
+        <FilterSection title="Offers">
+          {(filterOptions.offer || []).map((item) => (
+            <CheckboxItem
+              key={item}
+              label={item}
+              count={getCount("offer", item)}
+              checked={filters.offer.includes(item)}
+              onChange={() => toggleFilter("offer", item)}
+            />
+          ))}
+        </FilterSection>
+
+        {/* CATEGORY */}
+        <FilterSection title="Category">
+          {(showMoreCategories
+            ? filterOptions.category || []
+            : (filterOptions.category || []).slice(0, 7)
+          ).map((item) => (
+            <CheckboxItem
+              key={item}
+              label={item}
+              count={getCount("category", item)}
+              checked={filters.category.includes(item)}
+              onChange={() => toggleFilter("category", item)}
+            />
+          ))}
+
+          {(filterOptions.category || []).length > 7 && (
+            <button
+              onClick={() => setShowMoreCategories((prev) => !prev)}
+              className="mt-[0.6vw] flex items-center gap-[0.3vw] text-[0.8vw] text-[#1A1A1A]"
+            >
+              {showMoreCategories ? (
+                <>
+                  See Less <ChevronUp size={14} />
+                </>
+              ) : (
+                <>
+                  See {(filterOptions.category || []).length - 7} more{" "}
+                  <ChevronDown size={14} />
+                </>
+              )}
+            </button>
+          )}
+        </FilterSection>
+
+        {/* MONTH */}
+        <FilterSection title="Month">
+          <div className="flex flex-wrap gap-[0.4vw]">
+            {(filterOptions.month || []).map((month) => (
+              <MonthPill
+                key={month}
+                label={month}
+                active={filters.month.includes(month)}
+                onClick={() => toggleFilter("month", month)}
+              />
+            ))}
+          </div>
+        </FilterSection>
       </div>
     </aside>
   );
-}
+

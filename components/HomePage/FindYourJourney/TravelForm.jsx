@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const travelOptions = [
   "Group Journey",
@@ -43,7 +44,9 @@ const months = [
 const durations = ["2-5 Days", "6-10 Days", "11-20 Days", "20+ Days"];
 
 export default function TravelForm() {
-  const [selectedTravelType, setSelectedTravelType] = useState("Private Journey");
+  const [selectedTravelType, setSelectedTravelType] =
+    useState("Private Journey");
+     const router = useRouter();
   const [activeDropdown, setActiveDropdown] = useState(null);
 
   const [selectedDestinations, setSelectedDestinations] = useState([]);
@@ -51,17 +54,19 @@ export default function TravelForm() {
   const [selectedDuration, setSelectedDuration] = useState("");
   const [openToPossibilities, setOpenToPossibilities] = useState(false);
 
- const handleFindJourney = () => {
-  const formData = {
-    travelType: selectedTravelType,
-    destinations: selectedDestinations,
-    openToPossibilities:openToPossibilities,
-    months: selectedMonths,
-    duration: selectedDuration,
-  };
+  const handleFindJourney = () => {
+    const findYourJourneyData = {
+      travelType: selectedTravelType,
+      destinations: selectedDestinations,
+      openToPossibilities: openToPossibilities,
+      months: selectedMonths,
+      duration: selectedDuration,
+    };
 
-  console.log("Selected Journey Data:", formData);
-};
+   sessionStorage.setItem("journeyData", JSON.stringify(findYourJourneyData));
+
+  router.push(`/itinerary?region=${encodeURIComponent(selectedTravelType)}`);
+  };
 
   const handleDestinationSelect = (destination) => {
     setSelectedDestinations((prev) => {
