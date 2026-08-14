@@ -6,7 +6,7 @@ export default function BlogContent({
   blog,
   categories,
   bannerImage,
-  galleryImage,
+  galleryImages = [],
   previousPost,
   nextPost,
 }) {
@@ -29,7 +29,7 @@ export default function BlogContent({
               alt="Golden Triangle"
               width={1008}
               height={410}
-              className="mt-8 w-full h-auto lg:h-[410px] object-cover"
+              className="mt-8 w-[337px] h-[138px] lg:w-[1008px] lg:h-[410px] max-w-full flex-shrink-0 object-cover"
             />
           )}
 
@@ -42,22 +42,21 @@ export default function BlogContent({
             />
           )}
 
-          {galleryImage?.attributes?.uri?.url && (
-            <div className="mt-10 flex flex-col sm:flex-row gap-6 lg:gap-[24px]">
-              <Image
-                src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${galleryImage.attributes.uri.url}`}
-                alt={blog.attributes.title || "Blog image"}
-                width={408}
-                height={280}
-                className="w-full sm:w-1/2 h-auto object-cover object-center"
-              />
-              <Image
-                src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${galleryImage.attributes.uri.url}`}
-                alt={blog.attributes.title || "Blog image"}
-                width={408}
-                height={280}
-                className="w-full sm:w-1/2 h-auto object-cover object-center"
-              />
+          {galleryImages.length > 0 && (
+            <div className="mt-10 flex flex-wrap items-start gap-6 lg:gap-[24px]">
+              {galleryImages.map(
+                (image, index) =>
+                  image?.attributes?.uri?.url && (
+                    <Image
+                      key={image.id || index}
+                      src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${image.attributes.uri.url}`}
+                      alt={blog.attributes.title || "Blog image"}
+                      width={408}
+                      height={536}
+                      className="w-[333px] h-[438px] lg:w-[408px] lg:h-[536px] flex-shrink-0 object-cover object-center"
+                    />
+                  )
+              )}
             </div>
           )}
 

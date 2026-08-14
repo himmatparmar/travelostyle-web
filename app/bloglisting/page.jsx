@@ -7,7 +7,7 @@ export default function ItineraryPage() {
     <>
       <SearchBar/>
 
-<Blog/>     
+<Blog/>
       <Footer />
     </>
   )

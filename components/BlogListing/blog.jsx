@@ -15,7 +15,7 @@ export default async function Blog() {
 
   // Pagination (9 per page = 3 columns x 3 rows) is handled client-side
   // inside BlogGrid, so all blogs are resolved here.
-  const blogs = data;
+  const blogs = data || [];
 
   const categoryRes = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/jsonapi/taxonomy_term/categories`,
@@ -96,8 +96,75 @@ export default async function Blog() {
 
 <section className="relative w-full overflow-hidden">
 
+  {/* MOBILE HERO */}
+  <div className="md:hidden flex flex-col items-center px-5 pt-6 pb-4">
+    <div className="relative">
+      <img
+        src="/blog-journal-dots-mobile.svg"
+        alt=""
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          -top-[55px]
+          -right-[15px]
+          h-[74px]
+          w-[153px]
+        "
+      />
+      <img
+        src="/blog-journal-dots-bottom-mobile.svg"
+        alt=""
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          -bottom-[95px]
+          -left-[70px]
+          h-[113px]
+          w-[196px]
+        "
+      />
+      <h1
+        className="
+          font-taprom
+          inline-block
+          bg-[#F2E2DA]
+          w-[336px]
+          h-[29px]
+          max-w-full
+          px-[5px]
+          text-[30px]
+          font-normal
+          not-italic
+          leading-none
+          tracking-[0.05em]
+          text-center
+          text-[#000000]
+          flex
+          items-center
+          justify-center
+        "
+      >
+        The TOS Travel Journal
+      </h1>
+    </div>
+
+    <div className="relative mt-4 w-[334px] h-[477px] max-w-full overflow-hidden">
+      <Image
+        src={heroImage}
+        alt="Travel Journal"
+        priority
+        fill
+        className="object-cover"
+      />
+    </div>
+  </div>
+
   <div
     className="
+      hidden
+      md:block
       relative
       mx-auto
       h-[500px]
@@ -195,14 +262,26 @@ export default async function Blog() {
 </div>
 
 </section>
-<div className="h-[80px]" />
-<div className="h-[55px]" />
+<div className="h-[20px] md:h-[30px]" />
+<div className="h-[15px] md:h-[20px]" />
       {/* =====================================================
           BLOG CONTENT
       ===================================================== */}
       <div className="mx-auto w-full max-w-[1280px] px-5 pb-12 sm:px-8 lg:px-12">
 
-        <BlogGrid blogs={resolvedBlogs} categories={categories} />
+        {resolvedBlogs.length > 0 ? (
+          <BlogGrid blogs={resolvedBlogs} categories={categories} />
+        ) : (
+          <div className="flex flex-col items-center justify-center py-24 text-center">
+            <h2 className="font-[Nohemi] text-[28px] font-semibold tracking-[0.05em] text-[#1A1A1A]">
+              Coming Soon
+            </h2>
+            <p className="mt-3 max-w-[420px] text-[14px] text-[#4A4A4A]">
+              We&apos;re working on new stories for The TOS Travel Journal.
+              Check back soon.
+            </p>
+          </div>
+        )}
 
       </div>
 
