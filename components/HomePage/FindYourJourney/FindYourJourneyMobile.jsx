@@ -5,8 +5,10 @@ import { X, Plus } from "lucide-react";
 import TravelTypeMobile from "./TravelTypeMobile";
 import DestinationMobile from "./DestinationMobile";
 import TravelDateMobile from "./TravelDateMobile";
+import { useRouter } from "next/navigation";
 
 export default function FindJourneyMobile({ onClose, destinations = [] }) {
+   const router = useRouter();
   const [step, setStep] = useState(0);
     const [selectedTravelType, setSelectedTravelType] = useState("Private Journey");
   const [selectedDestinations, setSelectedDestinations] = useState([]);
@@ -15,15 +17,15 @@ export default function FindJourneyMobile({ onClose, destinations = [] }) {
   const [selectedDuration, setSelectedDuration] = useState("");
 
   const handleFindJourney = () => {
-  const formData = {
+  const findYourJourneyData = {
     travelType: selectedTravelType,
     destinations: selectedDestinations,
     openToPossibilities,
     months: selectedMonths,
     duration: selectedDuration,
   };
-
-  console.log("Find Journey Data:", formData);
+ sessionStorage.setItem("journeyData", JSON.stringify(findYourJourneyData));
+  router.push(`/itinerary?region=${encodeURIComponent(selectedTravelType)}`);
 
 };
 

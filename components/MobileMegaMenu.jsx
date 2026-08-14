@@ -1,19 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export default function MobileMegaMenu({
   menuOpen,
   setMenuOpen,
+  showAllJourneys = false,
 }) {
-  const menuItems = [
-    "About",
-    "Group Journeys",
-    "Private Journeys",
-    "Tailor-Made Journeys",
-    "Offers",
-    "FAQs",
-  ];
 
   return (
     <div
@@ -46,19 +40,61 @@ export default function MobileMegaMenu({
           </div>
 
           <div className="mt-8 flex flex-col gap-5">
-            {menuItems.map((item) => (
-              <button
-                key={item}
-                className="text-left text-white text-[18px] font-medium"
-              >
-                {item}
-              </button>
-            ))}
-          </div>
+  <Link
+    href="/about-us"
+    className="text-left text-white text-[18px] font-medium"
+  >
+    About
+  </Link>
 
-          <button className="mt-10 rounded-full bg-white px-6 py-3 text-[15px] font-semibold text-[#2F2F87]">
-            Explore All Journeys
-          </button>
+  <Link
+    href="/group-rtb-journeys"
+    className="text-left text-white text-[18px] font-medium"
+  >
+    Group Journeys
+  </Link>
+
+  <Link
+    href="/private-rtb-journeys"
+    className="text-left text-white text-[18px] font-medium"
+  >
+    Private Journeys
+  </Link>
+
+  <Link
+    href="/tailor-made-journeys"
+    className="text-left text-white text-[18px] font-medium"
+  >
+    Tailor-Made Journeys
+  </Link>
+
+  {showAllJourneys && (
+  <Link
+    href="/itinerary"
+    className="text-left text-white text-[18px] font-medium"
+  >
+    All Journeys
+  </Link>
+)}
+
+  <Link
+    href="/offers"
+    className="text-left text-white text-[18px] font-medium"
+  >
+    Offers
+  </Link>
+
+  <button className="text-left text-white text-[18px] font-medium">
+    FAQs
+  </button>
+</div>
+
+          <Link
+  href="/itinerary"
+  className="mt-10 inline-block rounded-full bg-white px-6 py-3 text-[15px] font-semibold text-[#2F2F87]"
+>
+  Explore All Journeys
+</Link>
 
           <div className="mt-10 flex items-center gap-5">
             <Image

@@ -198,8 +198,8 @@ export default function FilterSidebar({
         case "duration": {
           const days = parseInt(item.days?.split(" ")[0] || 0);
 
-          if (value === "2-5 Days") {
-            return days >= 2 && days <= 5;
+          if (value === "5–8 Days") {
+            return days >= 5 && days <= 8;
           }
 
           if (value === "8–15 Days") {
@@ -323,6 +323,17 @@ export default function FilterSidebar({
       console.error("Error reading journeyData from sessionStorage:", error);
     }
   }, [filterOptions.style, setFilters]);
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      sessionStorage.removeItem("journeyData");
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   const sections = (
     <>
@@ -573,7 +584,7 @@ export default function FilterSidebar({
 
         {/* DURATION */}
         <FilterSection title="Duration">
-          {["2-5 Days", "8-15 Days", "15–25 Days", "25+ Days"].map((item) => (
+          {["5–8 Days", "8–15 Days", "15–25 Days", "25+ Days"].map((item) => (
             <CheckboxItem
               key={item}
               label={item}

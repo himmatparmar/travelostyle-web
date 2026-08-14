@@ -5,7 +5,7 @@ import Blog from "@/components/BlogListing/blog";
 export default function BlogListingPage() {
   return (
     <>
-      <SearchBar/>
+      <SearchBar showAllJourneys={true} />
 
 <Blog/>
       <Footer />

@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import FindJourneyMobile from "@/components/HomePage/FindYourJourney/FindYourJourneyMobile";
 
@@ -191,14 +192,35 @@ export default function SearchBar({ destinations = [] }) {
             <div className="flex justify-end">
               <button onClick={() => setMenuOpen(false)} className="text-white text-2xl">✕</button>
             </div>
-            <div className="mt-3 flex flex-col gap-[12px] text-[15px] font-medium tracking-wide">
-              <button className="text-left hover:underline">About</button>
-              <button className="text-left hover:underline">Group Journeys</button>
-              <button className="text-left hover:underline">Private Journeys</button>
-              <button className="text-left hover:underline">Tailor-Made Journeys</button>
-              <button className="text-left hover:underline">Offers</button>
-              <button className="text-left hover:underline">FAQs</button>
-            </div>
+           <div className="mt-3 flex flex-col gap-[12px] text-[15px] font-medium tracking-wide">
+  <Link href="/about-us" className="text-left hover:underline">
+    About
+  </Link>
+
+  <Link href="/group-rtb-journeys" className="text-left hover:underline">
+    Group Journeys
+  </Link>
+
+  <Link href="/private-rtb-journeys" className="text-left hover:underline">
+    Private Journeys
+  </Link>
+
+  <Link href="/tailor-made-journeys" className="text-left hover:underline">
+    Tailor-Made Journeys
+  </Link>
+
+  <Link href="/itinerary" className="text-left hover:underline">
+    All Journeys
+  </Link>
+
+  <Link href="/offers" className="text-left hover:underline">
+    Offers
+  </Link>
+
+  <button className="text-left hover:underline">
+    FAQs
+  </button>
+</div>
             <div className="mt-8">
               <button className="rounded-full bg-white px-6 py-2.5 text-[13px] font-semibold text-[#2E2787]">
                 Explore All Journeys
@@ -219,19 +241,39 @@ export default function SearchBar({ destinations = [] }) {
           <button onClick={() => setMenuOpen(true)} className="block md:hidden">
             <Image src="/MenuToggle.svg" alt="Menu" width={20} height={20} />
           </button>
-          <img
-            src="/TravelOStyleBlack.svg"
-            alt="TravelOStyle"
-            className="h-auto w-[140px] md:w-[309px] md:static absolute left-1/2 -translate-x-1/2 md:translate-x-0"
-          />
+          <Link href="/">
+  <img
+    src="/TravelOStyleBlack.svg"
+    alt="TravelOStyle"
+    className="h-auto w-[140px] md:w-[309px] md:static absolute left-1/2 -translate-x-1/2 md:translate-x-0 cursor-pointer"
+  />
+</Link>
           <div className="hidden md:flex items-center gap-9 text-[14px] font-medium text-[#1E1E1E]">
-            <button>About</button>
-            <button>Group Journeys</button>
-            <button>Private Journeys</button>
-            <button>Tailor-made Journeys</button>
-            <button>All Journeys</button>
-            <button>Destinations</button>
-            <button>Offers</button>
+           <Link href="/about-us">About</Link>
+
+<Link href="/group-rtb-journeys">
+  Group Journeys
+</Link>
+
+<Link href="/private-rtb-journeys">
+  Private Journeys
+</Link>
+
+<Link href="/tailor-made-journeys">
+  Tailor-made Journeys
+</Link>
+
+<Link href="/itinerary">
+  All Journeys
+</Link>
+
+<Link href="/destination">
+  Destinations
+</Link>
+
+<Link href="/offers">
+  Offers
+</Link>
           </div>
           <button onClick={() => setShowFindJourneyMobile(true)} className="block md:hidden">
             <Image src="/Search.svg" alt="Search" width={16} height={16} />
