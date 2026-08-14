@@ -2,11 +2,13 @@
 
 import Image from "next/image";
 import MobileMegaMenu from "./MobileMegaMenu";
+import Link from "next/link";
 
 export default function SearchHeader({
   menuOpen,
   setMenuOpen,
   setShowFindJourneyMobile,
+  showAllJourneys = false,
 }) {
   return (
     <>
@@ -24,6 +26,7 @@ export default function SearchHeader({
       <MobileMegaMenu
         menuOpen={menuOpen}
         setMenuOpen={setMenuOpen}
+        showAllJourneys={showAllJourneys}
       />
 
       <div className="border-b border-[#636363]">
@@ -41,20 +44,43 @@ export default function SearchHeader({
             />
           </button>
 
-          <img
-            src="/TravelOStyleBlack.svg"
-            alt="TravelOStyle"
-            className="h-auto w-[140px] md:w-[309px] md:static absolute left-1/2 -translate-x-1/2 md:translate-x-0"
-          />
+          <Link href="/">
+  <img
+    src="/TravelOStyleBlack.svg"
+    alt="TravelOStyle"
+    className="h-auto w-[140px] md:w-[309px] md:static absolute left-1/2 -translate-x-1/2 md:translate-x-0 cursor-pointer"
+  />
+</Link>
 
           <div className="hidden md:flex items-center gap-9 text-[14px] font-medium text-[#1E1E1E]">
-            <button>About</button>
-            <button>Group Journeys</button>
-            <button>Private Journeys</button>
-            <button>Tailor-made Journeys</button>
-            <button>Destinations</button>
-            <button>Offers</button>
-          </div>
+  <Link href="/about-us">About</Link>
+
+  <Link href="/group-rtb-journeys">
+    Group Journeys
+  </Link>
+
+  <Link href="/private-rtb-journeys">
+    Private Journeys
+  </Link>
+
+  <Link href="/tailor-made-journeys">
+    Tailor-made Journeys
+  </Link>
+
+  {showAllJourneys && (
+    <Link href="/itinerary">
+      All Journeys
+    </Link>
+  )}
+
+  <Link href="/destination">
+    Destinations
+  </Link>
+
+  <Link href="/offers">
+    Offers
+  </Link>
+</div>
 
           <button
             onClick={() => setShowFindJourneyMobile(true)}

@@ -100,7 +100,7 @@ export default async function BlogDetail() {
 
   return (
     <div className="bg-[#FAFAFA] min-h-screen">
-      <SearchBar />
+      <SearchBar showAllJourneys={true} />
 
       <Hero
         blog={blog}
