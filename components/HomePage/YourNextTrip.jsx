@@ -74,7 +74,7 @@ export default function YourNextTrip() {
       <JourneysWeLove/>
         )}
         {activeTab === "destinations" &&  <JourneysWeLove onlyPopular/>}
-        {activeTab === "deals" &&  <JourneysWeLove/>}
+        {activeTab === "deals" &&  <JourneysWeLove onlyWithOffer/>}
       </div>
     </section>
   );

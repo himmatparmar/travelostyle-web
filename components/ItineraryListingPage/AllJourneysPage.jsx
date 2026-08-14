@@ -5,6 +5,7 @@ import FilterSidebar from "./FilterSidebar";
 import SortBar from "./SortBar";
 import JourneyGrid from "./JourneyGrid";
 import Pagination from "./Pagination";
+import MobileFilters from "./MobileFilters";
 import { slugify } from "@/lib/slugify";
 import { API_BASE_URL, buildFileUrl } from "@/lib/config";
 
@@ -362,9 +363,45 @@ offer: item.attributes.field_offer_message || "",
     );
   }
 
+  const clearAllFilters = () =>
+    setFilters({
+      displayAllOffers: true,
+      region: [],
+      style: [],
+      offer: [],
+      category: [],
+      month: [],
+      pricing: [],
+      duration: [],
+    });
+
   return (
-    <div className="min-h-screen bg-[#fafafa] font-sans px-14">
-      <div className="flex gap-[2vw] py-[0.8vw] items-baseline">
+    <div className="min-h-screen bg-[#fafafa] font-sans px-4 pb-24 md:px-14 md:pb-0">
+      {/* MOBILE-ONLY: breadcrumb + result count + clear all */}
+      <div className="pt-4 pb-3 md:hidden">
+        <nav className="text-xs text-[#888]">
+          <span>Home</span>
+          <span className="mx-1">&gt;</span>
+          <span className="text-[#1a1a1a] font-medium">All Journeys</span>
+        </nav>
+
+        <div className="mt-3 flex items-center justify-between">
+          <span className="text-sm text-[#888]">
+            {filteredJourneys.length} trips found
+          </span>
+
+          {hasActiveFilters && (
+            <button
+              onClick={clearAllFilters}
+              className="text-sm font-medium text-[#2f2d89]"
+            >
+              Clear All Filters
+            </button>
+          )}
+        </div>
+      </div>
+
+      <div className="hidden md:flex gap-[2vw] py-[0.8vw] items-baseline">
         {/* Breadcrumb — aligns with filter sidebar column */}
         <div className="w-[300px] shrink-0">
           <nav className="text-[0.72vw] text-[#888]">
@@ -386,61 +423,47 @@ offer: item.attributes.field_offer_message || "",
       </div>
 
       <div className="flex gap-[2vw] pb-[3vw]">
-        <FilterSidebar
-          filters={filters}
-          setFilters={setFilters}
-          filterOptions={filterOptions}
-           journeys={journeys}
+        <div className="hidden md:block">
+          <FilterSidebar
+            filters={filters}
+            setFilters={setFilters}
+            filterOptions={filterOptions}
+             journeys={journeys}
 
-        />
+          />
+        </div>
 
         <div className="flex-1 min-w-0">
         {filteredJourneys.length === 0 && hasActiveFilters ? (
-            <div className="flex flex-col gap-2 items-center justify-center py-[6vw] text-center">
+            <div className="flex flex-col gap-2 items-center justify-center py-12 md:py-[6vw] text-center">
               <img
                 src="/no-results.svg"
                 alt="No journeys found"
-                className="mb-8 w-[18vw] h-auto "
+                className="mb-8 w-40 md:w-[18vw] h-auto "
               />
 
-              <h3 className="font-[Nohemi] font-medium text-[32px] leading-[40px] tracking-[0.05em] text-center text-[#1A1A1A] mt-8">
+              <h3 className="font-[Nohemi] font-medium text-xl md:text-[32px] leading-[1.3] md:leading-[40px] tracking-[0.05em] text-center text-[#1A1A1A] mt-4 md:mt-8">
                 Sorry! We were unable to find the <br /> trip you requested.
-                <p>
-  filteredJourneys: {filteredJourneys.length},
-  hasActiveFilters: {String(hasActiveFilters)}
-</p>
               </h3>
-              <p className="mt-[16px] max-w-[520px] font-[Nohemi] font-normal text-[16px] leading-[100%] tracking-[0.05em] text-center text-[#1A1A1A] mt-2">
+              <p className="mt-4 max-w-[520px] font-[Nohemi] font-normal text-sm md:text-[16px] leading-[1.4] md:leading-[100%] tracking-[0.05em] text-center text-[#1A1A1A] md:mt-2">
                 Please adjust your filters to find a trip that fits you
               </p>
 
-              <div className="my-[16px] font-[Nohemi] font-normal text-[16px] leading-[100%] tracking-[0.05em] text-center text-[#1A1A1A] mt-2">
+              <div className="my-4 font-[Nohemi] font-normal text-sm md:text-[16px] leading-[100%] tracking-[0.05em] text-center text-[#1A1A1A] md:mt-2">
                 OR
               </div>
 
               <button
-                onClick={() =>
-                  setFilters({
-                    displayAllOffers: true,
-                    region: [],
-                    style: [],
-                    offer: [],
-                    category: [],
-                    month: [],
-                    pricing: [],
-                    duration: [],
-                  })
-                }
-                className="h-[2.25vw] min-w-[10.5vw] rounded-full bg-[#2E348D]  text-[0.9vw]  text-white transition hover:bg-[#252b78] mt-2"
+                onClick={clearAllFilters}
+                className="h-11 px-6 md:h-[2.25vw] md:min-w-[10.5vw] rounded-full bg-[#2E348D] text-sm md:text-[0.9vw] text-white transition hover:bg-[#252b78] mt-2"
               >
                 Explore All Journeys
               </button>
-              <div className="w-full mt-16">
+              <div className="w-full mt-10 md:mt-16">
                 <div className="border-b-2 border-[#1A1A1A] mb-6">
-                  <h2 className="text-left text-[24px] font-medium pb-2 border-b-2">
+                  <h2 className="text-left text-lg md:text-[24px] font-medium pb-2 border-b-2">
                     Popular Journeys
                   </h2>
-                  {/* <span className="border-b border-[#1A1A1A] block mb-6 mt-2"></span> */}
                 </div>
 
                 <JourneyGrid journeys={popularJourneys} />
@@ -459,6 +482,16 @@ offer: item.attributes.field_offer_message || "",
 )}
         </div>
       </div>
+
+      <MobileFilters
+        filters={filters}
+        setFilters={setFilters}
+        filterOptions={filterOptions}
+        journeys={journeys}
+        sort={sort}
+        setSort={setSort}
+        resultCount={filteredJourneys.length}
+      />
     </div>
   );
 }

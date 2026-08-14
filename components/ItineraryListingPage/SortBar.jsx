@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ArrowUpDown } from "lucide-react";
 import ActiveFilters from "./ActiveFilters";
 
-const SORT_OPTIONS = [
+export const SORT_OPTIONS = [
   "Recommended",
   "Price: Low to High",
   "Price: High to Low",
