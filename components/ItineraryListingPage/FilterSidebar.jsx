@@ -324,9 +324,6 @@ export default function FilterSidebar({
     }
   }, [filterOptions.style, setFilters]);
 
-  return regionMatch;
-};
-
   const sections = (
     <>
       {/* REGION (Drupal: country) */}
@@ -650,4 +647,4 @@ export default function FilterSidebar({
       </div>
     </aside>
   );
-
+}
