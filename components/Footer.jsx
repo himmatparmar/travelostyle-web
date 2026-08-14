@@ -1,40 +1,83 @@
-"use client";
-
-import { useState } from "react";
 import { FaFacebookSquare, FaInstagram } from "react-icons/fa";
+import { getBlock, resolveRefs } from "@/lib/blockContent";
+import FooterNewsletterForm from "./FooterNewsletterForm";
 
-export default function Footer() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [agree, setAgree] = useState(false);
+const LINK_GROUPS_INCLUDE = "field_link_groups.field_links";
 
-  const handleSubscribe = () => {
-    if (!firstName || !email) {
-      alert("Please enter first name and email");
-      return;
-    }
+const FALLBACK_FOOTER = {
+  phone: "+1773 983 8067",
+  email: "info@travelostyle.com",
+  copyrightText: "© TravelOStyle 2026 | Designed by Eunoia Design House",
+  facebookUrl: "",
+  instagramUrl: "",
+  linkGroups: [
+    {
+      title: "Company",
+      links: [
+        { label: "About Us", url: "#" },
+        { label: "General FAQs", url: "#" },
+        { label: "Write To Us", url: "#" },
+        { label: "Travel Journal", url: "#" },
+      ],
+    },
+    {
+      title: "Travel",
+      links: [
+        { label: "All Journeys", url: "#" },
+        { label: "Group Journeys", url: "#" },
+        { label: "Private Journeys", url: "#" },
+        { label: "Tailor-Made Journey", url: "#" },
+        { label: "Offers", url: "#" },
+      ],
+    },
+    {
+      title: "Legal",
+      links: [
+        { label: "Booking Terms & Conditions", url: "#" },
+        { label: "Cookie Preferences", url: "#" },
+        { label: "Website Terms Of Use", url: "#" },
+        { label: "Privacy Policy", url: "#" },
+        { label: "Data Sharing Policy", url: "#" },
+        { label: "Email Opt-Out", url: "#" },
+        { label: "Site Map", url: "#" },
+      ],
+    },
+  ],
+};
 
-    if (!agree) {
-      alert("Please accept the checkbox");
-      return;
-    }
+async function getFooterContent() {
+  const result = await getBlock("site_footer", LINK_GROUPS_INCLUDE);
+  if (!result?.block) return null;
+  const { block, included } = result;
 
-    alert("Subscribed Successfully");
+  const linkGroups = resolveRefs(block, included, "field_link_groups").map((group) => ({
+    title: group.attributes?.field_group_title || "",
+    links: resolveRefs(group, included, "field_links").map((link) => ({
+      label: link.attributes?.field_label || "",
+      url: link.attributes?.field_url?.uri || "#",
+    })),
+  }));
+
+  return {
+    phone: block.attributes?.field_phone || "",
+    email: block.attributes?.field_email || "",
+    copyrightText: block.attributes?.field_copyright_text || "",
+    facebookUrl: block.attributes?.field_facebook_url?.uri || "",
+    instagramUrl: block.attributes?.field_instagram_url?.uri || "",
+    linkGroups: linkGroups.length ? linkGroups : FALLBACK_FOOTER.linkGroups,
   };
+}
 
-  const handleLinkClick = (linkName) => {
-    alert(`${linkName} clicked`);
-  };
+export default async function Footer() {
+  const footer = (await getFooterContent()) || FALLBACK_FOOTER;
+  const [companyGroup, travelGroup, ...restGroups] = footer.linkGroups;
 
   return (
     <footer
       className="w-full overflow-hidden bg-[#2C3078] text-[#FAFAFA] px-6 md:px-[110px] py-12 md:py-[24px]"
       style={{ fontFamily: "Nohemi" }}
     >
-     
       <div className="flex flex-col items-center pt-2 max-w-xl mx-auto md:max-w-none">
-    
         <div className="flex items-center gap-4 md:gap-10 w-full justify-center">
           <div className="w-[40px] md:w-[140px] h-[1px] bg-[#FAFAFA]" />
           <span className="text-[14px] md:text-[18px] tracking-[0.05em] whitespace-nowrap">
@@ -51,7 +94,6 @@ export default function Footer() {
           />
         </div>
 
-    
         <div className="flex items-center gap-4 md:gap-10 mt-4 w-full justify-center">
           <div className="w-[40px] md:w-[140px] h-[1px] bg-[#FAFAFA]" />
           <span className="text-[14px] md:text-[18px] tracking-[0.05em] whitespace-nowrap">
@@ -61,122 +103,86 @@ export default function Footer() {
         </div>
       </div>
 
-<div className="flex flex-col md:grid md:grid-cols-[120px_120px_180px_180px_minmax(0,1fr)] gap-10 md:gap-16 mt-16 md:mt-24 max-w-[340px] md:max-w-none mx-auto min-w-0">        
-   
+      <div className="flex flex-col md:grid md:grid-cols-[120px_120px_180px_180px_minmax(0,1fr)] gap-10 md:gap-16 mt-16 md:mt-24 max-w-[340px] md:max-w-none mx-auto min-w-0">
         <div className="grid grid-cols-2 gap-6 md:contents">
-      
-          <div>
-            <h3 className="text-[16px] md:text-[18px] font-medium tracking-[0.05em] leading-[22px] mb-4 md:mb-6">Company</h3>
-            <div className="space-y-3 text-[13px] md:text-[14px] font-light text-white/90">
-              <p className="cursor-pointer hover:underline" onClick={() => handleLinkClick("About Us")}>About Us</p>
-              <p className="cursor-pointer hover:underline" onClick={() => handleLinkClick("General FAQs")}>General FAQs</p>
-              <p className="cursor-pointer hover:underline" onClick={() => handleLinkClick("Write To Us")}>Write To Us</p>
-              <p className="cursor-pointer hover:underline" onClick={() => handleLinkClick("Travel Journal")}>Travel Journal</p>
+          {companyGroup && (
+            <div>
+              <h3 className="text-[16px] md:text-[18px] font-medium tracking-[0.05em] leading-[22px] mb-4 md:mb-6">
+                {companyGroup.title}
+              </h3>
+              <div className="space-y-3 text-[13px] md:text-[14px] font-light text-white/90">
+                {companyGroup.links.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.url}
+                    className="block cursor-pointer hover:underline"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
-          <div>
-            <h3 className="text-[16px] md:text-[18px] font-medium tracking-[0.05em] leading-[22px] mb-4 md:mb-6">Travel</h3>
-            <div className="space-y-3 text-[13px] md:text-[14px] font-light text-white/90">
-              <p className="cursor-pointer hover:underline">All Journeys</p>
-              <p className="cursor-pointer hover:underline">Group Journeys</p>
-              <p className="cursor-pointer hover:underline">Private Journeys</p>
-              <p className="cursor-pointer hover:underline">Tailor-Made Journey</p>
-              <p className="cursor-pointer hover:underline">Offers</p>
+          {travelGroup && (
+            <div>
+              <h3 className="text-[16px] md:text-[18px] font-medium tracking-[0.05em] leading-[22px] mb-4 md:mb-6">
+                {travelGroup.title}
+              </h3>
+              <div className="space-y-3 text-[13px] md:text-[14px] font-light text-white/90">
+                {travelGroup.links.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.url}
+                    className="block cursor-pointer hover:underline"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
-        <div>
-          <h3 className="text-[16px] md:text-[18px] font-medium tracking-[0.05em] leading-[22px] mb-4 md:mb-6">Legal</h3>
-          <div className="space-y-3 text-[13px] md:text-[14px] font-light text-white/90">
-            <p className="cursor-pointer tracking-[0.05em] leading-[17px]">Booking Terms & Conditions</p>
-            <p className="cursor-pointer tracking-[0.05em] leading-[17px]">Cookie Preferences</p>
-            <p className="cursor-pointer tracking-[0.05em] leading-[17px]">Website Terms Of Use</p>
-            <p className="cursor-pointer tracking-[0.05em] leading-[17px]">Privacy Policy</p>
-            <p className="cursor-pointer tracking-[0.05em] leading-[17px]">Data Sharing Policy</p>
-            <p className="cursor-pointer tracking-[0.05em] leading-[17px]">Email Opt-Out</p>
-            <p className="cursor-pointer tracking-[0.05em] leading-[17px]">Site Map</p>
+        {restGroups.map((group) => (
+          <div key={group.title}>
+            <h3 className="text-[16px] md:text-[18px] font-medium tracking-[0.05em] leading-[22px] mb-4 md:mb-6">
+              {group.title}
+            </h3>
+            <div className="space-y-3 text-[13px] md:text-[14px] font-light text-white/90">
+              {group.links.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.url}
+                  className="block cursor-pointer tracking-[0.05em] leading-[17px]"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
+        ))}
 
         <div>
           <h3 className="text-[16px] md:text-[18px] font-medium tracking-[0.05em] leading-[22px] mb-4 md:mb-6">
             Connect With Us
           </h3>
           <div className="flex gap-4 mb-4">
-            <FaFacebookSquare className="text-[24px] md:text-[26px] text-white cursor-pointer" />
-            <FaInstagram className="text-[24px] md:text-[26px] text-white cursor-pointer" />
+            <a href={footer.facebookUrl || "#"} aria-label="Facebook">
+              <FaFacebookSquare className="text-[24px] md:text-[26px] text-white cursor-pointer" />
+            </a>
+            <a href={footer.instagramUrl || "#"} aria-label="Instagram">
+              <FaInstagram className="text-[24px] md:text-[26px] text-white cursor-pointer" />
+            </a>
           </div>
-          <p className="text-[13px] md:text-[14px] font-light">+1773 983 8067</p>
-          <p className="text-[13px] md:text-[14px] font-light mt-1 md:mt-2">
-            info@travelostyle.com
-          </p>
+          <p className="text-[13px] md:text-[14px] font-light">{footer.phone}</p>
+          <p className="text-[13px] md:text-[14px] font-light mt-1 md:mt-2">{footer.email}</p>
         </div>
 
-    
-        <div className="min-w-0 mt-4 md:mt-0">
-          
-   
-          <label className="block text-[14px] font-medium mb-2 md:mb-3">
-            First Name*
-          </label>
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            placeholder="Your First Name"
-            className="w-full max-w-[708px] bg-transparent border-b border-white/60 focus:border-white outline-none pb-2 placeholder:text-white/40 text-[14px]"
-          />
-
-          <label className="block text-[14px] font-medium mt-6 md:mt-8 mb-2 md:mb-3">
-            Last Name*
-          </label>
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            placeholder="Your Last Name"
-            className="w-full max-w-[708px] bg-transparent border-b border-white/60 focus:border-white outline-none pb-2 placeholder:text-white/40 text-[14px]"
-          />
-
-          <div className="hidden md:block">
-            <label className="block font-medium mt-8 mb-3">
-              Email ID*
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Your Email ID"
-             className="w-full max-w-[708px] bg-transparent border-b border-white/60 focus:border-white outline-none pb-2 placeholder:text-white/40 text-[14px]"
-            />
-          </div>
-
-          <div className="flex items-start gap-3 mt-8 max-w-[290px] md:max-w-none">
-            <input
-              type="checkbox"
-              checked={agree}
-              onChange={(e) => setAgree(e.target.checked)}
-              className="w-5 h-5 md:w-8 md:h-8 cursor-pointer mt-0.5 shrink-0 rounded"
-            />
-            <span className="text-[11px] md:text-[14px] leading-tight text-white/90">    
-              I agree to receive news, updates and more from TravelOStyle
-            </span>
-          </div>
-          <button
-            onClick={handleSubscribe}
-            className="overflow-hidden mt-8 md:mt-10 w-full md:w-[366px] h-[44px] rounded-[100px] bg-[#FAFAFA] text-[#2C3078] text-[13px] md:text-[14px] font-bold md:font-semibold tracking-wide active:scale-95 transition-transform"
-          >
-            Subscribe To Our Newsletter
-          </button>
-        </div>
-
+        <FooterNewsletterForm />
       </div>
       <div className="mt-16 md:mt-20 border-t border-white/10 pt-6 text-center md:text-left text-[11px] md:text-[16px] font-medium tracking-[0.05em] md:tracking-[0.16em] text-white/70">
-        <span>
-          © TravelOStyle 2026 | Designed by Eunoia Design House
-        </span>
+        <span>{footer.copyrightText}</span>
       </div>
     </footer>
   );

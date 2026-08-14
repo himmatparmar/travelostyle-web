@@ -1,53 +1,30 @@
 import Image from "next/image";
 import Link from "next/link";
-import { slugify } from "@/lib/slugify";
+import { getAllBlogs, getBlogSlug, resolveBlogImage } from "@/lib/blog";
 
 export default async function RecommendedBlogs({ currentBlogId }) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/jsonapi/node/blog_detail?include=field_banner_image,field_banner_image.field_media_image,field_categories`,
-    {
-      cache: "no-store",
-    }
-  );
-
-  const { data, included } = await res.json();
+  const { data, included } = await getAllBlogs();
 
   const filteredBlogs = data.filter((item) => item.id !== currentBlogId);
 
   return (
     <>
       {filteredBlogs.slice(0, 3).map((blog) => {
-        const mediaId = blog.relationships.field_banner_image.data?.id;
-
-        const media = included.find(
-          (item) => item.type === "media--image" && item.id === mediaId
+        const imageUrl = resolveBlogImage(
+          blog,
+          included,
+          "field_banner_image",
+          "/recommended-blog.svg",
         );
 
-        const fileId = media?.relationships?.field_media_image?.data?.id;
-
-        const file = included.find(
-          (item) => item.type === "file--file" && item.id === fileId
-        );
-
-        const imageUrl = file
-          ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${file.attributes.uri.url}`
-          : "/recommended-blog.svg";
-
-        const categoryId = blog.relationships.field_categories.data[0]?.id;
+        const categoryId = blog.relationships?.field_categories?.data?.[0]?.id;
 
         const category = included.find(
-          (item) =>
-            item.type === "taxonomy_term--categories" &&
-            item.id === categoryId
+          (item) => item.type === "taxonomy_term--categories" && item.id === categoryId,
         );
 
         const categoryName = category?.attributes?.name || "Experiences";
-
-        const alias = (blog.attributes?.path?.alias || "").replace(
-          /^\/+/,
-          ""
-        );
-        const slug = alias || slugify(blog.attributes.title || "");
+        const slug = getBlogSlug(blog);
 
         return (
           <div
@@ -95,7 +72,7 @@ export default async function RecommendedBlogs({ currentBlogId }) {
 <div className="mt-[10px] px-[14px] pb-[12px]">
   <div className="border-t border-[#1A1A1A]" />
   <Link
-    href={`/blog-detail/${slug}`}
+    href={`/blog/${slug}`}
     className="mt-[10px] flex items-center justify-between"
   >
     <span className="font-[Nohemi] text-[16px] font-semibold leading-[40px] tracking-[0.05em] text-[#1A1A1A]">

@@ -166,7 +166,7 @@ export default function BlogGrid({ blogs, categories }) {
               <div className="border-t border-[#1A1A1A]" />
 
               <Link
-                href={`/blog-detail/${blog.slug}`}
+                href={`/blog/${blog.slug}`}
                 className="mt-[10px] flex items-center justify-between"
               >
                 <span

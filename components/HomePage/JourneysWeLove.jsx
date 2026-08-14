@@ -1,9 +1,8 @@
 // import { toast } from "sonner";
-import { API_BASE_URL, buildFileUrl } from "@/lib/config";
-import { slugify } from "@/lib/slugify";
 import { CirclePlus, Info } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { getJourneyCards } from "@/lib/journeyCard";
 
 export default function JourneysWeLove({ onlyPopular = false, onlyWithOffer = false }) {
   const [trips, setTrips] = useState([]);
@@ -11,96 +10,41 @@ export default function JourneysWeLove({ onlyPopular = false, onlyWithOffer = fa
   useEffect(() => {
     async function loadJourneys() {
       try {
-        const res = await fetch(
-          `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month`,
-        );
-        const json = await res.json();
-        const included = json.included || [];
-
-        let journeyItems = json.data || [];
+        let drupalJourneys = await getJourneyCards();
 
         if (onlyPopular) {
-          journeyItems = journeyItems.filter(
-            (item) => item.attributes?.field_is_popular === true,
-          );
+          drupalJourneys = drupalJourneys.filter((journey) => journey.isPopular);
         }
 
         if (onlyWithOffer) {
-          journeyItems = journeyItems.filter((item) =>
-            String(item.attributes?.field_offer_message || "").trim(),
+          drupalJourneys = drupalJourneys.filter((journey) =>
+            String(journey.earlyBird || "").trim(),
           );
         }
 
-        const drupalJourneys = journeyItems.map((item, index) => {
-          const mediaId = item.relationships?.field_journey_image?.data?.id;
-
-          const mediaEntity = included.find(
-            (inc) => inc.type === "media--image" && inc.id === mediaId,
-          );
-
-          const fileId =
-            mediaEntity?.relationships?.field_media_image?.data?.id;
-
-          const fileEntity = included.find(
-            (inc) => inc.type === "file--file" && inc.id === fileId,
-          );
-
-          const rawUrl = fileEntity?.attributes?.uri?.url;
-
-          const imageUrl = buildFileUrl(rawUrl) || "/GoldenTriange.svg";
-
-          const tagData = item.relationships?.field_journey_tag?.data;
-          const tagArray = Array.isArray(tagData)
-            ? tagData
-            : tagData
-              ? [tagData]
-              : [];
-
-          const tagNames = tagArray
-            .map((tag) => {
-              const tagEntity = included.find(
-                (inc) =>
-                  inc.type === "taxonomy_term--tags" && inc.id === tag.id,
-              );
-              return tagEntity?.attributes?.name;
-            })
-            .filter(Boolean);
-
-          const cta = item.attributes?.field_cta;
-          const alias = item.attributes?.path?.alias || "";
-          let viewTripUrl = alias || `/journey/${slugify(item.attributes?.title || "")}`;
-          if (cta?.uri && !cta.uri.startsWith("entity:")) {
-            viewTripUrl = cta.uri;
-          }
-
-          return {
-            id: item.id,
-            title: item.attributes?.title || "",
-            desc: item.attributes?.field_short_description || "",
-            days: `${item.attributes?.field_duration_days || 0} Days | ${
-              item.attributes?.field_duration_nights || 0
-            } Nights`,
-            destinations: `${
-              item.attributes?.field_destinations_count || 0
-            } Destinations`,
-            price: Number(item.attributes?.field_offer_price) || 0,
-            offer: item.attributes?.field_offer_message || "",
-            image: imageUrl,
-            tags: tagNames,
-            viewTripUrl,
-            viewTripText: cta?.title || "View Trip",
+        setTrips(
+          drupalJourneys.map((journey, index) => ({
+            id: journey.id,
+            title: journey.title,
+            desc: journey.description,
+            days: journey.duration,
+            destinations: journey.destinations,
+            price: journey.price,
+            offer: journey.earlyBird || "",
+            image: journey.image,
+            tags: journey.types,
+            viewTripUrl: journey.viewTripUrl,
+            viewTripText: journey.viewTripText,
             active: index === 0,
-          };
-        });
-
-        setTrips(drupalJourneys);
+          })),
+        );
       } catch (err) {
         console.error("FETCH ERROR", err);
       }
     }
 
     loadJourneys();
-  }, []);
+  }, [onlyPopular, onlyWithOffer]);
 
   const scrollRef = useRef(null);
 
