@@ -96,7 +96,7 @@ export default async function AboutUs() {
       
       <GuestReview />
       <LetsFindOut />
-       <Footer />
+      <Footer />
     </div>
   );
 }

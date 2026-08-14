@@ -27,24 +27,24 @@ export default function TravelExperience() {
   ];
 
   return (
-    <section className="px-[113px] py-[100px]">
+    <section className="px-4 md:px-[60px] lg:px-[113px] py-[50px] md:py-[100px]">
       <div className="overflow-hidden rounded-[6px] border border-[#4A4A4A]">
-        
+
         {/* Heading */}
-        <div className="h-[70px] bg-[#E7ECC7] flex items-center justify-center border-b border-[#4A4A4A]">
-          <h2 className="text-[22px] font-semibold">
+        <div className="min-h-[70px] py-3 px-4 bg-[#E7ECC7] flex items-center justify-center text-center border-b border-[#4A4A4A]">
+          <h2 className="text-[18px] md:text-[22px] font-semibold">
             Our Idea Of A Good Travel Experience
           </h2>
         </div>
 
         {/* Content */}
-        <div className="grid grid-cols-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6">
           {items.map((item, index) => (
             <div
               key={index}
-              className={`p-6 min-h-[260px] ${
+              className={`p-6 min-h-0 md:min-h-[260px] ${
                 index !== items.length - 1
-                  ? "border-r border-[#4A4A4A]"
+                  ? "border-b lg:border-b-0 lg:border-r border-[#4A4A4A]"
                   : ""
               }`}
             >
