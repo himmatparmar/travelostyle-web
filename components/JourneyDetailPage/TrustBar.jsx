@@ -1,12 +1,13 @@
 "use client";
 import { useRouter } from "next/navigation";
-const trustItems = [
+
+const FALLBACK_TRUST_ITEMS = [
   "Trusted local partners",
   "24/7 on-ground support",
   "Transparent inclusions",
 ];
 
-export default function TrustBar() {
+export default function TrustBar({ trustItems = FALLBACK_TRUST_ITEMS }) {
   const router = useRouter();
   return (
     <div className="w-full border-y border-[#EAE0D8] bg-[#F2E2DA] hidden md:block">

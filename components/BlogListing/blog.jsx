@@ -1,28 +1,17 @@
 import Image from "next/image";
 import heroImage from "./Hero.png";
 import BlogGrid from "./BlogGrid";
-import { slugify } from "@/lib/slugify";
+import { API_BASE_URL } from "@/lib/config";
+import { getAllBlogs, getBlogSlug, resolveBlogImage, resolveBlogCategories } from "@/lib/blog";
 
 export default async function Blog() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/jsonapi/node/blog_detail?include=field_banner_image,field_banner_image.field_media_image,field_categories`,
-    {
-      cache: "no-store",
-    }
-  );
-
-  const { data, included = [] } = await res.json();
-
   // Pagination (9 per page = 3 columns x 3 rows) is handled client-side
   // inside BlogGrid, so all blogs are resolved here.
-  const blogs = data || [];
+  const { data: blogs, included } = await getAllBlogs();
 
-  const categoryRes = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/jsonapi/taxonomy_term/categories`,
-    {
-      cache: "no-store",
-    }
-  );
+  const categoryRes = await fetch(`${API_BASE_URL}/jsonapi/taxonomy_term/categories`, {
+    cache: "no-store",
+  });
 
   const { data: categoryData = [] } = await categoryRes.json();
 
@@ -32,34 +21,14 @@ export default async function Blog() {
   ];
 
   const resolvedBlogs = blogs.map((blog) => {
-    const mediaId = blog.relationships?.field_banner_image?.data?.id;
-
-    const media = included.find(
-      (item) => item.type === "media--image" && item.id === mediaId
+    const imageUrl = resolveBlogImage(
+      blog,
+      included,
+      "field_banner_image",
+      "/recommended-blog.svg",
     );
 
-    const fileId = media?.relationships?.field_media_image?.data?.id;
-
-    const file = included.find(
-      (item) => item.type === "file--file" && item.id === fileId
-    );
-
-    const imageUrl = file
-      ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${file.attributes.uri.url}`
-      : "/recommended-blog.svg";
-
-    const categoryRefs = blog.relationships?.field_categories?.data || [];
-
-    const categoryNames = categoryRefs
-      .map((ref) => {
-        const cat = included.find(
-          (item) =>
-            item.type === "taxonomy_term--categories" && item.id === ref.id
-        );
-        return cat?.attributes?.name;
-      })
-      .filter(Boolean);
-
+    const categoryNames = resolveBlogCategories(blog, included).map((cat) => cat.attributes.name);
     const categoryName = categoryNames[0] || "Experiences";
 
     const dateLabel = new Date(blog.attributes.created).toLocaleDateString(
@@ -71,9 +40,6 @@ export default async function Blog() {
       }
     );
 
-    const alias = (blog.attributes?.path?.alias || "").replace(/^\/+/, "");
-    const slug = alias || slugify(blog.attributes.title || "");
-
     return {
       id: blog.id,
       title: blog.attributes.title,
@@ -81,7 +47,7 @@ export default async function Blog() {
       categoryName,
       categoryNames,
       dateLabel,
-      slug,
+      slug: getBlogSlug(blog),
     };
   });
 

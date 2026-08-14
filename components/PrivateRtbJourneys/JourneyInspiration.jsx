@@ -2,10 +2,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import TravelJourneyCard from "../TravelJourneyCard";
-import { API_BASE_URL, buildFileUrl } from "@/lib/config";
-import JourneyCard from "../ItineraryListingPage/JourneyCard";
-import { slugify } from "@/lib/slugify";
-import JourneyList from "../JourneyList/JourneyList";
+import { getJourneyCards, filterByType } from "@/lib/journeyCard";
 
 
 
@@ -69,103 +66,17 @@ const handleCompareSelection = (trip) => {
 
  
   useEffect(() => {
-  async function loadJourneys() {
-    try {
-      const res = await fetch(
-        `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month`
-      );
-
-      const json = await res.json();
-      const included = json.included || [];
-
-      const drupalJourneys = (json.data || []).map((item) => {
-        const mediaId =
-          item.relationships?.field_journey_image?.data?.id;
-
-        const mediaEntity = included.find(
-          (inc) =>
-            inc.type === "media--image" &&
-            inc.id === mediaId
-        );
-
-        const fileId =
-          mediaEntity?.relationships?.field_media_image?.data?.id;
-
-        const fileEntity = included.find(
-          (inc) =>
-            inc.type === "file--file" &&
-            inc.id === fileId
-        );
-
-        const rawUrl = fileEntity?.attributes?.uri?.url;
-
-        const imageUrl =
-          buildFileUrl(rawUrl) || "/GoldenTriange.svg";
-
-        const tagData =
-          item.relationships?.field_journey_tag?.data;
-
-        const tagArray = Array.isArray(tagData)
-          ? tagData
-          : tagData
-          ? [tagData]
-          : [];
-
-        const tagNames = tagArray
-          .map((tag) => {
-            const tagEntity = included.find(
-              (inc) =>
-                inc.type === "taxonomy_term--tags" &&
-                inc.id === tag.id
-            );
-
-            return tagEntity?.attributes?.name;
-          })
-          .filter(Boolean);
-const cta = item.attributes?.field_cta;
-
-const alias = item.attributes?.path?.alias || "";
-let viewTripUrl = alias || `/journey/${slugify(item.attributes?.title || "")}`;
-
-if (cta?.uri && !cta.uri.startsWith("entity:")) {
-  viewTripUrl = cta.uri;
-}
-        return {
-          id: item.id,
-          title: item.attributes?.title || "",
-          description:
-            item.attributes?.field_short_description || "",
-          duration: `${item.attributes?.field_duration_days || 0} Days | ${
-            item.attributes?.field_duration_nights || 0
-          } Nights`,
-          destinations: `${
-            item.attributes?.field_destinations_count || 0
-          } Destinations`,
-          price:
-            Number(item.attributes?.field_offer_price) || 0,
-          earlyBird:
-            item.attributes?.field_offer_message || null,
-          image: imageUrl,
-          types: tagNames,
-           viewTripUrl,
-  viewTripText: cta?.title || "View Trip",
-        };
-      });
-
-     const privateJourneys = drupalJourneys.filter((journey) =>
-  journey.types?.includes("Private Journey")
-);
-
-
-
-setJourneys(privateJourneys);
-    } catch (err) {
-      console.error(err);
+    async function loadJourneys() {
+      try {
+        const drupalJourneys = await getJourneyCards();
+        setJourneys(filterByType(drupalJourneys, "Private Journey"));
+      } catch (err) {
+        console.error(err);
+      }
     }
-  }
 
-  loadJourneys();
-}, []);
+    loadJourneys();
+  }, []);
   return (
     <div className=" min-h-screen py-16 px-4 sm:px-6 lg:px-8 font-sans">
       <div className="text-center mb-12">

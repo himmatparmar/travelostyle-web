@@ -6,11 +6,20 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { buildFileUrl } from "@/lib/config";
 
+const FALLBACK_HEADING =
+  "Experience the world's most loved destinations; without the guesswork.";
+const FALLBACK_DESCRIPTION =
+  "From the spice-laced alleyways of Marrakech to the art-rich museums of Rome—choose from the journeys that our travelers come home raving about.";
+
 export default function PopularDestinations({
   journeys,
   included,
+  heroHeading,
+  heroDescription,
 }) {
   const router = useRouter();
+  const heading = heroHeading || FALLBACK_HEADING;
+  const description = heroDescription || FALLBACK_DESCRIPTION;
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -41,13 +50,6 @@ export default function PopularDestinations({
       image: buildFileUrl(rawUrl) || "/italy.svg",
     };
   });
-
-  console.log(
-    "POPULAR DESTINATIONS RECEIVED:",
-    popularJourneys.map(
-      (item) => item.attributes?.title
-    )
-  );
 
   // Drupal mein koi Popular = Yes nahi hai
   // toh poora section hide
@@ -155,14 +157,11 @@ export default function PopularDestinations({
           <div className="absolute top-[170px] left-[70px] z-10 max-w-[560px]">
 
             <h1 className="text-white text-[54px] font-semibold leading-[60px]">
-              Experience the worlds most loved destinations; without the
-              guesswork.
+              {heading}
             </h1>
 
             <p className="mt-6 text-white/90 text-[14px] leading-[24px] max-w-[500px]">
-              From the spice-laced alleyways of Marrakech to the art-rich
-              museums of Rome—choose from the journeys that our travelers come
-              home raving about.
+              {description}
             </p>
 
             <button className="mt-8 rounded-full bg-white px-6 py-3 text-[14px] font-semibold text-[#2E2787]">

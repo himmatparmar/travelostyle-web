@@ -1,12 +1,12 @@
 import Footer from "../../components/Footer";
-import Index from "../../components/PrivateRtbJourneys";
+import PrivateJourneyContent from "../../components/PrivateRtbJourneys/PrivateJourneyContent";
 import SearchBar from "../../components/HomePage/FindYourJourney/SearchBar";
 
 export default function Page() {
   return (
     <>
        <SearchBar/>
-       <Index/>
+       <PrivateJourneyContent/>
       <Footer />
     </>
   );
