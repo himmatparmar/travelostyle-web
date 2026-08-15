@@ -97,8 +97,7 @@ export default function TravelForm() {
           onClick={() =>
             setActiveDropdown(activeDropdown === "travel" ? null : "travel")
           }
-          className="flex h-[2.1vw] flex-1 items-center justify-between rounded border border-gray-400 bg-white px-4"
-        >
+className="flex h-[42px] w-[496px] items-center justify-between rounded border-[1.5px] border-gray-400 bg-white px-4"        >
           <span className="text-[0.7vw]">{selectedTravelType}</span>
 
           {activeDropdown === "travel" ? (
@@ -114,8 +113,7 @@ export default function TravelForm() {
               activeDropdown === "destination" ? null : "destination",
             )
           }
-          className="flex h-[2.1vw] flex-1 items-center justify-between rounded border border-gray-400 bg-white px-4"
-        >
+className="flex h-[42px] w-[410px] items-center justify-between rounded border-[1.5px] border-gray-400 bg-white px-4"        >
           <span className="truncate text-[0.7vw]">
             {selectedDestinations.length
               ? selectedDestinations.length > 3
@@ -137,8 +135,7 @@ export default function TravelForm() {
           onClick={() =>
             setActiveDropdown(activeDropdown === "date" ? null : "date")
           }
-          className="flex h-[2.1vw] flex-1 items-center justify-between rounded border border-gray-400 bg-white px-4 "
-        >
+className="flex h-[42px] w-[470px] items-center justify-between rounded border-[1.5px] border-gray-400 bg-white px-4"        >
           <span className="truncate text-[0.7vw]">
             {selectedMonths.length || selectedDuration
               ? `${selectedMonths.join(", ")}${
@@ -154,12 +151,12 @@ export default function TravelForm() {
           )}
         </button>
 
-        <button
-          onClick={handleFindJourney}
-          className="h-[2.25vw] min-w-[10.5vw] rounded-full bg-[#2E348D]  text-[0.9vw]  text-white transition hover:bg-[#252b78]"
-        >
-          Find Your Journey
-        </button>
+     <button
+  onClick={handleFindJourney}
+  className="mb-3 w-[210px] h-[45px] px-[21px] py-3 bg-[#2F2E8B] text-white text-[14px] font-medium rounded-[100px] flex items-center justify-center gap-[10px]"
+>
+  Find Journey
+</button>
       </div>
       {/* <div className="mt-3 h-[1px] bg-[#2C3078] mx-[-60px]"></div> */}
       {activeDropdown === "travel" && (

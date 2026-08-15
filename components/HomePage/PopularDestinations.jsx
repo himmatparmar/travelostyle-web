@@ -224,14 +224,14 @@ export default function PopularDestinations({
             <p className="text-[11px] text-white/70">
               Images are only for representation purposes
             </p>
-
-            <button
-              onClick={() => router.push("/comparison")}
-              className="mb-5 hidden md:flex items-center justify-center h-[36px] px-5 rounded-[6px] bg-[#2E2787] text-white text-[14px] font-semibold border border-white hover:bg-[#3B33A0] transition-colors"
-            >
-              Compare Trips
-            </button>
-
+<button
+  onClick={() => router.push("/comparison")}
+  className="mb-5 hidden md:flex box-border h-[47px] w-[210px] items-center justify-center gap-[10px] rounded-[10px] border-2 border-white bg-[#2E2787] px-[24px] py-[16px] text-white transition-colors hover:bg-[#3B33A0]"
+>
+  <span className="h-[15px] w-[162px] whitespace-nowrap text-center text-[15px] leading-[15px] font-semibold">
+    Compare Trips
+  </span>
+</button>
           </div>
 
         </div>

@@ -244,13 +244,15 @@ export default function JourneysWeLove({ onlyPopular = false, onlyWithOffer = fa
                     </div>
                   </div>
 
-                  <a
-                    href={trip.viewTripUrl}
-                    onClick={(e) => e.stopPropagation()}
-                    className="rounded-full bg-[#2B2D6C] px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-[#202254] md:px-[1.1vw] md:py-[0.45vw] md:text-[0.68vw]"
-                  >
-                    {trip.viewTripText || "View Trip"}
-                  </a>
+               <a
+  href={trip.viewTripUrl}
+  onClick={(e) => e.stopPropagation()}
+  className="flex h-[35px] w-[110px] items-center justify-center gap-[10px] rounded-[100px] bg-[#2B2D6C] px-[24px] py-[10px] text-white transition-colors hover:bg-[#202254]"
+>
+  <span className="w-[88px] h-[13px] text-[13px] leading-[13px] font-medium text-center">
+    {trip.viewTripText || "View Trip"}
+  </span>
+</a>
                 </div>
 
                 {trip?.offer ? (
