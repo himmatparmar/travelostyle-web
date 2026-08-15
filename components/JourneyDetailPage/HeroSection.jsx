@@ -95,7 +95,7 @@ export default function HeroSection({
 
       <div className="relative w-full overflow-hidden  " style={{ height: "40vw" }}>
         <Image
-          src={journey.image || "/Morocco.jpg"}
+          src={journey.image || "/Morocco.svg"}
           alt={journey.title || "Journey"}
           fill
           unoptimized
@@ -103,147 +103,105 @@ export default function HeroSection({
           priority
         />
 
-      <div
-  className="absolute left-[80px] top-[40px] z-8 h-[420px] w-[300px] border-2 rounded border-[#2f2d89] bg-white shadow-[0_6px_28px_rgba(0,0,0,0.22)]"
-  style={{ padding: "1.3vw" }}
->
-        <h1 className="w-[300px] h-[17px] text-[17px] font-bold leading-[17px] text-[#1A1A1A]">
-  {journey.title}
-</h1>
-        <p className="mt-[10px] w-[250px] h-[59px] text-[13px] leading-[19px] text-[#444]">
-  {journey.desc}
-</p>
-          <div className="mt-[12px] flex items-center text-[11px] leading-[11px] text-[#333]">
-  
-  <div className="flex w-[180px] items-center gap-[3px]">
-    <Clock3 size={11} strokeWidth={1.8} />
-    <span>{journey.days || "13 Days | 12 Nights"}</span>
-  </div>
+        <div
+          className="absolute left-[3vw] top-[5vw] z-10 w-[18vw] rounded-[0.35vw] border-2 border-[#2f2d89] bg-white shadow-[0_6px_28px_rgba(0,0,0,0.22)]"
+          style={{ padding: "1.3vw" }}
+        >
+          <h1 className="text-[1.2vw] font-bold leading-[1.28] text-[#1A1A1A]">
+            {journey.title}
+          </h1>
+          <p className="mt-[0.5vw] text-[0.63vw] leading-[1.6] text-[#444]">
+            {journey.desc}
+          </p>
+          <div className="mt-[0.75vw] flex items-center gap-[1vw] text-[0.6vw] text-[#333]">
+            <div className="flex items-center gap-[0.28vw]">
+              <Clock3 size={11} strokeWidth={1.8} />
+              <span>{journey.days || "13 Days | 12 Nights"}</span>
+            </div>
+            <div className="flex items-center gap-[0.28vw]">
+              <MapPin size={11} strokeWidth={1.8} />
+              <span>{journey.destinations || "10 Destinations"}</span>
+            </div>
+          </div>
 
-  <div className="ml-[58px] flex w-[150px] items-center gap-[2px]">
-    <MapPin size={11} strokeWidth={1.8} />
-    <span>{journey.destinations || "10 Destinations"}</span>
-  </div>
-
-</div>
           <div className="my-[0.7vw] border-t border-[#EBEBEB]" />
 
-          <div className="mt-[15px] flex flex-col text-[11px] leading-[11px]">
-
-  {/* Starts In */}
-  <div className="h-[10px] w-[184px]">
-    <span className="font-bold text-[#1A1A1A]">
-      Starts In:{" "}
-    </span>
-    <span className="text-[#444]">
-      {journey.startCity || "Casablanca"}
-    </span>
-  </div>
-
-  {/* Ends In */}
-  <div className="mt-[10px] h-[11px] w-[160px]">
-    <span className="font-bold text-[#1A1A1A]">
-      Ends In:{" "}
-    </span>
-    <span className="text-[#444]">
-      {journey.endCity || "Marrakech"}
-    </span>
-  </div>
-
-  {/* Best Seasons */}
-  <div className="mt-[10px] h-[11px] w-[306px]">
-    <span className="font-bold text-[#1A1A1A]">
-      Best Seasons:{" "}
-    </span>
-    <span className="text-[#444]">
-      {journey.bestSeason || "Jan–March, July–Sep"}
-    </span>
-  </div>
-
-  {/* Pace */}
-  <div className="mt-[10px] h-[11px] w-[132px]">
-    <span className="font-bold text-[#1A1A1A]">
-      Pace:{" "}
-    </span>
-    <span className="text-[#444]">
-      {journey.pace || "Moderate"}
-    </span>
-  </div>
-
-</div>
+          <div className="flex flex-col gap-[0.3vw] text-[0.63vw]">
+            <div>
+              <span className="font-bold text-[#1A1A1A]">Starts In: </span>
+              <span className="text-[#444]">{journey.startCity || "Casablanca"}</span>
+            </div>
+            <div>
+              <span className="font-bold text-[#1A1A1A]">Ends In: </span>
+              <span className="text-[#444]">{journey.endCity || "Marrakech"}</span>
+            </div>
+            <div>
+              <span className="font-bold text-[#1A1A1A]">Best Seasons: </span>
+              <span className="text-[#444]">{journey.bestSeason || "Jan–March, July–Sep"}</span>
+            </div>
+            <div>
+              <span className="font-bold text-[#1A1A1A]">Pace: </span>
+              <span className="text-[#444]">{journey.pace }</span>
+            </div>
+          </div>
 
           {/* Divider */}
-        <div className="mt-[10px]">
+         <div className="flex items-start gap-[0.7vw]">
+  <div className="shrink-0">
 
-  {/* From */}
-  <p className="h-[9px] w-[30px] text-[9px] leading-[9px] text-[#787878]">
-    from
-  </p>
+    {/* From */}
+    <p className="text-[0.52vw] text-[#787878]">
+      from
+    </p>
 
-  {/* Amount + /person */}
-  {/* From */}
+    {/* Offer Price */}
+    <p className="text-[1.15vw] font-bold leading-none text-[#1D1D1D]">
+      ${Number(journey.offerPrice).toLocaleString()}
+      <span className="text-[0.55vw]">*</span>
+    </p>
 
-
-  {/* PRICE + OFFER BESIDE EACH OTHER */}
-  <div className="flex items-start gap-[10px]">
-
-    {/* PRICE BLOCK */}
-    <div>
-      {/* Offer Price */}
-      <div className="flex items-baseline gap-[2px]">
-        <p className="h-[15px] text-[15px] font-bold leading-[15px] text-[#1D1D1D]">
-          ${Number(journey.offerPrice).toLocaleString()}
-          <span className="text-[9px]">*</span>
-        </p>
-
-        {/* Per person */}
-        <span className="text-[9px] leading-[9px] text-[#777]">
-          /person
+    {/* Original Price */}
+    {journey.originalPrice && (
+      <p className="mt-[0.25vw] text-[0.55vw] font-medium text-[#777]">
+        was{" "}
+        <span className="line-through">
+          ${Number(journey.originalPrice).toLocaleString()}
         </span>
-      </div>
-
-      {/* Original Price */}
-      {journey.originalPrice && (
-        <p className="mt-[5px] text-[9px] leading-[9px] text-[#777]">
-          was{" "}
-          <span className="line-through">
-            ${Number(journey.originalPrice).toLocaleString()}
-          </span>
-        </p>
-      )}
-
-      {/* Double occupancy */}
-      <p className="mt-[5px] text-[9px] leading-[9px] text-[#777]">
-        double occupancy
       </p>
-    </div>
-
-    {/* OFFER BESIDE PRICE */}
-    {journey?.offer && (
-      <span
-        className="mt-[1px] flex h-[35px] w-[150px] shrink-0 items-center justify-center rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
-        style={{
-          backgroundColor: "#F2E2DA",
-          color: "#000000",
-        }}
-      >
-        {journey.offer}
-      </span>
     )}
+
+    {/* Per person */}
+    <p className="mt-[0.12vw] text-[0.46vw] leading-[1.3] text-[#777]">
+      /person
+      <br />
+      double occupancy*
+    </p>
 
   </div>
 
-</div>
+          {journey?.offer && (
+  <span
+    className="cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
+    style={{
+      backgroundColor: "#F2E2DA",
+      color: "#000000",
+    }}
+  >
+    {journey.offer}
+  </span>
+)}
+          </div>
 
-       <button className="mt-[0.8vw] flex h-[37px] w-[200px] items-center justify-center rounded-full bg-[#2D3482] px-[24px] py-[12px] text-[12px] font-semibold leading-[12px] text-white transition hover:bg-[#252b78]">
-  Request a Private Journey
-</button>
-<div className="mt-[15px] h-[11px] w-[378px] text-[11px] leading-[8px] text-[#555]">
-          Want to make this itinerary entirely your own?
+          <button className="mt-[0.8vw] h-[20px] w-[150px] rounded-full bg-[#2D3482] text-[0.7vw] font-semibold text-white transition hover:bg-[#252b78]">
+            Request a Private Journey
+          </button>
+
+          <div className="mt-[0.65vw] text-[0.57vw] text-[#555]">
+            Want to make this itinerary entirely your own?
             <br />
-           <button className="mt-[0.6vw] h-[11px] w-[226px] text-left text-[11px] font-bold leading-[11px] text-[#1A1A1A] underline underline-offset-[2px]">
-  Tailor This Journey For You
-</button>
+            <button className="mt-[0.1vw] font-bold text-[#1A1A1A] underline underline-offset-[2px]">
+              Tailor This Journey For You
+            </button>
           </div>
         </div>
       </div>
