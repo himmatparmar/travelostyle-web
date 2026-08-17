@@ -80,13 +80,7 @@ export default function JourneySection() {
         <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
     
           <div className="absolute top-[-20px] right-[47px] w-[170px] opacity-100">
-            <Image
-              src="/ResLine1Journey.svg"
-              alt=""
-              width={170}
-              height={80}
-              className="w-full h-auto"
-            />
+         
           </div>
           <div className="absolute top-[217px] left-[-5px]   opacity-100">
             <Image
@@ -97,51 +91,72 @@ export default function JourneySection() {
               className="w-full h-auto"
             />
           </div>
-          <div className="absolute top-[283px] opacity-100 width-[315px]">
+          <div className="absolute top-[283px] opacity-100 width-[180px]">
             <Image
               src="/ResLine3Journey.svg"
               alt=""
-              width={210}
+              width={180}
               height={100}
               className="w-full h-auto"
             />
           </div>
         </div>
 
-        <div className="relative z-10 w-full">
-          <h2 className="font-taprom text-[28px] leading-[24px] font-medium text-[#2A2522]">
-            <span className="bg-[#F1E3D8] px-[4px] py-[1px] inline-block">
-              Journeys made
-            </span>
+      <div className="absolute top-[-7vw] right-[35px] w-[170px] z-0 pointer-events-none">
+    <Image
+      src="/ResLine1Journey.svg"
+      alt=""
+      width={170}
+      height={80}
+      className="w-full h-auto"
+    />
+  </div>
 
-            <br />
-            <span className="bg-[#F1E3D8] px-[4px] py-[1px] inline-block mt-[8px]">
-              for you, by you &
-            </span>
-            <br />
-            <span className="bg-[#F1E3D8] px-[4px] py-[1px] inline-block mt-[8px]">
-              with you.
-            </span>
-          </h2>
-          <p className="mt-4 max-w-[285px] text-[14px] leading-6 text-[#3E3E3E] font-sans">
-            Make travel feel calmer, clearer, and more worth it with
-            TravelOstyle.
-          </p>
-        </div>
+  <div className=" relative z-10 w-full pt-[35px]">
+   <h2
+  className="
+    font-taprom
+    font-normal
+    text-[11vw]
+    leading-[27px]
+    tracking-[0.01em]
+    text-[#2A2522]
+  "
+>
+  <span className="inline-block bg-[#F1E3D8] px-[3px] py-[1px]">
+    Journeys made
+  </span>
+
+  <br />
+
+  <span className="inline-block bg-[#F1E3D8] px-[3px] py-[1px]">
+    for you, by you &
+  </span>
+
+  <br />
+
+  <span className="inline-block bg-[#F1E3D8] px-[3px] py-[1px]">
+    with you.
+  </span>
+</h2>
+    <p className="mt-4 max-w-[285px] text-[14px] leading-[24px] text-[#3E3E3E] font-sans">
+      Make travel feel calmer, clearer, and more worth it with TravelOstyle.
+    </p>
+  </div>
 
         <div className="relative mt-8 h-[355px] w-full z-10">
-          <div className="absolute left-[90px] top-[71px] z-30 text-[#4043A8]">
+          <div className="absolute left-[123px] top-[58px] z-30 text-[#4043A8]">
             <Image src="/star.svg" alt="star" width={18} height={18} />
           </div>
 
-          <div className="absolute right-[120px] bottom-[50px] z-30 text-[#4043A8]">
+          <div className="absolute right-[140px] bottom-[45px] z-30 text-[#4043A8]">
             <Image src="/star.svg" alt="star" width={20} height={20} />
           </div>
-          <div className="absolute right-[126px] bottom-[18px] z-30 text-[#4043A8]">
+          <div className="absolute right-[155px] bottom-[32px] z-30 text-[#4043A8]">
             <Image src="/star.svg" alt="star" width={30} height={30} />
           </div>
 
-          <div className="absolute right-[-19px] top-0 rotate-[-8deg] bg-white border-[2px] border-[#4043A8] p-[2px] pb-5 shadow-md z-10">
+          <div className="absolute right-[-20px] top-0 rotate-[-6deg] bg-white border-[2px] border-[#4043A8] p-[2px] pb-5 shadow-md z-10">
             <Image
               src="/Tree.svg"
               alt="Palm Tree Horizon"
@@ -151,7 +166,7 @@ export default function JourneySection() {
             />
           </div>
 
-          <div className="absolute left-[-26px] top-[105px] rotate-[5deg] bg-white border-[2px] border-[#4043A8] p-[8px] pb-5 shadow-lg z-20">
+          <div className="absolute left-[-16px] top-[84px] rotate-[8deg] bg-white border-[2px] border-[#4043A8] p-[8px] pb-5 shadow-lg z-20">
             <Image
               src="/Road.svg"
               alt="Scenic Mountain Road"
