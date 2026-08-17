@@ -106,13 +106,12 @@ export default function JourneysWeLove({ onlyPopular = false, onlyWithOffer = fa
         className="flex w-full items-start gap-4 overflow-x-auto scroll-smooth pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden max-md:snap-x max-md:snap-mandatory md:w-[62vw] md:gap-[1.4vw]"
       >
         {trips.map((trip, index) => (
-          <div
-            key={index}
-            onClick={() => handleCompareSelection(trip)}
-            className={`relative flex h-auto w-[85vw] min-w-[85vw] shrink-0 cursor-pointer flex-col overflow-hidden rounded-xl border bg-white p-4 pb-6 shadow-sm max-md:snap-center md:w-[18.7vw] md:min-w-[18.7vw] md:rounded-[0.8vw] md:p-[0.9vw] md:pb-[1.2vw] ${
-              trip.active ? "border-[#2B2D6C]" : "border-[#E8E8E8]"
-            }`}
-          >
+         <div
+  key={index}
+  className={`relative flex h-auto w-[85vw] min-w-[85vw] shrink-0 cursor-pointer flex-col overflow-hidden rounded-xl border bg-white p-4 pb-6 shadow-sm max-md:snap-center md:w-[18.7vw] md:min-w-[18.7vw] md:rounded-[0.8vw] md:p-[0.9vw] md:pb-[1.2vw] ${
+    trip.active ? "border-[#2B2D6C]" : "border-[#E8E8E8]"
+  }`}
+>
             <div className="mb-3 flex min-h-[24px] items-center gap-2 overflow-hidden md:mb-[0.6vw] md:min-h-[1.5vw] md:gap-[0.4vw]">
               {(trip.tags || []).map((tag) => (
                 <span
@@ -166,102 +165,142 @@ export default function JourneysWeLove({ onlyPopular = false, onlyWithOffer = fa
                 </div>
               </div>
 
-              <div className="mt-4 md:mt-[1.2vw]">
-                <div className="flex items-end justify-between">
-                  <div className="flex flex-col items-start text-left">
-                    <span className="mb-[0.1vw] text-xs leading-none text-[#666666] md:text-[0.58vw]">
-                      from
-                    </span>
+             <div className="mt-4 md:mt-[1.2vw]">
+  <div className="flex items-end justify-between">
+    <div className="flex flex-col items-start text-left">
+      <span className="mb-[0.1vw] text-xs leading-none text-[#666666] md:text-[0.58vw]">
+        from
+      </span>
 
-                    <div className="flex flex-col items-start">
-                      <div className="flex items-baseline gap-[0.15vw]">
-                        <h4 className="text-lg font-bold leading-none text-[#111111] md:text-[1.25vw]">
-                          ${Number(trip.price).toLocaleString()}*
-                        </h4>
-                        <span className="text-[10px] text-[#666666] md:text-[0.55vw]">
-                          /person
-                        </span>
-                      </div>
-                      <span className="mt-1 text-[10px] text-[#707070] md:mt-[0.1vw] md:text-[0.5vw]">
-                        double occupancy*
-                      </span>
-                    </div>
-                  </div>
+      <div className="flex flex-col items-start">
+        <div className="flex items-baseline gap-[0.15vw]">
+          <h4 className="text-lg font-bold leading-none text-[#111111] md:text-[1.25vw]">
+            ${Number(trip.price).toLocaleString()}*
+          </h4>
 
-                  <a
-                    href={trip.viewTripUrl}
-                    onClick={(e) => e.stopPropagation()}
-                    className="rounded-full bg-[#2B2D6C] px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-[#202254] md:px-[1.1vw] md:py-[0.45vw] md:text-[0.68vw]"
-                  >
-                    {trip.viewTripText || "View Trip"}
-                  </a>
-                </div>
+          <span className="text-[10px] text-[#666666] md:text-[0.55vw]">
+            /person
+          </span>
+        </div>
 
-                {trip?.offer ? (
-                  <div className="mt-3 flex items-center gap-2 rounded-md bg-[#F9EBE2] p-2 text-xs text-[#5C4A3E] md:mt-[0.5vw] md:gap-[0.35vw] md:rounded-[0.3vw] md:px-[0.5vw] md:py-[0.35vw] md:text-[0.58vw]">
-                    <Info size={13} className="shrink-0 text-[#6C5343]" />
-                    <span className="line-clamp-1 font-medium">
-                      {trip.offer}
-                    </span>
-                  </div>
-                ) : (
-                  <div className="mt-3 flex items-center gap-2 rounded-md p-2 text-xs text-[#5C4A3E] md:mt-[0.5vw] md:gap-[0.35vw] md:rounded-[0.3vw] md:px-[0.5vw] md:py-[0.35vw] md:text-[0.58vw]"></div>
-                )}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    const existingTrips = JSON.parse(
-                      localStorage.getItem("compareTrips") || "[]",
-                    );
+        <span className="mt-1 text-[10px] text-[#707070] md:mt-[0.1vw] md:text-[0.5vw]">
+          double occupancy*
+        </span>
+      </div>
+    </div>
 
-                    const alreadyExists = existingTrips.some(
-                      (item) => item.id === trip.id,
-                    );
+    {/* View Trip */}
+    <a
+  href={trip.viewTripUrl}
+  onClick={(e) => e.stopPropagation()}
+  className="flex h-[25px] w-[110px] shrink-0 items-center justify-center gap-[10px] rounded-[100px] bg-[#2B2D6C] px-[20px] py-[10px] text-white transition-colors hover:bg-[#202254]"
+>
+  {trip.viewTripText || "View Trip"}
+</a>
+  </div>
 
-                    if (alreadyExists) return;
+  {/* Offer */}
+  {trip?.offer ? (
+    <div className="mt-3 flex items-center gap-2 rounded-md bg-[#F9EBE2] p-2 text-xs text-[#5C4A3E] md:mt-[0.5vw] md:gap-[0.35vw] md:rounded-[0.3vw] md:px-[0.5vw] md:py-[0.35vw] md:text-[0.58vw]">
+      <Info
+        size={13}
+        className="shrink-0 text-[#6C5343]"
+      />
 
-                    if (existingTrips.length >= 3) {
-                      alert("You can compare up to 3 trips only.");
-                      return;
-                    }
+      <span className="line-clamp-1 font-medium">
+        {trip.offer}
+      </span>
+    </div>
+  ) : (
+    <div className="mt-3 h-[30px]" />
+  )}
 
-                    const compareTrip = {
-                      id: trip.id,
-                      title: trip.title,
-                      image: trip.image,
-                      duration: trip.days,
-                      destinations: trip.destinations,
-                      offer: trip.offer,
-                      price: `$${Number(trip.price).toLocaleString()}`,
-                      viewTripUrl: trip.viewTripUrl,
-                      itinerary: [],
-                      stays: "-",
-                      region: trip.region,
-                      travelMode: "-",
-                    };
+  {/* Add to Compare */}
+ <button
+  type="button"
+ onClick={(e) => {
+  e.preventDefault();
+  e.stopPropagation();
 
-                    localStorage.setItem(
-                      "compareTrips",
-                      JSON.stringify([...existingTrips, compareTrip]),
-                    );
-                    sessionStorage.setItem(
-                      "comparisonReturnPage",
-                      window.location.pathname + window.location.search,
-                    );
+  try {
+    const existingTrips = JSON.parse(
+      localStorage.getItem("compareTrips") || "[]"
+    );
 
-                    window.location.href = "/comparison";
-                  }}
-                  className="mt-3 flex items-center gap-2 text-xs font-medium text-[#333333] hover:text-black md:mt-[0.6vw] md:gap-[0.35vw] md:text-[0.68vw]"
-                >
-                  <CirclePlus
-                    size={14}
-                    strokeWidth={1.6}
-                    className="text-[#555]"
-                  />
-                  Add to Compare
-                </button>
-              </div>
-            </div>
+    const isAddingTrip =
+      localStorage.getItem("isAddingTrip") === "true";
+
+    const alreadyExists = existingTrips.some(
+      (item) => item.id === trip.id
+    );
+
+    if (alreadyExists) {
+      localStorage.removeItem("isAddingTrip");
+      window.location.assign("/comparison");
+      return;
+    }
+
+    if (existingTrips.length >= 30) {
+      alert("You can compare up to 3 trips only.");
+      return;
+    }
+
+    const compareTrip = {
+      id: trip.id,
+      title: trip.title,
+      image: trip.image,
+      days: trip.days,
+      duration: trip.days,
+      destinations: trip.destinations,
+      offer: trip.offer,
+      price: `$${Number(trip.price).toLocaleString()}`,
+      viewTripUrl: trip.viewTripUrl,
+      itinerary: [],
+      stays: [],
+      region: "",
+      travelMode: "-",
+    };
+
+    const updatedTrips = [
+      ...existingTrips,
+      compareTrip,
+    ];
+
+    // Save selected trip FIRST
+    localStorage.setItem(
+      "compareTrips",
+      JSON.stringify(updatedTrips)
+    );
+
+    // If we came from "Add trip to compare",
+    // clear the flag after successfully adding.
+    if (isAddingTrip) {
+      localStorage.removeItem("isAddingTrip");
+    }
+
+    // Verify before navigating
+    console.log(
+      "Trip added to comparison:",
+      JSON.parse(localStorage.getItem("compareTrips") || "[]")
+    );
+
+    window.location.assign("/comparison");
+  } catch (error) {
+    console.error("Failed to add trip to comparison:", error);
+  }
+}}
+  className="mt-3 flex items-center gap-2 text-xs font-medium text-[#333333] hover:text-black md:mt-[0.6vw] md:gap-[0.35vw] md:text-[0.68vw]"
+>
+  <CirclePlus
+    size={14}
+    strokeWidth={1.6}
+    className="text-[#555]"
+  />
+
+  Add to Compare
+</button>
+</div>
+</div>
 
             <div className="absolute bottom-[-0.38vw] left-0 flex w-full justify-between px-1 md:px-[0.42vw]">
               {Array.from({ length: 14 }).map((_, i) => (

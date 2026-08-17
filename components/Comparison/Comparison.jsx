@@ -119,48 +119,90 @@ export default function TripComparison() {
   const router = useRouter();
   const scrollRef = useRef(null);
 
-  useEffect(() => {
-    async function loadComparisonTrips() {
+ useEffect(() => {
+  let cancelled = false;
+
+  async function loadComparisonTrips() {
+    try {
+      // Read the latest value from localStorage
       const storedTrips = JSON.parse(
         localStorage.getItem("compareTrips") || "[]"
       );
 
+      console.log(
+        "Comparison page - localStorage trips:",
+        storedTrips
+      );
+
       if (!storedTrips.length) {
-        setTrips([]);
+        if (!cancelled) {
+          setTrips([]);
+        }
         return;
       }
 
-      try {
-        const res = await fetch(
-          `${API_BASE_URL}/jsonapi/node/journey?include=${INCLUDE}`
+      const res = await fetch(
+        `${API_BASE_URL}/jsonapi/node/journey?include=${INCLUDE}`
+      );
+
+      const json = await res.json();
+
+      const data = json.data || [];
+      const included = json.included || [];
+
+      const enrichedTrips = storedTrips.map((trip) => {
+        const journey = data.find(
+          (item) => item.id === trip.id
         );
-        const json = await res.json();
-        const data = json.data || [];
-        const included = json.included || [];
 
-        const enrichedTrips = storedTrips.map((trip) => {
-          const journey = data.find((item) => item.id === trip.id);
-          if (!journey) return trip;
+        // If Drupal doesn't return this journey,
+        // keep the locally saved trip.
+        if (!journey) {
+          return trip;
+        }
 
-          return {
-            ...trip,
-            startCity: getStartCity(journey, included),
-            endCity: getEndCity(journey, included),
-            tabItinerary: getItinerary(journey, included),
-            tabStays: getStays(journey, included),
-          };
-        });
+        return {
+          ...trip,
+          startCity: getStartCity(journey, included),
+          endCity: getEndCity(journey, included),
+          tabItinerary: getItinerary(journey, included),
+          tabStays: getStays(journey, included),
+        };
+      });
 
+      if (!cancelled) {
         setTrips(enrichedTrips);
-      } catch (err) {
-        console.error(err);
-        setTrips(storedTrips);
+      }
+
+      console.log(
+        "Comparison page - enriched trips:",
+        enrichedTrips
+      );
+    } catch (err) {
+      console.error(
+        "Comparison trips loading error:",
+        err
+      );
+
+      // Important:
+      // Even if Drupal API fails, show the trips
+      // that were already saved in localStorage.
+      const fallbackTrips = JSON.parse(
+        localStorage.getItem("compareTrips") || "[]"
+      );
+
+      if (!cancelled) {
+        setTrips(fallbackTrips);
       }
     }
+  }
 
-    loadComparisonTrips();
-  }, []);
+  loadComparisonTrips();
 
+  return () => {
+    cancelled = true;
+  };
+}, []);
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
@@ -365,8 +407,7 @@ export default function TripComparison() {
 
       <div className="w-full max-w-[95%] md:max-w-[92%] border-2 border-gray-300 rounded-[10px] bg-white shadow-sm mb-6 mx-auto">
         {/* Header */}
-        <div className="pt-5 md:pt-[27px] px-4 md:px-6">
-          <h2 className="text-lg md:text-[20px] font-semibold text-gray-800">
+<div className="flex w-full gap-2 md:gap-4 mt-4 md:mt-1 px-2 md:px-4 pb-6">          <h2 className="text-lg md:text-[20px] font-semibold text-gray-800">
             Selected Trips
           </h2>
           <p className="text-sm text-gray-500 mt-1">
@@ -395,8 +436,8 @@ export default function TripComparison() {
               </div>
             ))}
           </div>
-          <div className="md:hidden w-[90px] shrink-0 sticky left-0 z-20 bg-white">
-  <div className={CARD_HEADER} />
+<div className="md:hidden w-[90px] min-w-[90px] shrink-0 sticky left-0 z-20 bg-white">
+    <div className={CARD_HEADER} />
 
   {ROWS.map((row) => (
     <div
@@ -413,8 +454,8 @@ export default function TripComparison() {
 </div>
 
           {/* Scroll area */}
-          <div className="relative flex-1 min-w-0 flex items-center gap-2">
-            {showLeftArrow && (
+<div className="relative flex-1 min-w-0 w-0 flex items-center gap-2">
+              {showLeftArrow && (
               <button
                 onClick={scrollLeft}
                 aria-label="Scroll left"
@@ -431,10 +472,10 @@ export default function TripComparison() {
               </button>
             )}
 
-           <div
+          <div
   ref={scrollRef}
   style={{ WebkitOverflowScrolling: "touch" }}
-  className="flex-1 min-w-0 flex gap-3 md:gap-4
+  className="w-0 min-w-0 flex-1 flex gap-3 md:gap-4
     overflow-x-auto
     snap-x snap-mandatory md:snap-none
     [-ms-overflow-style:none]
