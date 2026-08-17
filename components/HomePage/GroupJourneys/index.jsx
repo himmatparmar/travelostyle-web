@@ -1,107 +1,125 @@
+import { API_BASE_URL, buildFileUrl } from "@/lib/config";
 import Journey from "./Journeys";
+function stripHtml(html) {
+  return (html || "").replace(/<[^>]*>/g, "").trim();
+}
 
-export default function Index() {
+const INCLUDE =
+  "field_journey_cards.field_journey_image.field_media_image,field_journey_cards.field_card_steps";
+
+// Local fallbacks for the three journey-type images until each
+// journey_type_card paragraph gets a real field_journey_image uploaded in
+// Drupal's media library.
+const FALLBACK_IMAGES = {
+  "GROUP JOURNEYS": "/GroupJourneys.svg",
+  "PRIVATE JOURNEYS": "/PrivateJouneys.svg",
+  "TAILOR-MADE JOURNEYS": "/TailorJourneys.svg",
+};
+
+async function getFindYourFitBlock() {
+  const res = await fetch(
+    `${API_BASE_URL}/jsonapi/block_content/find_your_fit?include=${INCLUDE}`,
+    { next: { revalidate: 3600 } }
+  );
+
+  if (!res.ok) {
+    console.error("Failed to fetch Find Your Fit block");
+    return null;
+  }
+
+  const { data = [], included = [] } = await res.json();
+  return { block: data[0] || null, included };
+}
+
+function resolveImage(card, included, title) {
+  const mediaId = card.relationships?.field_journey_image?.data?.id;
+  const media = included.find((i) => i.type === "media--image" && i.id === mediaId);
+  const fileId = media?.relationships?.field_media_image?.data?.id;
+  const file = included.find((i) => i.type === "file--file" && i.id === fileId);
+  const raw = file?.attributes?.uri?.url;
+
+  return buildFileUrl(raw) || FALLBACK_IMAGES[title] || "/GroupJourneys.svg";
+}
+
+function resolveSteps(card, included) {
+  const stepRefs = card.relationships?.field_card_steps?.data || [];
+
+  return stepRefs
+    .map((ref, index) => {
+      const step = included.find((i) => i.id === ref.id);
+      if (!step) return null;
+
+      return {
+        id: index + 1,
+        title: step.attributes?.field_step_title || "",
+        desc: step.attributes?.field_step_description?.value || "",
+      };
+    })
+    .filter(Boolean);
+}
+
+export default async function Index() {
+  const result = await getFindYourFitBlock();
+
+  if (!result?.block) return null;
+
+  const { block, included } = result;
+
+  const heading = block.attributes.field_heading || "";
+  const description = block.attributes.field_description?.value || "";
+
+  const cardRefs = block.relationships?.field_journey_cards?.data || [];
+  const journeyCards = cardRefs
+    .map((ref) => {
+      const card = included.find((i) => i.id === ref.id);
+      if (!card) return null;
+
+      const title = card.attributes?.field_card_title || "";
+
+      return {
+        id: card.id,
+        title,
+        imageSrc: resolveImage(card, included, title),
+        imageQuote: card.attributes?.field_image_quote || "",
+        description: card.attributes?.field_description?.value || "",
+        steps: resolveSteps(card, included),
+        btnText: card.attributes?.field_button_text || "",
+        bgColor: card.attributes?.field_bg_color || "#F2E2DA",
+        href: card.attributes?.field_href?.uri?.replace(/^internal:/, "") || "",
+      };
+    })
+    .filter(Boolean);
+
   return (
     <div>
       <section className="w-full px-6 py-10">
         <div className="mx-auto max-w-4xl">
           <div className="max-w-[300px] md:max-w-none">
             <h2 className="text-[36px] md:text-[2.8vw] font-bold text-[#222] leading-tight text-left md:text-center">
-              Find Your Fit
+              {heading}
             </h2>
 
-            <p className="mt-4 text-[16px] md:text-[1.05vw] leading-[26px] text-[#4A4A4A] text-left md:text-center">
-              Whether you want to join a group, take a proven route and make it
-              your own, or build something entirely from scratch, there&apos;s a
-              way of travelling with us that fits exactly how you like to do it.
-            </p>
+          <div
+  className="mt-4 text-[16px] md:text-[1.05vw] leading-[26px] text-[#4A4A4A] text-left md:text-center"
+  dangerouslySetInnerHTML={{ __html: description }}
+/>
           </div>
         </div>
       </section>
-      <Journey
-        title="GROUP JOURNEYS"
-        imageSrc="GroupJourneys.svg"
-        imageQuote="The ease of a shared journey with the comfort of the friends you make along the way"
-        description="Travel with a small group of like-minded people on a set-departure itinerary. The route is established, the dates are fixed, and the logistics taken care of. You simply show up, take your seat, & enjoy the company."
-        steps={[
-          {
-            id: 1,
-            title: "Find a journey & departure you like",
-            desc: "Browse TravelStyle's great journeys and choose a destination and date that works for you.",
-          },
-          {
-            id: 2,
-            title: "Review the Details",
-            desc: "See what's included, what's not, and what you should expect before you commit.",
-          },
-          {
-            id: 3,
-            title: "Reserve your spot",
-            desc: "Confirm your booking and we'll send everything you need to prepare.",
-          },
-          {
-            id: 4,
-            title: "Set Off!",
-            desc: "Tour guide, transport, accommodation, and day-by-day plans all in place. Sit back and enjoy the journey!",
-          },
-        ]}
-        btnText="Explore Group Journeys"
-        bgColor="#E6ECCE"
-        href="/group-rtb-journeys"
-      />
-      <Journey
-        title="PRIVATE JOURNEYS"
-        imageSrc="/PrivateJouneys.svg"
-        imageQuote="Reassurance of a well-planned route with the freedom to make it your own!"
-        description="Start with one of TravelStyle's carefully designed itineraries, then reshape it around you. Add days, swap routes, fold in extra regions, adjust the pace, or bring the group size or go solo!"
-        steps={[
-          {
-            id: 1,
-            title: "Find Your Inspiration",
-            desc: "Choose an itinerary from our private ready-to-go journeys that feel close to what you have in mind.",
-          },
-          {
-            id: 2,
-            title: "Collaborate With Us",
-            desc: "Talk to us about your needs — more days, different accommodation, a slower trek or inter-island travel, we'll work it through with you.",
-          },
-          {
-            id: 3,
-            title: "Book Your Trip & Go!",
-            desc: "Once the journey feels right, TravelStyle handles the booking, logistics, and on-ground support.",
-          },
-        ]}
-        btnText="Get Inspired"
-        bgColor="#F2E2DA"
-        href="/private-rtb-journeys"
-      />
 
-      <Journey
-        title="TAILOR-MADE JOURNEYS"
-        imageSrc="TailorJourneys.svg"
-        imageQuote="An itinerary that feels like something you intentionally decided upon"
-        description="An exciting template, like TravelStyle, but in a sitting conversation about how you like to travel and what you're hoping to feel — and then TravelStyle builds a journey entirely around that."
-        steps={[
-          {
-            id: 1,
-            title: "Tell Us Everything",
-            desc: "Your interests, your timeline, your budget, your dream, and what you hope to feel and see to us.",
-          },
-          {
-            id: 2,
-            title: "We'll Build Your Journey",
-            desc: "Our travel consultants will design a personalized itinerary around everything you've shared.",
-          },
-          {
-            id: 3,
-            title: "Refine Until It Feels Right",
-            desc: "We'll bounce ideas until the journey on paper matches the one in your head. Then we take it from there and make it happen.",
-          },
-        ]}
-        btnText="Build Your Journey"
-        bgColor="#FFDDBD"
-        href="/tailor-made-journeys"
-      />
+      {journeyCards.map((journey) => (
+        <Journey
+          key={journey.id}
+          title={journey.title}
+          imageSrc={journey.imageSrc}
+          imageQuote={journey.imageQuote}
+          description={journey.description}
+          steps={journey.steps}
+          btnText={journey.btnText}
+          bgColor={journey.bgColor}
+          href={journey.href}
+        />
+      ))}
     </div>
   );
 }

@@ -2,12 +2,12 @@ import Footer from "@/components/Footer";
 import SearchBar from "@/components/JourneyDetailPage/SearchBar";
 import Blog from "@/components/BlogListing/blog";
 
-export default function ItineraryPage() {
+export default function BlogListingPage() {
   return (
     <>
-      <SearchBar/>
+      <SearchBar showAllJourneys={true} />
 
-<Blog/>     
+<Blog/>
       <Footer />
     </>
   )

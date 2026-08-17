@@ -36,12 +36,12 @@ export default function BlogGrid({ blogs, categories }) {
   return (
     <>
       {/* Categories */}
-      <div className="mb-[24px] flex items-center justify-between">
+      <div className="mb-[24px] flex flex-col items-start gap-3 md:flex-row md:items-center md:justify-between md:gap-0">
         <h2 className="font-[Nohemi] text-[24px] font-semibold leading-[40px] tracking-[0.05em] text-[#000000]">
           Categories
         </h2>
 
-        <div className="flex flex-wrap items-center justify-end gap-[10px]">
+        <div className="flex flex-wrap items-center justify-start gap-[10px] md:justify-end">
           {categories.map((category) => (
             <button
               key={category}
@@ -166,7 +166,7 @@ export default function BlogGrid({ blogs, categories }) {
               <div className="border-t border-[#1A1A1A]" />
 
               <Link
-                href={`/blog-detail/${blog.slug}`}
+                href={`/blog/${blog.slug}`}
                 className="mt-[10px] flex items-center justify-between"
               >
                 <span

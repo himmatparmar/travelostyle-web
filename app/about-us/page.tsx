@@ -94,9 +94,9 @@ export default async function AboutUs() {
       <TravelExperience />
             <TestimonialSection testimonialData={testimonialData} />
       
-      <GuestReview />
+      {/* <GuestReview /> */}
       <LetsFindOut />
-       <Footer />
+      <Footer />
     </div>
   );
 }

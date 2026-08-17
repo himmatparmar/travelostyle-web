@@ -95,7 +95,7 @@ export default function HeroSection({
 
       <div className="relative w-full overflow-hidden  " style={{ height: "40vw" }}>
         <Image
-          src={journey.image || "/Morocco.jpg"}
+          src={journey.image || "/Morocco.svg"}
           alt={journey.title || "Journey"}
           fill
           unoptimized
@@ -192,7 +192,7 @@ export default function HeroSection({
 )}
           </div>
 
-          <button className="mt-[0.8vw] h-[2vw] w-full rounded-full bg-[#2D3482] text-[0.7vw] font-semibold text-white transition hover:bg-[#252b78]">
+          <button className="mt-[0.8vw] h-[20px] w-[150px] rounded-full bg-[#2D3482] text-[0.7vw] font-semibold text-white transition hover:bg-[#252b78]">
             Request a Private Journey
           </button>
 

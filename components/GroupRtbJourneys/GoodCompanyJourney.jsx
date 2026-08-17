@@ -2,8 +2,12 @@
 import { useRouter } from "next/navigation";
 import React from "react";
 
-export default function GoodCompaneyJourney() {
+const FALLBACK_DESCRIPTION =
+  "TravelOStyle group journeys are made to explore a destination beyond its postcard alongside like-minded people. Bonus? There's no chaos of co-ordinating it yourself. The routes are planned, the price is fixed, the dates are set, the logistics are sorted and your group is waiting. All you have to do is decide whether you want to come along!";
+
+export default function GoodCompaneyJourney({ heroDescription }) {
   const router = useRouter();
+  const description = heroDescription || FALLBACK_DESCRIPTION;
   const polaroids = [
     {
       id: 1,
@@ -100,14 +104,7 @@ export default function GoodCompaneyJourney() {
         </div>
 
         <p className="mt-8 text-[21px] md:text-[14px] text-[#333333] max-w-[780px] leading-[1.7] tracking-normal px-4 font-normal">
-          TravelOStyle group journeys are made to explore a destination beyond
-          its postcard alongside like-minded people. Bonus?{" "}
-          <span className="inline">
-            There&apos;s no chaos of co-ordinating it yourself. The routes are
-            planned, the price is fixed, the dates are set, the logistics are
-            sorted and your group is waiting. All you have to do is decide
-            whether you want to come along!
-          </span>
+          {description}
         </p>
       </div>
 

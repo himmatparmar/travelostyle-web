@@ -175,7 +175,7 @@ export default function TestimonialSection({ testimonialData }) {
 
         <div className="md:hidden flex flex-col items-center relative w-full max-w-[320px] mx-auto">
           <div className="flex items-center justify-between w-full relative min-h-[240px]">
-            
+
             <button
               onClick={handlePrev}
               className="absolute left-[-15px] z-20 cursor-pointer active:scale-95 transition"
@@ -211,7 +211,7 @@ export default function TestimonialSection({ testimonialData }) {
                 <Image src="/RightQuote.svg" alt="Quote Start" fill className="object-contain opacity-40" />
               </div>
             </span>
-            
+
             <p className="text-[13px] leading-[20px] text-[#4a4a4a] text-center max-w-[210px] mx-auto font-medium">
               {current.quote}
             </p>

@@ -6,7 +6,7 @@ export default function BlogContent({
   blog,
   categories,
   bannerImage,
-  galleryImage,
+  galleryImages = [],
   previousPost,
   nextPost,
 }) {
@@ -23,13 +23,13 @@ export default function BlogContent({
               }}
             />
           )}
-          {bannerImage?.attributes?.uri?.url && (
+          {bannerImage && (
             <Image
-              src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${bannerImage.attributes.uri.url}`}
+              src={bannerImage}
               alt="Golden Triangle"
               width={1008}
               height={410}
-              className="mt-8 w-full h-auto lg:h-[410px] object-cover"
+              className="mt-8 w-[337px] h-[138px] lg:w-[1008px] lg:h-[410px] max-w-full flex-shrink-0 object-cover"
             />
           )}
 
@@ -42,22 +42,21 @@ export default function BlogContent({
             />
           )}
 
-          {galleryImage?.attributes?.uri?.url && (
-            <div className="mt-10 flex flex-col sm:flex-row gap-6 lg:gap-[24px]">
-              <Image
-                src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${galleryImage.attributes.uri.url}`}
-                alt={blog.attributes.title || "Blog image"}
-                width={408}
-                height={280}
-                className="w-full sm:w-1/2 h-auto object-cover object-center"
-              />
-              <Image
-                src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${galleryImage.attributes.uri.url}`}
-                alt={blog.attributes.title || "Blog image"}
-                width={408}
-                height={280}
-                className="w-full sm:w-1/2 h-auto object-cover object-center"
-              />
+          {galleryImages.length > 0 && (
+            <div className="mt-10 flex flex-wrap items-start gap-6 lg:gap-[24px]">
+              {galleryImages.map(
+                (image, index) =>
+                  image?.attributes?.uri?.url && (
+                    <Image
+                      key={image.id || index}
+                      src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${image.attributes.uri.url}`}
+                      alt={blog.attributes.title || "Blog image"}
+                      width={408}
+                      height={536}
+                      className="w-[333px] h-[438px] lg:w-[408px] lg:h-[536px] flex-shrink-0 object-cover object-center"
+                    />
+                  )
+              )}
             </div>
           )}
 
@@ -66,11 +65,11 @@ export default function BlogContent({
             <div className="mt-14 flex flex-col gap-6 sm:flex-row sm:justify-between sm:items-center">
               {previousPost ? (
                 <Link
-                  href={`/blog-detail/${previousPost.slug}`}
+                  href={`/blog/${previousPost.slug}`}
                   className="flex items-center gap-[12px] text-[14px] font-medium text-[#1A1A1A] self-start sm:self-auto"
                 >
                   <Image src="/ArrowLeft.svg" alt="Previous" width={24} height={24} />
-                  <span>Previous Post Name</span>
+                  <span>{previousPost.title}</span>
                 </Link>
               ) : (
                 <span />
@@ -78,10 +77,10 @@ export default function BlogContent({
 
               {nextPost ? (
                 <Link
-                  href={`/blog-detail/${nextPost.slug}`}
+                  href={`/blog/${nextPost.slug}`}
                   className="flex items-center gap-[12px] text-[14px] font-medium text-[#1A1A1A] self-end sm:self-auto"
                 >
-                  <span>Next Post Name</span>
+                  <span>{nextPost.title}</span>
                   <Image src="/ArrowUpRight.svg" alt="Next" width={24} height={24} />
                 </Link>
               ) : (

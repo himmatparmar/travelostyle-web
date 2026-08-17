@@ -13,6 +13,18 @@ import TravelOStylePromise from "../components/HomePage/TravelOStylePromise";
 import PopularDestinations from "../components/HomePage/PopularDestinations";
 import Footer from "../components/Footer";
 import { API_BASE_URL } from "@/lib/config";
+import { getBlock } from "@/lib/blockContent";
+
+async function getHomeHero() {
+  const result = await getBlock("page_hero", undefined, {
+    filter: { field_page_key: "home" },
+  });
+  if (!result?.block) return null;
+  return {
+    heading: result.block.attributes?.field_heading || "",
+    description: result.block.attributes?.field_description?.value || "",
+  };
+}
 
 const TESTIMONIAL_INCLUDE =
   "field_testimonial_image.field_media_image,field_testimonial_journey";
@@ -94,6 +106,7 @@ export default async function Home() {
 
   // Get ALL journeys
   const journeyData = await getJourneys();
+  const homeHero = await getHomeHero();
 
   // ------------------------------------
   // ONLY POPULAR JOURNEYS
@@ -104,13 +117,6 @@ export default async function Home() {
       journey.attributes?.field_is_popular === true
   );
 
-  console.log(
-    "POPULAR JOURNEYS FROM PAGE:",
-    popularJourneys.map(
-      (journey: Journey) => journey.attributes?.title
-    )
-  );
-
   return (
     <div>
       <SearchBar />
@@ -119,6 +125,8 @@ export default async function Home() {
       <PopularDestinations
   journeys={popularJourneys as any[]}
   included={journeyData.included as any[]}
+  heroHeading={homeHero?.heading}
+  heroDescription={homeHero?.description}
 />
       <JourneySection />
 

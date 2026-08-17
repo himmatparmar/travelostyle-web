@@ -1,7 +1,6 @@
 "use client";
 
 import TestimonialSection from "@/components/HomePage/TestimonialSection";
-import TravelOStylePromise from "@/components/HomePage/TravelOStylePromise";
 import { buildFileUrl } from "@/lib/config";
 import DetailTabs from "./DetailTabs";
 import HeroSection from "./HeroSection";
@@ -326,6 +325,7 @@ export default function JourneyDetailClient({
   journeyId,
   inclusions,
   exclusions,
+  trustItems,
 }) {
   const journey =
     initialData?.data
@@ -342,7 +342,7 @@ export default function JourneyDetailClient({
         rawItem={initialData?.data}
         included={initialData?.included || []}
       />
-      <TrustBar />
+      <TrustBar trustItems={trustItems} />
       <DetailTabs
         journey={journey}
         departures={departures}
@@ -350,8 +350,6 @@ export default function JourneyDetailClient({
         inclusions={inclusions}
         exclusions={exclusions}
       />     <OtherDestinations />
-      <TestimonialSection />
-      <TravelOStylePromise />
     </main>
   );
 }

@@ -1,30 +1,11 @@
-"use client";
-import Image from "next/image";
-import { useState } from "react";
-import FindJourneyMobile from "./FindYourJourneyMobile";
-import TravelForm from "./TravelForm";
-import SearchHeader from "../../SearchHeader";
+import { getFilterOptions } from "@/lib/getFilterOptions";
+import SearchBarClient from "./SearchBarClient";
 
-export default function SearchBar() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [showFindJourneyMobile, setShowFindJourneyMobile] = useState(false);
-  return (
-    <section className="w-full overflow-hidden ">
-      <SearchHeader
-        menuOpen={menuOpen}
-        setMenuOpen={setMenuOpen}
-        setShowFindJourneyMobile={setShowFindJourneyMobile}
-      />
+// Server Component: fetches the destination list once per page render and
+// hands it down, so none of the 7 pages that mount this SearchBar (and none
+// of the client-side dropdowns inside it) need their own fetch call.
+export default async function SearchBar() {
+  const { destinations } = await getFilterOptions();
 
-      <div className="hidden md:block px-4 md:px-14 py-2">
-        <TravelForm />
-      </div>
-
-      {showFindJourneyMobile && (
-        <div className="fixed inset-0 z-50 bg-black/30 flex items-center justify-center">
-          <FindJourneyMobile onClose={() => setShowFindJourneyMobile(false)} />
-        </div>
-      )}
-    </section>
-  );
+  return <SearchBarClient destinations={destinations} />;
 }

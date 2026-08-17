@@ -3,7 +3,14 @@ import SearchBar from "@/components/JourneyDetailPage/SearchBar";
 import JourneyDetailClient from "@/components/JourneyDetailPage/JourneyDetailClient";
 import Footer from "@/components/Footer";
 import TestimonialSection from "@/components/HomePage/TestimonialSection";
+import TravelOStylePromise from "@/components/HomePage/TravelOStylePromise";
 import { API_BASE_URL } from "@/lib/config";
+import { getBlock } from "@/lib/blockContent";
+
+async function getTrustBarItems() {
+  const result = await getBlock("trust_bar");
+  return result?.block?.attributes?.field_trust_items || null;
+}
 function stripHtml(html: string): string {
   return html
     .replace(/<[^>]*>/g, "")
@@ -80,6 +87,7 @@ export default async function JourneyDetailPage({
 }) {
   const { id } = await params;
 
+  const trustItems = await getTrustBarItems();
 
   // Custom Drupal endpoint: resolves the /journey/{slug} alias to its node
   // internally and returns the same JSON:API shape for that node.
@@ -93,8 +101,6 @@ export default async function JourneyDetailPage({
     // data below rather than a hard 404.
   }
 
-  let initialData = null;
-
   if (res) {
     // The backend answered at all, so any non-2xx here is Drupal genuinely
     // saying this alias doesn't resolve — a real 404. notFound() throws, so
@@ -103,130 +109,21 @@ export default async function JourneyDetailPage({
     if (!res.ok) {
       notFound();
     }
-    initialData = await res.json();
-
-  }
-  const journeyRes = await fetch(
-    `${API_BASE_URL}/api/journey/${id}?include=${INCLUDE}`,
-    {
-      cache: "no-store",
-    }
-  );
-
-  if (!journeyRes.ok) {
-    notFound();
   }
 
+  const journeyData = res ? await res.json() : null;
+  const initialData = journeyData;
 
-  const journeyData = await journeyRes.json();
+  const included = journeyData?.included || [];
 
-  console.log(
-    JSON.stringify(
-      journeyData.included.filter(
-        (x: any) => x.type === "paragraph--inclusion_exclusion_item"
-      ),
-      null,
-      2
-    )
-  );
-
-  const included = journeyData.included || [];
-  console.log(
-  "TERM TYPES",
-  included.filter(
-    (x: any) =>
-      x.type === "taxonomy_term--inclusion_exclusion"
-  )
-);
-console.log(
-  "FIRST TERM",
-  JSON.stringify(
-    included.find(
-      (x: any) =>
-        x.type === "taxonomy_term--inclusion_exclusion"
-    ),
-    null,
-    2
-  )
-);
-
-
-console.log(
-  "MEDIA TYPES",
-  included.filter(
-    (x: any) => x.type === "media--image"
-  )
-);
-
-
-console.log(
-  "FILE TYPES",
-  included.filter(
-    (x: any) => x.type === "file--file"
-  )
-);
- const inclusionTab = included.find(
-  (item: any) =>
-    item.type === "paragraph--inclusions_exclusions_tab"
-);
-
-console.log(
-  "INCLUSIONS TAB",
-  JSON.stringify(inclusionTab, null, 2)
-);
-
-console.log(
-  "ROOT DATA",
-  JSON.stringify(
-    journeyData.data.relationships,
-    null,
-    2
-  )
-);
-
-console.log(
-  "ICON MEDIA OBJECT",
-  included.find(
-    (item: any) =>
-      item.id === "a5ccd2bc-d9e8-42c5-8892-b983e32b7dbb"
-  )
-);
-  console.log(
-    JSON.stringify(
-      included.find(
-        (i: any) =>
-          i.type === "paragraph--inclusion_exclusion_item"
-      ),
-      null,
-      2
-    )
-  );
-  console.log(
-    "ALL INCLUDED TYPES:",
-    included.map((item: any) => item.type)
-  );
-
-
-
-  // ADD YOUR CODE HERE
   const inclusions: any[] = [];
   const exclusions: any[] = [];
 
-
   const inclusionItems = included.filter(
-  (item: any) =>
-    item.type === "paragraph--inclusion_exclusion_item"
-);
+    (item: any) => item.type === "paragraph--inclusion_exclusion_item"
+  );
 
-console.log(
-  "FIRST ITEM",
-  JSON.stringify(inclusionItems[0], null, 2)
-);
-
-  console.log("INCLUSION ITEMS", inclusionItems);
-
-
- inclusionItems.forEach((item: any) => {
+  inclusionItems.forEach((item: any) => {
   const processItem = (
     relation: "field_inclusion" | "field_exclusion",
     targetArray: any[]
@@ -275,19 +172,7 @@ console.log(
   processItem("field_inclusion", inclusions);
   processItem("field_exclusion", exclusions);
 });
-  console.log(
-  "FINAL INCLUSIONS",
-  JSON.stringify(inclusions, null, 2)
-);
 
-console.log(
-  "FINAL EXCLUSIONS",
-  JSON.stringify(exclusions, null, 2)
-);
-
-
-
-  // Example (adjust based on actual response shape)
   const journeyId = journeyData.data.id;
   const testimonialData = await getTestimonials();
 
@@ -319,30 +204,13 @@ const journeyTestimonials = {
   );
 
   const departureData = await departureRes.json();
-  console.log("JOURNEY DATA", journeyData);
-
-console.log(
-  "DATA OBJECT",
-  JSON.stringify(journeyData.data, null, 2)
-);
-
-console.log(
-  "INCLUDED OBJECT",
-  JSON.stringify(journeyData.included, null, 2)
-);
 
   const departures = departureData.data.filter(
     (departure: any) =>
       departure.relationships?.field_journey?.data?.id === journeyId
   );
 
-  console.log("All Departures:", departures);
-  console.log("Journey ID:", journeyId);
-  console.log("Filtered Departures:", departures);
-
-
   return (
-
     <>
       <SearchBar />
       <JourneyDetailClient
@@ -351,11 +219,13 @@ console.log(
         journeyId={journeyId}
         inclusions={inclusions}
         exclusions={exclusions}
-        
+        trustItems={trustItems}
       />
      <TestimonialSection
   testimonialData={journeyTestimonials}
 />
+
+      <TravelOStylePromise />
 
       <Footer />
     </>
