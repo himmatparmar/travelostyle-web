@@ -1,5 +1,8 @@
 import { API_BASE_URL, buildFileUrl } from "@/lib/config";
 import Journey from "./Journeys";
+function stripHtml(html) {
+  return (html || "").replace(/<[^>]*>/g, "").trim();
+}
 
 const INCLUDE =
   "field_journey_cards.field_journey_image.field_media_image,field_journey_cards.field_card_steps";
@@ -96,9 +99,10 @@ export default async function Index() {
               {heading}
             </h2>
 
-            <p className="mt-4 text-[16px] md:text-[1.05vw] leading-[26px] text-[#4A4A4A] text-left md:text-center">
-              {description}
-            </p>
+          <div
+  className="mt-4 text-[16px] md:text-[1.05vw] leading-[26px] text-[#4A4A4A] text-left md:text-center"
+  dangerouslySetInnerHTML={{ __html: description }}
+/>
           </div>
         </div>
       </section>
