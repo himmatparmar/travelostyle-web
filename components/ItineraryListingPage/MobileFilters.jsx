@@ -13,6 +13,7 @@ export default function MobileFilters({
   sort,
   setSort,
   resultCount,
+  onClearAll,
 }) {
   const [openSheet, setOpenSheet] = useState(null); // "filters" | "sort" | null
 
@@ -65,6 +66,7 @@ export default function MobileFilters({
               journeys={journeys}
               onClose={close}
               resultCount={resultCount}
+              onClearAll={onClearAll}
             />
           </div>
         </div>

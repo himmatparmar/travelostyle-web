@@ -120,6 +120,7 @@ export default function FilterSidebar({
   variant = "desktop",
   onClose,
   resultCount,
+  onClearAll,
 }) {
   const mobile = variant === "mobile";
 
@@ -151,6 +152,7 @@ export default function FilterSidebar({
       pricing: [], // ✅ added
       duration: [], // ✅ added
     });
+    onClearAll?.();
   };
 
   // ================= TOGGLE =================

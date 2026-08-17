@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import Image from "next/image";
+import destinations from "@/lib/travelostyle_destinations_FRONTEND.json";
 
 const months = [
   "January",
@@ -21,180 +23,21 @@ const months = [
   "December",
 ];
 
-const destinations = [
-  {
-    title: "Dubai and Abu Dhabi, U.A.E.",
-    subtitle: "Browse Journeys",
-    image:
-      "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=300&q=80",
-    position: [25.2048, 55.2708],
-    months: ["January"],
-  },
-  {
-    title: "Cape Town, South Africa",
-    subtitle: "Browse Journeys",
-    image:
-      "https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=300&q=80",
-    position: [-33.9249, 18.4241],
-    months: ["January"],
-  },
-  {
-    title: "Patagonia, Argentina",
-    subtitle: "Browse Journeys",
-    image:
-      "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=300&q=80",
-    position: [-50.9423, -73.4068],
-    months: ["January"],
-  },
-  {
-    title: "Patna, Bihar, India",
-    subtitle: "Browse Journeys",
-    image:
-      "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=300&q=80",
-    position: [25.5941, 85.1376],
-    months: ["February"],
-  },
-  {
-    title: "Jaipur, Rajasthan",
-    subtitle: "Browse Journeys",
-    image:
-      "https://images.unsplash.com/photo-1477587458883-47145ed94245?w=300&q=80",
-    position: [26.9124, 75.7873],
-    months: ["February"],
-  },
-  {
-    title: "Tokyo, Japan",
-    subtitle: "Browse Journeys",
-    image:
-      "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=300&q=80",
-    position: [35.6762, 139.6503],
-    months: ["March"],
-  },
-  {
-    title: "Kyoto, Japan",
-    subtitle: "Browse Journeys",
-    image:
-      "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=300&q=80",
-    position: [35.0116, 135.7681],
-    months: ["March"],
-  },
-  {
-    title: "Amsterdam, Netherlands",
-    subtitle: "Browse Journeys",
-    image:
-      "https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?w=300&q=80",
-    position: [52.3676, 4.9041],
-    months: ["April"],
-  },
-  {
-    title: "Santorini, Greece",
-    subtitle: "Browse Journeys",
-    image:
-      "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=300&q=80",
-    position: [36.3932, 25.4615],
-    months: ["May"],
-  },
-  {
-    title: "Iceland",
-    subtitle: "Browse Journeys",
-    image:
-      "https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=300&q=80",
-    position: [64.9631, -19.0208],
-    months: ["June"],
-  },
-  {
-    title: "France",
-    subtitle: "Browse Journeys",
-    image:
-      "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=300&q=80",
-    position: [48.8566, 2.3522],
-    months: ["July"],
-  },
-  {
-    title: "Iceland",
-    subtitle: "Browse Journeys",
-    image:
-      "https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=300&q=80",
-    position: [64.9631, -19.0208],
-    months: ["July"],
-  },
-  {
-    title: "Kenya, East Africa",
-    subtitle: "Browse Journeys",
-    image:
-      "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=300&q=80",
-    position: [-1.286389, 36.817223],
-    months: ["July"],
-  },
-  {
-    title: "Bali, Indonesia",
-    subtitle: "Browse Journeys",
-    image:
-      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=300&q=80",
-    position: [-8.3405, 115.092],
-    months: ["August"],
-  },
-  {
-    title: "Swiss Alps",
-    subtitle: "Browse Journeys",
-    image:
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=300&q=80",
-    position: [46.8182, 8.2275],
-    months: ["September"],
-  },
-  {
-    title: "New York, USA",
-    subtitle: "Browse Journeys",
-    image:
-      "https://images.unsplash.com/photo-1499092346589-b9b6be3e94b2?w=300&q=80",
-    position: [40.7128, -74.006],
-    months: ["October"],
-  },
-  {
-    title: "Rajasthan, India",
-    subtitle: "Browse Journeys",
-    image:
-      "https://images.unsplash.com/photo-1599661046289-e31897846e41?w=300&q=80",
-    position: [26.9124, 75.7873],
-    months: ["November"],
-  },
-  {
-    title: "Vietnam",
-    subtitle: "Browse Journeys",
-    image:
-      "https://images.unsplash.com/photo-1528127269322-539801943592?w=300&q=80",
-    position: [14.0583, 108.2772],
-    months: ["November"],
-  },
-  {
-    title: "Patagonia, Argentina",
-    subtitle: "Browse Journeys",
-    image:
-      "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=300&q=80",
-    position: [-50.9423, -73.4068],
-    months: ["November"],
-  },
-  {
-    title: "Lapland, Finland",
-    subtitle: "Browse Journeys",
-    image:
-      "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=300&q=80",
-    position: [67.9222, 26.5046],
-    months: ["December"],
-  },
-];
-
 const createMarker = (item) =>
   L.divIcon({
-    className: "",
+    className: "map-marker-icon",
     html: `
-      <div style="position:relative; display:flex; align-items:center;">
-        <div style="margin-right: -2px; display: flex; align-items: center; background: white; padding: 3px; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+      <div style="position:relative; width:24px; height:24px;">
+        <div style="display:flex; align-items:center; justify-content:center; width:24px; height:24px; box-sizing:border-box; background:white; padding:3px; border-radius:50%; box-shadow:0 2px 5px rgba(0,0,0,0.2);">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z" fill="#4A4E69"/>
           </svg>
         </div>
-        <div style="
+        <div class="map-marker-card" style="
+          position:absolute;
+          top:50%;
+          left:28px;
+          transform:translateY(-50%);
           width:125px;
           background:white;
           display:flex;
@@ -237,15 +80,31 @@ const createMarker = (item) =>
         </div>
       </div>
     `,
-    iconSize: [150, 35],
-    iconAnchor: [10, 17],
+    iconSize: [24, 24],
+    iconAnchor: [12, 12],
   });
 
+function MapZoomController({ destinations }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (destinations.length === 1) {
+      map.setView(destinations[0].position, 2, { animate: true });
+    } else if (destinations.length > 1) {
+      const bounds = L.latLngBounds(destinations.map((d) => d.position));
+      map.fitBounds(bounds, { padding: [50, 50], maxZoom: 2, animate: true });
+    } else {
+      map.setView([20, 40], 2, { animate: true });
+    }
+  }, [map, destinations]);
+
+  return null;
+}
+
 export default function TravelDestinationWidget() {
+  const router = useRouter();
   const [selectedMonth, setSelectedMonth] = useState("January");
   const [isMobile, setIsMobile] = useState(false);
-  const mapRef = useRef(null);
-
 
   useEffect(() => {
     const handleResize = () => {
@@ -259,22 +118,6 @@ export default function TravelDestinationWidget() {
   const filteredDestinations = destinations.filter((item) =>
     item.months.includes(selectedMonth),
   );
-
-  useEffect(() => {
-    if (isMobile) return;
-    const map = mapRef.current;
-    if (!map) return;
-    if (filteredDestinations.length === 1) {
-      map.setView(filteredDestinations[0].position, 6, { animate: true });
-    } else if (filteredDestinations.length > 1) {
-      const bounds = L.latLngBounds(
-        filteredDestinations.map((d) => d.position),
-      );
-      map.fitBounds(bounds, { padding: [50, 50], maxZoom: 4, animate: true });
-    } else {
-      map.setView([20, 40], 2, { animate: true });
-    }
-  }, [filteredDestinations, isMobile]);
 
   return (
     <div
@@ -510,6 +353,24 @@ export default function TravelDestinationWidget() {
                   filter: invert(0.08) sepia(0.22) saturate(1.3)
                     hue-rotate(335deg) brightness(1.08) contrast(0.96);
                 }
+                .map-marker-icon {
+                  overflow: visible !important;
+                  cursor: pointer;
+                }
+                .map-marker-card {
+                  opacity: 0;
+                  visibility: hidden;
+                  pointer-events: none;
+                  transition: opacity 0.15s ease;
+                }
+                .map-marker-icon:hover {
+                  z-index: 10000 !important;
+                }
+                .map-marker-icon:hover .map-marker-card {
+                  opacity: 1;
+                  visibility: visible;
+                  pointer-events: auto;
+                }
               `}</style>
 
               <MapContainer
@@ -517,7 +378,6 @@ export default function TravelDestinationWidget() {
                 zoom={2}
                 zoomControl={false}
                 attributionControl={false}
-                ref={mapRef}
                 style={{
                   height: "100%",
                   width: "100%",
@@ -526,14 +386,22 @@ export default function TravelDestinationWidget() {
                 }}
               >
                 <TileLayer
-                  url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                  url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png"
                   className="screenshot-exact-tiles"
                 />
+                <MapZoomController destinations={filteredDestinations} />
                 {filteredDestinations.map((item, index) => (
                   <Marker
                     key={index}
                     position={item.position}
                     icon={createMarker(item)}
+                    eventHandlers={{
+                      click: () => {
+                        if (item.countryCode) {
+                          router.push(`/itinerary?country=${item.countryCode}`);
+                        }
+                      },
+                    }}
                   />
                 ))}
               </MapContainer>
