@@ -33,7 +33,7 @@ function HighlightCard({ card, tall = false }) {
       className="flex flex-col justify-center rounded-[0.5vw] border border-[#C8CE90] bg-[#EAEDC9] px-[1.2vw] py-[1.4vw]"
       style={{ height }}
     >
-      <p className="text-[0.78vw] leading-[1.65] text-[#1A1A1A]">{card.text}</p>
+      <p className="text-[0.78vw] leading-[1.65] text-ink">{card.text}</p>
     </div>
   );
 }
@@ -45,7 +45,7 @@ export default function HighlightsSection({ drupalData }) {
           <div className="flex w-full justify-center">
 
       <div className="mt-10 mb-10 flex min-h-[20px] w-[75%] items-center justify-center rounded-[0.5vw] border ">
-        <p className="text-[24px] font-medium text-[#1A1A1A]">
+        <p className="text-[24px] font-medium text-ink">
           Coming Soon
         </p>
       </div>

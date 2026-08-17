@@ -52,12 +52,12 @@ export default function BlogGrid({ blogs, categories }) {
                 justify-center
                 rounded-full
                 border
-                border-[#1A1A1A]
+                border-ink
                 px-[16px]
                 py-[10px]
                 text-[16px]
                 leading-none
-                text-[#1A1A1A]
+                text-ink
 
                 ${
                   selectedCategory === category
@@ -72,7 +72,7 @@ export default function BlogGrid({ blogs, categories }) {
         </div>
       </div>
 
-      <div className="mb-[24px] w-full h-[2px] bg-[#1A1A1A]" />
+      <div className="mb-[24px] w-full h-[2px] bg-ink" />
 
       {/* =====================================================
           BLOG GRID
@@ -99,7 +99,7 @@ export default function BlogGrid({ blogs, categories }) {
               overflow-hidden
               rounded-[10px]
               border-2
-              border-[#1A1A1A]
+              border-ink
               bg-[#FAFAFA]
             "
           >
@@ -117,12 +117,12 @@ export default function BlogGrid({ blogs, categories }) {
                   justify-center
                   rounded-full
                   border
-                  border-[#1A1A1A]
+                  border-ink
                   bg-white
                   px-[16px]
                   text-[16px]
                   leading-none
-                  text-[#1A1A1A]
+                  text-ink
                 "
               >
                 {blog.categoryName}
@@ -154,7 +154,7 @@ export default function BlogGrid({ blogs, categories }) {
                   font-semibold
                   leading-[32px]
                   tracking-[0.05em]
-                  text-[#1A1A1A]
+                  text-ink
                 "
               >
                 {blog.title}
@@ -163,7 +163,7 @@ export default function BlogGrid({ blogs, categories }) {
 
             {/* BOTTOM */}
             <div className="mt-auto px-[12px] pb-[10px]">
-              <div className="border-t border-[#1A1A1A]" />
+              <div className="border-t border-ink" />
 
               <Link
                 href={`/blog/${blog.slug}`}
@@ -176,7 +176,7 @@ export default function BlogGrid({ blogs, categories }) {
                     font-semibold
                     leading-[40px]
                     tracking-[0.05em]
-                    text-[#1A1A1A]
+                    text-ink
                   "
                 >
                   READ MORE
@@ -205,7 +205,7 @@ export default function BlogGrid({ blogs, categories }) {
             onClick={() => setCurrentPage(page)}
             className={
               page === currentPage
-                ? "text-[9px] font-semibold text-[#1A1A1A] underline underline-offset-4"
+                ? "text-[9px] font-semibold text-ink underline underline-offset-4"
                 : "text-[9px] text-[#9B9B9B]"
             }
           >
@@ -216,7 +216,7 @@ export default function BlogGrid({ blogs, categories }) {
         {currentPage < totalPages && (
           <button
             onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-            className="text-[10px] text-[#1A1A1A]"
+            className="text-[10px] text-ink"
           >
             →
           </button>

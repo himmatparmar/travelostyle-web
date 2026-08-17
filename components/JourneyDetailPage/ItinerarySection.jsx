@@ -17,7 +17,7 @@ function DayAccordion({ item, isOpen, onToggle }) {
           <p className="text-[0.65vw] font-medium uppercase tracking-[0.1em] text-[#888] mb-[0.2vw]">
             DAY {item.day}
           </p>
-          <p className="text-[0.85vw] font-semibold text-[#1A1A1A]">
+          <p className="text-[0.85vw] font-semibold text-ink">
             {item.title}
           </p>
           <p className="text-[0.72vw] text-[#666] mt-[0.2vw]">
@@ -31,9 +31,9 @@ function DayAccordion({ item, isOpen, onToggle }) {
         </div>
         <div className="flex h-[2.2vw] w-[2.2vw] shrink-0 items-center justify-center rounded-full bg-[#F2E2DA]">
           {isOpen ? (
-            <Minus size={16} className="text-[#1A1A1A]" />
+            <Minus size={16} className="text-ink" />
           ) : (
-            <Plus size={16} className="text-[#1A1A1A]" />
+            <Plus size={16} className="text-ink" />
           )}
         </div>
       </button>
@@ -52,7 +52,7 @@ export default function ItinerarySection({
 
   return (
     <div className="px-[5.5vw] py-[3vw]">
-      <h2 className="text-center text-[1.4vw] font-semibold text-[#1A1A1A] mb-[2.5vw]">
+      <h2 className="text-center text-[1.4vw] font-semibold text-ink mb-[2.5vw]">
         Here&apos;s How Your Days Unfold
       </h2>
 
@@ -77,7 +77,7 @@ export default function ItinerarySection({
         
        {days.length === 0 ? (
   <div className="flex items-center justify-center min-h-[200px]">
-    <p className="text-[24px] font-medium text-[#1A1A1A]">
+    <p className="text-[24px] font-medium text-ink">
       Coming Soon
     </p>
   </div>

@@ -25,7 +25,7 @@ export default function MobileStays({ onBack, StaysRecord }) {
           <Image src="/LeftArrow.svg" alt="Back" width={56} height={24} />
         </button>
 
-        <h1 className="text-base font-bold tracking-tight text-[#1A1A1A]">
+        <h1 className="text-base font-bold tracking-tight text-ink">
           Additional Information
         </h1>
 
@@ -33,7 +33,7 @@ export default function MobileStays({ onBack, StaysRecord }) {
       </div>
       {staysData.length === 0 ? (
         <div className="flex min-h-[120px] items-center justify-center rounded-lg border p-4">
-          <p className="text-base font-medium text-[#1A1A1A]">Coming Soon</p>
+          <p className="text-base font-medium text-ink">Coming Soon</p>
         </div>
       ) : (
         <div className="grid grid-cols-2 gap-4">

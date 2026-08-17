@@ -15,7 +15,7 @@ export default function ExploreAllJourneys() {
 
               {/* Heading */}
   {/* Desktop Heading */}
-<h2 className="hidden lg:block font-[Taprom] text-[54px] leading-[1.2] text-[#1A1A1A]">
+<h2 className="hidden lg:block font-[Taprom] text-[54px] leading-[1.2] text-ink">
   <span className="block w-fit bg-[#F1E7E2] mb-4">
     There’s a version of the
   </span>
@@ -30,7 +30,7 @@ export default function ExploreAllJourneys() {
 </h2>
 
 {/* Mobile Heading */}
-<h2 className="block lg:hidden font-[Taprom] text-[38px] leading-[1.2] text-[#1A1A1A] text-center">
+<h2 className="block lg:hidden font-[Taprom] text-[38px] leading-[1.2] text-ink text-center">
   <span className="block w-fit mx-auto bg-[#F1E7E2] mb-2">
     There’s a version of
   </span>
@@ -49,7 +49,7 @@ export default function ExploreAllJourneys() {
 </h2>
 
               {/* Paragraph */}
-            <p className="hidden lg:block mt-[56px] max-w-[573px] font-[Nohemi] font-normal text-[17px] leading-[32px] tracking-[0.05em] text-[#1A1A1A]">
+            <p className="hidden lg:block mt-[56px] max-w-[573px] font-[Nohemi] font-normal text-[17px] leading-[32px] tracking-[0.05em] text-ink">
                 TravelOStyle plans journeys across regions, travel styles,and
                budget points – from the sun-scorched temples of Rajasthan
                 to the drama of Patagonia. If you’re drawn towards it, it’s a
