@@ -1,0 +1,1872 @@
+[
+  {
+    "title": "Bangkok, Thailand",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      13.7563,
+      100.5018
+    ],
+    "months": [
+      "November",
+      "December",
+      "January",
+      "February"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Cool, dry weather; temples, street food, nightlife and tropical beaches",
+    "countryCode": "TH"
+  },
+  {
+    "title": "Chiang Mai, Thailand",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      18.7883,
+      98.9853
+    ],
+    "months": [
+      "November",
+      "December",
+      "January",
+      "February"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Ancient temples, mountainous terrain, elephant sanctuaries and cultural experiences",
+    "countryCode": "TH"
+  },
+  {
+    "title": "Thai Islands & Beaches, Thailand",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      8.65,
+      98.4038
+    ],
+    "months": [
+      "November",
+      "December",
+      "January",
+      "February"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Crystal-clear waters, limestone cliffs, island hopping and beach relaxation",
+    "countryCode": "TH"
+  },
+  {
+    "title": "Ho Chi Minh City, Vietnam",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      10.8231,
+      106.6297
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "March",
+      "April"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Bustling metropolis, War Remnants Museum, street food and gateway to southern regions",
+    "countryCode": "VN"
+  },
+  {
+    "title": "Mekong Delta, Vietnam",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      10.0379,
+      105.7869
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "March",
+      "April"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Floating markets, river scenery, fruit orchards and rural Vietnamese life",
+    "countryCode": "VN"
+  },
+  {
+    "title": "Hanoi & Northern Vietnam, Vietnam",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      21.0285,
+      105.8542
+    ],
+    "months": [
+      "November",
+      "December",
+      "January",
+      "February",
+      "March",
+      "April"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Ancient capital, Ha Long Bay, temples, French colonial architecture and culture",
+    "countryCode": "VN"
+  },
+  {
+    "title": "Southern Vietnamese Beaches, Vietnam",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      12.2388,
+      109.1967
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "March",
+      "April"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Coastal beauty, snorkeling, diving and beach relaxation",
+    "countryCode": "VN"
+  },
+  {
+    "title": "Angkor Wat, Cambodia",
+    "subtitle": "Ancient Wonders",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      13.3667,
+      103.8469
+    ],
+    "months": [
+      "November",
+      "December",
+      "January",
+      "February",
+      "March",
+      "April"
+    ],
+    "destinationType": "Archaeological Site",
+    "whyVisit": "World's largest religious monument, Khmer temples and ancient civilization",
+    "countryCode": "KH"
+  },
+  {
+    "title": "South Coast, Sri Lanka",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      5.9497,
+      80.7891
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "March",
+      "April",
+      "May"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Pristine beaches, whale watching and coastal charm",
+    "countryCode": "LK"
+  },
+  {
+    "title": "West Coast & Colombo, Sri Lanka",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      6.9271,
+      80.7789
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "March",
+      "April"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Gateway to beaches, culture and wildlife",
+    "countryCode": "LK"
+  },
+  {
+    "title": "Cultural Triangle, Sri Lanka",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      6.9271,
+      80.6344
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "March",
+      "April"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Ancient temples, sacred sites and Sri Lankan heritage",
+    "countryCode": "LK"
+  },
+  {
+    "title": "Delhi, India",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      28.6139,
+      77.209
+    ],
+    "months": [
+      "October",
+      "November",
+      "December",
+      "January",
+      "February",
+      "March"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Ancient and modern blend, Red Fort, temples and gateway to North India",
+    "countryCode": "IN"
+  },
+  {
+    "title": "Rajasthan, India",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      26.9124,
+      75.7873
+    ],
+    "months": [
+      "October",
+      "November",
+      "December",
+      "January",
+      "February",
+      "March"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Palaces, forts, vibrant culture and desert landscapes",
+    "countryCode": "IN"
+  },
+  {
+    "title": "Agra, India",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      27.1767,
+      78.0081
+    ],
+    "months": [
+      "October",
+      "November",
+      "December",
+      "January",
+      "February",
+      "March"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Taj Mahal, Mughal architecture and romantic heritage",
+    "countryCode": "IN"
+  },
+  {
+    "title": "Kerala, India",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      9.9312,
+      76.2673
+    ],
+    "months": [
+      "October",
+      "November",
+      "December",
+      "January",
+      "February",
+      "March"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Backwaters, beaches, spice plantations and tropical paradise",
+    "countryCode": "IN"
+  },
+  {
+    "title": "Dubai, United Arab Emirates",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      25.2048,
+      55.2708
+    ],
+    "months": [
+      "November",
+      "December",
+      "January",
+      "February",
+      "March"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Modern architecture, luxury shopping, desert safaris and outdoor activities",
+    "countryCode": "AE"
+  },
+  {
+    "title": "Cape Town, South Africa",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      -33.9249,
+      18.4241
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "March",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Table Mountain, V&A Waterfront, beaches, wine country and stunning scenery",
+    "countryCode": "ZA"
+  },
+  {
+    "title": "Garden Route, South Africa",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      -34.0447,
+      23.0542
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "March"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Scenic coastal drive, forests and coastal towns",
+    "countryCode": "ZA"
+  },
+  {
+    "title": "Kruger National Park, South Africa",
+    "subtitle": "Safari & Wildlife",
+    "image": "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400&q=80",
+    "position": [
+      -24.5,
+      31.5
+    ],
+    "months": [
+      "May",
+      "June",
+      "July",
+      "August",
+      "September"
+    ],
+    "destinationType": "National Park",
+    "whyVisit": "Major safari destination with Big Five wildlife viewing",
+    "countryCode": "ZA"
+  },
+  {
+    "title": "Sydney, Australia",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      -33.8688,
+      151.2093
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "September",
+      "October",
+      "November"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Opera House, iconic beaches, harbor and vibrant city culture",
+    "countryCode": "AU"
+  },
+  {
+    "title": "Melbourne, Australia",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      -37.8136,
+      144.9631
+    ],
+    "months": [
+      "December",
+      "January",
+      "February"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Arts and culture, street art, coffee culture and coastal charm",
+    "countryCode": "AU"
+  },
+  {
+    "title": "Tasmania, Australia",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      -42.8821,
+      147.3272
+    ],
+    "months": [
+      "December",
+      "January",
+      "February"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Pristine wilderness, hiking, wildlife and natural beauty",
+    "countryCode": "AU"
+  },
+  {
+    "title": "Milford Sound, New Zealand",
+    "subtitle": "Nature & Adventure",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      -44.6719,
+      167.9257
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "April",
+      "October"
+    ],
+    "destinationType": "Natural Park",
+    "whyVisit": "Dramatic fjords, waterfalls and scenic cruises",
+    "countryCode": "NZ"
+  },
+  {
+    "title": "Auckland, New Zealand",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      -37.0882,
+      174.7765
+    ],
+    "months": [
+      "December",
+      "January",
+      "February"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Gateway to North Island, harbors and urban exploration",
+    "countryCode": "NZ"
+  },
+  {
+    "title": "Queenstown, New Zealand",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      -44.9362,
+      168.7386
+    ],
+    "months": [
+      "December",
+      "January",
+      "February"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Adventure capital with hiking, skiing and stunning mountain scenery",
+    "countryCode": "NZ"
+  },
+  {
+    "title": "Buenos Aires, Argentina",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      -34.6037,
+      -58.3816
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "March",
+      "September",
+      "October",
+      "November"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Paris of South America with tango, culture, food and wine",
+    "countryCode": "AR"
+  },
+  {
+    "title": "Patagonia, Argentina",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      -49.3318,
+      -72.8854
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "March"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Glacier trekking, mountain peaks and pristine wilderness",
+    "countryCode": "AR"
+  },
+  {
+    "title": "Patagonia, Chile",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      -51.0051,
+      -72.884
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "March"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Granite peaks, lakes, trekking and pristine southern landscape",
+    "countryCode": "CL"
+  },
+  {
+    "title": "Atacama Desert, Chile",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      -22.9068,
+      -68.2011
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "March"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Driest place on Earth, otherworldly landscapes and stargazing",
+    "countryCode": "CL"
+  },
+  {
+    "title": "Cartagena, Colombia",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      10.391,
+      -75.4794
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "March",
+      "November"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Colonial charm, Caribbean coast, colorful architecture and Caribbean vibes",
+    "countryCode": "CO"
+  },
+  {
+    "title": "Mexico City, Mexico",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      19.4326,
+      -99.1332
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "March",
+      "April",
+      "November"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Ancient Aztec temples, museums, cuisine and colonial architecture",
+    "countryCode": "MX"
+  },
+  {
+    "title": "Mexican Beaches & Resorts, Mexico",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      20.6296,
+      -87.0739
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "March",
+      "April"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Caribbean beaches, cenotes, Mayan ruins and water activities",
+    "countryCode": "MX"
+  },
+  {
+    "title": "Manuel Antonio National Park, Costa Rica",
+    "subtitle": "Safari & Wildlife",
+    "image": "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400&q=80",
+    "position": [
+      9.3886,
+      -84.1346
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "March",
+      "April",
+      "May"
+    ],
+    "destinationType": "National Park",
+    "whyVisit": "Wildlife, beaches, rainforests and nature combined",
+    "countryCode": "CR"
+  },
+  {
+    "title": "Costa Rican Volcanoes & Rainforests, Costa Rica",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      10.4627,
+      -84.3039
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "March",
+      "April"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Active volcanoes, hot springs, cloud forests and biodiversity",
+    "countryCode": "CR"
+  },
+  {
+    "title": "Machu Picchu, Peru",
+    "subtitle": "Ancient Wonders",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      -13.1631,
+      -72.545
+    ],
+    "months": [
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October"
+    ],
+    "destinationType": "Archaeological Site",
+    "whyVisit": "UNESCO World Heritage Incan citadel and mystical mountain sanctuary",
+    "countryCode": "PE"
+  },
+  {
+    "title": "Coastal Peru, Peru",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      -12.0464,
+      -77.0428
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "March"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Coastal cities, cuisine capital and pre-Incan archaeology",
+    "countryCode": "PE"
+  },
+  {
+    "title": "Peruvian Andes, Peru",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      -13.5319,
+      -71.9753
+    ],
+    "months": [
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Mountain trekking, Incan heritage and high-altitude adventures",
+    "countryCode": "PE"
+  },
+  {
+    "title": "Tokyo, Japan",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      35.6762,
+      139.6503
+    ],
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "October",
+      "November"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Cherry blossoms, temples, tech culture, food and energy",
+    "countryCode": "JP"
+  },
+  {
+    "title": "Hokkaido & Japanese Alps, Japan",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      42.5081,
+      140.6566
+    ],
+    "months": [
+      "January",
+      "February"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "World-class skiing, snow experiences and winter sports",
+    "countryCode": "JP"
+  },
+  {
+    "title": "Kyoto, Japan",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      35.0116,
+      135.7681
+    ],
+    "months": [
+      "March",
+      "April",
+      "October",
+      "November"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Traditional temples, bamboo groves, geishas and cultural heart",
+    "countryCode": "JP"
+  },
+  {
+    "title": "Finnish Lapland, Finland",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      66.5019,
+      25.7482
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "March"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Northern Lights, Santa Village, huskies and Arctic experiences",
+    "countryCode": "FI"
+  },
+  {
+    "title": "Vienna, Austria",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      48.2082,
+      16.3738
+    ],
+    "months": [
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "December"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Imperial palaces, classical music, coffee culture and Christmas markets",
+    "countryCode": "AT"
+  },
+  {
+    "title": "Austrian Alps, Austria",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      47.2629,
+      11.4025
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "March",
+      "June",
+      "July",
+      "August",
+      "September"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Alpine skiing in winter, hiking in summer and mountain scenery",
+    "countryCode": "AT"
+  },
+  {
+    "title": "Singapore, Singapore",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      1.3521,
+      103.8198
+    ],
+    "months": [
+      "February",
+      "March",
+      "April"
+    ],
+    "destinationType": "City-State",
+    "whyVisit": "Modern city-state, Gardens by the Bay, hawker food and Southeast Asia gateway",
+    "countryCode": "SG"
+  },
+  {
+    "title": "Kuala Lumpur, Malaysia",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      3.139,
+      101.6869
+    ],
+    "months": [
+      "February",
+      "March",
+      "April"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Twin Towers, street food, shopping and colonial architecture",
+    "countryCode": "MY"
+  },
+  {
+    "title": "Penang, Malaysia",
+    "subtitle": "Island Paradise",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      5.3577,
+      100.3088
+    ],
+    "months": [
+      "February",
+      "March",
+      "April"
+    ],
+    "destinationType": "Island",
+    "whyVisit": "Melting pot of cultures, street art, beaches and hawker food",
+    "countryCode": "MY"
+  },
+  {
+    "title": "Langkawi, Malaysia",
+    "subtitle": "Island Paradise",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      6.352,
+      99.833
+    ],
+    "months": [
+      "February",
+      "March",
+      "April"
+    ],
+    "destinationType": "Island",
+    "whyVisit": "Tropical island paradise with beaches and duty-free shopping",
+    "countryCode": "MY"
+  },
+  {
+    "title": "Maldives, Maldives",
+    "subtitle": "Island Paradise",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      4.1694,
+      73.5093
+    ],
+    "months": [
+      "December",
+      "January",
+      "February",
+      "March",
+      "April",
+      "November"
+    ],
+    "destinationType": "Island Nation",
+    "whyVisit": "Tropical beaches, turquoise lagoons, overwater bungalows and diving",
+    "countryCode": "MV"
+  },
+  {
+    "title": "Marrakech, Morocco",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      31.6295,
+      -8.0088
+    ],
+    "months": [
+      "February",
+      "March",
+      "April",
+      "May",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Desert landscapes, medina bazaars, Atlas Mountains and Saharan experiences",
+    "countryCode": "MA"
+  },
+  {
+    "title": "Moroccan Desert, Morocco",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      31.9454,
+      -4.0143
+    ],
+    "months": [
+      "February",
+      "March",
+      "April",
+      "May",
+      "September",
+      "October",
+      "November"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Sand dunes, Bedouin camps and desert trekking",
+    "countryCode": "MA"
+  },
+  {
+    "title": "Atlas Mountains, Morocco",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      32.5,
+      -5.5
+    ],
+    "months": [
+      "March",
+      "April",
+      "May",
+      "September",
+      "October"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Mountain villages, trekking and Berber culture",
+    "countryCode": "MA"
+  },
+  {
+    "title": "Cairo, Egypt",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      30.0444,
+      31.2357
+    ],
+    "months": [
+      "October",
+      "November",
+      "December",
+      "January",
+      "February",
+      "March",
+      "April"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Pyramids, Egyptian Museum, Nile and gateway to ancient wonders",
+    "countryCode": "EG"
+  },
+  {
+    "title": "Nile Cruise, Egypt",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      25.6872,
+      32.6396
+    ],
+    "months": [
+      "October",
+      "November",
+      "December",
+      "January",
+      "February",
+      "March",
+      "April"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Nile river cruises, temples and ancient Egyptian sites",
+    "countryCode": "EG"
+  },
+  {
+    "title": "Kathmandu, Nepal",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      27.7172,
+      85.324
+    ],
+    "months": [
+      "March",
+      "April",
+      "May",
+      "October",
+      "November"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Gateway to Himalayas, temples, Everest and mountain experiences",
+    "countryCode": "NP"
+  },
+  {
+    "title": "Himalayan Trekking, Nepal",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      28.2096,
+      83.9856
+    ],
+    "months": [
+      "March",
+      "April",
+      "May",
+      "October",
+      "November"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Mountain trekking, Everest Base Camp and alpine adventure",
+    "countryCode": "NP"
+  },
+  {
+    "title": "Thimphu, Bhutan",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      27.5142,
+      89.6432
+    ],
+    "months": [
+      "March",
+      "April",
+      "May",
+      "October",
+      "November"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Sacred monasteries, Himalayan vistas and Gross National Happiness",
+    "countryCode": "BT"
+  },
+  {
+    "title": "Bhutanese Mountains, Bhutan",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      27.4093,
+      89.4255
+    ],
+    "months": [
+      "March",
+      "April",
+      "May",
+      "October",
+      "November"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Rhododendrons, mountain scenery and cultural trekking",
+    "countryCode": "BT"
+  },
+  {
+    "title": "Jerusalem, Israel",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      31.7683,
+      35.2137
+    ],
+    "months": [
+      "March",
+      "April",
+      "May",
+      "September",
+      "October"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Holy sites, Western Wall, Old City and spiritual significance",
+    "countryCode": "IL"
+  },
+  {
+    "title": "Athens, Greece",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      37.9838,
+      23.7275
+    ],
+    "months": [
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Acropolis, ancient ruins, temples and cradle of Western civilization",
+    "countryCode": "GR"
+  },
+  {
+    "title": "Greek Islands, Greece",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      36.4172,
+      25.4615
+    ],
+    "months": [
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Island-hopping, Mediterranean beaches and Aegean beauty",
+    "countryCode": "GR"
+  },
+  {
+    "title": "Rome, Italy",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      41.9028,
+      12.4964
+    ],
+    "months": [
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Colosseum, Vatican, art, history and eternal city charm",
+    "countryCode": "IT"
+  },
+  {
+    "title": "Tuscany, Italy",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      43.7696,
+      11.2558
+    ],
+    "months": [
+      "April",
+      "May",
+      "June",
+      "September",
+      "October"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Rolling hills, vineyards, Renaissance art and countryside charm",
+    "countryCode": "IT"
+  },
+  {
+    "title": "Italian Riviera, Italy",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      43.1315,
+      9.6516
+    ],
+    "months": [
+      "April",
+      "May",
+      "June",
+      "September",
+      "October"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Dramatic coastline, hiking and Mediterranean villages",
+    "countryCode": "IT"
+  },
+  {
+    "title": "Barcelona, Spain",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      41.3851,
+      2.1734
+    ],
+    "months": [
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Gaudí architecture, beaches, tapas culture and vibrant city",
+    "countryCode": "ES"
+  },
+  {
+    "title": "Spanish Beaches, Spain",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      38.9054,
+      1.4603
+    ],
+    "months": [
+      "May",
+      "June",
+      "July",
+      "August",
+      "September"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Mediterranean beaches, nightlife and island relaxation",
+    "countryCode": "ES"
+  },
+  {
+    "title": "Lisbon, Portugal",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      38.7223,
+      -9.1393
+    ],
+    "months": [
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Tiled buildings, pastel colors, Sintra and Portuguese charm",
+    "countryCode": "PT"
+  },
+  {
+    "title": "Algarve, Portugal",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      37.0141,
+      -7.9657
+    ],
+    "months": [
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Golden beaches, caves and southern Portuguese relaxation",
+    "countryCode": "PT"
+  },
+  {
+    "title": "Dubrovnik, Croatia",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      42.6426,
+      18.1093
+    ],
+    "months": [
+      "May",
+      "June",
+      "July",
+      "August",
+      "September"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Medieval Old Town, Adriatic sailing and Dalmatian coastline",
+    "countryCode": "HR"
+  },
+  {
+    "title": "Istanbul, Turkey",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      41.0082,
+      28.9784
+    ],
+    "months": [
+      "April",
+      "May",
+      "June",
+      "September",
+      "October"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Hagia Sophia, Blue Mosque, bazaars and Europe-Asia bridge",
+    "countryCode": "TR"
+  },
+  {
+    "title": "Cappadocia, Turkey",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      38.7683,
+      34.8409
+    ],
+    "months": [
+      "April",
+      "May",
+      "June",
+      "September",
+      "October"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Fairy chimneys, cave hotels and hot air balloon rides",
+    "countryCode": "TR"
+  },
+  {
+    "title": "Petra, Jordan",
+    "subtitle": "Ancient Wonders",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      30.3286,
+      35.4444
+    ],
+    "months": [
+      "March",
+      "April",
+      "May",
+      "October",
+      "November"
+    ],
+    "destinationType": "Archaeological Site",
+    "whyVisit": "Rose-red city, UNESCO World Heritage and ancient Nabatean wonder",
+    "countryCode": "JO"
+  },
+  {
+    "title": "Wadi Rum, Jordan",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      29.8393,
+      35.4242
+    ],
+    "months": [
+      "March",
+      "April",
+      "May",
+      "October",
+      "November"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Red desert landscape, Bedouin culture and desert camping",
+    "countryCode": "JO"
+  },
+  {
+    "title": "Beijing, China",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      39.9042,
+      116.4074
+    ],
+    "months": [
+      "April",
+      "May",
+      "September",
+      "October"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Great Wall, Forbidden City, temples and Chinese capital",
+    "countryCode": "CN"
+  },
+  {
+    "title": "Shanghai, China",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      31.2304,
+      121.4737
+    ],
+    "months": [
+      "April",
+      "May",
+      "September",
+      "October"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Modern skyline, traditional water towns and cosmopolitan energy",
+    "countryCode": "CN"
+  },
+  {
+    "title": "Seoul, South Korea",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      37.5665,
+      126.978
+    ],
+    "months": [
+      "September",
+      "October",
+      "November"
+    ],
+    "destinationType": "City",
+    "whyVisit": "K-pop culture, palaces, street food and autumn foliage",
+    "countryCode": "KR"
+  },
+  {
+    "title": "Reykjavik, Iceland",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      64.1466,
+      -21.9426
+    ],
+    "months": [
+      "June",
+      "July",
+      "August"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Waterfalls, glaciers, geysers, midnight sun and road trips",
+    "countryCode": "IS"
+  },
+  {
+    "title": "Norwegian Fjords, Norway",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      62.1024,
+      7.262
+    ],
+    "months": [
+      "June",
+      "July",
+      "August"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Dramatic fjords, waterfalls and Scandinavian natural majesty",
+    "countryCode": "NO"
+  },
+  {
+    "title": "Stockholm, Sweden",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      59.3293,
+      18.0686
+    ],
+    "months": [
+      "June",
+      "July",
+      "August"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Island archipelago, Nordic design and summer long days",
+    "countryCode": "SE"
+  },
+  {
+    "title": "Copenhagen, Denmark",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      55.6761,
+      12.5683
+    ],
+    "months": [
+      "June",
+      "July",
+      "August"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Tivoli Gardens, Nyhavn harbor, hygge culture and Scandinavian design",
+    "countryCode": "DK"
+  },
+  {
+    "title": "Swiss Alps, Switzerland",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      46.6863,
+      8.6379
+    ],
+    "months": [
+      "June",
+      "July",
+      "August",
+      "September"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Alpine hiking, scenic trains, mountain views and lakes",
+    "countryCode": "CH"
+  },
+  {
+    "title": "Paris, France",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      48.8566,
+      2.3522
+    ],
+    "months": [
+      "April",
+      "May",
+      "June",
+      "September",
+      "October",
+      "December"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Eiffel Tower, Louvre, cafes and world's most romantic destination",
+    "countryCode": "FR"
+  },
+  {
+    "title": "Provence, France",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      43.9501,
+      4.8055
+    ],
+    "months": [
+      "May",
+      "June",
+      "September",
+      "October"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Lavender fields, wine regions and Provençal countryside charm",
+    "countryCode": "FR"
+  },
+  {
+    "title": "French Riviera, France",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      43.7102,
+      7.262
+    ],
+    "months": [
+      "May",
+      "June",
+      "July",
+      "August",
+      "September"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Glamorous coast, Mediterranean beaches and upscale beaches",
+    "countryCode": "FR"
+  },
+  {
+    "title": "Berlin, Germany",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      52.52,
+      13.405
+    ],
+    "months": [
+      "April",
+      "May",
+      "June",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "destinationType": "City",
+    "whyVisit": "History, museums, nightlife, beer culture and Christmas markets",
+    "countryCode": "DE"
+  },
+  {
+    "title": "Prague, Czech Republic",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      50.0755,
+      14.4378
+    ],
+    "months": [
+      "April",
+      "May",
+      "June",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Charles Bridge, Prague Castle, beer, Christmas markets and fairy-tale charm",
+    "countryCode": "CZ"
+  },
+  {
+    "title": "Rio de Janeiro, Brazil",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      -22.9068,
+      -43.1729
+    ],
+    "months": [
+      "May",
+      "June",
+      "July",
+      "August",
+      "September"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Christ the Redeemer, Sugarloaf Mountain, beaches and carnival",
+    "countryCode": "BR"
+  },
+  {
+    "title": "Banff National Park, Canada",
+    "subtitle": "Safari & Wildlife",
+    "image": "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400&q=80",
+    "position": [
+      51.4968,
+      -115.4881
+    ],
+    "months": [
+      "June",
+      "July",
+      "August",
+      "September"
+    ],
+    "destinationType": "National Park",
+    "whyVisit": "Rocky Mountains, turquoise lakes, hiking and wildlife",
+    "countryCode": "CA"
+  },
+  {
+    "title": "Eastern Canada, Canada",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      45.5017,
+      -73.5673
+    ],
+    "months": [
+      "September",
+      "October"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Brilliant autumn colors, fall foliage and outdoor adventures",
+    "countryCode": "CA"
+  },
+  {
+    "title": "Hawaii, United States",
+    "subtitle": "Island Paradise",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      21.3099,
+      -157.8581
+    ],
+    "months": [
+      "April",
+      "May",
+      "September",
+      "October"
+    ],
+    "destinationType": "Island State",
+    "whyVisit": "Tropical beaches, volcanoes, surfing and Pacific island paradise",
+    "countryCode": "US"
+  },
+  {
+    "title": "Alaska, United States",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      61.2181,
+      -149.9003
+    ],
+    "months": [
+      "June",
+      "July",
+      "August"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Wildlife, glaciers, hiking, cruises and wilderness adventure",
+    "countryCode": "US"
+  },
+  {
+    "title": "New England, United States",
+    "subtitle": "Explore Region",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      42.3601,
+      -71.0589
+    ],
+    "months": [
+      "September",
+      "October"
+    ],
+    "destinationType": "Region",
+    "whyVisit": "Spectacular fall foliage, autumn colors and New England charm",
+    "countryCode": "US"
+  },
+  {
+    "title": "Maasai Mara, Kenya",
+    "subtitle": "Safari & Wildlife",
+    "image": "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400&q=80",
+    "position": [
+      -1.5,
+      34.8
+    ],
+    "months": [
+      "June",
+      "July",
+      "August",
+      "September",
+      "October"
+    ],
+    "destinationType": "National Reserve",
+    "whyVisit": "Great Migration, safari, Big Five wildlife and African adventure",
+    "countryCode": "KE"
+  },
+  {
+    "title": "Serengeti, Tanzania",
+    "subtitle": "Safari & Wildlife",
+    "image": "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400&q=80",
+    "position": [
+      -2.3333,
+      34.8333
+    ],
+    "months": [
+      "June",
+      "July",
+      "August",
+      "September",
+      "October"
+    ],
+    "destinationType": "National Park",
+    "whyVisit": "Great Migration, safari, wildlife and Tanzania's natural wonder",
+    "countryCode": "TZ"
+  },
+  {
+    "title": "Okavango Delta, Botswana",
+    "subtitle": "Wildlife & Nature",
+    "image": "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400&q=80",
+    "position": [
+      -19.2,
+      22.5
+    ],
+    "months": [
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October"
+    ],
+    "destinationType": "Natural Region",
+    "whyVisit": "Pristine wildlife sanctuary, elephant herds and birdwatching",
+    "countryCode": "BW"
+  },
+  {
+    "title": "Etosha National Park, Namibia",
+    "subtitle": "Safari & Wildlife",
+    "image": "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400&q=80",
+    "position": [
+      -18.8595,
+      16.3276
+    ],
+    "months": [
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October"
+    ],
+    "destinationType": "National Park",
+    "whyVisit": "Desert wildlife, salt pans and wildlife photography",
+    "countryCode": "NA"
+  },
+  {
+    "title": "Port Louis, Mauritius",
+    "subtitle": "Explore City",
+    "image": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80",
+    "position": [
+      -20.1609,
+      57.5012
+    ],
+    "months": [
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October"
+    ],
+    "destinationType": "City",
+    "whyVisit": "Island paradise, beaches, Hindu temples and Indian Ocean charm",
+    "countryCode": "MU"
+  },
+  {
+    "title": "Piton de la Fournaise, Réunion",
+    "subtitle": "Adventure & Nature",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      -21.2444,
+      55.7167
+    ],
+    "months": [
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October"
+    ],
+    "destinationType": "Volcano",
+    "whyVisit": "Active volcano, dramatic landscapes, hiking and island adventure",
+    "countryCode": "RE"
+  },
+  {
+    "title": "Galápagos Islands, Ecuador",
+    "subtitle": "Island Adventure",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80",
+    "position": [
+      -0.7514,
+      -91.2198
+    ],
+    "months": [
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "destinationType": "Archipelago",
+    "whyVisit": "Endemic wildlife, marine life, Darwin's research and natural laboratory",
+    "countryCode": "EC"
+  }
+]
