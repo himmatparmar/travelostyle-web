@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useEffect } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import FilterSidebar from "./FilterSidebar";
 import SortBar from "./SortBar";
 import JourneyGrid from "./JourneyGrid";
@@ -9,7 +10,35 @@ import MobileFilters from "./MobileFilters";
 import { slugify } from "@/lib/slugify";
 import { API_BASE_URL, buildFileUrl } from "@/lib/config";
 
+// Resolves the ISO country code from a journey's starting-location
+// reference (node--location -> field_address.country_code), used only
+// to filter journeys clicked from the homepage map — not shown as a
+// filter option in the sidebar.
+function resolveCountryCode(rel, included) {
+  const id = rel?.data?.id;
+
+  if (!id) return "";
+
+  const node = included.find(
+    (inc) => inc.type === "node--location" && inc.id === id,
+  );
+
+  return node?.attributes?.field_address?.country_code || "";
+}
+
 export default function AllJourneysPage() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const [countryFilter, setCountryFilter] = useState(null);
+
+  useEffect(() => {
+    const countryParam = searchParams.get("country");
+    if (countryParam) {
+      setCountryFilter(countryParam);
+    }
+  }, [searchParams]);
+
   const [journeys, setJourneys] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -43,7 +72,7 @@ export default function AllJourneysPage() {
         setLoading(true);
 
        const res = await fetch(
-  `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month,field_category,field_region`
+  `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month,field_category,field_region,field_starts_in`
 );
 
 
@@ -203,6 +232,10 @@ offer: item.attributes.field_offer_message || "",
             tags: tagNames,
             style: tagNames[0] || "Group Journey",
             region: regionName,
+            countryCode: resolveCountryCode(
+              item.relationships?.field_starts_in,
+              included,
+            ),
             category: categoryNames,
             month: monthName,
 
@@ -264,6 +297,14 @@ offer: item.attributes.field_offer_message || "",
 
   const filteredJourneys = useMemo(() => {
     let data = [...journeys];
+
+    if (countryFilter) {
+      data = data.filter(
+        (item) =>
+          (item.countryCode || "").toUpperCase() ===
+          countryFilter.toUpperCase(),
+      );
+    }
 
     if (!filters.displayAllOffers) {
       data = data.filter((item) => !item.offer);
@@ -338,7 +379,7 @@ offer: item.attributes.field_offer_message || "",
     }
 
     return data;
-  }, [journeys, filters, sort]);
+  }, [journeys, filters, sort, countryFilter]);
   const hasActiveFilters =
   filters.region.length > 0 ||
   filters.style.length > 0 ||
@@ -346,7 +387,8 @@ offer: item.attributes.field_offer_message || "",
   filters.category.length > 0 ||
   filters.month.length > 0 ||
   filters.pricing.length > 0 ||
-  filters.duration.length > 0;
+  filters.duration.length > 0 ||
+  !!countryFilter;
   const totalPages = Math.ceil(filteredJourneys.length / itemsPerPage);
 
   const paginatedJourneys = filteredJourneys.slice(
@@ -363,7 +405,7 @@ offer: item.attributes.field_offer_message || "",
     );
   }
 
-  const clearAllFilters = () =>
+  const clearAllFilters = () => {
     setFilters({
       displayAllOffers: true,
       region: [],
@@ -374,6 +416,11 @@ offer: item.attributes.field_offer_message || "",
       pricing: [],
       duration: [],
     });
+    setCountryFilter(null);
+    if (searchParams.get("country")) {
+      router.replace(pathname);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#fafafa] font-sans px-4 pb-24 md:px-14 md:pb-0">
@@ -429,7 +476,7 @@ offer: item.attributes.field_offer_message || "",
             setFilters={setFilters}
             filterOptions={filterOptions}
              journeys={journeys}
-
+            onClearAll={clearAllFilters}
           />
         </div>
 
@@ -491,6 +538,7 @@ offer: item.attributes.field_offer_message || "",
         sort={sort}
         setSort={setSort}
         resultCount={filteredJourneys.length}
+        onClearAll={clearAllFilters}
       />
     </div>
   );
