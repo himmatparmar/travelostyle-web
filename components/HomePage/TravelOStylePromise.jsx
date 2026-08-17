@@ -40,7 +40,16 @@ export default async function TravelOStylePromise() {
   const { block, included } = result;
 
   const heading = block.attributes.field_heading || "";
-  const description = block.attributes.field_description?.value || "";
+  const rawDescription = block.attributes.field_description?.value || "";
+
+  // Force "We truly believe..." onto its own paragraph on mobile, even if
+  // the CMS content doesn't already break it into a separate <p>. Uses a
+  // mobile-only spacer block (line break + gap) so desktop rendering is
+  // unaffected.
+  const description = rawDescription.replace(
+    /(\s*)(We truly believe)/i,
+    '<span class="block h-6 md:hidden" aria-hidden="true"></span>$2'
+  );
 
   const itemRefs = block.relationships?.field_promise_items?.data || [];
   const promises = itemRefs
@@ -59,17 +68,48 @@ export default async function TravelOStylePromise() {
   return (
     <section className="py-16 md:py-20 bg-[#fbfbfb] select-none">
       <div className="mx-auto max-w-[1200px] px-6">
-        <div className="text-left md:text-center max-w-[340px] md:max-w-[920px] mx-auto">
-          <h2 className="text-[30px] md:text-[48px] font-bold md:font-medium text-[#2C2C2C] leading-[36px] md:leading-tight">
-            {heading}
-          </h2>
-          <p className="hidden md:block mx-auto mt-5 text-[13px] leading-[1.8] text-[#7B7B7B]">
-            {description}
-          </p>
+<div className="text-left md:text-center w-full mx-auto">
+          <h2
+  className="
+    mx-auto
+    w-full
+    max-w-[380px]
+    text-left
+    text-[30px]
+    leading-[30px]
+    font-bold
+    text-[#2C2C2C]
 
-          <div className="md:hidden mt-6 flex flex-col gap-6 text-[13px] leading-[22px] text-[#4A4A4A]">
-            <p>{description}</p>
-          </div>
+    md:max-w-[741px]
+    md:text-center
+    md:text-[40px]
+    md:leading-[40px]
+    md:font-medium
+  "
+>
+  {heading}
+</h2>
+     <div className="mx-auto w-full max-w-[1246px]">
+  <div
+    className="
+    mt-[25px]
+      w-full
+      text-left
+      text-[19px]
+      leading-[26px]
+      text-[#4A4A4A]
+      [&_p]:mb-4
+      [&_p:last-child]:mb-0
+      md:text-center
+      md:text-[18px]
+      md:leading-[24px]
+      md:[&_p]:mb-0
+    "
+    dangerouslySetInnerHTML={{ __html: description || "" }}
+  />
+</div>
+
+        
         </div>
         <div className="mt-12 md:mt-16 flex flex-col md:flex-row flex-wrap justify-center items-center gap-5 md:gap-8 max-w-[340px] md:max-w-none mx-auto">
           {promises.map((item, index) => {

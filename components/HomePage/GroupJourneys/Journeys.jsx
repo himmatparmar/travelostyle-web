@@ -49,9 +49,10 @@ export default function Journey({
 
                 <div className="flex flex-col justify-between">
                   <div className="border-b border-[#4A4A4A] px-6 py-4">
-                    <p className="max-w-[95%] text-[#3f3f3f] text-[0.9vw]">
-                      {description}
-                    </p>
+                  <div
+  className="max-w-[95%] text-[#3f3f3f] text-[0.9vw]"
+  dangerouslySetInnerHTML={{ __html: description || "" }}
+/>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2">
@@ -65,9 +66,10 @@ export default function Journey({
                           {item.title}
                         </h3>
 
-                        <p className="mt-2 text-[0.8vw] text-[#1A1A1A]">
-                          {item.desc}
-                        </p>
+                      <div
+  className="mt-2 text-[0.8vw] text-[#1A1A1A]"
+  dangerouslySetInnerHTML={{ __html: item.desc || "" }}
+/>
                       </div>
                     ))}
                   </div>
@@ -142,23 +144,25 @@ export default function Journey({
           }`}
         >
           <div className="border-t border-[#575757] border-b-[2px] border-[#575757] px-4 py-4">
-            <p className="text-[16px] leading-[20px] text-[#444]">
-              {description}
-            </p>
+          <div
+  className="text-[16px] leading-[20px] text-[#444]"
+  dangerouslySetInnerHTML={{ __html: description || "" }}
+/>
           </div>
 
           {steps.map((item, index) => (
             <div key={index} className="px-6 py-4 text-center last:border-b-0">
-              <span className="block text-[24px] font-semibold text-[#222]">
+              <span className="block text-[24px] font-bold text-[#222]">
                 {index + 1}
               </span>
               <h3 className="mt-3 text-[18px] font-bold text-[#222]">
                 {item.title}
               </h3>
 
-              <p className="mt-2 text-[16px] leading-[19px] text-[#555] text-center">
-                {item.desc}
-              </p>
+           <div
+  className="mt-2 text-[16px] leading-[19px] text-[#555] text-center"
+  dangerouslySetInnerHTML={{ __html: item.desc || "" }}
+/>
             </div>
           ))}
         </div>
