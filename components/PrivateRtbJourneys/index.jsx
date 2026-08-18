@@ -86,21 +86,21 @@ const FALLBACK_BOOKING_STEPS = {
       title: "Browse",
       description:
         "Find a journey that sparks your imagination from any of our group or inspirational itineraries.",
-      bgColor: "bg-[#edf2d0]",
+      bgColor: "#edf2d0",
     },
     {
       number: "2",
       title: "Confirm Details",
       description:
         "Tell us your dates, your group size, and any preferences that matter to you – pace, dietary needs, room configurations, anything at all – to customize your journey.",
-      bgColor: "bg-[#cce6ff] ",
+      bgColor: "#cce6ff",
     },
     {
       number: "3",
       title: "Complete booking",
       description:
         "TravelOStyle confirms availability, shares your private pricing clearly, and walks you through the booking process.",
-      bgColor: "bg-[#f5e6dc]",
+      bgColor: "#f5e6dc",
     },
   ],
 };

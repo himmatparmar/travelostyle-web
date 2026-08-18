@@ -85,28 +85,28 @@ const FALLBACK_BOOKING_STEPS = {
       title: "Browse",
       description:
         "Explore from a range of group journeys offered by TravelOStyle to find a destination and departure that works for you.",
-      bgColor: "bg-[#edf2d0]",
+      bgColor: "#edf2d0",
     },
     {
       number: "2",
       title: "Confirm Details",
       description:
         "Check availability for your preferred date and confirm traveller details – number of people, ages, and anything else we should know to make your trip.",
-      bgColor: "bg-[#cce6ff] ",
+      bgColor: "#cce6ff",
     },
     {
       number: "3",
       title: "Complete booking",
       description:
         "TravelOStyle will confirm your spot with an advance deposit. Complete the payment procedure and you're all set!",
-      bgColor: "bg-[#f5e6dc] ",
+      bgColor: "#f5e6dc",
     },
     {
       number: "4",
       title: "Set Off!",
       description:
         "We'll send your pre-departure guides a few weeks before the trip, and stay in touch as the date gets closer.",
-      bgColor: "bg-[#f2cb9b]",
+      bgColor: "#f2cb9b",
     },
   ],
 };
