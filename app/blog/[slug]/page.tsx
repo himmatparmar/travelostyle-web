@@ -26,7 +26,7 @@ export default async function BlogDetailBySlug({
         <SearchBar />
 
         <div className="flex flex-col items-center justify-center py-24 text-center">
-          <h2 className="font-[Nohemi] text-[28px] font-semibold tracking-[0.05em] text-[#1A1A1A]">
+          <h2 className="font-[Nohemi] text-[28px] font-semibold tracking-[0.05em] text-ink">
             Coming Soon
           </h2>
           <p className="mt-3 max-w-[420px] text-[14px] text-[#4A4A4A]">

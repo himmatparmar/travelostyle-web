@@ -20,7 +20,7 @@ export default function MobileItinerary({ onBack, itineraryRecord, mapImage }) {
           <Image src="/LeftArrow.svg" alt="Back" width={56} height={24} />
         </button>
 
-        <h1 className="text-base font-bold tracking-tight text-[#1A1A1A]">
+        <h1 className="text-base font-bold tracking-tight text-ink">
           Itinerary
         </h1>
 
@@ -48,7 +48,7 @@ export default function MobileItinerary({ onBack, itineraryRecord, mapImage }) {
       <div className="space-y-3 pb-8">
         {itinerary.length === 0 ? (
           <div className="flex min-h-[120px] items-center justify-center rounded-xl border p-4">
-            <p className="text-base font-medium text-[#1A1A1A]">Coming Soon</p>
+            <p className="text-base font-medium text-ink">Coming Soon</p>
           </div>
         ) : (
         itinerary.map((item) => {

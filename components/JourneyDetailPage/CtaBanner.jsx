@@ -2,7 +2,7 @@ export default function CtaBanner() {
   return (
     <div className="mx-[5.5vw] mb-[3vw] flex items-center justify-between rounded-[0.6vw] bg-[#F2E5DE] px-[2.5vw] py-[1.6vw]">
       <div>
-        <p className="text-[1vw] font-semibold text-[#1A1A1A]">
+        <p className="text-[1vw] font-semibold text-ink">
           Love the itinerary, but need more?
         </p>
         <p className="mt-[0.2vw] text-[0.82vw] text-[#555]">

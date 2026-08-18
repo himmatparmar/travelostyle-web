@@ -8,26 +8,26 @@ export default function YourNextTrip() {
   const [activeTab, setActiveTab] = useState("journeys");
 
   return (
-    <section className="overflow-hidden py-[5vw]">
+    <section className="overflow-hidden py-8 md:py-[5vw]">
       <div className="mx-auto w-full">
-        <div className="text-center">
-          <h2 className="text-[3vw] font-semibold tracking-[-0.08vw] text-[#1B1B1B]">
+        <div className="text-center px-4 md:px-0">
+          <h2 className="text-[26px] leading-[1.25] font-semibold tracking-[-0.02em] text-[#1B1B1B] md:text-[3vw] md:tracking-[-0.08vw]">
             Take your next trip with TravelOStyle
           </h2>
 
-          <p className="mx-auto max-w-[43vw] text-[0.92vw] leading-[1.8] text-[#6D6D6D]">
+          <p className="mx-auto mt-2 max-w-[340px] text-[14px] leading-[1.6] text-[#6D6D6D] md:mt-0 md:max-w-[43vw] md:text-[0.92vw] md:leading-[1.8]">
             The journeys we know well, believe in genuinely, and can deliver on
             — every single time.
           </p>
         </div>
 
-        <div className="mt-[4vw]">
+        <div className="mt-6 md:mt-[4vw]">
 
           <div className="border-b border-[#D8D8D8]">
-            <div className="flex items-center justify-center gap-[4vw] text-[1vw]">
+            <div className="flex items-center justify-center gap-4 text-[13px] px-4 md:gap-[4vw] md:text-[1vw] md:px-0">
               <button
                 onClick={() => setActiveTab("journeys")}
-                className={`relative pb-[1vw] transition-all duration-300 ${
+                className={`relative pb-3 transition-all duration-300 md:pb-[1vw] ${
                   activeTab === "journeys"
                     ? "font-medium text-black"
                     : "text-[#707070]"
@@ -41,7 +41,7 @@ export default function YourNextTrip() {
 
               <button
                 onClick={() => setActiveTab("destinations")}
-                className={`relative pb-[1vw] transition-all duration-300 ${
+                className={`relative pb-3 transition-all duration-300 md:pb-[1vw] ${
                   activeTab === "destinations"
                     ? "font-medium text-black"
                     : "text-[#707070]"
@@ -55,7 +55,7 @@ export default function YourNextTrip() {
 
               <button
                 onClick={() => setActiveTab("deals")}
-                className={`relative pb-[1vw] transition-all duration-300 ${
+                className={`relative pb-3 transition-all duration-300 md:pb-[1vw] ${
                   activeTab === "deals"
                     ? "font-medium text-black"
                     : "text-[#707070]"

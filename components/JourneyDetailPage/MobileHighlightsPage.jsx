@@ -6,7 +6,7 @@ export default function MobileHighlights({ onBack, highlightsRecord }) {
  const highlights = highlightsRecord?.length > 0 ? highlightsRecord : [];
 
   return (
-    <div className="block w-full font-sans text-[#1A1A1A] antialiased md:hidden">
+    <div className="block w-full font-sans text-ink antialiased md:hidden">
       <main className="px-4 py-4 pb-12">
         <div className="w-full p-2">
           <div className="mb-4 flex items-center justify-between border-b border-gray-100 pb-3">
@@ -22,7 +22,7 @@ export default function MobileHighlights({ onBack, highlightsRecord }) {
               />
             </button>
 
-            <h1 className="text-base font-bold tracking-tight text-[#1A1A1A]">
+            <h1 className="text-base font-bold tracking-tight text-ink">
               Highlights
             </h1>
 
@@ -31,7 +31,7 @@ export default function MobileHighlights({ onBack, highlightsRecord }) {
 
           {highlights.length === 0 ? (
             <div className="flex min-h-[120px] items-center justify-center rounded-[8px] border p-4">
-              <p className="text-base font-medium text-[#1A1A1A]">
+              <p className="text-base font-medium text-ink">
                 Coming Soon
               </p>
             </div>

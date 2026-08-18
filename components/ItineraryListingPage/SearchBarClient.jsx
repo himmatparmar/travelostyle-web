@@ -44,14 +44,14 @@ function ListingSearchForm({ destinations = [] }) {
   const budgetLabel = selectedBudget || "How much do you want to spend?";
 
   return (
-    <div className="border-2 border-[#1A1A1A] rounded-xl px-6 py-4 my-6 bg-white">
+    <div className="border-2 border-ink rounded-xl px-6 py-4 my-6 bg-white">
       <div className="flex gap-4">
         {/* WHERE */}
         <button
           onClick={() => toggle("dest")}
           className="flex h-[2.4vw] flex-1 items-center justify-between rounded border border-gray-300 bg-white px-4"
         >
-          <span className={`text-[0.75vw] truncate ${!selectedDestinations.length ? "text-gray-400" : "text-[#1a1a1a]"}`}>
+          <span className={`text-[0.75vw] truncate ${!selectedDestinations.length ? "text-gray-400" : "text-ink"}`}>
             {destLabel}
           </span>
           {activeDropdown === "dest" ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
@@ -62,7 +62,7 @@ function ListingSearchForm({ destinations = [] }) {
           onClick={() => toggle("when")}
           className="flex h-[2.4vw] flex-1 items-center justify-between rounded border border-gray-300 bg-white px-4"
         >
-          <span className={`text-[0.75vw] truncate ${!selectedMonths.length ? "text-gray-400" : "text-[#1a1a1a]"}`}>
+          <span className={`text-[0.75vw] truncate ${!selectedMonths.length ? "text-gray-400" : "text-ink"}`}>
             {whenLabel}
           </span>
           {activeDropdown === "when" ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
@@ -73,7 +73,7 @@ function ListingSearchForm({ destinations = [] }) {
           onClick={() => toggle("budget")}
           className="flex h-[2.4vw] flex-1 items-center justify-between rounded border border-gray-300 bg-white px-4"
         >
-          <span className={`text-[0.75vw] truncate ${!selectedBudget ? "text-gray-400" : "text-[#1a1a1a]"}`}>
+          <span className={`text-[0.75vw] truncate ${!selectedBudget ? "text-gray-400" : "text-ink"}`}>
             {budgetLabel}
           </span>
           {activeDropdown === "budget" ? <ChevronUp size={16} /> : <ChevronDown size={16} />}

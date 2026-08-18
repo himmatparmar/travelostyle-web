@@ -36,7 +36,7 @@ export default function MobileNavigationMenu({
              onClick={() => setActiveView(item.id)}
               className="flex w-full items-center justify-between border-b border-black px-6 py-4 text-left transition active:bg-gray-50"
             >
-              <span className="text-base font-medium tracking-wide text-[#1A1A1A]">
+              <span className="text-base font-medium tracking-wide text-ink">
                 {item.label}
               </span>
 

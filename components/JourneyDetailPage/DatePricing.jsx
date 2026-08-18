@@ -118,7 +118,7 @@ export default function JourneyPricing({
           text-[28px] md:text-[32px]
           leading-[36px] md:leading-[56px]
           tracking-[0.05em]
-          text-[#1A1A1A]
+          text-ink
         "
                     style={{ fontFamily: "Nohemi" }}
                 >
@@ -288,7 +288,7 @@ export default function JourneyPricing({
                                             <div className="flex items-start gap-3">
                                                 <div>
                                                     <div
-                                                        className="font-medium text-[16px] text-[#1A1A1A]"
+                                                        className="font-medium text-[16px] text-ink"
                                                         style={{ fontFamily: "Nohemi" }}
                                                     >
                                                         {formatDate(trip.startDate)}
@@ -306,7 +306,7 @@ export default function JourneyPricing({
 
                                                 <div>
                                                     <div
-                                                        className="font-medium text-[16px] text-[#1A1A1A]"
+                                                        className="font-medium text-[16px] text-ink"
                                                         style={{ fontFamily: "Nohemi" }}
                                                     >
                                                         {formatDate(trip.endDate)}
@@ -378,7 +378,7 @@ export default function JourneyPricing({
         font-medium
         underline
         cursor-pointer
-        text-[#1A1A1A]
+        text-ink
       "
                                                     style={{ fontFamily: "Nohemi" }}
                                                 >
@@ -417,7 +417,7 @@ export default function JourneyPricing({
 
             <div className="mt-6 flex flex-col items-start">
                 <p
-                    className="text-[#1A1A1A]"
+                    className="text-ink"
                     style={{
                         width: "263px",
                         height: "13px",
@@ -431,7 +431,7 @@ export default function JourneyPricing({
                 </p>
 
                 <button
-                    className="underline text-[#1A1A1A] mt-[12px]"
+                    className="underline text-ink mt-[12px]"
                     style={{
                         width: "185px",
                         height: "13px",

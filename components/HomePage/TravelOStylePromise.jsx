@@ -129,7 +129,15 @@ export default async function TravelOStylePromise() {
                   />
                 </div>
 
-                <p className="whitespace-pre-line max-md:whitespace-normal text-center text-[15px] md:text-[18px] font-bold md:font-semibold leading-[20px] md:leading-[1.25] text-[#2C2C2C]">
+                <p
+                  className="whitespace-pre-line max-md:whitespace-normal text-center text-[#2C2C2C]"
+                  style={{
+                    fontSize: "var(--fs-title-nohemi-semibold-sm)",
+                    lineHeight: "var(--lh-title-nohemi-semibold-sm)",
+                    letterSpacing: "var(--ls-title-nohemi-semibold-sm)",
+                    fontWeight: "var(--fw-title-nohemi-semibold-sm)",
+                  }}
+                >
                   {item.title}
                 </p>
               </div>
