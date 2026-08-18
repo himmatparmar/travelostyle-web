@@ -60,7 +60,7 @@ export default function BookYourJourneyMobile({ onBack }) {
           <Image src="/LeftArrow.svg" alt="Back" width={56} height={24} />
         </button>
 
-        <h1 className="text-base font-bold tracking-tight text-[#1A1A1A]">
+        <h1 className="text-base font-bold tracking-tight text-ink">
           Book Your Journey
         </h1>
 

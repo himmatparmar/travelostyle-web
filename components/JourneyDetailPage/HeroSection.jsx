@@ -89,7 +89,7 @@ export default function HeroSection({
           <span className="text-[#BBB]">&gt;</span>
           <span className="cursor-pointer hover:underline">All Journeys</span>
           <span className="text-[#BBB]">&gt;</span>
-          <span className="text-[#1A1A1A]">{journey.title}</span>
+          <span className="text-ink">{journey.title}</span>
         </div>
       </div>
 
@@ -107,7 +107,7 @@ export default function HeroSection({
           className="absolute left-[3vw] top-[5vw] z-10 w-[18vw] rounded-[0.35vw] border-2 border-[#2f2d89] bg-white shadow-[0_6px_28px_rgba(0,0,0,0.22)]"
           style={{ padding: "1.3vw" }}
         >
-          <h1 className="text-[1.2vw] font-bold leading-[1.28] text-[#1A1A1A]">
+          <h1 className="text-[1.2vw] font-bold leading-[1.28] text-ink">
             {journey.title}
           </h1>
           <p className="mt-[0.5vw] text-[0.63vw] leading-[1.6] text-[#444]">
@@ -128,19 +128,19 @@ export default function HeroSection({
 
           <div className="flex flex-col gap-[0.3vw] text-[0.63vw]">
             <div>
-              <span className="font-bold text-[#1A1A1A]">Starts In: </span>
+              <span className="font-bold text-ink">Starts In: </span>
               <span className="text-[#444]">{journey.startCity || "Casablanca"}</span>
             </div>
             <div>
-              <span className="font-bold text-[#1A1A1A]">Ends In: </span>
+              <span className="font-bold text-ink">Ends In: </span>
               <span className="text-[#444]">{journey.endCity || "Marrakech"}</span>
             </div>
             <div>
-              <span className="font-bold text-[#1A1A1A]">Best Seasons: </span>
+              <span className="font-bold text-ink">Best Seasons: </span>
               <span className="text-[#444]">{journey.bestSeason || "Jan–March, July–Sep"}</span>
             </div>
             <div>
-              <span className="font-bold text-[#1A1A1A]">Pace: </span>
+              <span className="font-bold text-ink">Pace: </span>
               <span className="text-[#444]">{journey.pace }</span>
             </div>
           </div>
@@ -199,7 +199,7 @@ export default function HeroSection({
           <div className="mt-[0.65vw] text-[0.57vw] text-[#555]">
             Want to make this itinerary entirely your own?
             <br />
-            <button className="mt-[0.1vw] font-bold text-[#1A1A1A] underline underline-offset-[2px]">
+            <button className="mt-[0.1vw] font-bold text-ink underline underline-offset-[2px]">
               Tailor This Journey For You
             </button>
           </div>
@@ -225,7 +225,7 @@ export default function HeroSection({
               priority
             />
             <div className="absolute left-4 right-4 top-3 rounded-md border-2 border-[#3A3A3A] bg-white p-4 shadow-lg">
-              <h1 className="text-[28px] font-bold leading-[34px] text-[#1A1A1A]">
+              <h1 className="text-[28px] font-bold leading-[34px] text-ink">
                 {journey.title}
               </h1>
 
@@ -341,7 +341,7 @@ export default function HeroSection({
 
               <span className="text-[15px] text-[#333]">OR</span>
 
-              <button className="text-[15px] font-semibold text-[#1A1A1A] underline underline-offset-2">
+              <button className="text-[15px] font-semibold text-ink underline underline-offset-2">
                 Request a Private Journey
               </button>
             </div>

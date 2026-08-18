@@ -173,59 +173,60 @@ export default function TestimonialSection({ testimonialData }) {
         </div>
 
 
-        <div className="md:hidden flex flex-col items-center relative w-full max-w-[320px] mx-auto">
-          <div className="flex items-center justify-between w-full relative min-h-[240px]">
-
-            <button
-              onClick={handlePrev}
-              className="absolute left-[-15px] z-20 cursor-pointer active:scale-95 transition"
-            >
-              <Image src="/LeftArrow.svg" alt="Previous" height={24} width={48} className="w-[48px] h-auto" />
-            </button>
-
-            <div className="mx-auto border border-[#4c4b75] bg-white p-2.5 shadow-[2px_2px_10px_rgba(0,0,0,0.05)] w-[200px] shrink-0 z-10">
-              <div className="relative w-full h-[180px]">
-                <Image
-                  src={current.image}
-                  alt={current.name}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <p className="mt-2.5 text-[13px] font-bold text-[#111111] text-left">
-                {current.name}
-              </p>
-            </div>
-
-            <button
-              onClick={handleNext}
-              className="absolute right-[-15px] z-20 cursor-pointer active:scale-95 transition"
-            >
-              <Image src="/RightArrow.svg" alt="Next" height={24} width={48} className="w-[48px] h-auto" />
-            </button>
+        <div className="md:hidden overflow-x-scroll overflow-y-hidden snap-x snap-mandatory scrollbar-hide">
+  <div className="flex gap-4 px-4 items-start">
+    {testimonials.map((item) => (
+      <div
+        key={item.id}
+        className="snap-start shrink-0 w-[230px]"
+      >
+        <div className="border-[2px] border-[#4c4b75] rounded-[4px] bg-white p-3">
+          <div className="relative w-full h-[180px]">
+            <Image
+              src={item.image}
+              alt={item.name}
+              fill
+              className="object-cover"
+            />
           </div>
 
-          <div className="relative w-full mt-8 px-6 min-h-[80px]">
-            <span className="absolute left-0 top-[-6px]">
-              <div className="relative w-[20px] h-[15px]">
-                <Image src="/RightQuote.svg" alt="Quote Start" fill className="object-contain opacity-40" />
-              </div>
-            </span>
-
-            <p className="text-[13px] leading-[20px] text-[#4a4a4a] text-center max-w-[210px] mx-auto font-medium">
-              {current.quote}
-            </p>
-
-            <span className="absolute right-2 bottom-[-10px]">
-              <div className="relative w-[20px] h-[15px]">
-                <Image src="/LeftQuote.svg" alt="Quote End" fill className="object-contain opacity-40" />
-              </div>
-            </span>
-          </div>
-
+          <p className="mt-3 text-[13px] font-bold text-[#111111]">
+            {item.name}
+          </p>
         </div>
 
+        <div className="relative mt-6">
+          <span className="absolute -top-3 left-0">
+            <div className="relative w-[18px] h-[14px]">
+              <Image
+                src="/RightQuote.svg"
+                alt=""
+                fill
+                className="object-contain opacity-40"
+              />
+            </div>
+          </span>
+
+          <p className="text-[13px] leading-[28px] text-[#4A4A4A]">
+            {item.quote}
+          </p>
+
+          <span className="absolute -bottom-4 right-0">
+            <div className="relative w-[18px] h-[14px]">
+              <Image
+                src="/LeftQuote.svg"
+                alt=""
+                fill
+                className="object-contain opacity-40"
+              />
+            </div>
+          </span>
+        </div>
       </div>
+    ))}
+  </div>
+</div>
+</div>
     </section>
   );
 }

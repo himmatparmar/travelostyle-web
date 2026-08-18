@@ -41,7 +41,7 @@ function mapBookingSteps(result) {
     number: s.attributes?.field_step_number || "",
     title: s.attributes?.field_step_title || "",
     description: s.attributes?.field_step_description?.value || "",
-    bgColor: s.attributes?.field_bg_color ? `bg-[${s.attributes.field_bg_color}]` : "bg-white",
+    bgColor: s.attributes?.field_bg_color || "#ffffff",
   }));
 
   return {

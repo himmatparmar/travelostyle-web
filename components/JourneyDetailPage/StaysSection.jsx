@@ -107,7 +107,7 @@ function Lightbox({ images, name, startIndex, onClose }) {
 
 function HotelCard({ hotel, onGalleryOpen }) {
   return (
-    <div className="border-2 border-[#1A1A1A] rounded-[0.6vw] overflow-hidden flex flex-col">
+    <div className="border-2 border-ink rounded-[0.6vw] overflow-hidden flex flex-col">
       <div className="relative h-[15vw] w-full">
         <Image
           src={hotel.image}
@@ -119,7 +119,7 @@ function HotelCard({ hotel, onGalleryOpen }) {
       </div>
 
       <div className="flex flex-col flex-1 px-[0.8vw] pt-[0.7vw] pb-0">
-        <p className="text-[0.82vw] font-semibold text-[#1A1A1A]">
+        <p className="text-[0.82vw] font-semibold text-ink">
           {hotel.name}
         </p>
         <p className="mt-[0.3vw] text-[0.7vw] leading-[1.5] text-[#555]">
@@ -127,10 +127,10 @@ function HotelCard({ hotel, onGalleryOpen }) {
         </p>
       </div>
 
-      <div className="mt-[0.8vw] border-t-2 border-[#1A1A1A]">
+      <div className="mt-[0.8vw] border-t-2 border-ink">
         <button
           onClick={onGalleryOpen}
-          className="w-full py-[0.6vw] text-[0.75vw] font-medium text-[#1A1A1A] text-center hover:bg-[#f8f8f8] transition-colors"
+          className="w-full py-[0.6vw] text-[0.75vw] font-medium text-ink text-center hover:bg-[#f8f8f8] transition-colors"
         >
           View Gallery
         </button>

@@ -31,18 +31,18 @@ function AccordionItem({ item }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="rounded-[0.7vw] border border-[#1A1A1A] bg-white overflow-hidden">
+    <div className="rounded-[0.7vw] border border-ink bg-white overflow-hidden">
       <button
         onClick={() => setIsOpen((v) => !v)}
         className="flex w-full items-center justify-between px-[1.4vw] py-[1.1vw] text-left"
       >
-        <span className="text-[0.9vw] font-bold text-[#1A1A1A]">
+        <span className="text-[0.9vw] font-bold text-ink">
           {item.title}
         </span>
         <span className="relative flex h-[1.8vw] w-[1.8vw] shrink-0 items-center justify-center rounded-full bg-[#F7E4DC]">
-          <span className="absolute h-[0.11vw] w-[0.8vw] bg-[#1A1A1A]" />
+          <span className="absolute h-[0.11vw] w-[0.8vw] bg-ink" />
           <span
-            className={`absolute h-[0.8vw] w-[0.11vw] bg-[#1A1A1A] transition-transform duration-200 ${
+            className={`absolute h-[0.8vw] w-[0.11vw] bg-ink transition-transform duration-200 ${
               isOpen ? "scale-y-0" : "scale-y-100"
             }`}
           />
@@ -73,7 +73,7 @@ export default function AdditionalInformationSection({ drupalData }) {
     <div className="bg-[#fafafa] px-[8vw] py-[3vw] text-center">
       {groups.map((group, gi) => (
         <div key={gi} className={gi > 0 ? "mt-[3vw]" : ""}>
-          <h2 className="mb-[1.6vw] text-center text-[1.5vw] font-bold text-[#1A1A1A]">
+          <h2 className="mb-[1.6vw] text-center text-[1.5vw] font-bold text-ink">
             {group.title}
           </h2>
           <div className="flex flex-col gap-[1vw]">

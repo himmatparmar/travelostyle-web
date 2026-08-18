@@ -38,7 +38,7 @@ export default function SortBar({
 
           <button
             onClick={() => setSortOpen(!sortOpen)}
-            className="flex items-center gap-[0.3vw] text-[0.75vw] font-medium text-[#1a1a1a]"
+            className="flex items-center gap-[0.3vw] text-[0.75vw] font-medium text-ink"
           >
             {selected}
 

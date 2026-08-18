@@ -15,15 +15,15 @@ const FilterSection = ({ title, children, defaultOpen = true, mobile = false }) 
         onClick={() => setOpen(!open)}
         className="flex w-full items-center justify-between"
       >
-        <span className={mobile ? "text-base font-semibold text-[#1A1A1A]" : "text-[1.05vw] font-semibold text-[#1A1A1A]"}>
+        <span className={mobile ? "text-base font-semibold text-ink" : "text-[1.05vw] font-semibold text-ink"}>
           {title}
         </span>
 
         <div className={mobile ? "flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F2E2DA]" : "flex h-[1.9vw] w-[1.9vw] shrink-0 items-center justify-center rounded-full bg-[#F2E2DA]"}>
           {open ? (
-            <Minus size={14} className="text-[#1A1A1A]" />
+            <Minus size={14} className="text-ink" />
           ) : (
-            <Plus size={14} className="text-[#1A1A1A]" />
+            <Plus size={14} className="text-ink" />
           )}
         </div>
       </button>
@@ -42,7 +42,7 @@ const CheckboxItem = ({ label, checked, onChange, count = 0, mobile = false }) =
             type="checkbox"
             checked={checked}
             onChange={onChange}
-            className="peer block h-full w-full cursor-pointer appearance-none rounded-none border-[1.5px] border-[#1A1A1A] checked:bg-[#1A1A1A]"
+            className="peer block h-full w-full cursor-pointer appearance-none rounded-none border-[1.5px] border-ink checked:bg-ink"
           />
           <Check
             size={13}
@@ -65,7 +65,7 @@ const CheckboxItem = ({ label, checked, onChange, count = 0, mobile = false }) =
           type="checkbox"
           checked={checked}
           onChange={onChange}
-          className="peer block h-full w-full cursor-pointer appearance-none rounded-none border-[1.5px] border-[#1A1A1A] checked:bg-[#1A1A1A]"
+          className="peer block h-full w-full cursor-pointer appearance-none rounded-none border-[1.5px] border-ink checked:bg-ink"
         />
         <Check
           size={11}
@@ -428,7 +428,7 @@ export default function FilterSidebar({
         {(filterOptions.category || []).length > 7 && (
           <button
             onClick={() => setShowMoreCategories((prev) => !prev)}
-            className={mobile ? "mt-2 flex items-center gap-1 text-sm text-[#1A1A1A]" : "mt-[0.6vw] flex items-center gap-[0.3vw] text-[0.8vw] text-[#1A1A1A]"}
+            className={mobile ? "mt-2 flex items-center gap-1 text-sm text-ink" : "mt-[0.6vw] flex items-center gap-[0.3vw] text-[0.8vw] text-ink"}
           >
             {showMoreCategories ? (
               <>
@@ -628,7 +628,7 @@ export default function FilterSidebar({
           {(filterOptions.category || []).length > 7 && (
             <button
               onClick={() => setShowMoreCategories((prev) => !prev)}
-              className="mt-[0.6vw] flex items-center gap-[0.3vw] text-[0.8vw] text-[#1A1A1A]"
+              className="mt-[0.6vw] flex items-center gap-[0.3vw] text-[0.8vw] text-ink"
             >
               {showMoreCategories ? (
                 <>

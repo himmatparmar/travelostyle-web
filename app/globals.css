@@ -13,10 +13,127 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/*
+ * Design tokens extracted from repeated arbitrary values across the
+ * codebase. These are additive — existing `bg-[#...]`/`text-[Npx]`/etc.
+ * usages are untouched and keep rendering exactly as before. New/updated
+ * code should prefer these named utilities (e.g. `bg-ink`, `text-fs-md`,
+ * `p-sp-lg`) over one-off arbitrary values.
+ */
+@theme {
+  /* Neutral / text grayscale */
+  --color-ink: #1a1a1a;       /* primary near-black text, most common (132 occurrences) */
+  --color-ink-2: #111111;     /* near-black text variant */
+  --color-ink-3: #000000;     /* pure black */
+  --color-ink-4: #222222;     /* dark text variant */
+  --color-slate: #4a4a4a;     /* secondary dark gray text/border */
+  --color-slate-2: #444444;   /* dark gray text variant */
+  --color-slate-3: #333333;   /* body text gray */
+  --color-slate-4: #555555;   /* mid-gray text */
+  --color-off-white: #fafafa; /* off-white background */
+  --color-hairline: #e8e8e8;  /* light border/divider */
+
+  /* Brand indigo/purple — kept as separate named variants rather than
+     merged into one, since the shades differ slightly across the site
+     and merging would change rendered pixels in some places. */
+  --color-brand-1: #2c3078;
+  --color-brand-2: #2f2d89;
+  --color-brand-3: #2e348d;
+  --color-brand-4: #2f2e8b;
+  --color-brand-5: #2e2787;
+  --color-brand-6: #4043a8;
+  --color-brand-7: #4e4daa;
+
+  /* Warm accent backgrounds (badges, pills, cards) */
+  --color-tan: #f2e2da;
+  --color-tan-2: #f1e7e2;
+  --color-sage: #eff3cf;
+  --color-navy-accent: #1d2d5f;
+
+  /* Font sizes — the most frequently repeated px values */
+  --text-fs-2xs: 10px;
+  --text-fs-xs: 11px;
+  --text-fs-sm: 12px;
+  --text-fs-base: 13px;
+  --text-fs-md: 14px;
+  --text-fs-lg: 15px;
+  --text-fs-xl: 16px;
+  --text-fs-2xl: 18px;
+
+  /* Spacing — the most frequently repeated px values */
+  --spacing-sp-2xs: 2px;
+  --spacing-sp-xs: 3px;
+  --spacing-sp-sm: 8px;
+  --spacing-sp-base: 10px;
+  --spacing-sp-md: 12px;
+  --spacing-sp-lg: 16px;
+  --spacing-sp-xl: 24px;
+  --spacing-sp-2xl: 60px;
+}
+
+/*
+ * Typography specs supplied from Figma during this project, as plain CSS
+ * custom properties (not Tailwind-scale tokens, since font-size/line-height/
+ * letter-spacing travel together per text style rather than mixing and
+ * matching). Use like:
+ *   className="text-[length:var(--fs-heading-taprom-lg)] leading-[length:var(--lh-heading-taprom-lg)] tracking-[length:var(--ls-heading-taprom-lg)]"
+ * or read them in inline style={{ fontSize: 'var(--fs-heading-taprom-lg)', ... }}.
+ */
+:root {
+  /* Taprom, 400, 54px / 80px / 5% — e.g. "Journeys made for you, by you & with you." */
+  --fs-heading-taprom-lg: 54px;
+  --lh-heading-taprom-lg: 80px;
+  --ls-heading-taprom-lg: 0.05em;
+
+  /* Taprom, 400, 48px / 80px / 5% — e.g. "Experience travel the way it should be..." */
+  --fs-heading-taprom-md: 48px;
+  --lh-heading-taprom-md: 80px;
+  --ls-heading-taprom-md: 0.05em;
+
+  /* Nohemi, 600 (Semi Bold), 40px / 48px / 5% — e.g. "Not sure where to begin? Talk to us!" */
+  --fs-heading-nohemi-semibold: 40px;
+  --lh-heading-nohemi-semibold: 48px;
+  --ls-heading-nohemi-semibold: 0.05em;
+  --fw-heading-nohemi-semibold: 600;
+
+  /* Nohemi, 600 (Semi Bold), 24px / 32px / 5%, centered — e.g. TravelOStyle Promise card titles ("Transparent from the first conversation") */
+  --fs-title-nohemi-semibold-sm: 24px;
+  --lh-title-nohemi-semibold-sm: 32px;
+  --ls-title-nohemi-semibold-sm: 0.05em;
+  --fw-title-nohemi-semibold-sm: 600;
+
+  /* Nohemi, 400 (Regular), 18px / 36px / 5% — e.g. "Make travel feel calmer..." */
+  --fs-body-nohemi-regular-lg: 18px;
+  --lh-body-nohemi-regular-lg: 36px;
+  --ls-body-nohemi-regular-lg: 0.05em;
+  --fw-body-nohemi-regular: 400;
+
+  /* Nohemi, 400 (Regular), 18px / 24px / 5% — e.g. "We're here to design..." */
+  --fs-body-nohemi-regular-tight: 18px;
+  --lh-body-nohemi-regular-tight: 24px;
+  --ls-body-nohemi-regular-tight: 0.05em;
+
+  /* Nohemi, 300 (Light), 18px / 36px / 5% — e.g. "Our team comes bearing 30+ years..." */
+  --fs-body-nohemi-light: 18px;
+  --lh-body-nohemi-light: 36px;
+  --ls-body-nohemi-light: 0.05em;
+  --fw-body-nohemi-light: 300;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
- font-family: "Nohemi", Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+}
+
+/*
+ * Body copy moved to Inter for legibility (self-hosted via next/font in
+ * app/layout.tsx). Headings stay on Nohemi — since `body` no longer sets
+ * Nohemi as the inherited default, headings need it set explicitly here
+ * instead of relying on inheritance.
+ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Nohemi", Arial, Helvetica, sans-serif;
 }
 
 button:not(:disabled),
