@@ -1,4 +1,11 @@
 import React from "react";
+function stripHtml(html) {
+  return (html || "")
+    .replace(/<[^>]*>/g, "")
+    .replace(/&nbsp;/gi, " ")
+    .trim();
+}
+
 
 export default function JourneyRevelationsSection({
   badgeText,
@@ -33,8 +40,7 @@ export default function JourneyRevelationsSection({
           )}
           {titleText && (
             <h2 className="text-2xl md:text-[32px] font-bold text-[#111111] leading-[1.25] tracking-tight max-w-4xl">
-              {titleText}
-            </h2>
+{stripHtml(titleText)}            </h2>
           )}
         </div>
         <div className="flex flex-col md:flex-row flex-1">
@@ -54,8 +60,7 @@ export default function JourneyRevelationsSection({
                   />
                 </div>
                 <p className="text-[13px] text-[#2c2c2c] leading-relaxed font-normal">
-                  {item.description}
-                </p>
+{stripHtml(item.description)}                </p>
               </div>
             ))}
           </div>
@@ -65,8 +70,7 @@ export default function JourneyRevelationsSection({
                 className={`p-5 md:p-6 border-b ${borderStyle} flex items-center min-h-[85px]`}
               >
                 <p className="text-sm md:text-[14px] text-[#222222] font-normal leading-relaxed tracking-wide">
-                  {topIntroText}
-                </p>
+{stripHtml(topIntroText)}                </p>
               </div>
             )}
             {matrixRows.map((row, index) => {
@@ -85,17 +89,15 @@ export default function JourneyRevelationsSection({
                   </div>
                   <div className="w-full sm:w-[75%] p-5 flex items-center">
                     <p className="text-[12.5px] md:text-[13px] text-[#3a3a3a] leading-relaxed font-normal tracking-wide">
-                      {row.text}
-                    </p>
+{stripHtml(row.text)}                    </p>
                   </div>
                 </div>
               );
             })}
             {footerText && (
-              <div className="p-5 md:p-6 flex items-center min-h-[85px]">
-                <p className="text-[12.5px] md:text-[13.5px] text-[#111111] font-semibold leading-relaxed">
-                  {footerText}
-                </p>
+              <div className="p-5 md:p-6 flex items-center min-h-[80px]">
+                <p className="text-[11.5px] md:text-[16.5px] text-[#111111] font-semibold leading-relaxed">
+{stripHtml(footerText)}                </p>
               </div>
             )}
           </div>
