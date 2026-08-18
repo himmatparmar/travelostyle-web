@@ -33,7 +33,7 @@ export default async function RecommendedBlogs({ currentBlogId }) {
           >
             {/* Top */}
             <div className="flex items-center justify-between px-[14px] py-[12px]">
-              <p className="font-[Nohemi] text-[16px] font-semibold leading-[40px] tracking-[0.05em] text-[#000000]">
+              <p className="text-[16px] font-semibold leading-[40px] tracking-[0.05em] text-[#000000]">
                 {new Date(blog.attributes.created).toLocaleDateString(
                   "en-US",
                   {
@@ -75,7 +75,7 @@ export default async function RecommendedBlogs({ currentBlogId }) {
     href={`/blog/${slug}`}
     className="mt-[10px] flex items-center justify-between"
   >
-    <span className="font-[Nohemi] text-[16px] font-semibold leading-[40px] tracking-[0.05em] text-ink">
+    <span className="text-[16px] font-semibold leading-[40px] tracking-[0.05em] text-ink">
       READ MORE
     </span>
     <Image src="/ArrowUpRight.svg" alt="Arrow" width={24} height={24} />

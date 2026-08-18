@@ -123,7 +123,17 @@
 body {
   background: var(--background);
   color: var(--foreground);
- font-family: "Nohemi", Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+}
+
+/*
+ * Body copy moved to Inter for legibility (self-hosted via next/font in
+ * app/layout.tsx). Headings stay on Nohemi — since `body` no longer sets
+ * Nohemi as the inherited default, headings need it set explicitly here
+ * instead of relying on inheritance.
+ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Nohemi", Arial, Helvetica, sans-serif;
 }
 
 button:not(:disabled),

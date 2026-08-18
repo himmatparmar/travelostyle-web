@@ -197,7 +197,7 @@ export default function ContactInquiry() {
 
             <p
   className="mt-[15px] max-w-[220px] text-[0.9vw]
-  leading-[1.25] tracking-[0.05em] text-[#FAFAFA]/80 font-Nohemi
+  leading-[1.25] tracking-[0.05em] text-[#FAFAFA]/80
   max-md:max-w-full max-md:mt-3
   max-md:text-[length:var(--fs-body-nohemi-regular-tight)]
   max-md:leading-[length:var(--lh-body-nohemi-regular-tight)]"

@@ -325,7 +325,6 @@ export default function JourneyDetailClient({
   journeyId,
   inclusions,
   exclusions,
-  trustItems,
 }) {
   const journey =
     initialData?.data
@@ -342,7 +341,7 @@ export default function JourneyDetailClient({
         rawItem={initialData?.data}
         included={initialData?.included || []}
       />
-      <TrustBar trustItems={trustItems} />
+      <TrustBar />
       <DetailTabs
         journey={journey}
         departures={departures}
