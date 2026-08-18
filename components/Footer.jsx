@@ -1,5 +1,5 @@
 import { FaFacebookSquare, FaInstagram } from "react-icons/fa";
-import { getBlock, resolveRefs } from "@/lib/blockContent";
+import { getBlock, resolveRefs, resolveLinkUrl } from "@/lib/blockContent";
 import FooterNewsletterForm from "./FooterNewsletterForm";
 
 const LINK_GROUPS_INCLUDE = "field_link_groups.field_links";
@@ -54,7 +54,7 @@ async function getFooterContent() {
     title: group.attributes?.field_group_title || "",
     links: resolveRefs(group, included, "field_links").map((link) => ({
       label: link.attributes?.field_label || "",
-      url: link.attributes?.field_url?.uri || "#",
+      url: resolveLinkUrl(link.attributes?.field_url?.uri),
     })),
   }));
 
@@ -62,8 +62,8 @@ async function getFooterContent() {
     phone: block.attributes?.field_phone || "",
     email: block.attributes?.field_email || "",
     copyrightText: block.attributes?.field_copyright_text || "",
-    facebookUrl: block.attributes?.field_facebook_url?.uri || "",
-    instagramUrl: block.attributes?.field_instagram_url?.uri || "",
+    facebookUrl: resolveLinkUrl(block.attributes?.field_facebook_url?.uri, ""),
+    instagramUrl: resolveLinkUrl(block.attributes?.field_instagram_url?.uri, ""),
     linkGroups: linkGroups.length ? linkGroups : FALLBACK_FOOTER.linkGroups,
   };
 }
