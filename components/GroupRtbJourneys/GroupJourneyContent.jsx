@@ -1,6 +1,11 @@
 import { getBlock, resolveMediaImage, resolveRefs } from "@/lib/blockContent";
 import Index from "./Index";
-
+function stripHtml(html) {
+  return (html || "")
+    .replace(/<[^>]*>/g, "")
+    .replace(/&nbsp;/gi, " ")
+    .trim();
+}
 const MATRIX_INCLUDE = "field_features.field_image,field_matrix_rows";
 const WHY_INCLUDE = "field_features";
 const STEPS_INCLUDE = "field_steps";
@@ -39,8 +44,9 @@ function mapWhyTake(result) {
 
   const features = resolveRefs(block, included, "field_features").map((f) => ({
     title: f.attributes?.field_item_title || "",
-    description: f.attributes?.field_description?.value || "",
-  }));
+ description: stripHtml(
+      f.attributes?.field_description?.value || ""
+    ),  }));
 
   return {
     heading: block.attributes?.field_heading || "",

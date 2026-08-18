@@ -32,6 +32,13 @@ function mapMatrix(result) {
     matrixRows,
   };
 }
+function stripHtml(html) {
+  return (html || "")
+    .replace(/<[^>]*>/g, "")
+    .replace(/&nbsp;/gi, " ")
+    .trim();
+}
+
 
 function mapWhyTake(result) {
   if (!result?.block) return null;
@@ -39,7 +46,9 @@ function mapWhyTake(result) {
 
   const features = resolveRefs(block, included, "field_features").map((f) => ({
     title: f.attributes?.field_item_title || "",
-    description: f.attributes?.field_description?.value || "",
+    description: stripHtml(
+        f.attributes?.field_description?.value || ""
+      ),
   }));
 
   return {
