@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { X } from "lucide-react";
-import { STEPS, initialFormData } from "./constants";
+import { STEPS, TOTAL_STEPS, initialFormData } from "./constants";
 import StepOne from "./StepOne";
+import StepGuests from "./StepGuests";
+import StepTailor from "./StepTailor";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import StepFour from "./StepFour";
@@ -19,15 +21,25 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
   const updateField = (name, value) =>
     setFormData((prev) => ({ ...prev, [name]: value }));
 
-  const toggleExperience = (value) =>
+  const toggleArrayValue = (field, value) =>
     setFormData((prev) => ({
       ...prev,
-      experiences: prev.experiences.includes(value)
-        ? prev.experiences.filter((item) => item !== value)
-        : [...prev.experiences, value],
+      [field]: prev[field].includes(value)
+        ? prev[field].filter((item) => item !== value)
+        : [...prev[field], value],
     }));
 
-  const goNext = () => setStep((prev) => Math.min(prev + 1, STEPS.length));
+  const toggleExperience = (value) => toggleArrayValue("experiences", value);
+  const toggleDuration = (value) => toggleArrayValue("duration", value);
+  const toggleTailorTopic = (value) => toggleArrayValue("tailorTopics", value);
+
+  const updateGuests = (key, value) =>
+    setFormData((prev) => ({
+      ...prev,
+      guests: { ...prev.guests, [key]: value },
+    }));
+
+  const goNext = () => setStep((prev) => Math.min(prev + 1, TOTAL_STEPS));
   const goPrevious = () => setStep((prev) => Math.max(prev - 1, 1));
 
   const handleClose = () => {
@@ -66,11 +78,7 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
               <div key={s.id} className="flex items-center">
                 <div className="flex items-center gap-2">
                   <span
-                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-semibold ${
-                      step === s.id
-                        ? "bg-[#2D3482] text-white"
-                        : "border border-[#2D3482]/40 bg-white text-[#2D3482]"
-                    }`}
+                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-semibold`}
                   >
                     {s.id}
                   </span>
@@ -90,7 +98,7 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
         </div>
 
         <form
-          onSubmit={step === STEPS.length ? handleSubmit : (e) => e.preventDefault()}
+          onSubmit={step === TOTAL_STEPS ? handleSubmit : (e) => e.preventDefault()}
           className="px-6 py-6 sm:px-8"
         >
           {submitted ? (
@@ -105,12 +113,25 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
                 />
               )}
               {step === 2 && (
-                <StepTwo formData={formData} updateField={updateField} />
+                <StepGuests
+                  formData={formData}
+                  updateGuests={updateGuests}
+                  toggleDuration={toggleDuration}
+                />
               )}
               {step === 3 && (
-                <StepThree formData={formData} updateField={updateField} />
+                <StepTailor
+                  formData={formData}
+                  toggleTailorTopic={toggleTailorTopic}
+                />
               )}
               {step === 4 && (
+                <StepTwo formData={formData} updateField={updateField} />
+              )}
+              {step === 5 && (
+                <StepThree formData={formData} updateField={updateField} />
+              )}
+              {step === 6 && (
                 <StepFour formData={formData} updateField={updateField} />
               )}
 
@@ -125,7 +146,7 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
                   </button>
                 )}
 
-                {step < STEPS.length ? (
+                {step < TOTAL_STEPS ? (
                   <button
                     key="nav-next"
                     type="button"

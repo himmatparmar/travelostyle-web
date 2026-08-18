@@ -13,7 +13,7 @@ export default function TrustBar({ trustItems = FALLBACK_TRUST_ITEMS }) {
     <div className="w-full border-y border-[#EAE0D8] bg-[#F2E2DA] hidden md:block">
       <div className="flex items-center justify-around py-[1.15vw]">
        <div className="flex items-center justify-around py-[1.15vw]">
-  {trustItems.map((label, i) => (
+  {trustItems?.map((label, i) => (
     <div key={i} className="flex items-center">
       {i > 0 && (
         <span className="mx-[2.8vw] text-[0.9vw] font-bold text-[#1A1A1A]">
