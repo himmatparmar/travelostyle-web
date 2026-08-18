@@ -105,7 +105,7 @@ export default function BlogGrid({ blogs, categories }) {
           >
             {/* TOP */}
             <div className="flex items-center justify-between px-[12px] py-[10px]">
-              <p className="font-[Nohemi] text-[16px] font-semibold leading-[40px] tracking-[0.05em] text-[#000000]">
+              <p className="text-[16px] font-semibold leading-[40px] tracking-[0.05em] text-[#000000]">
                 {blog.dateLabel}
               </p>
 
@@ -171,7 +171,6 @@ export default function BlogGrid({ blogs, categories }) {
               >
                 <span
                   className="
-                    font-[Nohemi]
                     text-[16px]
                     font-semibold
                     leading-[40px]

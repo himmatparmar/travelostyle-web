@@ -81,7 +81,7 @@ export default function Form() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className=" mb-2 block font-[Nohemi] text-[15px] md:text-[18px] leading-[18px] md:leading-[32px] font-normal tracking-[0.05em] text-white">
+                  <label className=" mb-2 block text-[15px] md:text-[18px] leading-[18px] md:leading-[32px] font-normal tracking-[0.05em] text-white">
                     First Name*
                   </label>
                   <input
@@ -96,7 +96,7 @@ export default function Form() {
                 </div>
 
                 <div>
-                  <label className=" mb-2 block font-[Nohemi] text-[15px] md:text-[18px] leading-[18px] md:leading-[32px]
+                  <label className=" mb-2 block text-[15px] md:text-[18px] leading-[18px] md:leading-[32px]
                                                     font-normal tracking-[0.05em] text-white">
                     Last Name*
                   </label>
@@ -117,7 +117,7 @@ export default function Form() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                 <div>
                   <label
-                    className="mb-2 block font-[Nohemi] text-[15px] md:text-[18px] leading-[18px] md:leading-[32px]
+                    className="mb-2 block text-[15px] md:text-[18px] leading-[18px] md:leading-[32px]
                                                     font-normal tracking-[0.05em]  text-white"
                   >
                     Title*
@@ -135,7 +135,7 @@ export default function Form() {
 
                 <div>
                   <label
-                    className="mb-2 block font-[Nohemi] text-[15px] md:text-[18px] leading-[18px] md:leading-[32px]
+                    className="mb-2 block text-[15px] md:text-[18px] leading-[18px] md:leading-[32px]
                                 font-normal tracking-[0.05em]  text-white"
                   >
                     Email Id*
@@ -155,7 +155,7 @@ export default function Form() {
               {/* Contact Number */}
               <div className="mt-6">
                 <label
-                  className="mb-2 block font-normal font-[Nohemi]  text-[15px] md:text-[18px] leading-[18px] md:leading-[32px] tracking-[0.05em] text-white">
+                  className="mb-2 block font-normal  text-[15px] md:text-[18px] leading-[18px] md:leading-[32px] tracking-[0.05em] text-white">
                   Contact*
                 </label>
 
@@ -184,7 +184,7 @@ export default function Form() {
               {/* Message */}
               <div className="mt-8">
                 <label
-                  className=" mb-2 block font-[Nohemi] font-normal
+                  className=" mb-2 block font-normal
    text-[11px] md:text-[18px] leading-[18px] md:leading-[32px] tracking-[0.05em] text-white "
                 >
                   Your Message
@@ -218,7 +218,6 @@ export default function Form() {
                     className="
     w-[296px] md:w-auto
     h-[59px] md:h-auto
-    font-[Nohemi]
     font-normal
     text-[15px] md:text-[14px]
     leading-[18px] md:leading-[32px]
@@ -234,7 +233,7 @@ export default function Form() {
 
                 {/* Bottom Line */}
                 <p
-                  className="mt-8 font-[Nohemi] font-normal text-[15px] md:text-[12px] leading-[20px] md:leading-[32px]
+                  className="mt-8 font-normal text-[15px] md:text-[12px] leading-[20px] md:leading-[32px]
                                            max-w-[260px] md:max-w-[1125px] tracking-[0.05em] text-white"
                 >
                   TravelOStyle typically responds within 48 hours. Your details are

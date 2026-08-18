@@ -2,7 +2,7 @@ export default function Hero({ blog, categories }) {
   return (
     <section className="px-5 md:px-8 lg:px-[60px] pt-5 pb-5">
       <div className="flex justify-between items-center gap-4">
-        <p className="font-Nohemi text-[16px] font-semibold leading-[40px] tracking-[0.05em] text-[#000000]">
+        <p className="text-[16px] font-semibold leading-[40px] tracking-[0.05em] text-[#000000]">
           {new Date(blog.attributes.created).toLocaleDateString("en-US", {
             month: "long",
             day: "numeric",
@@ -19,7 +19,6 @@ export default function Hero({ blog, categories }) {
           border-ink
           rounded-full
           text-[16px]
-          font-Nohemi
           leading-none
           text-[#2B2B2B]
           flex

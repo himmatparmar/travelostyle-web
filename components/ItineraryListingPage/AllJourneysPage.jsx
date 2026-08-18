@@ -492,11 +492,11 @@ offer: item.attributes.field_offer_message || "",
               <h3 className="font-[Nohemi] font-medium text-xl md:text-[32px] leading-[1.3] md:leading-[40px] tracking-[0.05em] text-center text-ink mt-4 md:mt-8">
                 Sorry! We were unable to find the <br /> trip you requested.
               </h3>
-              <p className="mt-4 max-w-[520px] font-[Nohemi] font-normal text-sm md:text-[16px] leading-[1.4] md:leading-[100%] tracking-[0.05em] text-center text-ink md:mt-2">
+              <p className="mt-4 max-w-[520px] font-normal text-sm md:text-[16px] leading-[1.4] md:leading-[100%] tracking-[0.05em] text-center text-ink md:mt-2">
                 Please adjust your filters to find a trip that fits you
               </p>
 
-              <div className="my-4 font-[Nohemi] font-normal text-sm md:text-[16px] leading-[100%] tracking-[0.05em] text-center text-ink md:mt-2">
+              <div className="my-4 font-normal text-sm md:text-[16px] leading-[100%] tracking-[0.05em] text-center text-ink md:mt-2">
                 OR
               </div>
 
