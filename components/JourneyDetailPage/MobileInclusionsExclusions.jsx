@@ -9,7 +9,7 @@ export default function MobileInclusionsExclusions({ onBack }) {
   const [isExclusionsOpen, setIsExclusionsOpen] = useState(false);
 
   return (
-    <div className="w-full min-h-screen block md:hidden font-sans antialiased text-[#1A1A1A]">
+    <div className="w-full min-h-screen block md:hidden font-sans antialiased text-ink">
       <main className="px-4 py-4 pb-12">
         <div className="w-full p-2">
           <div className="flex items-center justify-between pb-3 border-b border-gray-100 mb-4">
@@ -20,7 +20,7 @@ export default function MobileInclusionsExclusions({ onBack }) {
               <Image src="/LeftArrow.svg" alt="Next" height={24} width={56} />
             </button>
 
-            <h1 className="text-base font-bold tracking-tight text-[#1A1A1A]">
+            <h1 className="text-base font-bold tracking-tight text-ink">
               Highlights
             </h1>
 

@@ -26,11 +26,23 @@ export default function JourneySection() {
         <div className="relative z-10 mx-auto flex max-w-[1400px] items-center justify-between px-[4vw]">
           <div className="max-w-[48vw] mt-[5vw]">
             <div className="inline-block bg-[#F0E4DC] px-[1px]">
-              <h2 className="whitespace-nowrap text-[clamp(36px,2.8125vw,54px)] leading-[54px] font-taprom font-normal text-[#1A1A1A]">
+              <h2
+                className="whitespace-nowrap text-[clamp(36px,2.8125vw,54px)] font-taprom font-normal text-ink"
+                style={{
+                  lineHeight: "var(--lh-heading-taprom-lg)",
+                  letterSpacing: "var(--ls-heading-taprom-lg)",
+                }}
+              >
                 Journeys made for you, by you & with you.
               </h2>
             </div>
-            <p className="mt-[8px] max-w-[46vw] text-[clamp(15px,0.9375vw,18px)] leading-[2] text-[#1A1A1A]">
+            <p
+              className="mt-[8px] max-w-[46vw] text-[clamp(15px,0.9375vw,18px)] text-ink"
+              style={{
+                lineHeight: "var(--lh-body-nohemi-regular-lg)",
+                letterSpacing: "var(--ls-body-nohemi-regular-lg)",
+              }}
+            >
               Make travel feel calmer, clearer, and more worth it with
               TravelOstyle. Our journeys are designed around real people — your
               budgets, your rhythms, your hopes and the realities you are

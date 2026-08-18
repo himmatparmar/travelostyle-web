@@ -19,16 +19,16 @@ function AccordionItem({ item }: { item: InfoItem }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="rounded-xl border border-[#1A1A1A] bg-white overflow-hidden">
+    <div className="rounded-xl border border-ink bg-white overflow-hidden">
       <button
         onClick={() => setIsOpen((v) => !v)}
         className="flex w-full items-center justify-between p-4 text-left"
       >
-        <span className="font-bold text-[#1A1A1A]">{item.title}</span>
+        <span className="font-bold text-ink">{item.title}</span>
         <span className="relative flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#F7E4DC]">
-          <span className="absolute h-[1.5px] w-3 bg-[#1A1A1A]" />
+          <span className="absolute h-[1.5px] w-3 bg-ink" />
           <span
-            className={`absolute h-3 w-[1.5px] bg-[#1A1A1A] transition-transform duration-200 ${
+            className={`absolute h-3 w-[1.5px] bg-ink transition-transform duration-200 ${
               isOpen ? "scale-y-0" : "scale-y-100"
             }`}
           />
@@ -71,7 +71,7 @@ export default function MobileAdditionalInformation({
           <Image src="/LeftArrow.svg" alt="Back" width={56} height={24} />
         </button>
 
-        <h1 className="text-base font-bold tracking-tight text-[#1A1A1A]">
+        <h1 className="text-base font-bold tracking-tight text-ink">
           Additional Information
         </h1>
 

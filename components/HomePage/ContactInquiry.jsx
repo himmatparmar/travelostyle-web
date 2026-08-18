@@ -187,17 +187,20 @@ export default function ContactInquiry() {
           <div className="w-[28%] pt-[1vw] max-md:w-full max-md:pt-0">
           <h2
   className="mt-[3px] mb-[2px] w-[250px] text-[2.1vw] font-semibold
-  leading-[1.05] tracking-[-0.08vw] text-[#FAFAFA]
-  max-md:w-full max-md:h-auto max-md:text-[40px] max-md:leading-[38px]"
+  leading-[1.05] tracking-[0.05em] text-[#FAFAFA]
+  max-md:w-full max-md:h-auto
+  max-md:text-[length:var(--fs-heading-nohemi-semibold)]
+  max-md:leading-[length:var(--lh-heading-nohemi-semibold)]"
 >
   Not sure where to<br className="hidden max-md:inline" /> begin? Talk to us!
 </h2>
 
             <p
   className="mt-[15px] max-w-[220px] text-[0.9vw]
-  leading-[1.25] text-[#FAFAFA]/80 font-Nohemi
-  max-md:max-w-full max-md:mt-3 max-md:text-[18px]
-  max-md:leading-6"
+  leading-[1.25] tracking-[0.05em] text-[#FAFAFA]/80
+  max-md:max-w-full max-md:mt-3
+  max-md:text-[length:var(--fs-body-nohemi-regular-tight)]
+  max-md:leading-[length:var(--lh-body-nohemi-regular-tight)]"
 >
   We’re here to design the kind of travel<br className="hidden max-md:inline" /> that actually gives
   something back.
@@ -325,7 +328,7 @@ export default function ContactInquiry() {
     text-[0.9vw] max-md:w-auto max-md:h-auto max-md:text-[14px]
     text-[#FAFAFA]"
   >
-    Contact Number/ WhatsApp*
+    Contact Number*
   </label>
 
   <div className="mt-[15px] flex items-center gap-[1vw]">

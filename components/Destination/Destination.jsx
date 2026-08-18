@@ -150,7 +150,7 @@ if (cta?.uri && !cta.uri.startsWith("entity:")) {
       The Destinations TravelOStyle Knows Best
     </h2>
 
-    <p className="w-full max-w-[1100px] font-[Nohemi] text-[18px] leading-[28px] md:text-[18px] md:leading-[32px] tracking-[0.05em] text-black">
+    <p className="w-full max-w-[1100px] text-[18px] leading-[28px] md:text-[18px] md:leading-[32px] tracking-[0.05em] text-black">
       Choose from the locations that consistently deliver. These are places we know
       <br className="hidden md:block" />
       well enough to recommend without reservation, and that our travelers reliably come home

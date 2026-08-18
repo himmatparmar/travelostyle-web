@@ -69,7 +69,7 @@ export default function FindJourneyMobile({ onClose, destinations = [] }) {
   return (
     <div className="max-w-[290px] h-[580px] bg-[#f5f5f5] p-5">
       <div className="flex items-center gap-4 mb-6">
-        <h2 className="text-[24px] font-semibold text-[#1A1A1A] leading-tight">
+        <h2 className="text-[24px] font-semibold text-ink leading-tight">
           Find Your Journey
         </h2>
 

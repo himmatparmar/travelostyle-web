@@ -28,7 +28,8 @@ export default function BookingSteps({ bookingRecords }) {
         {steps?.map((step, index) => (
           <div
             key={index}
-            className={`p-8 rounded-xl border border-[#646461] flex flex-col justify-between transition-shadow hover:shadow-md w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[280px] min-h-[380px] ${step.bgColor || "bg-white"}`}
+            className="p-8 rounded-xl border border-[#646461] flex flex-col justify-between transition-shadow hover:shadow-md w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[280px] min-h-[380px]"
+            style={{ backgroundColor: step.bgColor || "#ffffff" }}
           >
             <div>
               <span className="block text-4xl font-extrabold text-black mb-6">

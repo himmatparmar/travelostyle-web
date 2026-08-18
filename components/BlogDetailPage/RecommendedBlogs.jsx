@@ -29,11 +29,11 @@ export default async function RecommendedBlogs({ currentBlogId }) {
         return (
           <div
             key={blog.id}
-            className="mt-5 flex flex-col overflow-hidden rounded-[10px] border-2 border-[#1A1A1A] bg-[#FAFAFA]"
+            className="mt-5 flex flex-col overflow-hidden rounded-[10px] border-2 border-ink bg-[#FAFAFA]"
           >
             {/* Top */}
             <div className="flex items-center justify-between px-[14px] py-[12px]">
-              <p className="font-[Nohemi] text-[16px] font-semibold leading-[40px] tracking-[0.05em] text-[#000000]">
+              <p className="text-[16px] font-semibold leading-[40px] tracking-[0.05em] text-[#000000]">
                 {new Date(blog.attributes.created).toLocaleDateString(
                   "en-US",
                   {
@@ -44,7 +44,7 @@ export default async function RecommendedBlogs({ currentBlogId }) {
                 )}
               </p>
 
-              <button className="flex h-[31px] items-center justify-center rounded-full border border-[#1A1A1A] bg-white px-[16px] text-[16px] leading-none text-[#1A1A1A]">
+              <button className="flex h-[31px] items-center justify-center rounded-full border border-ink bg-white px-[16px] text-[16px] leading-none text-ink">
                 {categoryName}
               </button>
             </div>
@@ -63,19 +63,19 @@ export default async function RecommendedBlogs({ currentBlogId }) {
 
             {/* Title */}
                 <div className="min-h-[105px] px-[12px] pt-[12px]">
-  <h4 className="font-[Nohemi] text-[21px] font-semibold leading-[32px] tracking-[0.05em] text-[#1A1A1A]">
+  <h4 className="font-[Nohemi] text-[21px] font-semibold leading-[32px] tracking-[0.05em] text-ink">
     {blog.attributes.title}
   </h4>
 </div>
 
 {/* Bottom */}
 <div className="mt-[10px] px-[14px] pb-[12px]">
-  <div className="border-t border-[#1A1A1A]" />
+  <div className="border-t border-ink" />
   <Link
     href={`/blog/${slug}`}
     className="mt-[10px] flex items-center justify-between"
   >
-    <span className="font-[Nohemi] text-[16px] font-semibold leading-[40px] tracking-[0.05em] text-[#1A1A1A]">
+    <span className="text-[16px] font-semibold leading-[40px] tracking-[0.05em] text-ink">
       READ MORE
     </span>
     <Image src="/ArrowUpRight.svg" alt="Arrow" width={24} height={24} />

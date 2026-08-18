@@ -5,12 +5,7 @@ import Footer from "@/components/Footer";
 import TestimonialSection from "@/components/HomePage/TestimonialSection";
 import TravelOStylePromise from "@/components/HomePage/TravelOStylePromise";
 import { API_BASE_URL } from "@/lib/config";
-import { getBlock } from "@/lib/blockContent";
 
-async function getTrustBarItems() {
-  const result = await getBlock("trust_bar");
-  return result?.block?.attributes?.field_trust_items || null;
-}
 function stripHtml(html: string): string {
   return html
     .replace(/<[^>]*>/g, "")
@@ -86,8 +81,6 @@ export default async function JourneyDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-
-  const trustItems = await getTrustBarItems();
 
   // Custom Drupal endpoint: resolves the /journey/{slug} alias to its node
   // internally and returns the same JSON:API shape for that node.
@@ -219,7 +212,6 @@ const journeyTestimonials = {
         journeyId={journeyId}
         inclusions={inclusions}
         exclusions={exclusions}
-        trustItems={trustItems}
       />
      <TestimonialSection
   testimonialData={journeyTestimonials}

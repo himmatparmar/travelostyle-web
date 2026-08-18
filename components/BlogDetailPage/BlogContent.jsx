@@ -17,7 +17,7 @@ export default function BlogContent({
         <div className="min-w-0 flex-1 min-w-0 lg:max-w-[1008px]">
           {blog.attributes.field_introduction?.processed && (
             <div
-              className="min-w-0 max-w-full overflow-hidden text-[16px] leading-[30px] tracking-[0.02em] text-[#1A1A1A]"
+              className="min-w-0 max-w-full overflow-hidden text-[16px] leading-[30px] tracking-[0.02em] text-ink"
               dangerouslySetInnerHTML={{
                 __html: blog.attributes.field_introduction.processed,
               }}
@@ -35,7 +35,7 @@ export default function BlogContent({
 
           {blog.attributes.field_body?.processed && (
             <div
-              className="min-w-0 max-w-full overflow-hidden mt-[16px] text-[16px] leading-[30px] tracking-[0.02em] text-[#1A1A1A]"
+              className="min-w-0 max-w-full overflow-hidden mt-[16px] text-[16px] leading-[30px] tracking-[0.02em] text-ink"
               dangerouslySetInnerHTML={{
                 __html: blog.attributes.field_body.processed,
               }}
@@ -66,7 +66,7 @@ export default function BlogContent({
               {previousPost ? (
                 <Link
                   href={`/blog/${previousPost.slug}`}
-                  className="flex items-center gap-[12px] text-[14px] font-medium text-[#1A1A1A] self-start sm:self-auto"
+                  className="flex items-center gap-[12px] text-[14px] font-medium text-ink self-start sm:self-auto"
                 >
                   <Image src="/ArrowLeft.svg" alt="Previous" width={24} height={24} />
                   <span>{previousPost.title}</span>
@@ -78,7 +78,7 @@ export default function BlogContent({
               {nextPost ? (
                 <Link
                   href={`/blog/${nextPost.slug}`}
-                  className="flex items-center gap-[12px] text-[14px] font-medium text-[#1A1A1A] self-end sm:self-auto"
+                  className="flex items-center gap-[12px] text-[14px] font-medium text-ink self-end sm:self-auto"
                 >
                   <span>{nextPost.title}</span>
                   <Image src="/ArrowUpRight.svg" alt="Next" width={24} height={24} />
@@ -92,9 +92,9 @@ export default function BlogContent({
 
         {/* RIGHT SIDE */}
         <div className="min-w-0 w-full lg:w-[360px] lg:flex-shrink-0">
-          <div className="mb-[24px] border-b border-[#1A1A1A] lg:hidden" />
+          <div className="mb-[24px] border-b border-ink lg:hidden" />
 
-          <h3 className="text-[20px] font-semibold leading-[30px] tracking-[0.02em] text-[#1A1A1A]">
+          <h3 className="text-[20px] font-semibold leading-[30px] tracking-[0.02em] text-ink">
             Categories
           </h3>
 
@@ -102,47 +102,47 @@ export default function BlogContent({
             {categories.map((category) => (
               <button
                 key={category.id}
-                className="flex h-[31px] items-center justify-center px-[16px] text-[16px] leading-none rounded-full border border-[#1A1A1A] font-normal text-[#1A1A1A]"
+                className="flex h-[31px] items-center justify-center px-[16px] text-[16px] leading-none rounded-full border border-ink font-normal text-ink"
               >
                 {category.attributes.name}
               </button>
             ))}
           </div>
 
-          <div className="mt-[28px] border-b border-[#1A1A1A]" />
+          <div className="mt-[28px] border-b border-ink" />
 
-          <h3 className="mt-[28px] text-[20px] font-semibold leading-[30px] text-[#1A1A1A]">
+          <h3 className="mt-[28px] text-[20px] font-semibold leading-[30px] text-ink">
             Recommended Blogs
           </h3>
           <RecommendedBlogs currentBlogId={blog.id} />
 
-          <div className="mt-[24px] border-b border-[#1A1A1A]" />
+          <div className="mt-[24px] border-b border-ink" />
 
           {/* Subscribe */}
           <div className="mt-[28px]">
-            <h3 className="text-[20px] font-semibold leading-[30px] text-[#1A1A1A]">
+            <h3 className="text-[20px] font-semibold leading-[30px] text-ink">
               Subscribe To Our Newsletter
             </h3>
 
             <div className="mt-[24px]">
-              <label className="block text-[14px] text-[#1A1A1A]">
+              <label className="block text-[14px] text-ink">
                 Your Name<span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 placeholder="Your first name"
-                className="mt-[8px] w-full border-b border-[#1A1A1A] pb-[10px] text-[14px] outline-none placeholder:text-[#B5B5B5]"
+                className="mt-[8px] w-full border-b border-ink pb-[10px] text-[14px] outline-none placeholder:text-[#B5B5B5]"
               />
             </div>
 
             <div className="mt-[22px]">
-              <label className="block text-[14px] text-[#1A1A1A]">
+              <label className="block text-[14px] text-ink">
                 Email ID<span className="text-red-500">*</span>
               </label>
               <input
                 type="email"
                 placeholder="Your Email ID"
-                className="mt-[8px] w-full border-b border-[#1A1A1A] pb-[10px] text-[14px] outline-none placeholder:text-[#B5B5B5]"
+                className="mt-[8px] w-full border-b border-ink pb-[10px] text-[14px] outline-none placeholder:text-[#B5B5B5]"
               />
             </div>
 
@@ -151,7 +151,7 @@ export default function BlogContent({
                 type="checkbox"
                 className="mt-[2px] h-[18px] w-[18px] accent-[#2C3078]"
               />
-              <p className="text-[13px] leading-[20px] text-[#1A1A1A]">
+              <p className="text-[13px] leading-[20px] text-ink">
                 I agree to receive news, updates and more from TravelOStyle
               </p>
             </div>

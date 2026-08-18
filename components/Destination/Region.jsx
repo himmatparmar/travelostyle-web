@@ -94,7 +94,6 @@ export default function Region() {
   max-w-[646px]
   mt-2
   px-4
-  font-[Nohemi]
   text-[14px] md:text-[16px]
   leading-[24px] md:leading-[32px]
   text-center

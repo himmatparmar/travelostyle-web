@@ -429,7 +429,7 @@ offer: item.attributes.field_offer_message || "",
         <nav className="text-xs text-[#888]">
           <span>Home</span>
           <span className="mx-1">&gt;</span>
-          <span className="text-[#1a1a1a] font-medium">All Journeys</span>
+          <span className="text-ink font-medium">All Journeys</span>
         </nav>
 
         <div className="mt-3 flex items-center justify-between">
@@ -454,7 +454,7 @@ offer: item.attributes.field_offer_message || "",
           <nav className="text-[0.72vw] text-[#888]">
             <span>home</span>
             <span className="mx-[0.3vw]">&gt;</span>
-            <span className="text-[#1a1a1a] font-medium">all journeys</span>
+            <span className="text-ink font-medium">all journeys</span>
           </nav>
         </div>
         {/* Sort bar aligned with grid column */}
@@ -489,14 +489,14 @@ offer: item.attributes.field_offer_message || "",
                 className="mb-8 w-40 md:w-[18vw] h-auto "
               />
 
-              <h3 className="font-[Nohemi] font-medium text-xl md:text-[32px] leading-[1.3] md:leading-[40px] tracking-[0.05em] text-center text-[#1A1A1A] mt-4 md:mt-8">
+              <h3 className="font-[Nohemi] font-medium text-xl md:text-[32px] leading-[1.3] md:leading-[40px] tracking-[0.05em] text-center text-ink mt-4 md:mt-8">
                 Sorry! We were unable to find the <br /> trip you requested.
               </h3>
-              <p className="mt-4 max-w-[520px] font-[Nohemi] font-normal text-sm md:text-[16px] leading-[1.4] md:leading-[100%] tracking-[0.05em] text-center text-[#1A1A1A] md:mt-2">
+              <p className="mt-4 max-w-[520px] font-normal text-sm md:text-[16px] leading-[1.4] md:leading-[100%] tracking-[0.05em] text-center text-ink md:mt-2">
                 Please adjust your filters to find a trip that fits you
               </p>
 
-              <div className="my-4 font-[Nohemi] font-normal text-sm md:text-[16px] leading-[100%] tracking-[0.05em] text-center text-[#1A1A1A] md:mt-2">
+              <div className="my-4 font-normal text-sm md:text-[16px] leading-[100%] tracking-[0.05em] text-center text-ink md:mt-2">
                 OR
               </div>
 
@@ -507,7 +507,7 @@ offer: item.attributes.field_offer_message || "",
                 Explore All Journeys
               </button>
               <div className="w-full mt-10 md:mt-16">
-                <div className="border-b-2 border-[#1A1A1A] mb-6">
+                <div className="border-b-2 border-ink mb-6">
                   <h2 className="text-left text-lg md:text-[24px] font-medium pb-2 border-b-2">
                     Popular Journeys
                   </h2>

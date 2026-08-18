@@ -32,10 +32,10 @@ export default function MobileFilters({
   return (
     <div className="md:hidden">
       {/* FIXED BOTTOM BAR */}
-      <div className="fixed bottom-4 left-4 right-4 z-40 flex divide-x divide-[#1A1A1A] overflow-hidden rounded-full border border-[#1A1A1A] bg-white shadow-lg">
+      <div className="fixed bottom-4 left-4 right-4 z-40 flex divide-x divide-ink overflow-hidden rounded-full border border-ink bg-white shadow-lg">
         <button
           onClick={() => setOpenSheet("filters")}
-          className="flex flex-1 items-center justify-center gap-2 py-3 text-sm font-medium text-[#1A1A1A]"
+          className="flex flex-1 items-center justify-center gap-2 py-3 text-sm font-medium text-ink"
         >
           <SlidersHorizontal size={15} />
           Filters {activeFilterCount > 0 ? `(${activeFilterCount})` : ""}
@@ -43,7 +43,7 @@ export default function MobileFilters({
 
         <button
           onClick={() => setOpenSheet("sort")}
-          className="flex flex-1 items-center justify-center gap-2 py-3 text-sm font-medium text-[#1A1A1A]"
+          className="flex flex-1 items-center justify-center gap-2 py-3 text-sm font-medium text-ink"
         >
           <ArrowUpDown size={15} />
           Sort by
