@@ -1,65 +1,113 @@
 import { TRIP_REASONS } from "./constants";
 
-export default function StepFour({ formData, updateField }) {
+function RadioOption({ name, value, checked, onChange, label }) {
   return (
-    <div>
-      <h3 className="text-[15px] font-semibold text-[#1A1A1A]">
+    <label className="inline-flex cursor-pointer items-center gap-1.5 select-none">
+      <div className="relative flex items-center justify-center">
+        <input
+          type="radio"
+          name={name}
+          value={value}
+          checked={checked}
+          onChange={onChange}
+          className="peer sr-only"
+        />
+        <div className="h-3.5 w-3.5 rounded-full border border-[#4A4A4A] transition-colors peer-checked:border-[#1A1A1A]" />
+        <div className="absolute h-1.5 w-1.5 rounded-full bg-[#1A1A1A] opacity-0 transition-opacity peer-checked:opacity-100" />
+      </div>
+      <span className="text-[11px] text-[#4A4A4A]">{label}</span>
+    </label>
+  );
+}
+
+export default function StepFour({ formData, updateField }) {
+  // Row 1: Honeymoon, Birthday, Babymoon, Anniversary, Family Trip, Bucket List
+  // Row 2: Graduation, Friend Trip, Family Trip, Because I love to travel
+  const row1 = [
+    "Honeymoon",
+    "Birthday",
+    "Babymoon",
+    "Anniversary",
+    "Family Trip",
+    "Bucket List",
+  ];
+  const row2 = [
+    "Graduation",
+    "Friend Trip",
+    "Family Trip",
+    "Because I love to travel",
+  ];
+
+  return (
+    <div className="w-full font-sans">
+      {/* Title & Description */}
+      <h3 className="text-[13px] font-bold text-[#1A1A1A]">
         Travel Information
       </h3>
-      <p className="mt-1 text-[12px] text-gray-500">
+      <p className="mt-1 text-[10px] leading-tight text-[#6A6A6A]">
         This helps us recommend experiences, sights and activities that align
         with your ideal trip
       </p>
 
-      <div className="mt-5">
-        <p className="mb-3 text-[13px] font-medium text-[#1A1A1A]">
+      <div className="mt-3.5">
+        <p className="mb-2 text-[11px] font-bold text-[#1A1A1A]">
           Why are you taking this trip?
         </p>
-        <div className="flex flex-wrap gap-x-8 gap-y-3">
-          {TRIP_REASONS.map((reason) => (
-            <label
-              key={reason}
-              className="flex cursor-pointer items-center gap-1.5"
-            >
-              <input
-                type="radio"
+
+        <div className="space-y-2.5">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            {row1.map((reason, idx) => (
+              <RadioOption
+                key={`row1-${reason}-${idx}`}
                 name="tripReason"
                 value={reason}
                 checked={formData.tripReason === reason}
                 onChange={(e) => updateField("tripReason", e.target.value)}
-                className="h-3.5 w-3.5 cursor-pointer accent-[#2D3482]"
+                label={reason}
               />
-              <span className="text-[13px] text-[#1A1A1A]">{reason}</span>
-            </label>
-          ))}
+            ))}
+          </div>
+
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            {row2.map((reason, idx) => (
+              <RadioOption
+                key={`row2-${reason}-${idx}`}
+                name="tripReason"
+                value={reason}
+                checked={formData.tripReason === reason}
+                onChange={(e) => updateField("tripReason", e.target.value)}
+                label={reason}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
-      <div className="mt-6">
-        <label className="mb-2 block text-[13px] font-medium text-[#1A1A1A]">
+      <div className="mt-4">
+        <label className="block text-[11px] font-bold text-[#1A1A1A]">
           What&apos;s something you would like our travel advisor to know?
         </label>
         <textarea
-          rows={4}
-          value={formData.travelInfoNote}
+          rows={3}
+          value={formData.travelInfoNote || ""}
           onChange={(e) => updateField("travelInfoNote", e.target.value)}
           placeholder="Do you have questions? Quirks? Preferences? or special considerations that you would like us to keep in mind? Tell us everything! The more we know, the better we can help."
-          className="w-full resize-none rounded-lg border border-gray-300 px-4 py-3 text-[13px] text-[#1A1A1A] placeholder:text-gray-400 focus:outline-none focus:border-[#2D3482]"
+          className="mt-1.5 w-full resize-none rounded-md border border-[#3A3A3A] bg-transparent p-2.5 text-[10.5px] leading-relaxed text-[#1A1A1A] placeholder:text-[#B0B0B0] focus:border-black focus:outline-none"
         />
       </div>
 
-      <label className="mt-4 flex cursor-pointer items-start gap-2.5">
-        <input
-          type="checkbox"
-          checked={formData.consent}
-          onChange={(e) => updateField("consent", e.target.checked)}
-          required
-          className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer rounded-[3px] border-gray-400 accent-[#2D3482]"
-        />
-        <span className="text-[13px] text-[#1A1A1A]">
-          I agree to be contacted by TravelOStyle regarding my inquiry.
-        </span>
-      </label>
+      <div className="mt-3.5">
+        <label className="flex cursor-pointer items-center gap-1.5 text-[10px] text-[#4A4A4A] select-none">
+          <input
+            type="checkbox"
+            checked={formData.consent || false}
+            onChange={(e) => updateField("consent", e.target.checked)}
+            required
+            className="h-3.5 w-3.5 rounded-[2px] border-[#5A5A5A] accent-[#2B3377]"
+          />
+          <span>I agree to be contacted by TravelOStyle regarding my inquiry.</span>
+        </label>
+      </div>
     </div>
   );
 }
