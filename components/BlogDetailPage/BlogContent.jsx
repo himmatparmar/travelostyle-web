@@ -69,7 +69,7 @@ export default function BlogContent({
                   className="flex items-center gap-[12px] text-[14px] font-medium text-ink self-start sm:self-auto"
                 >
                   <Image src="/ArrowLeft.svg" alt="Previous" width={24} height={24} />
-                  <span>{previousPost.title}</span>
+                  <span>Previous Post Name</span>
                 </Link>
               ) : (
                 <span />
@@ -80,7 +80,7 @@ export default function BlogContent({
                   href={`/blog/${nextPost.slug}`}
                   className="flex items-center gap-[12px] text-[14px] font-medium text-ink self-end sm:self-auto"
                 >
-                  <span>{nextPost.title}</span>
+                  <span>Next Post Name</span>
                   <Image src="/ArrowUpRight.svg" alt="Next" width={24} height={24} />
                 </Link>
               ) : (
