@@ -24,7 +24,7 @@ export default function DetailTabs({
   inclusions,
   exclusions,
 }) {
-  
+
   const [activeTab, setActiveTab] = useState("Highlights");
  console.log("DETAIL TABS INCLUSIONS", inclusions);
   console.log("DETAIL TABS EXCLUSIONS", exclusions);
@@ -66,15 +66,22 @@ export default function DetailTabs({
         )}
 
         {activeTab === "Itinerary" && (
-          <ItinerarySection
-            itinerary={journey?.itinerary}
-            drupalData={journey?.tabItinerary}
+          <>
+            <ItinerarySection
+              itinerary={journey?.itinerary}
+              drupalData={journey?.tabItinerary}
               mapImage={journey.mapImage}
-
-          />
+            />
+            <CtaBanner
+              buttonText="Request A Private Journey"
+              formType="private"
+              journey={journey}
+              showDepartureDate={false}
+            />
+          </>
         )}
 
-       
+
         {activeTab === "Stays" && (
   <StaysSection
     stays={journey?.stays}

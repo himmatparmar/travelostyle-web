@@ -2,8 +2,14 @@
 
 import Image from "next/image";
 import React, { useState } from "react";
+import CtaBanner from "./CtaBanner";
 
-export default function MobileItinerary({ onBack, itineraryRecord, mapImage }) {
+export default function MobileItinerary({
+  onBack,
+  itineraryRecord,
+  mapImage,
+  journey,
+}) {
   const [openDay, setOpenDay] = useState(1);
   const itinerary = Array.isArray(itineraryRecord) ? itineraryRecord : [];
   const toggleDay = (dayNum) => {
@@ -95,6 +101,15 @@ export default function MobileItinerary({ onBack, itineraryRecord, mapImage }) {
           );
         })
         )}
+      </div>
+
+      <div className="-mx-4">
+        <CtaBanner
+          buttonText="Request A Private Journey"
+          formType="private"
+          journey={journey}
+          showDepartureDate={false}
+        />
       </div>
     </div>
   );

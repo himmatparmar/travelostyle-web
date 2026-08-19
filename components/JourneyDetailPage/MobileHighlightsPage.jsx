@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import CtaBanner from "./CtaBanner";
 
 export default function MobileHighlights({ onBack, highlightsRecord }) {
  const highlights = highlightsRecord?.length > 0 ? highlightsRecord : [];
@@ -49,6 +50,10 @@ export default function MobileHighlights({ onBack, highlightsRecord }) {
               ))}
             </div>
           )}
+        </div>
+
+        <div className="-mx-4 mt-2">
+          <CtaBanner />
         </div>
       </main>
     </div>
