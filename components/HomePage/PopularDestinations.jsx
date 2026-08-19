@@ -5,11 +5,9 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { buildFileUrl } from "@/lib/config";
+import ComingSoon from "@/components/ComingSoon";
 
-const FALLBACK_HEADING =
-  "Experience the world's most loved destinations; without the guesswork.";
-const FALLBACK_DESCRIPTION =
-  "From the spice-laced alleyways of Marrakech to the art-rich museums of Rome—choose from the journeys that our travelers come home raving about.";
+const PLACEHOLDER_IMAGE = "/placeholder-image.svg";
 
 export default function PopularDestinations({
   journeys,
@@ -18,8 +16,8 @@ export default function PopularDestinations({
   heroDescription,
 }) {
   const router = useRouter();
-  const heading = heroHeading || FALLBACK_HEADING;
-  const description = heroDescription || FALLBACK_DESCRIPTION;
+  const heading = heroHeading || "Coming Soon";
+  const description = heroDescription || "";
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -47,14 +45,13 @@ export default function PopularDestinations({
 
     return {
       ...item,
-      image: buildFileUrl(rawUrl) || "/italy.svg",
+      image: buildFileUrl(rawUrl) || PLACEHOLDER_IMAGE,
     };
   });
 
   // Drupal mein koi Popular = Yes nahi hai
-  // toh poora section hide
   if (!popularJourneys.length) {
-    return null;
+    return <ComingSoon label="Popular Destinations" />;
   }
 
   const currentJourney = popularJourneys[currentIndex];
@@ -67,7 +64,7 @@ export default function PopularDestinations({
         <div className="relative overflow-hidden">
 
           <img
-            src={currentJourney?.image || "/ResHomepageBanner.svg"}
+            src={currentJourney?.image || PLACEHOLDER_IMAGE}
             alt={currentJourney?.attributes?.title || "travel"}
             className="h-[600px] w-full object-cover"
           />
@@ -145,7 +142,7 @@ export default function PopularDestinations({
       <div className="hidden md:block relative h-[720px]">
 
         <img
-          src={currentJourney?.image || "/italy.svg"}
+          src={currentJourney?.image || PLACEHOLDER_IMAGE}
           alt={currentJourney?.attributes?.title || "travel"}
           className="absolute inset-0 h-full w-full object-cover"
         />

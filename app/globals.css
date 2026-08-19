@@ -97,7 +97,7 @@
   --fw-heading-nohemi-semibold: 600;
 
   /* Nohemi, 600 (Semi Bold), 24px / 32px / 5%, centered — e.g. TravelOStyle Promise card titles ("Transparent from the first conversation") */
-  --fs-title-nohemi-semibold-sm: 24px;
+  --fs-title-nohemi-semibold-sm: 20px;
   --lh-title-nohemi-semibold-sm: 32px;
   --ls-title-nohemi-semibold-sm: 0.05em;
   --fw-title-nohemi-semibold-sm: 600;

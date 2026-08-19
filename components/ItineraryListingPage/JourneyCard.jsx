@@ -148,7 +148,7 @@ existingTrips.push(trip);
     </h4>
 
   {trip.originalPrice > trip.price && (
-  <span className="mt-1 text-xs text-[#7B7B7B] leading-none md:mt-[0.12vw] md:text-[0.62vw]">
+  <span className="mt-1 text-xs text-[#7B7B7B] leading-none md:mt-[0.12vw] md:text-[0.75vw]">
     was{" "}
     <span className="line-through">
       ${Number(trip.originalPrice).toLocaleString()}

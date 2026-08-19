@@ -15,8 +15,10 @@ export default function TravelJourneyCard({
         {journeys.map((journey) => (
           <div
             key={journey.id}
-            className="relative bg-white rounded-xl border border-neutral-200/90 shadow-sm flex flex-col justify-between overflow-hidden pb-8 min-h-[560px] shrink-0 w-[75vw] max-w-[290px] snap-start md:w-full md:max-w-none md:shrink"
+            className="relative bg-white rounded-xl border border-neutral-200/90 shadow-[0px_10px_15px_0px_#0000001A] flex flex-col justify-between overflow-hidden pb-8 min-h-[560px] shrink-0 w-[75vw] max-w-[290px] snap-start md:w-full md:max-w-[390px] md:min-h-[640px] md:shrink"
           >
+            <div className="pointer-events-none absolute -left-3 top-[220px] z-20 h-6 w-6 -translate-y-1/2 rounded-full border-2 border-neutral-200 bg-white" />
+            <div className="pointer-events-none absolute -right-3 top-[220px] z-20 h-6 w-6 -translate-y-1/2 rounded-full border-2 border-neutral-200 bg-white" />
             <div>
               <div className="flex gap-2 p-4 pb-2">
                 {journey.types?.includes("Group Journey") && (
@@ -30,8 +32,8 @@ export default function TravelJourneyCard({
                   </span>
                 )}
               </div>
-              <div className="px-4">
-                <div className="overflow-hidden rounded-md h-[170px] w-full relative">
+              <div className="px-4 md:px-5">
+                <div className="overflow-hidden rounded-md h-[170px] w-full relative md:h-[213px]">
                   <img
                     src={journey.image}
                     alt={journey.title}
@@ -40,7 +42,7 @@ export default function TravelJourneyCard({
                 </div>
               </div>
 
-              <div className="px-4 pt-3">
+              <div className="px-4 pt-1">
                 <h3 className="text-base font-bold text-neutral-900 leading-snug line-clamp-2">
                   {journey.title}
                 </h3>
@@ -96,7 +98,7 @@ export default function TravelJourneyCard({
 
                 <a
                   href={journey.viewTripUrl}
-                  className="flex items-center justify-center rounded-full bg-[#2D3482] px-3.5 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[#202254] md:px-[1.1vw] md:py-[0.45vw] md:text-[0.78vw]"
+                  className="flex items-center justify-center whitespace-nowrap shrink-0 rounded-full bg-[#2D3482] px-3.5 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[#202254] md:px-[1.1vw] md:py-[0.45vw] md:text-[0.78vw]"
                 >
                   {journey.viewTripText || "View Trip"}
                 </a>
@@ -124,7 +126,6 @@ export default function TravelJourneyCard({
                 <div className="h-8 mb-3" />
               )}
 
-              <div className="border-t border-dashed border-neutral-200/80 mx-4 my-2"></div>
               <div className="px-4 pt-0.5">
                 <button
                   onClick={() => {
@@ -150,7 +151,11 @@ export default function TravelJourneyCard({
                 </button>
               </div>
             </div>
-            <div className="absolute -bottom-1.5 left-0 right-0 h-3 bg-[radial-gradient(circle_at_center,_#F6F8F9_5px,_transparent_6px)] bg-[length:14px_12px] bg-repeat-x z-10 pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 z-10 flex w-full translate-y-1/2 justify-center gap-1 pointer-events-none">
+              {[...Array(20)].map((_, i) => (
+                <div key={i} className="h-5 w-5 rounded-full border-2 border-neutral-200 bg-white shrink-0" />
+              ))}
+            </div>
           </div>
         ))}
       </div>

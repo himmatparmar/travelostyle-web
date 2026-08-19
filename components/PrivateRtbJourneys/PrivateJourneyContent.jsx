@@ -1,20 +1,17 @@
 import { getBlock, resolveMediaImage, resolveRefs } from "@/lib/blockContent";
 import Index from "./index";
 
-const MATRIX_INCLUDE = "field_features.field_image,field_matrix_rows";
+const MATRIX_INCLUDE = "field_features.field_image.field_media_image,field_matrix_rows";
 const WHY_INCLUDE = "field_features";
 const STEPS_INCLUDE = "field_steps";
-
-const FALLBACK_FEATURE_IMAGES = ["/TeresaWang.svg", "/TeresaWang.svg", "/GoupPeople.svg"];
+const PLACEHOLDER_IMAGE = "/placeholder-image.svg";
 
 function mapMatrix(result) {
   if (!result?.block) return null;
   const { block, included } = result;
 
-  const features = resolveRefs(block, included, "field_features").map((f, i) => ({
-    imgUrl:
-      resolveMediaImage(f, included, "field_image") ||
-      FALLBACK_FEATURE_IMAGES[i % FALLBACK_FEATURE_IMAGES.length],
+  const features = resolveRefs(block, included, "field_features").map((f) => ({
+    imgUrl: resolveMediaImage(f, included, "field_image") || PLACEHOLDER_IMAGE,
     description: f.attributes?.field_description?.value || "",
   }));
 
@@ -78,16 +75,34 @@ function mapBookingSteps(result) {
   };
 }
 
+function mapAdvisorCallout(result) {
+  if (!result?.block) return null;
+  const { block } = result;
+
+  const heading = block.attributes?.field_heading || "";
+  const paragraph1 = stripHtml(block.attributes?.field_paragraph_1?.value || "");
+  const paragraph2 = stripHtml(block.attributes?.field_paragraph_2?.value || "");
+  const buttonText = block.attributes?.field_button_text || "";
+
+  if (!heading) return null;
+
+  return { heading, paragraph1, paragraph2, buttonText };
+}
+
 export default async function PrivateJourneyContent() {
-  const [matrixResult, whyResult, stepsResult] = await Promise.all([
+  const [matrixResult, whyResult, stepsResult, advisorResult] = await Promise.all([
     getBlock("journey_type_matrix", MATRIX_INCLUDE, {
-      filter: { info: "Journey Type Matrix - Private Journeys" },
+      filter: { field_journey_type: "private" },
     }),
     getBlock("why_take_journey", WHY_INCLUDE, {
-      filter: { info: "Why Take Journey - Private" },
+      filter: { field_journey_type: "private" },
     }),
     getBlock("booking_steps", STEPS_INCLUDE, {
-      filter: { info: "Booking Steps - Private" },
+      filter: { field_journey_type: "private" },
+    }),
+    getBlock("advisor_callout", undefined, {
+      filter: { field_journey_type: "private" },
+      revalidate: 60,
     }),
   ]);
 
@@ -96,6 +111,7 @@ export default async function PrivateJourneyContent() {
       matrixContent={mapMatrix(matrixResult)}
       whyTakeContent={mapWhyTake(whyResult)}
       bookingStepsContent={mapBookingSteps(stepsResult)}
+      advisorCalloutContent={mapAdvisorCallout(advisorResult)}
     />
   );
 }

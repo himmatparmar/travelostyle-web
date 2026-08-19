@@ -1,30 +1,39 @@
-import { getBlock } from "@/lib/blockContent";
+import { getBlock, resolveMediaImage } from "@/lib/blockContent";
 
-const FALLBACK_HEADING = "What if your next journey aligned with you wholly?";
-const FALLBACK_DESCRIPTION =
-  "A journey that starts from who you are, how you like to travel, what you would like to experience – and expands outward from there. That's what TravelOStyle tailor-made journeys look like.";
+const PLACEHOLDER_IMAGE = "/placeholder-image.svg";
+
+function stripHtml(html) {
+  return (html || "")
+    .replace(/<[^>]*>/g, "")
+    .replace(/&nbsp;/gi, " ")
+    .trim();
+}
 
 async function getTailorMadeHero() {
-  const result = await getBlock("page_hero", undefined, {
+  const result = await getBlock("page_hero", "field_image.field_media_image", {
     filter: { field_page_key: "tailormade" },
+    revalidate: 60,
   });
   if (!result?.block) return null;
+  const { block, included } = result;
   return {
-    heading: result.block.attributes?.field_heading || "",
-    description: result.block.attributes?.field_description?.value || "",
+    heading: block.attributes?.field_heading || "",
+    description: stripHtml(block.attributes?.field_description?.value || ""),
+    image: resolveMediaImage(block, included, "field_image"),
   };
 }
 
 export default async function WhollyJourneyHero() {
   const hero = await getTailorMadeHero();
-  const heading = hero?.heading || FALLBACK_HEADING;
-  const description = hero?.description || FALLBACK_DESCRIPTION;
+  const heading = hero?.heading || "Coming Soon";
+  const description = hero?.description || "";
+  const image = hero?.image || PLACEHOLDER_IMAGE;
 
   return (
     <section className="relative w-full h-[600px] md:h-[680px] lg:h-[520px] flex items-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img
-          src="/Wildlife.jpg"
+          src={image}
           alt="Safari Journey Background"
           className="w-full h-full object-cover object-center"
         />

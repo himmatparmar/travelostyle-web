@@ -2,19 +2,17 @@ import { getBlock, resolveMediaImage, resolveRefs } from "@/lib/blockContent";
 import Index from "./Index";
 import WhollyJourneyHero from "./WhollyJourneyHero";
 
-const MATRIX_INCLUDE = "field_features.field_image,field_matrix_rows";
+const MATRIX_INCLUDE = "field_features.field_image.field_media_image,field_matrix_rows";
 const STEPS_INCLUDE = "field_steps";
 
-const FALLBACK_FEATURE_IMAGES = ["/TeresaWang.svg", "/TeresaWang.svg", "/GoupPeople.svg"];
+const PLACEHOLDER_IMAGE = "/placeholder-image.svg";
 
 function mapMatrix(result) {
   if (!result?.block) return null;
   const { block, included } = result;
 
-  const features = resolveRefs(block, included, "field_features").map((f, i) => ({
-    imgUrl:
-      resolveMediaImage(f, included, "field_image") ||
-      FALLBACK_FEATURE_IMAGES[i % FALLBACK_FEATURE_IMAGES.length],
+  const features = resolveRefs(block, included, "field_features").map((f) => ({
+    imgUrl: resolveMediaImage(f, included, "field_image") || PLACEHOLDER_IMAGE,
     description: f.attributes?.field_description?.value || "",
   }));
 
@@ -54,10 +52,10 @@ function mapBookingSteps(result) {
 export default async function TailorMadeJourneyContent() {
   const [matrixResult, stepsResult] = await Promise.all([
     getBlock("journey_type_matrix", MATRIX_INCLUDE, {
-      filter: { info: "Journey Type Matrix - Tailor-made Journeys" },
+      filter: { field_journey_type: "tailormade" },
     }),
     getBlock("booking_steps", STEPS_INCLUDE, {
-      filter: { info: "Booking Steps - Tailormade" },
+      filter: { field_journey_type: "tailormade" },
     }),
   ]);
 
