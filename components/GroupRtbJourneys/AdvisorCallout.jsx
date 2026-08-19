@@ -1,5 +1,6 @@
 import React from 'react';
 import ComingSoon from "../ComingSoon";
+import TalkToAdvisorButton from "@/components/GeneralInquiryForm/TalkToAdvisorButton";
 
 export default function AdvisorCallout({ content }) {
   if (!content) return <ComingSoon label="Advisor Callout" />;
@@ -20,10 +21,8 @@ export default function AdvisorCallout({ content }) {
               </React.Fragment>
             ))}
           </h2>
-
-          <button className="inline-block bg-[#2E3171] hover:bg-[#1E2254] text-white font-semibold text-[15px] px-7 py-3 rounded-full transition-colors duration-200 shadow-sm whitespace-nowrap">
-            {buttonText}
-          </button>
+          
+          <TalkToAdvisorButton className="inline-block bg-[#2E3171] hover:bg-[#1E2254] text-white font-semibold text-[15px] px-7 py-3 rounded-full transition-colors duration-200 shadow-sm whitespace-nowrap" />
         </div>
 
         <div className="flex flex-col space-y-8 text-black/90 text-base sm:text-lg md:text-[17px] leading-relaxed tracking-normal font-normal">

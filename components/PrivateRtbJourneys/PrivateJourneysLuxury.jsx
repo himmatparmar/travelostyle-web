@@ -1,4 +1,5 @@
 import Image from "next/image";
+import TalkToAdvisorButton from "@/components/GeneralInquiryForm/TalkToAdvisorButton";
 
 export default function PrivateJourneysLuxury() {
   return (
@@ -23,9 +24,7 @@ export default function PrivateJourneysLuxury() {
               most expect.
             </p>
 
-            <button className="mt-8 bg-white text-[#283593] font-semibold rounded-full px-7 py-3 shadow-lg hover:scale-105 transition duration-300">
-              Talk to a Travel Advisor
-            </button>
+            <TalkToAdvisorButton className="mt-8 bg-white text-[#283593] font-semibold rounded-full px-7 py-3 shadow-lg hover:scale-105 transition duration-300" />
           </div>
           
         </div>
