@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { X } from "lucide-react";
+import {countryCodes} from "./country"
 
 const initialFormData = {
   firstName: "",
@@ -41,29 +42,29 @@ export default function GeneralInquiryForm({ isOpen, onClose, onSubmit }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="max-h-[90vh] w-full max-w-[760px] overflow-y-auto rounded-2xl border border-gray-200 bg-white shadow-xl">
-        <div className="flex items-center justify-between border-b border-gray-200 px-6 py-3 sm:px-8">
-          <h2 className="text-md font-semibold text-[#1A1A1A] sm:text-xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 overflow-y-auto antialiased">
+      <div className="relative my-auto w-full max-w-[840px] flex flex-col rounded-[12px] border border-[#262626] bg-[#fafafa] shadow-2xl overflow-hidden">
+
+        <div className="flex shrink-0 items-center justify-between border-b border-[#262626] px-6 sm:px-10 py-3.5">
+          <h2 className="text-[16px] sm:text-[19px] font-[500] leading-tight tracking-[0.04em] text-[#000000]">
             Inquire With Us
           </h2>
           <button
             type="button"
             onClick={handleClose}
             aria-label="Close"
-            className="text-gray-400 transition hover:text-gray-700"
+            className="cursor-pointer p-1 text-[#262626] transition-opacity hover:opacity-60 focus:outline-none"
           >
-            <X size={22} />
+            <X size={20} strokeWidth={1.5} />
           </button>
         </div>
-
-        <div className="px-6 py-6 sm:px-8">
+        <div className="px-6 py-5 sm:px-10 sm:py-6">
           {submitted ? (
-            <div>
-              <h3 className="text-[15px] font-semibold text-[#1A1A1A]">
+            <div className="py-6">
+              <h3 className="text-[17px] font-semibold text-[#000000]">
                 Inquiry Submitted!
               </h3>
-              <p className="mt-3 max-w-[420px] text-[13px] leading-6 text-gray-500">
+              <p className="mt-2 text-[13px] leading-relaxed text-[#555555]">
                 Your inquiry has been received by team TravelOStyle. We
                 typically respond within 48hrs. Your details are never shared
                 with third parties.
@@ -71,17 +72,17 @@ export default function GeneralInquiryForm({ isOpen, onClose, onSubmit }) {
               <button
                 type="button"
                 onClick={handleClose}
-                className="mt-6 rounded-full bg-[#2D3482] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#252b78]"
+                className="mt-6 flex h-[35px] w-[130px] items-center justify-center rounded-[30px] bg-[#2C3078] text-[14px] font-medium text-[#FAFAFA] transition hover:opacity-90 cursor-pointer"
               >
                 Done
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit}>
-              <div className="grid grid-cols-1 gap-x-12 gap-y-6 sm:grid-cols-2">
-                <div>
-                  <label className="mb-2 block text-[13px] font-medium text-[#1A1A1A]">
-                    First Name*
+            <form onSubmit={handleSubmit} className="flex flex-col gap-y-4 sm:gap-y-5">
+              <div className="grid grid-cols-1 gap-x-12 gap-y-3.5 sm:grid-cols-2">
+                <div className="flex flex-col">
+                  <label className="text-[15px] sm:text-[17px] font-normal leading-normal tracking-[0.04em] text-[#000000]">
+                    First Name<span className="text-[11px] align-top">*</span>
                   </label>
                   <input
                     type="text"
@@ -90,13 +91,13 @@ export default function GeneralInquiryForm({ isOpen, onClose, onSubmit }) {
                     onChange={handleChange}
                     placeholder="Your first name"
                     required
-                    className="w-full border-b border-gray-400 bg-transparent pb-2 text-[13px] text-[#1A1A1A] placeholder:text-gray-400 focus:outline-none"
+                    className="w-full border-b border-[#262626] bg-transparent pb-1 pt-0.5 text-[13px] sm:text-[14px] tracking-[0.04em] text-[#000000] placeholder:text-[#757575] focus:outline-none"
                   />
                 </div>
 
-                <div>
-                  <label className="mb-2 block text-[13px] font-medium text-[#1A1A1A]">
-                    Last Name*
+                <div className="flex flex-col">
+                  <label className="text-[15px] sm:text-[17px] font-normal leading-normal tracking-[0.04em] text-[#000000]">
+                    Last Name<span className="text-[11px] align-top">*</span>
                   </label>
                   <input
                     type="text"
@@ -105,13 +106,14 @@ export default function GeneralInquiryForm({ isOpen, onClose, onSubmit }) {
                     onChange={handleChange}
                     placeholder="Your last name"
                     required
-                    className="w-full border-b border-gray-400 bg-transparent pb-2 text-[13px] text-[#1A1A1A] placeholder:text-gray-400 focus:outline-none"
+                    className="w-full border-b border-[#262626] bg-transparent pb-1 pt-0.5 text-[13px] sm:text-[14px] tracking-[0.04em] text-[#000000] placeholder:text-[#757575] focus:outline-none"
                   />
                 </div>
-
-                <div>
-                  <label className="mb-2 block text-[13px] font-medium text-[#1A1A1A]">
-                    Title*
+              </div>
+              <div className="grid grid-cols-1 gap-x-12 gap-y-3.5 sm:grid-cols-2">
+                <div className="flex flex-col">
+                  <label className="text-[15px] sm:text-[17px] font-normal leading-normal tracking-[0.04em] text-[#000000]">
+                    Title<span className="text-[11px] align-top">*</span>
                   </label>
                   <input
                     type="text"
@@ -120,13 +122,13 @@ export default function GeneralInquiryForm({ isOpen, onClose, onSubmit }) {
                     onChange={handleChange}
                     placeholder="Your title"
                     required
-                    className="w-full border-b border-gray-400 bg-transparent pb-2 text-[13px] text-[#1A1A1A] placeholder:text-gray-400 focus:outline-none"
+                    className="w-full border-b border-[#262626] bg-transparent pb-1 pt-0.5 text-[13px] sm:text-[14px] tracking-[0.04em] text-[#000000] placeholder:text-[#757575] focus:outline-none"
                   />
                 </div>
 
-                <div>
-                  <label className="mb-2 block text-[13px] font-medium text-[#1A1A1A]">
-                    Email ID*
+                <div className="flex flex-col">
+                  <label className="text-[15px] sm:text-[17px] font-normal leading-normal tracking-[0.04em] text-[#000000]">
+                    Email ID<span className="text-[11px] align-top">*</span>
                   </label>
                   <input
                     type="email"
@@ -135,93 +137,90 @@ export default function GeneralInquiryForm({ isOpen, onClose, onSubmit }) {
                     onChange={handleChange}
                     placeholder="Your email ID"
                     required
-                    className="w-full border-b border-gray-400 bg-transparent pb-2 text-[13px] text-[#1A1A1A] placeholder:text-gray-400 focus:outline-none"
+                    className="w-full border-b border-[#262626] bg-transparent pb-1 pt-0.5 text-[13px] sm:text-[14px] tracking-[0.04em] text-[#000000] placeholder:text-[#757575] focus:outline-none"
                   />
                 </div>
-                  <div>
-                <label className="mb-2 block text-[13px] font-medium text-[#1A1A1A]">
-                  Contact Number*
-                </label>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-4">
-                    {/* Country Code with Bottom Border */}
-                    <div className="relative border-b border-gray-400  pb-1">
+              </div>
+              <div className="grid grid-cols-1 gap-x-12 sm:grid-cols-2">
+                <div className="flex flex-col">
+                  <label className="text-[15px] sm:text-[17px] font-normal leading-normal tracking-[0.04em] text-[#000000]">
+                    Contact Number<span className="text-[11px] align-top">*</span>
+                  </label>
+                  <div className="flex items-end gap-3 pt-0.5">
+                    
+                    <div className="relative min-w-[55px] shrink-0 border-b border-[#262626] pb-1">
+                      <span className="pointer-events-none text-[13px] sm:text-[14px] text-[#000000]">
+                        {formData.countryCode}
+                      </span>
+                      <span className="pointer-events-none absolute right-0.5 top-1/2 -translate-y-1/2 text-[8px] text-[#262626]">
+                        ▼
+                      </span>
                       <select
                         name="countryCode"
                         value={formData.countryCode}
                         onChange={handleChange}
-                        className="appearance-none bg-transparent pr-4 text-xs font-normal text-gray-700 focus:outline-none cursor-pointer"
+                        className="absolute inset-0 w-full h-full cursor-pointer opacity-0 text-[13px]"
                       >
-                        <option value="+1">+1</option>
-                        <option value="+91">+91</option>
-                        <option value="+44">+44</option>
+                        {countryCodes.map((item, index) => (
+                          <option key={`${item.code}-${index}`} value={item.code} className="text-[#000000] bg-white">
+                            {item.code} ({item.country})
+                          </option>
+                        ))}
                       </select>
-                      {/* Down arrow icon */}
-                      <span className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 text-[10px] text-gray-600">
-                        ▼
-                      </span>
                     </div>
 
-                    <div className="flex-1 border-b border-gray-400 pb-1">
-                      <input
-                        type="tel"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        placeholder="Your number"
-                        required
-                        className="bg-transparent text-xs text-gray-900 placeholder:text-gray-400 focus:outline-none"
-                      />
-                    </div>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="Your number"
+                      required
+                      className="w-full border-b border-[#262626] bg-transparent pb-1 text-[13px] sm:text-[14px] leading-tight tracking-[0.04em] text-[#000000] placeholder:text-[#757575] focus:outline-none"
+                    />
                   </div>
                 </div>
               </div>
-              </div>
-
-            
-
-              <div className="mt-6">
-                <label className="mb-2 block text-[13px] font-medium text-[#1A1A1A]">
-                  Your Message*
+              <div className="flex flex-col">
+                <label className="mb-1.5 text-[15px] sm:text-[17px] font-normal leading-normal tracking-[0.04em] text-[#000000]">
+                  Your Message<span className="text-[11px] align-top">*</span>
                 </label>
                 <textarea
-                  rows={4}
+                  rows={3}
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Tell us everything- your budget, your vision, your interests. The more the better."
                   required
-                  className="w-full resize-none rounded-lg border border-gray-300 px-4 py-3 text-[13px] text-[#1A1A1A] placeholder:text-gray-400 focus:outline-none focus:border-[#2D3482]"
+                  className="w-full resize-none rounded-[10px] border border-[#262626] bg-transparent p-3 text-[13px] leading-relaxed tracking-[0.03em] text-[#000000] placeholder:text-[#757575] focus:outline-none"
                 />
               </div>
-
-              <div className="mt-6 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-                <label className="flex max-w-[420px] cursor-pointer items-start gap-2">
+              <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center sm:justify-between">
+                <label className="flex max-w-[320px] cursor-pointer items-start gap-2.5 select-none">
                   <input
                     type="checkbox"
                     name="consent"
                     checked={formData.consent}
                     onChange={handleChange}
                     required
-                    className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer rounded-[3px] border-gray-400 accent-[#2D3482]"
+                    className="mt-[3px] h-[16px] w-[16px] shrink-0 rounded-[4px] border border-[#262626] accent-[#2C3078] cursor-pointer"
                   />
-                  <span className="text-[13px] text-[#1A1A1A]">
-                    I agree to be contacted by TravelOStyle regarding my
-                    inquiry.
+                  <span className="text-[12px] sm:text-[12.5px] leading-[1.35] text-[#000000]">
+                    I agree to be contacted by TravelOStyle regarding
+                    <br className="hidden sm:inline" /> my inquiry.
                   </span>
                 </label>
 
                 <button
                   type="submit"
-                  className="rounded-full bg-[#2D3482] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#252b78] sm:shrink-0"
+                  className="h-[37px] w-[172px] shrink-0 rounded-[30px] bg-[#2C3078] text-[16px] font-semibold tracking-[0.05em] text-[#FAFAFA] transition hover:opacity-90 cursor-pointer flex items-center justify-center self-end sm:self-auto"
                 >
                   Submit Inquiry
                 </button>
               </div>
 
-              <p className="mt-4 text-[12px] text-gray-500">
-                TravelOStyle typically responds within 48 hours. Your details
-                are never shared with third parties.
+              <p className="pt-2 text-[12px] sm:text-[13px] tracking-[0.02em] text-[#555555] sm:whitespace-nowrap">
+                TravelOStyle typically responds within 48 hours. Your details are never shared with third parties.
               </p>
             </form>
           )}
