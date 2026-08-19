@@ -92,16 +92,16 @@ function mapAdvisorCallout(result) {
 export default async function PrivateJourneyContent() {
   const [matrixResult, whyResult, stepsResult, advisorResult] = await Promise.all([
     getBlock("journey_type_matrix", MATRIX_INCLUDE, {
-      filter: { info: "Journey Type Matrix - Private Journeys" },
+      filter: { field_journey_type: "private" },
     }),
     getBlock("why_take_journey", WHY_INCLUDE, {
-      filter: { info: "Why Take Journey - Private" },
+      filter: { field_journey_type: "private" },
     }),
     getBlock("booking_steps", STEPS_INCLUDE, {
-      filter: { info: "Booking Steps - Private" },
+      filter: { field_journey_type: "private" },
     }),
     getBlock("advisor_callout", undefined, {
-      filter: { info: "Advisor Callout - Private" },
+      filter: { field_journey_type: "private" },
       revalidate: 60,
     }),
   ]);

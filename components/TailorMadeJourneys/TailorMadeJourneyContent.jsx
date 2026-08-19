@@ -52,10 +52,10 @@ function mapBookingSteps(result) {
 export default async function TailorMadeJourneyContent() {
   const [matrixResult, stepsResult] = await Promise.all([
     getBlock("journey_type_matrix", MATRIX_INCLUDE, {
-      filter: { info: "Journey Type Matrix - Tailor-made Journeys" },
+      filter: { field_journey_type: "tailormade" },
     }),
     getBlock("booking_steps", STEPS_INCLUDE, {
-      filter: { info: "Booking Steps - Tailormade" },
+      filter: { field_journey_type: "tailormade" },
     }),
   ]);
 
