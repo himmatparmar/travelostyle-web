@@ -1,20 +1,13 @@
 import { API_BASE_URL, buildFileUrl } from "@/lib/config";
 import Journey from "./Journeys";
+import ComingSoon from "@/components/ComingSoon";
 function stripHtml(html) {
   return (html || "").replace(/<[^>]*>/g, "").trim();
 }
 
 const INCLUDE =
   "field_journey_cards.field_journey_image.field_media_image,field_journey_cards.field_card_steps";
-
-// Local fallbacks for the three journey-type images until each
-// journey_type_card paragraph gets a real field_journey_image uploaded in
-// Drupal's media library.
-const FALLBACK_IMAGES = {
-  "GROUP JOURNEYS": "/GroupJourneys.svg",
-  "PRIVATE JOURNEYS": "/PrivateJouneys.svg",
-  "TAILOR-MADE JOURNEYS": "/TailorJourneys.svg",
-};
+const PLACEHOLDER_IMAGE = "/placeholder-image.svg";
 
 async function getFindYourFitBlock() {
   const res = await fetch(
@@ -31,14 +24,14 @@ async function getFindYourFitBlock() {
   return { block: data[0] || null, included };
 }
 
-function resolveImage(card, included, title) {
+function resolveImage(card, included) {
   const mediaId = card.relationships?.field_journey_image?.data?.id;
   const media = included.find((i) => i.type === "media--image" && i.id === mediaId);
   const fileId = media?.relationships?.field_media_image?.data?.id;
   const file = included.find((i) => i.type === "file--file" && i.id === fileId);
   const raw = file?.attributes?.uri?.url;
 
-  return buildFileUrl(raw) || FALLBACK_IMAGES[title] || "/GroupJourneys.svg";
+  return buildFileUrl(raw) || PLACEHOLDER_IMAGE;
 }
 
 function resolveSteps(card, included) {
@@ -61,7 +54,7 @@ function resolveSteps(card, included) {
 export default async function Index() {
   const result = await getFindYourFitBlock();
 
-  if (!result?.block) return null;
+  if (!result?.block) return <ComingSoon label="Find Your Fit" />;
 
   const { block, included } = result;
 
@@ -79,7 +72,7 @@ export default async function Index() {
       return {
         id: card.id,
         title,
-        imageSrc: resolveImage(card, included, title),
+        imageSrc: resolveImage(card, included),
         imageQuote: card.attributes?.field_image_quote || "",
         description: card.attributes?.field_description?.value || "",
         steps: resolveSteps(card, included),

@@ -6,20 +6,32 @@ function stripHtml(html) {
     .replace(/&nbsp;/gi, " ")
     .trim();
 }
-const MATRIX_INCLUDE = "field_features.field_image,field_matrix_rows";
+const MATRIX_INCLUDE = "field_features.field_image.field_media_image,field_matrix_rows";
 const WHY_INCLUDE = "field_features";
 const STEPS_INCLUDE = "field_steps";
 
-const FALLBACK_FEATURE_IMAGES = ["/TeresaWang.svg", "/ManuPrasad.svg", "/GoupPeople.svg"];
+function mapAdvisorCallout(result) {
+  if (!result?.block) return null;
+  const { block } = result;
+
+  const heading = block.attributes?.field_heading || "";
+  const paragraph1 = stripHtml(block.attributes?.field_paragraph_1?.value || "");
+  const paragraph2 = stripHtml(block.attributes?.field_paragraph_2?.value || "");
+  const buttonText = block.attributes?.field_button_text || "";
+
+  if (!heading) return null;
+
+  return { heading, paragraph1, paragraph2, buttonText };
+}
+
+const PLACEHOLDER_IMAGE = "/placeholder-image.svg";
 
 function mapMatrix(result) {
   if (!result?.block) return null;
   const { block, included } = result;
 
-  const features = resolveRefs(block, included, "field_features").map((f, i) => ({
-    imgUrl:
-      resolveMediaImage(f, included, "field_image") ||
-      FALLBACK_FEATURE_IMAGES[i % FALLBACK_FEATURE_IMAGES.length],
+  const features = resolveRefs(block, included, "field_features").map((f) => ({
+    imgUrl: resolveMediaImage(f, included, "field_image") || PLACEHOLDER_IMAGE,
     description: f.attributes?.field_description?.value || "",
   }));
 
@@ -76,7 +88,7 @@ function mapBookingSteps(result) {
 }
 
 export default async function GroupJourneyContent() {
-  const [matrixResult, whyResult, stepsResult, heroResult] = await Promise.all([
+  const [matrixResult, whyResult, stepsResult, heroResult, advisorResult] = await Promise.all([
     getBlock("journey_type_matrix", MATRIX_INCLUDE, {
       filter: { info: "Journey Type Matrix - Group Journeys" },
     }),
@@ -86,7 +98,14 @@ export default async function GroupJourneyContent() {
     getBlock("booking_steps", STEPS_INCLUDE, {
       filter: { info: "Booking Steps - Group" },
     }),
-    getBlock("page_hero", undefined, { filter: { field_page_key: "group" } }),
+    getBlock("page_hero", undefined, {
+      filter: { field_page_key: "group" },
+      revalidate: 60,
+    }),
+    getBlock("advisor_callout", undefined, {
+      filter: { info: "Advisor Callout - Group" },
+      revalidate: 60,
+    }),
   ]);
 
   return (
@@ -94,7 +113,9 @@ export default async function GroupJourneyContent() {
       matrixContent={mapMatrix(matrixResult)}
       whyTakeContent={mapWhyTake(whyResult)}
       bookingStepsContent={mapBookingSteps(stepsResult)}
-      heroDescription={heroResult?.block?.attributes?.field_description?.value}
+      advisorCalloutContent={mapAdvisorCallout(advisorResult)}
+      heroHeading={heroResult?.block?.attributes?.field_heading}
+      heroDescription={stripHtml(heroResult?.block?.attributes?.field_description?.value || "")}
     />
   );
 }
