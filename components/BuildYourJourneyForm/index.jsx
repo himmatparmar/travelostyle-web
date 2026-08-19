@@ -56,39 +56,38 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="max-h-[90vh] w-full max-w-[820px] overflow-y-auto rounded-2xl border border-gray-200 bg-white shadow-xl">
-        <div className="flex items-center justify-between border-b border-gray-200 px-6 py-5 sm:px-8">
-          <h2 className="text-lg font-semibold text-[#1A1A1A] sm:text-xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 sm:p-6 overflow-y-auto antialiased">
+      <div className="relative my-auto w-full max-w-[1200px] flex flex-col rounded-[10px] border-2 border-[#1A1A1A] bg-[#FAFAFA] shadow-[5px_10px_24px_rgba(26,26,26,0.1)] overflow-hidden">
+       
+        <div className="relative flex shrink-0 items-center justify-between px-6 sm:px-[60px] pt-[26px] pb-2">
+          <h2 className="text-[18px] sm:text-[21px] font-[500] leading-[35px] tracking-[0.05em] text-[#1A1A1A]">
             Build Your Journey With Us
           </h2>
           <button
             type="button"
             onClick={handleClose}
             aria-label="Close"
-            className="text-gray-400 transition hover:text-gray-700"
+            className="absolute right-6 sm:right-[36px] top-6 sm:top-[26px] flex items-center justify-center cursor-pointer text-[#1A1A1A] transition-opacity hover:opacity-60 focus:outline-none"
           >
-            <X size={22} />
+            <X size={24} strokeWidth={1.5} />
           </button>
         </div>
 
-        <div className="px-6 pt-5 sm:px-8">
-          <div className="flex flex-wrap items-center gap-y-3 rounded-xl bg-[#F2E5DE] px-4 py-3 sm:flex-nowrap sm:justify-between">
+        <div className=" px-6 sm:px-[60px] pt-2 pb-[24px] border-b-2 border-[#1A1A1A]">
+          <div className="flex items-center justify-between rounded-[8px] bg-[#F2E5DE] px-6 sm:px-6 py-3.5 gap-2">
             {STEPS.map((s, index) => (
-              <div key={s.id} className="flex items-center">
-                <div className="flex items-center gap-2">
-                  <span
-                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-semibold`}
-                  >
+              <div key={s.id} className="flex items-center gap-3 sm:gap-4 flex-1">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-[18px] sm:text-[20px] font-[600] leading-none text-[#000000]">
                     {s.id}
                   </span>
-                  <span className="hidden max-w-[135px] text-[11px] leading-tight text-[#4A4A4A] md:block">
+                  <span className="text-[12px] sm:text-[13px] font-[400] leading-[16px] sm:leading-[18px] tracking-[0.03em] text-[#000000] max-w-[180px]">
                     {s.label}
                   </span>
                 </div>
 
                 {index < STEPS.length - 1 && (
-                  <span className="mx-3 hidden text-[#B9A79A] sm:inline">
+                  <span className="mx-auto text-[18px] font-light text-[#000000]/60 select-none">
                     &rarr;
                   </span>
                 )}
@@ -96,10 +95,9 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
             ))}
           </div>
         </div>
-
         <form
           onSubmit={step === TOTAL_STEPS ? handleSubmit : (e) => e.preventDefault()}
-          className="px-6 py-6 sm:px-8"
+          className="px-6 sm:px-[60px] py-7"
         >
           {submitted ? (
             <SuccessStep onExplore={handleClose} />
@@ -135,12 +133,12 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
                 <StepFour formData={formData} updateField={updateField} />
               )}
 
-              <div className="mt-8 flex items-center gap-5">
+              <div className="mt-8 flex items-center gap-8">
                 {step > 1 && (
                   <button
                     type="button"
                     onClick={goPrevious}
-                    className="text-sm font-medium text-gray-500 transition hover:text-gray-800"
+                    className="h-[37px]  text-[15px] font-medium text-[#555555] transition hover:text-[#000000] cursor-pointer"
                   >
                     Previous
                   </button>
@@ -151,7 +149,7 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
                     key="nav-next"
                     type="button"
                     onClick={goNext}
-                    className="rounded-full bg-[#2D3482] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#252b78]"
+                    className="flex h-[37px] w-[130px] items-center justify-center rounded-[30px] bg-[#2C3078] text-[15px] font-semibold tracking-[0.05em] text-[#FAFAFA] transition hover:opacity-90 cursor-pointer shadow-sm"
                   >
                     Next
                   </button>
@@ -159,7 +157,7 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
                   <button
                     key="nav-submit"
                     type="submit"
-                    className="rounded-full bg-[#2D3482] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#252b78]"
+                    className="flex h-[37px] px-8 items-center justify-center rounded-[30px] bg-[#2C3078] text-[15px] font-semibold tracking-[0.05em] text-[#FAFAFA] transition hover:opacity-90 cursor-pointer shadow-sm"
                   >
                     Submit Inquiry
                   </button>

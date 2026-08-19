@@ -42,8 +42,9 @@ export default function GeneralInquiryForm({ isOpen, onClose, onSubmit }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 overflow-y-auto antialiased">
-      <div className="relative my-auto w-full max-w-[840px] flex flex-col rounded-[12px] border border-[#262626] bg-[#fafafa] shadow-2xl overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 overflow-y-auto antialiased">
+      <div className="bg-[#fafafa] p-[2px] w-full max-w-[1100px] rounded-[12px] ">
+      <div className="relative my-auto rounded-[12px]  flex flex-col border border-[#262626]  shadow-2xl overflow-hidden">
 
         <div className="flex shrink-0 items-center justify-between border-b border-[#262626] px-6 sm:px-10 py-3.5">
           <h2 className="text-[16px] sm:text-[19px] font-[500] leading-tight tracking-[0.04em] text-[#000000]">
@@ -226,6 +227,7 @@ export default function GeneralInquiryForm({ isOpen, onClose, onSubmit }) {
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 }
