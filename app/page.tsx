@@ -15,14 +15,22 @@ import Footer from "../components/Footer";
 import { API_BASE_URL } from "@/lib/config";
 import { getBlock } from "@/lib/blockContent";
 
+function stripHtml(html: string) {
+  return (html || "")
+    .replace(/<[^>]*>/g, "")
+    .replace(/&nbsp;/gi, " ")
+    .trim();
+}
+
 async function getHomeHero() {
   const result = await getBlock("page_hero", undefined, {
     filter: { field_page_key: "home" },
+    revalidate: 60,
   });
   if (!result?.block) return null;
   return {
     heading: result.block.attributes?.field_heading || "",
-    description: result.block.attributes?.field_description?.value || "",
+    description: stripHtml(result.block.attributes?.field_description?.value || ""),
   };
 }
 

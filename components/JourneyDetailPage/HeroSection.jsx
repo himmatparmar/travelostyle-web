@@ -162,7 +162,7 @@ export default function HeroSection({
 
     {/* Original Price */}
     {journey.originalPrice && (
-      <p className="mt-[0.25vw] text-[0.55vw] font-medium text-[#777]">
+      <p className="mt-[0.25vw] text-[0.7vw] font-medium text-[#777]">
         was{" "}
         <span className="line-through">
           ${Number(journey.originalPrice).toLocaleString()}

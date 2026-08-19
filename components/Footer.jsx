@@ -1,10 +1,7 @@
 import { FaFacebookSquare, FaInstagram } from "react-icons/fa";
-import { getBlock, resolveRefs, resolveLinkUrl } from "@/lib/blockContent";
 import FooterNewsletterForm from "./FooterNewsletterForm";
 
-const LINK_GROUPS_INCLUDE = "field_link_groups.field_links";
-
-const FALLBACK_FOOTER = {
+const footer = {
   phone: "+1773 983 8067",
   email: "info@travelostyle.com",
   copyrightText: "© TravelOStyle 2026 | Designed by Eunoia Design House",
@@ -45,31 +42,7 @@ const FALLBACK_FOOTER = {
   ],
 };
 
-async function getFooterContent() {
-  const result = await getBlock("site_footer", LINK_GROUPS_INCLUDE);
-  if (!result?.block) return null;
-  const { block, included } = result;
-
-  const linkGroups = resolveRefs(block, included, "field_link_groups").map((group) => ({
-    title: group.attributes?.field_group_title || "",
-    links: resolveRefs(group, included, "field_links").map((link) => ({
-      label: link.attributes?.field_label || "",
-      url: resolveLinkUrl(link.attributes?.field_url?.uri),
-    })),
-  }));
-
-  return {
-    phone: block.attributes?.field_phone || "",
-    email: block.attributes?.field_email || "",
-    copyrightText: block.attributes?.field_copyright_text || "",
-    facebookUrl: resolveLinkUrl(block.attributes?.field_facebook_url?.uri, ""),
-    instagramUrl: resolveLinkUrl(block.attributes?.field_instagram_url?.uri, ""),
-    linkGroups: linkGroups.length ? linkGroups : FALLBACK_FOOTER.linkGroups,
-  };
-}
-
-export default async function Footer() {
-  const footer = (await getFooterContent()) || FALLBACK_FOOTER;
+export default function Footer() {
   const [companyGroup, travelGroup, ...restGroups] = footer.linkGroups;
 
   return (

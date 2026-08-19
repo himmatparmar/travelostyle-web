@@ -2,12 +2,10 @@
 import { useRouter } from "next/navigation";
 import React from "react";
 
-const FALLBACK_DESCRIPTION =
-  "TravelOStyle group journeys are made to explore a destination beyond its postcard alongside like-minded people. Bonus? There's no chaos of co-ordinating it yourself. The routes are planned, the price is fixed, the dates are set, the logistics are sorted and your group is waiting. All you have to do is decide whether you want to come along!";
-
-export default function GoodCompaneyJourney({ heroDescription }) {
+export default function GoodCompaneyJourney({ heroHeading, heroDescription }) {
   const router = useRouter();
-  const description = heroDescription || FALLBACK_DESCRIPTION;
+  const description = heroDescription || "";
+  const heading = heroHeading || "Coming Soon";
   const polaroids = [
     {
       id: 1,
@@ -93,15 +91,9 @@ export default function GoodCompaneyJourney({ heroDescription }) {
         </svg>
       </div>
       <div className="relative max-w-4xl w-full text-center z-10 flex flex-col items-center mt-6">
-        <h2 className="font-taprom text-[58px] leading-[0.9] tracking-[-0.02em] text-[#222] text-center bg-[#F3E4DC] px-4 py-1">
-          Journeys that get better in good
+        <h2 className="font-taprom text-[58px] leading-[1.1] tracking-[-0.02em] text-[#222] text-center bg-[#F3E4DC] px-4 py-1">
+          {heading}
         </h2>
-
-        <div className="inline-block mt-4 bg-[#F3E4DC] px-5 h-[48px] flex items-center justify-center">
-          <h2 className="font-taprom text-[56px] leading-none tracking-[-0.02em] text-[#222]">
-            company
-          </h2>
-        </div>
 
         <p className="mt-8 text-[21px] md:text-[14px] text-[#333333] max-w-[780px] leading-[1.7] tracking-normal px-4 font-normal">
           {description}

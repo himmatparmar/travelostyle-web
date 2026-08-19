@@ -108,20 +108,22 @@ export default function JourneysWeLove({ onlyPopular = false, onlyWithOffer = fa
         {trips.map((trip, index) => (
          <div
   key={index}
-  className={`relative flex h-auto w-[85vw] min-w-[85vw] shrink-0 cursor-pointer flex-col overflow-hidden rounded-xl border bg-white p-4 pb-6 shadow-sm max-md:snap-center md:w-[18.7vw] md:min-w-[18.7vw] md:rounded-[0.8vw] md:p-[0.9vw] md:pb-[1.2vw] ${
-    trip.active ? "border-[#2B2D6C]" : "border-[#E8E8E8]"
-  }`}
+  className="relative flex h-auto w-[85vw] min-w-[85vw] shrink-0 cursor-pointer flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white p-4 pb-6 shadow-[0px_10px_15px_0px_#0000001A] max-md:snap-center md:w-[18.7vw] md:min-w-[18.7vw] md:rounded-[0.8vw] md:p-[0.9vw] md:pb-[1.2vw]"
 >
-            <div className="mb-3 flex min-h-[24px] items-center gap-2 overflow-hidden md:mb-[0.6vw] md:min-h-[1.5vw] md:gap-[0.4vw]">
-              {(trip.tags || []).map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded px-2 py-1 text-xs font-medium whitespace-nowrap bg-[#EBF0C7] text-[#42452D] md:rounded-[0.3vw] md:px-[0.7vw] md:py-[0.25vw] md:text-[0.6vw]"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
+            <div className="pointer-events-none absolute -left-3 top-[190px] z-20 h-6 w-6 -translate-y-1/2 rounded-full border-2 border-neutral-200 bg-white md:top-[9.5vw]" />
+            <div className="pointer-events-none absolute -right-3 top-[190px] z-20 h-6 w-6 -translate-y-1/2 rounded-full border-2 border-neutral-200 bg-white md:top-[9.5vw]" />
+            {trip.tags?.length > 0 && (
+              <div className="mb-3 flex min-h-[24px] items-center gap-2 overflow-hidden md:mb-[0.6vw] md:min-h-[1.5vw] md:gap-[0.4vw]">
+                {trip.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded px-2 py-1 text-xs font-medium whitespace-nowrap bg-[#EBF0C7] text-[#42452D] md:rounded-[0.3vw] md:px-[0.7vw] md:py-[0.25vw] md:text-[0.6vw]"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
 
             <div className="relative h-[180px] w-full shrink-0 overflow-hidden rounded-md md:h-[9.5vw] md:rounded-[0.4vw]">
               <Image
@@ -133,7 +135,7 @@ export default function JourneysWeLove({ onlyPopular = false, onlyWithOffer = fa
               />
             </div>
 
-            <div className="flex flex-col pt-3 md:pt-[0.6vw]">
+            <div className="flex flex-col pt-1 md:pt-[0.3vw]">
               <h3 className="line-clamp-1 text-left text-base font-bold leading-[1.25] text-[#111111] md:text-[1.1vw]">
                 {trip.title}
               </h3>
@@ -193,7 +195,7 @@ export default function JourneysWeLove({ onlyPopular = false, onlyWithOffer = fa
     <a
   href={trip.viewTripUrl}
   onClick={(e) => e.stopPropagation()}
-  className="flex h-[25px] w-[110px] shrink-0 items-center justify-center gap-[10px] rounded-[100px] bg-[#2B2D6C] px-[20px] py-[10px] text-white transition-colors hover:bg-[#202254]"
+  className="flex h-8 w-auto min-w-[110px] shrink-0 items-center justify-center whitespace-nowrap gap-[10px] rounded-[100px] bg-[#2B2D6C] px-[20px] text-xs text-white transition-colors hover:bg-[#202254] md:h-[1.7vw] md:text-[0.7vw]"
 >
   {trip.viewTripText || "View Trip"}
 </a>
@@ -301,13 +303,9 @@ export default function JourneysWeLove({ onlyPopular = false, onlyWithOffer = fa
 </button>
 </div>
 </div>
-
-            <div className="absolute bottom-[-0.38vw] left-0 flex w-full justify-between px-1 md:px-[0.42vw]">
-              {Array.from({ length: 14 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="h-2 w-2 rounded-full bg-[#F5F5F3] md:h-[0.8vw] md:w-[0.8vw]"
-                />
+            <div className="absolute bottom-0 left-0 z-10 flex w-full translate-y-1/2 justify-center gap-1 pointer-events-none">
+              {[...Array(20)].map((_, i) => (
+                <div key={i} className="h-5 w-5 rounded-full border-2 border-neutral-200 bg-white shrink-0" />
               ))}
             </div>
           </div>

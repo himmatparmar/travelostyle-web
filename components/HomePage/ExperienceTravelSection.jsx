@@ -1,51 +1,31 @@
 import Image from "next/image";
 import { getBlock, resolveRefs } from "@/lib/blockContent";
+import ComingSoon from "@/components/ComingSoon";
 
 const INCLUDE = "field_cards";
 
-const FALLBACK_EXPERIENCE_TRAVEL = {
-  heading: "Experience travel the way it should be with TravelOStyle",
-  paragraph1:
-    "Our team comes bearing 30+ years of experience within the travel industry — across budgets, travel styles, and expectations. We have fulfilled journeys by land, air and cruise, for travellers from all spheres of life.",
-  paragraph2:
-    "Our recommendations come from knowledge, and a thirst to explore the world and journey beyond what we've always known.",
-  cards: [
-    {
-      title: "Destination\nKnowledge",
-      desc: "We help you understand what suits your season, pace, budget and purpose of travel",
-      stars: 1,
-    },
-    {
-      title: "Operational\nCare",
-      desc: "Good travel is felt in the absence of friction. We think ahead, organize clearly, and communicate openly.",
-      stars: 2,
-    },
-    {
-      title: "Response\nSpeed",
-      desc: "When something matters to you, it matters to us. You can always reach out to us for anything.",
-      stars: 3,
-    },
-    {
-      title: "On-Ground\nSupport",
-      desc: "If plans change, we won't leave it to you to figure it out alone. We're in this together.",
-      stars: 4,
-    },
-  ],
-};
+function stripHtml(html) {
+  return (html || "")
+    .replace(/<[^>]*>/g, "")
+    .replace(/&nbsp;/gi, " ")
+    .trim();
+}
 
 async function getExperienceTravelContent() {
-  const result = await getBlock("experience_travel", INCLUDE);
+  const result = await getBlock("experience_travel", INCLUDE, { revalidate: 60 });
   if (!result?.block) return null;
 
   const { block, included } = result;
 
   const heading = block.attributes?.field_heading || "";
   const description = block.attributes?.field_description?.value || "";
-  const [paragraph1 = "", paragraph2 = ""] = description.split(/\n\s*\n/);
+  const [paragraph1 = "", paragraph2 = ""] = description
+    .split(/<\/p>\s*<p[^>]*>/i)
+    .map(stripHtml);
 
   const cards = resolveRefs(block, included, "field_cards").map((card) => ({
     title: card.attributes?.field_card_title || "",
-    desc: card.attributes?.field_card_description?.value || "",
+    desc: stripHtml(card.attributes?.field_card_description?.value || ""),
     stars: card.attributes?.field_star_count || 0,
   }));
 
@@ -55,8 +35,8 @@ async function getExperienceTravelContent() {
 }
 
 export default async function ExperienceTravelSection() {
-  const content =
-    (await getExperienceTravelContent()) || FALLBACK_EXPERIENCE_TRAVEL;
+  const content = await getExperienceTravelContent();
+  if (!content) return <ComingSoon label="Experience Travel" />;
   const { heading, paragraph1, paragraph2, cards } = content;
 
   return (

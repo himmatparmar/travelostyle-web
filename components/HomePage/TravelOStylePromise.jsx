@@ -1,11 +1,9 @@
 import Image from "next/image";
 import { API_BASE_URL, buildFileUrl } from "@/lib/config";
+import ComingSoon from "@/components/ComingSoon";
 
 const INCLUDE = "field_promise_items.field_icon.field_media_image";
-
-// Local fallbacks for the three promise icons until each promise_item
-// paragraph gets a real field_icon uploaded in Drupal's media library.
-const FALLBACK_ICONS = ["/copy.svg", "/HeartIcon.svg", "/Handshake.svg"];
+const PLACEHOLDER_ICON = "/placeholder-image.svg";
 
 async function getPromiseBlock() {
   const res = await fetch(
@@ -22,20 +20,20 @@ async function getPromiseBlock() {
   return { block: data[0] || null, included };
 }
 
-function resolveIcon(item, included, index) {
+function resolveIcon(item, included) {
   const mediaId = item.relationships?.field_icon?.data?.id;
   const media = included.find((i) => i.type === "media--image" && i.id === mediaId);
   const fileId = media?.relationships?.field_media_image?.data?.id;
   const file = included.find((i) => i.type === "file--file" && i.id === fileId);
   const raw = file?.attributes?.uri?.url;
 
-  return buildFileUrl(raw) || FALLBACK_ICONS[index % FALLBACK_ICONS.length];
+  return buildFileUrl(raw) || PLACEHOLDER_ICON;
 }
 
 export default async function TravelOStylePromise() {
   const result = await getPromiseBlock();
 
-  if (!result?.block) return null;
+  if (!result?.block) return <ComingSoon label="TravelOStyle Promise" />;
 
   const { block, included } = result;
 
@@ -53,12 +51,12 @@ export default async function TravelOStylePromise() {
 
   const itemRefs = block.relationships?.field_promise_items?.data || [];
   const promises = itemRefs
-    .map((ref, index) => {
+    .map((ref) => {
       const item = included.find((i) => i.id === ref.id);
       if (!item) return null;
 
       return {
-        icon: resolveIcon(item, included, index),
+        icon: resolveIcon(item, included),
         title: item.attributes?.field_item_title || "",
         bg: item.attributes?.field_bg_color || "#EFE5DE",
       };
