@@ -74,6 +74,7 @@ if (activeView === "itinerary") {
       onBack={() => setActiveView("menu")}
       itineraryRecord={journey.tabItinerary}
       mapImage={journey.mapImage}
+      journey={journey}
     />
   );
 }

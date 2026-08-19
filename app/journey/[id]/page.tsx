@@ -105,6 +105,14 @@ export default async function JourneyDetailPage({
   }
 
   const journeyData = res ? await res.json() : null;
+
+  if (!journeyData?.data) {
+    // Backend was unreachable, or returned a payload with no node data.
+    // There's no mock-data fallback in place, so treat this the same as
+    // a real 404 rather than crashing on journeyData.data.id below.
+    notFound();
+  }
+
   const initialData = journeyData;
 
   const included = journeyData?.included || [];

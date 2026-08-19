@@ -77,6 +77,7 @@ const handleCompareSelection = (trip) => {
 
     loadJourneys();
   }, []);
+
   return (
     <div className=" min-h-screen py-16 px-4 sm:px-6 lg:px-8 font-sans">
       <div className="text-center mb-12">
@@ -96,7 +97,9 @@ const handleCompareSelection = (trip) => {
 />
 {/* </div>    */}
   <div className="flex justify-center mt-8">
-        <button className="bg-[#1C355E] hover:bg-[#12233F] text-white text-xs font-semibold  px-6 py-2 p-6 rounded-full shadow transition-all duration-200">
+        <button
+          className="bg-[#1C355E] hover:bg-[#12233F] text-white text-xs font-semibold  px-6 py-2 p-6 rounded-full shadow transition-all duration-200"
+        >
          Explore All Private Journeys
         </button>
       </div>

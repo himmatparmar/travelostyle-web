@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Clock3, MapPin, Info } from "lucide-react";
 import MobileNavigationMenu from "./MobileNavigationMenu";
+import PrivateInquiryForm from "@/components/PrivateInquiryForm";
 import { useState } from "react";
 
 // Fixed badge colors matching the design (Figma) reference:
@@ -38,6 +39,7 @@ export default function HeroSection({
   included = [],
 }) {
   const [activeView, setActiveView] = useState("menu");
+  const [isPrivateFormOpen, setIsPrivateFormOpen] = useState(false);
   const categories = rawItem ? resolveCategories(rawItem, included) : MOCK_CATEGORIES;
   return (
     <>
@@ -192,7 +194,10 @@ export default function HeroSection({
 )}
           </div>
 
-          <button className="mt-[0.8vw] h-[20px] w-[150px] rounded-full bg-[#2D3482] text-[0.7vw] font-semibold text-white transition hover:bg-[#252b78]">
+          <button
+            onClick={() => setIsPrivateFormOpen(true)}
+            className="mt-[0.8vw] h-[20px] w-[150px] rounded-full bg-[#2D3482] text-[0.7vw] font-semibold text-white transition hover:bg-[#252b78]"
+          >
             Request a Private Journey
           </button>
 
@@ -341,7 +346,10 @@ export default function HeroSection({
 
               <span className="text-[15px] text-[#333]">OR</span>
 
-              <button className="text-[15px] font-semibold text-ink underline underline-offset-2">
+              <button
+                onClick={() => setIsPrivateFormOpen(true)}
+                className="text-[15px] font-semibold text-ink underline underline-offset-2"
+              >
                 Request a Private Journey
               </button>
             </div>
@@ -356,6 +364,13 @@ export default function HeroSection({
   exclusions={exclusions}
   setActiveView={setActiveView}
 />
+      <PrivateInquiryForm
+        isOpen={isPrivateFormOpen}
+        onClose={() => setIsPrivateFormOpen(false)}
+        onSubmit={(data) => console.log("Private journey inquiry submitted:", data)}
+        journey={journey}
+        showDepartureDate={false}
+      />
     </>
   );
 }
