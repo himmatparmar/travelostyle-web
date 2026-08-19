@@ -32,13 +32,13 @@ export default function DetailTabs({
   return (
     <>
     <div className="bg-white hidden md:block">
-      <div className="sticky top-0 z-20 bg-white border-b border-[#E5E5E5] px-[5.5vw]">
-        <div className="flex items-center">
+      <div className="sticky top-0 z-20 bg-white border-b border-[#E5E5E5] shadow-[0_6px_16px_-6px_rgba(0,0,0,0.15)] h-[80px] flex items-center px-[5.5vw]">
+        <div className="flex items-center w-full max-w-[1548px] h-[47px] mx-auto">
           {TABS.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`relative px-[1.75vw] py-[1.1vw] whitespace-nowrap text-[21px] leading-[32px] tracking-[0.05em] transition-colors ${
+              className={`relative px-[1.75vw] py-[1.1vw] whitespace-nowrap font-[Nohemi] text-[21px] leading-[32px] tracking-[0.05em] transition-colors ${
                 activeTab === tab
                   ? "font-bold text-black"
                   : "font-light text-black/50 hover:text-black/80"
