@@ -2,6 +2,8 @@
 import { useState } from "react";
 import React from "react";
 import { useRouter } from "next/navigation";
+import PrivateInquiryForm from "@/components/PrivateInquiryForm";
+import GroupInquiryForm from "@/components/GroupInquiryForm";
 
 
 export default function JourneyPricing({
@@ -10,7 +12,13 @@ export default function JourneyPricing({
      journeyId,
 }) {
     const [expandedCard, setExpandedCard] = useState(null);
+    const [privateFormDeparture, setPrivateFormDeparture] = useState(null);
+    const [groupFormTrip, setGroupFormTrip] = useState(null);
     const router = useRouter();
+
+    const openPrivateForm = (trip) =>
+        setPrivateFormDeparture({ startDate: trip.startDate, endDate: trip.endDate });
+    const openGroupForm = (trip) => setGroupFormTrip(trip);
 
     const toggleCard = (index) => {
         setExpandedCard(expandedCard === index ? null : index);
@@ -227,7 +235,14 @@ export default function JourneyPricing({
                                         )}
                                     </div>
 
-                                    <button className="w-full bg-[#2C3078] text-white rounded-full py-3 font-medium">
+                                    <button
+                                        onClick={() =>
+                                            trip.statusType === "soldout"
+                                                ? openPrivateForm(trip)
+                                                : openGroupForm(trip)
+                                        }
+                                        className="w-full bg-[#2C3078] text-white rounded-full py-3 font-medium"
+                                    >
                                         {trip.button}
                                     </button>
                                 </div>
@@ -373,6 +388,7 @@ export default function JourneyPricing({
                                         <td className="border px-4 py-5 text-center">
                                             {trip.statusType === "soldout" ? (
                                                 <span
+                                                    onClick={() => openPrivateForm(trip)}
                                                     className="
         text-[14px]
         font-medium
@@ -395,11 +411,7 @@ export default function JourneyPricing({
     text-[14px]
     font-medium
   "
-  onClick={() =>
-    router.push(
-      `/enquiry?journeyId=${journeyId}&departureId=${trip.id}`
-    )
-  }
+  onClick={() => openGroupForm(trip)}
 >
   {trip.button}
 </button>
@@ -445,6 +457,23 @@ export default function JourneyPricing({
                     Speak to an advisor
                 </button>
             </div>
+
+            <PrivateInquiryForm
+                isOpen={Boolean(privateFormDeparture)}
+                onClose={() => setPrivateFormDeparture(null)}
+                onSubmit={(data) => console.log("Private journey inquiry submitted:", data)}
+                journey={journey}
+                departure={privateFormDeparture}
+                showDepartureDate
+            />
+
+            <GroupInquiryForm
+                isOpen={Boolean(groupFormTrip)}
+                onClose={() => setGroupFormTrip(null)}
+                onSubmit={(data) => console.log("Group trip inquiry submitted:", data)}
+                journey={journey}
+                trip={groupFormTrip}
+            />
         </section>
     );
 }
