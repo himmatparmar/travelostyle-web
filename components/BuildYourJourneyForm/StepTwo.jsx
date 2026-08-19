@@ -1,37 +1,81 @@
 import { TRIP_REASONS } from "./constants";
-import { RadioPill } from "./FormControls";
+
+const ROW_1 = [
+  "Honeymoon",
+  "Birthday",
+  "Babymoon",
+  "Anniversary",
+  "Family Trip",
+  "Bucket List",
+];
+
+const ROW_2 = [
+  "Graduation",
+  "Friend Trip",
+  "Family Trip",
+  "Because I love to travel",
+];
 
 export default function StepTwo({ formData, updateField }) {
+  const renderRadio = (reason, keyId) => {
+    const isSelected = formData.tripReason === reason;
+    return (
+      <label
+        key={`${reason}-${keyId}`}
+        className="inline-flex items-center gap-2.5 cursor-pointer select-none group"
+      >
+        <input
+          type="radio"
+          name="tripReason"
+          value={reason}
+          checked={isSelected}
+          onChange={(e) => updateField("tripReason", e.target.value)}
+          className="sr-only"
+        />
+
+        {/* Custom Figma-Style Circular Radio Button */}
+        <span className="flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border-[1.5px] border-[#1A1A1A] bg-transparent">
+          {isSelected && (
+            <span className="h-[8px] w-[8px] rounded-full bg-[#1A1A1A]" />
+          )}
+        </span>
+
+        <span className="text-[14px] font-[400] leading-[21px] tracking-[0.03em] text-[#1A1A1A] group-hover:text-[#000000] whitespace-nowrap">
+          {reason}
+        </span>
+      </label>
+    );
+  };
+
   return (
-    <div>
-      <h3 className="text-[15px] font-semibold text-[#1A1A1A]">
+    <div className="flex flex-col">
+      {/* Step Heading */}
+      <h3 className="text-[18px] font-[600] leading-[21px] tracking-[0.05em] text-[#1A1A1A]">
         Why are you taking this trip?
       </h3>
 
-      <div className="mt-5 flex flex-wrap gap-x-8 gap-y-4">
-        {TRIP_REASONS.map((reason) => (
-          <RadioPill
-            key={reason}
-            name="tripReason"
-            value={reason}
-            label={reason}
-            checked={formData.tripReason === reason}
-            onChange={(e) => updateField("tripReason", e.target.value)}
-          />
-        ))}
-      </div>
+     
+      <div className="mt-8 flex flex-col gap-y-4">
+     
+        <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
+          {ROW_1.map((reason, idx) => renderRadio(reason, `r1-${idx}`))}
+        </div>
 
-      <div className="mt-8">
-        <label className="mb-2 block text-[13px] font-medium text-[#1A1A1A]">
+        <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
+          {ROW_2.map((reason, idx) => renderRadio(reason, `r2-${idx}`))}
+        </div>
+      </div>
+      <div className="mt-9">
+        <label className="block text-[16px] font-[600] leading-[32px] tracking-[0.05em] text-[#1A1A1A]">
           What&apos;s something you would like our expert to know?
         </label>
 
         <textarea
-          rows={4}
-          value={formData.expertNote}
+          rows={3}
+          value={formData.expertNote || ""}
           onChange={(e) => updateField("expertNote", e.target.value)}
-          placeholder="Do you have questions? Quirks? Preferences? or special considerations that you would like us to keep in mind? Tell us everything! The more we know, the better we can help."
-          className="w-full resize-none rounded-lg border border-gray-300 px-4 py-3 text-[13px] text-[#1A1A1A] placeholder:text-gray-400 focus:outline-none focus:border-[#2D3482]"
+          placeholder="Do you have questions? Quirks? Preferences? or special considerations that you would like us to keep in mind?&#10;Tell us everything! The more we know, the better we can help."
+          className="mt-2.5 w-full max-w-[780px] resize-none rounded-[10px] border border-[#262626] bg-transparent p-3.5 text-[10px] sm:text-[14px] leading-relaxed tracking-[0.03em] text-[#1A1A1A] placeholder:text-[#757575] focus:outline-none"
         />
       </div>
     </div>
