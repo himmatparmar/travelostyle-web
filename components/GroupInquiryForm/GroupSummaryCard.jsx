@@ -1,20 +1,21 @@
 import Image from "next/image";
+import { MoveRight } from "lucide-react";
 
 function formatDate(dateStr) {
-  if (!dateStr) return "";
+  if (!dateStr) return "11 May 2026";
   const d = new Date(dateStr);
-  if (Number.isNaN(d.getTime())) return "";
-  return d.toLocaleDateString("en-US", {
-    day: "2-digit",
+  if (Number.isNaN(d.getTime())) return dateStr;
+  return d.toLocaleDateString("en-GB", {
+    day: "numeric",
     month: "short",
     year: "numeric",
   });
 }
 
 function formatDay(dateStr) {
-  if (!dateStr) return "";
+  if (!dateStr) return "Monday";
   const d = new Date(dateStr);
-  if (Number.isNaN(d.getTime())) return "";
+  if (Number.isNaN(d.getTime())) return "Monday";
   return d.toLocaleDateString("en-US", { weekday: "long" });
 }
 
@@ -25,84 +26,91 @@ function formatDay(dateStr) {
 // confirmed group departure, so the departure date + guaranteed-departure
 // badge are always shown.
 export default function GroupSummaryCard({ journey, trip }) {
-  if (!journey) return null;
-
-  const startDate = trip?.startDate;
-  const endDate = trip?.endDate;
-  const price = trip?.discountedPrice ?? journey.offerPrice;
-  const originalPrice = trip?.originalPrice ?? journey.originalPrice;
-  const hasOffer = Number(trip?.offerPercentage) > 0 || Boolean(journey.earlyBird);
+  const startDate = trip?.startDate || journey?.startDate || "2026-05-11";
+  const endDate = trip?.endDate || journey?.endDate || "2026-05-24";
+  const price = trip?.discountedPrice ?? journey?.offerPrice ?? 5000;
+  const originalPrice = trip?.originalPrice ?? journey?.originalPrice ?? 6500;
+  const seatsLeft = trip?.seatsLeft ?? 2;
 
   return (
-    <div className="w-full max-w-[270px] shrink-0 border-2 border-[#1A1A1A] bg-[#FAFAFA] p-2.5">
-      <div className="overflow-hidden border border-[#D9D9D9] bg-white">
-        <div className="relative h-[150px] w-full">
+    <div className="w-full overflow-hidden rounded-[3px] border border-[#4A4A4A] bg-white">
+      {/* Top Image */}
+      <div className="p-1.5 pb-0">
+        <div className="relative h-[135px] w-full overflow-hidden">
           <Image
-            src={journey.image || "/Morocco.svg"}
-            alt={journey.title || "Journey"}
+            src={journey?.image || "/Morocco.svg"}
+            alt={journey?.title || "The Moroccan Getaway"}
             fill
             unoptimized
             className="object-cover"
           />
         </div>
+      </div>
 
-        <div className="px-4 pb-4 pt-3.5">
-          <h4 className="text-[16px] font-bold leading-tight text-[#1A1A1A]">
-            {journey.title}
-          </h4>
+      {/* Main Details */}
+      <div className="px-2.5 pb-2.5 pt-2">
+        <h4 className="text-[12px] font-bold leading-tight text-[#1A1A1A]">
+          {journey?.title || "The Moroccan Getaway"}
+        </h4>
 
-          <p className="mt-2 text-[13px] text-[#3A3A3A]">{journey.days}</p>
-          <p className="text-[13px] text-[#3A3A3A]">{journey.destinations}</p>
+        <div className="mt-1.5 space-y-0.5 text-[9.5px] leading-tight text-[#4A4A4A]">
+          <p>{journey?.days || "13 days | 12 Nights"}</p>
+          <p>{journey?.destinations || "10 Destinations"}</p>
+          <p>{journey?.groupSize || "upto 18 guests"}</p>
+        </div>
 
-          <div className="mt-2 flex flex-col gap-0.5">
-            {trip?.seatsLeft != null && (
-              <p className="text-[12px] font-semibold text-red-600">
-                {trip.seatsLeft} seats left
-              </p>
-            )}
-            <p className="text-[12px] font-semibold text-[#128914]">
-              Guaranteed departure
+        <div className="mt-2 space-y-0.5">
+          {seatsLeft != null && (
+            <p className="text-[9.5px] font-bold leading-tight text-[#A31D1D]">
+              {seatsLeft} seats left
+            </p>
+          )}
+          <p className="text-[9.5px] font-bold leading-tight text-[#238823]">
+            Guaranteed departure
+          </p>
+        </div>
+
+        <div className="mt-2">
+          {originalPrice && (
+            <p className="text-[9.5px] text-[#7A7A7A] line-through leading-tight">
+              ${Number(originalPrice).toLocaleString()}
+            </p>
+          )}
+          <p className="text-[14px] font-extrabold leading-tight text-[#1A1A1A]">
+            ${Number(price).toLocaleString()}*
+            <span className="text-[9.5px] font-semibold text-[#4A4A4A]">
+              /person
+            </span>
+          </p>
+          <p className="mt-0.5 text-[8.5px] text-[#7A7A7A] leading-none">
+            *double occupancy
+          </p>
+        </div>
+      </div>
+
+      <div className="border-t border-[#4A4A4A] bg-[#f2e2da] px-2.5 py-2">
+        <p className="text-[10.5px] font-bold leading-none text-[#1A1A1A]">
+          Departure Date
+        </p>
+        <div className="mt-1.5 flex items-center justify-between text-[10px] text-[#1A1A1A]">
+          <div>
+            <p className="font-bold leading-tight">{formatDate(startDate)}</p>
+            <p className="text-[8.5px] text-[#6A6A6A] leading-tight">
+              {formatDay(startDate)}
             </p>
           </div>
 
-          <div className="mt-2.5">
-            {hasOffer && originalPrice ? (
-              <p className="text-[12px] text-gray-400 line-through">
-                ${Number(originalPrice).toLocaleString()}
-              </p>
-            ) : null}
-            <p className="text-[21px] font-bold leading-tight text-[#1D1D1D]">
-              ${Number(price || 0).toLocaleString()}
-              <span className="text-[13px] font-semibold">*/person</span>
-            </p>
-            <p className="mt-0.5 text-[11px] text-gray-500">
-              *double occupancy
+          <div className="flex items-center justify-center px-1">
+            <MoveRight size={20} strokeWidth={1.5} className="text-[#3A3A3A]" />
+          </div>
+
+          <div className="text-right">
+            <p className="font-bold leading-tight">{formatDate(endDate)}</p>
+            <p className="text-[8.5px] text-[#6A6A6A] leading-tight">
+              {formatDay(endDate)}
             </p>
           </div>
         </div>
-
-        {(startDate || endDate) && (
-          <div className="bg-[#F2E5DE] px-4 py-3">
-            <p className="text-[13px] font-bold text-[#1A1A1A]">
-              Departure Date
-            </p>
-            <div className="mt-1.5 flex items-center justify-between text-[13px] text-[#1A1A1A]">
-              <div>
-                <p className="font-semibold">{formatDate(startDate)}</p>
-                <p className="text-[11px] text-[#6B6B6B]">
-                  {formatDay(startDate)}
-                </p>
-              </div>
-              <span className="px-1 text-[#6B6B6B]">&rarr;</span>
-              <div className="text-right">
-                <p className="font-semibold">{formatDate(endDate)}</p>
-                <p className="text-[11px] text-[#6B6B6B]">
-                  {formatDay(endDate)}
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
