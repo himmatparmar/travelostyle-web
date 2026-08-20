@@ -1,4 +1,5 @@
 import { getBlock, resolveMediaImage } from "@/lib/blockContent";
+import CraftJourneyButton from "../CraftJourneyButton";
 
 const PLACEHOLDER_IMAGE = "/placeholder-image.svg";
 
@@ -49,9 +50,7 @@ export default async function WhollyJourneyHero() {
             <p>{description}</p>
           </div>
           <div className="mt-8 sm:mt-10">
-            <button className="bg-white hover:bg-gray-100 text-[#1C355E] text-sm sm:text-base font-semibold px-8 py-3.5 rounded-full transition-all duration-200 shadow-md hover:shadow-lg transform active:scale-95">
-              Craft Your Journey
-            </button>
+              <CraftJourneyButton />
           </div>
         </div>
       </div>

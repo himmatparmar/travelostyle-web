@@ -29,7 +29,7 @@ export default function GroupSummaryCard({ journey, trip }) {
   const hasOffer = Number(trip?.offerPercentage) > 0 || Boolean(journey?.earlyBird) || Boolean(originalPrice);
 
   return (
-    <div className="w-full max-w-[210px] overflow-hidden rounded-[5px] border-[1.5px] border-[#222222] bg-white font-sans shadow-sm">
+    <div className="w-full max-w-[210px] overflow-hidden rounded-[5px] border-[1.5px] border-[#222222] bg-[#fafafa] font-sans shadow-sm mb-6">
   
       <div className="p-2.5 pb-0">
         <div className="relative h-[125px] w-full overflow-hidden">
