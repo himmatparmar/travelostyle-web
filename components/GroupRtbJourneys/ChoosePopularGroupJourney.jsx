@@ -2,11 +2,24 @@
 import React from "react";
 import TravelJourneyCard from "../TravelJourneyCard";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { getJourneyCards, filterByType } from "@/lib/journeyCard";
 
 export default function ChoosePopularGroupJourney() {
+  const router = useRouter();
   const [journeys, setJourneys] = useState([]);
   const [selectedTrips, setSelectedTrips] = useState([]);
+
+  // "Discover All Group Journeys" takes the visitor to the full itinerary
+  // listing, pre-filtered to Group journeys (the sidebar's "style" filter
+  // reads this same sessionStorage key on mount).
+  const goToAllJourneys = () => {
+    sessionStorage.setItem(
+      "journeyData",
+      JSON.stringify({ style: ["Group Journey"] })
+    );
+    router.push("/itinerary");
+  };
   useEffect(() => {
     const compareTrips = JSON.parse(
       localStorage.getItem("compareTrips") || "[]",
@@ -88,7 +101,10 @@ export default function ChoosePopularGroupJourney() {
         onCompare={handleCompareSelection}
       />
       <div className="flex justify-center">
-        <button className="bg-[#1C355E] hover:bg-[#12233F] text-white text-xs font-semibold px-6 py-2 rounded-full shadow transition-all duration-200">
+        <button
+          onClick={goToAllJourneys}
+          className="bg-[#1C355E] hover:bg-[#12233F] text-white text-xs font-semibold px-6 py-2 rounded-full shadow transition-all duration-200"
+        >
           Discover All Group Journeys
         </button>
       </div>

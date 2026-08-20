@@ -1,14 +1,27 @@
 "use client";
 import React from "react";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import TravelJourneyCard from "../TravelJourneyCard";
 import { getJourneyCards, filterByType } from "@/lib/journeyCard";
 
 
 
 export default function JourneyInspiration() {
+  const router = useRouter();
   const [journeys, setJourneys] = useState([]);
   const [selectedTrips, setSelectedTrips] = useState([]);
+
+  // "Explore All Private Journeys" takes the visitor to the full itinerary
+  // listing, pre-filtered to both Group and Private journeys (the sidebar's
+  // "style" filter reads this same sessionStorage key on mount).
+  const goToAllJourneys = () => {
+    sessionStorage.setItem(
+      "journeyData",
+      JSON.stringify({ style: ["Group Journey", "Private Journey"] })
+    );
+    router.push("/itinerary");
+  };
   useEffect(() => {
   const compareTrips = JSON.parse(
     localStorage.getItem("compareTrips") || "[]"
@@ -98,6 +111,7 @@ const handleCompareSelection = (trip) => {
 {/* </div>    */}
   <div className="flex justify-center mt-8">
         <button
+          onClick={goToAllJourneys}
           className="bg-[#1C355E] hover:bg-[#12233F] text-white text-xs font-semibold  px-6 py-2 p-6 rounded-full shadow transition-all duration-200"
         >
          Explore All Private Journeys
