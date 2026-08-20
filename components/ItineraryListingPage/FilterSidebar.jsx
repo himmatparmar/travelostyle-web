@@ -242,11 +242,14 @@ export default function FilterSidebar({
         const selectedStyle =
           sessionJourneyFilters.travelType || sessionJourneyFilters.style || "";
 
-        const matchingStyle = filterOptions.style?.find(
-          (opt) =>
-            opt.toLowerCase().replace(/[^a-z0-9]/g, "") ===
-            selectedStyle.toLowerCase().replace(/[^a-z0-9]/g, ""),
-        );
+        const matchingStyle =
+          typeof selectedStyle === "string" && selectedStyle
+            ? filterOptions.style?.find(
+                (opt) =>
+                  opt.toLowerCase().replace(/[^a-z0-9]/g, "") ===
+                  selectedStyle.toLowerCase().replace(/[^a-z0-9]/g, ""),
+              )
+            : null;
 
         // Month
         const selectedMonths =

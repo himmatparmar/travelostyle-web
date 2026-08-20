@@ -73,109 +73,121 @@ export default function PrivateInquiryForm({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="flex max-h-[90vh] w-full max-w-[860px] flex-col rounded-2xl border border-gray-200 bg-white shadow-xl">
-        <div className="flex shrink-0 items-center justify-between border-b border-gray-200 px-6 py-4 sm:px-8">
-          <h2 className="text-md font-semibold text-[#1A1A1A] sm:text-xl">
-            Inquire With Us
-          </h2>
-          <button
-            type="button"
-            onClick={handleClose}
-            aria-label="Close"
-            className="text-gray-400 transition hover:text-gray-700"
-          >
-            <X size={22} />
-          </button>
-        </div>
-
-        <div className="overflow-y-auto px-6 py-6 sm:px-8">
-          {submitted ? (
-            <div className="flex flex-col items-start gap-8 sm:flex-row">
-              <div className="w-full sm:sticky sm:top-0 sm:w-auto">
-                <JourneySummaryCard
-                  journey={journey}
-                  departure={departure}
-                  showDepartureDate={showDepartureDate}
-                />
-              </div>
-              <div className="flex-1">
-                <SuccessStep onExplore={handleClose} />
-              </div>
-            </div>
-          ) : (
-            <form
-              onSubmit={
-                step === TOTAL_STEPS ? handleSubmit : (e) => e.preventDefault()
-              }
-              className="flex flex-col items-start gap-8 sm:flex-row"
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 font-sans backdrop-blur-[0.5px]">
+      <div className="w-full max-w-[1000px]">
+        {/* Modal Outer Box */}
+        <div className=" relative flex max-h-[92vh] w-full flex-col rounded-xl border border-[#3A3A3A] bg-white shadow-2xl">
+          {/* Header */}
+          <div className="flex shrink-0 items-center justify-between border-b border-[#3A3A3A] px-6 py-3">
+            <h2 className="text-[15px] font-bold text-[#1A1A1A]">
+              Inquire With Us
+            </h2>
+            <button
+              type="button"
+              onClick={handleClose}
+              aria-label="Close"
+              className="text-[#3A3A3A] transition hover:text-black"
             >
-              <div className="w-full sm:sticky sm:top-0 sm:w-auto">
-                <JourneySummaryCard
-                  journey={journey}
-                  departure={departure}
-                  showDepartureDate={showDepartureDate}
-                />
-              </div>
+              <X size={18} strokeWidth={1.75} />
+            </button>
+          </div>
 
-              <div className="w-full flex-1">
-                {step === 1 && (
-                  <StepOne
-                    formData={formData}
-                    updateField={updateField}
-                    showTravelWindow={!showDepartureDate}
+          <div className="overflow-y-auto px-6 py-5">
+            {submitted ? (
+              <div className="flex flex-col items-start gap-8 md:flex-row md:items-center">
+                <div className="w-full shrink-0 md:w-[210px]">
+                  <JourneySummaryCard
+                    journey={journey}
+                    departure={departure}
+                    showDepartureDate={showDepartureDate}
                   />
-                )}
-                {step === 2 && (
-                  <StepTwo
-                    formData={formData}
-                    toggleCustomization={toggleCustomization}
-                  />
-                )}
-                {step === 3 && (
-                  <StepThree
-                    formData={formData}
-                    toggleStopover={toggleStopover}
-                    updateField={updateField}
-                  />
-                )}
-                {step === 4 && (
-                  <StepFour formData={formData} updateField={updateField} />
-                )}
+                </div>
 
-                <div className="mt-8 flex items-center justify-end gap-5">
-                  {step > 1 && (
-                    <button
-                      type="button"
-                      onClick={goPrevious}
-                      className="text-sm font-medium text-gray-500 transition hover:text-gray-800"
-                    >
-                      Previous
-                    </button>
-                  )}
-
-                  {step < TOTAL_STEPS ? (
-                    <button
-                      key="nav-next"
-                      type="button"
-                      onClick={goNext}
-                      className="rounded-full bg-[#2D3482] px-8 py-2.5 text-sm font-semibold text-white transition hover:bg-[#252b78]"
-                    >
-                      Next
-                    </button>
-                  ) : (
-                    <button
-                      key="nav-submit"
-                      type="submit"
-                      className="rounded-full bg-[#2D3482] px-8 py-2.5 text-sm font-semibold text-white transition hover:bg-[#252b78]"
-                    >
-                      Submit Inquiry
-                    </button>
-                  )}
+                <div className="flex flex-1 flex-col justify-center">
+                  <SuccessStep onExplore={handleClose} />
                 </div>
               </div>
-            </form>
-          )}
+            ) : (
+              <form
+                onSubmit={
+                  step === TOTAL_STEPS
+                    ? handleSubmit
+                    : (e) => e.preventDefault()
+                }
+                className="flex flex-col items-start gap-6 md:flex-row"
+              >
+                {/* Left Column: Summary Card */}
+                <div className="w-full shrink-0 md:w-[215px]">
+                  <JourneySummaryCard
+                    journey={journey}
+                    departure={departure}
+                    showDepartureDate={showDepartureDate}
+                  />
+                </div>
+
+                {/* Right Column: Steps */}
+                <div className="flex w-full flex-1 flex-col justify-between self-stretch">
+                  <div>
+                    {step === 1 && (
+                      <StepOne
+                        formData={formData}
+                        updateField={updateField}
+                        showTravelWindow={!showDepartureDate}
+                      />
+                    )}
+                    {step === 2 && (
+                      <StepTwo
+                        formData={formData}
+                        toggleCustomization={toggleCustomization}
+                      />
+                    )}
+                    {step === 3 && (
+                      <StepThree
+                        formData={formData}
+                        toggleStopover={toggleStopover}
+                        updateField={updateField}
+                      />
+                    )}
+                    {step === 4 && (
+                      <StepFour formData={formData} updateField={updateField} />
+                    )}
+                  </div>
+
+                  {/* Navigation Buttons */}
+                  <div className="mt-2 flex items-center justify-end gap-4">
+                    {step > 1 && (
+                      <button
+                        type="button"
+                        onClick={goPrevious}
+                        className="text-[11.5px] font-semibold text-[#6A6A6A] transition hover:text-black"
+                      >
+                        Previous
+                      </button>
+                    )}
+
+                    {step < TOTAL_STEPS ? (
+                      <button
+                        key="nav-next"
+                        type="button"
+                        onClick={goNext}
+                        className="rounded-full bg-[#2B3377] px-7 py-1.5 text-[11.5px] font-bold text-white shadow-sm transition hover:bg-[#202761]"
+                      >
+                        Next
+                      </button>
+                    ) : (
+                      <button
+                        key="nav-submit"
+                        type="submit"
+                        className="rounded-full bg-[#2B3377] px-7 py-1.5 text-[11.5px] font-bold text-white shadow-sm transition hover:bg-[#202761]"
+                      >
+                        Submit Inquiry
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </form>
+            )}
+          </div>
         </div>
       </div>
     </div>
