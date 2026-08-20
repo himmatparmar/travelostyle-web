@@ -14,6 +14,7 @@ import PopularDestinations from "../components/HomePage/PopularDestinations";
 import Footer from "../components/Footer";
 import { API_BASE_URL } from "@/lib/config";
 import { getBlock } from "@/lib/blockContent";
+import { getJourneyCards } from "@/lib/journeyCard";
 
 function stripHtml(html: string) {
   return (html || "")
@@ -115,6 +116,7 @@ export default async function Home() {
   // Get ALL journeys
   const journeyData = await getJourneys();
   const homeHero = await getHomeHero();
+  const journeyCards = await getJourneyCards();
 
   // ------------------------------------
   // ONLY POPULAR JOURNEYS
@@ -138,7 +140,7 @@ export default async function Home() {
 />
       <JourneySection />
 
-      <YourNextTrip />
+      <YourNextTrip initialJourneys={journeyCards} />
 
       <Index />
 

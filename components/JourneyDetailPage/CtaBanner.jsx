@@ -45,6 +45,7 @@ export default function CtaBanner({
           journey={journey}
           departure={departure}
           showDepartureDate={showDepartureDate}
+          label="Inspirational Itineraries Form"
         />
       )}
       {formType === "build" && (

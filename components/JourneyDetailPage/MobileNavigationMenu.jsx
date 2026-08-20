@@ -64,7 +64,7 @@ if (activeView === "highlights") {
     <MobileHighlightsPage
       onBack={() => setActiveView("menu")}
       highlightsRecord={journey.tabHighlights}
-
+      journey={journey}
     />
   );
 }

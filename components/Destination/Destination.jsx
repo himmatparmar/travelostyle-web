@@ -1,8 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import TravelJourneyCard from "../TravelJourneyCard";
-import { API_BASE_URL, buildFileUrl } from "@/lib/config";
-import { slugify } from "@/lib/slugify";
+import { getJourneyCards } from "@/lib/journeyCard";
 
 export default function Destination() {
     
@@ -63,85 +62,14 @@ export default function Destination() {
       useEffect(() => {
         async function loadJourneys() {
           try {
-            const res = await fetch(
-              `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,
-              field_journey_tag`,
-            );
-    
-            const json = await res.json();
-            
-            const included = json.included || [];
-    
-            const drupalJourneys = (json.data || []).map((item) => {
-              const mediaId = item.relationships?.field_journey_image?.data?.id;
-    
-              const mediaEntity = included.find(
-                (inc) => inc.type === "media--image" && inc.id === mediaId,
-              );
-    
-              const fileId =
-                mediaEntity?.relationships?.field_media_image?.data?.id;
-    
-              const fileEntity = included.find(
-                (inc) => inc.type === "file--file" && inc.id === fileId,
-              );
-    
-              const imageUrl =
-                buildFileUrl(fileEntity?.attributes?.uri?.url) ||
-                "/GoldenTriange.svg";
-    
-              const tagData = item.relationships?.field_journey_tag?.data;
-    
-              const tagArray = Array.isArray(tagData)
-                ? tagData
-                : tagData
-                  ? [tagData]
-                  : [];
-    
-              const tagNames = tagArray
-                .map((tag) => {
-                  const tagEntity = included.find(
-                    (inc) =>
-                      inc.type === "taxonomy_term--tags" && inc.id === tag.id,
-                  );
-    
-                  return tagEntity?.attributes?.name;
-                })
-                .filter(Boolean);
-              const cta = item.attributes?.field_cta;
-
-const alias = item.attributes?.path?.alias || "";
-let viewTripUrl = alias || `/journey/${slugify(item.attributes?.title || "")}`;
-
-if (cta?.uri && !cta.uri.startsWith("entity:")) {
-  viewTripUrl = cta.uri;
-}
-        
-              return {
-                id: item.id,
-                title: item.attributes?.title || "",
-                description: item.attributes?.field_short_description || "",
-                duration: `${item.attributes?.field_duration_days || 0} Days | ${
-                  item.attributes?.field_duration_nights || 0
-                } Nights`,
-                destinations: `${
-                  item.attributes?.field_destinations_count || 0
-                } Destinations`,
-                price: Number(item.attributes?.field_offer_price) || 0,
-                earlyBird: item.attributes?.field_offer_message || null,
-                image: imageUrl,
-                types: tagNames,
-                 viewTripUrl,
-  viewTripText: cta?.title || "View Trip",
-              };
-            });
-           setJourneys(drupalJourneys);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    loadJourneys();
-  }, []);
+            const drupalJourneys = await getJourneyCards();
+            setJourneys(drupalJourneys);
+          } catch (err) {
+            console.error(err);
+          }
+        }
+        loadJourneys();
+      }, []);
 
   return (
   <section className="w-full overflow-hidden flex flex-col items-start md:items-center text-left md:text-center px-4">

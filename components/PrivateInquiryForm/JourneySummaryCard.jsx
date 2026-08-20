@@ -19,14 +19,22 @@ function formatDay(dateStr) {
   return d.toLocaleDateString("en-US", { weekday: "long" });
 }
 
-export default function GroupSummaryCard({ journey, trip }) {
+export default function JourneySummaryCard({
+  journey,
+  departure,
+  // false hides the departure-date block entirely (the "inspirational"
+  // variant, e.g. the generic CTA near "Love the itinerary, but need
+  // more?"). true (default) shows the real departure date — the "private"
+  // variant used from a specific sold-out trip.
+  showDepartureDate = true,
+}) {
   if (!journey) return null;
 
-  const startDate = trip?.startDate || journey?.startDate||'24May 2026';
-  const endDate = trip?.endDate || journey?.endDate||'24May 2026';
-  const price = trip?.discountedPrice ?? journey?.offerPrice;
-  const originalPrice = trip?.originalPrice ?? journey?.originalPrice;
-  const hasOffer = Number(trip?.offerPercentage) > 0 || Boolean(journey?.earlyBird) || Boolean(originalPrice);
+  const startDate = showDepartureDate ? departure?.startDate : null;
+  const endDate = showDepartureDate ? departure?.endDate : null;
+  const price = journey?.offerPrice;
+  const originalPrice = journey?.originalPrice;
+  const hasOffer = Boolean(journey?.earlyBird) || Boolean(originalPrice);
 
   return (
     <div className="w-full max-w-[210px] overflow-hidden rounded-[5px] border-[1.5px] border-[#222222] bg-[#fafafa] font-sans shadow-sm mb-6">
@@ -52,17 +60,6 @@ export default function GroupSummaryCard({ journey, trip }) {
           {journey.days && <p>{journey.days}</p>}
           {journey.destinations && <p>{journey.destinations}</p>}
           {journey.groupSize && <p>{journey.groupSize}</p>}
-        </div>
-
-        <div className="mt-2 flex flex-col gap-0.5">
-          {trip?.seatsLeft != null && (
-            <p className="text-[9.5px] font-bold leading-tight text-[#b91c1c]">
-              {trip.seatsLeft} seats left
-            </p>
-          )}
-          <p className="text-[9.5px] font-bold leading-tight text-[#15803d]">
-            Guaranteed departure
-          </p>
         </div>
 
         <div className="mt-2.5">

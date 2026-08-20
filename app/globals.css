@@ -78,26 +78,30 @@
  * matching). Use like:
  *   className="text-[length:var(--fs-heading-taprom-lg)] leading-[length:var(--lh-heading-taprom-lg)] tracking-[length:var(--ls-heading-taprom-lg)]"
  * or read them in inline style={{ fontSize: 'var(--fs-heading-taprom-lg)', ... }}.
+ *
+ * Variable names/comments keep their original "taprom"/"nohemi" labels from
+ * the Figma spec for traceability, but the site now renders every one of
+ * these in Inter — only the size/line-height/letter-spacing values apply.
  */
 :root {
-  /* Taprom, 400, 54px / 80px / 5% — e.g. "Journeys made for you, by you & with you." */
-  --fs-heading-taprom-lg: 54px;
+  /* Taprom, 400, 48px / 80px / 5% — e.g. "Journeys made for you, by you & with you." */
+  --fs-heading-taprom-lg: 48px;
   --lh-heading-taprom-lg: 80px;
   --ls-heading-taprom-lg: 0.05em;
 
-  /* Taprom, 400, 48px / 80px / 5% — e.g. "Experience travel the way it should be..." */
-  --fs-heading-taprom-md: 48px;
+  /* Taprom, 400, 42px / 80px / 5% — e.g. "Experience travel the way it should be..." */
+  --fs-heading-taprom-md: 42px;
   --lh-heading-taprom-md: 80px;
   --ls-heading-taprom-md: 0.05em;
 
-  /* Nohemi, 600 (Semi Bold), 40px / 48px / 5% — e.g. "Not sure where to begin? Talk to us!" */
-  --fs-heading-nohemi-semibold: 40px;
+  /* Nohemi, 600 (Semi Bold), 34px / 48px / 5% — e.g. "Not sure where to begin? Talk to us!" */
+  --fs-heading-nohemi-semibold: 34px;
   --lh-heading-nohemi-semibold: 48px;
   --ls-heading-nohemi-semibold: 0.05em;
   --fw-heading-nohemi-semibold: 600;
 
   /* Nohemi, 600 (Semi Bold), 24px / 32px / 5%, centered — e.g. TravelOStyle Promise card titles ("Transparent from the first conversation") */
-  --fs-title-nohemi-semibold-sm: 20px;
+  --fs-title-nohemi-semibold-sm: 14px;
   --lh-title-nohemi-semibold-sm: 32px;
   --ls-title-nohemi-semibold-sm: 0.05em;
   --fw-title-nohemi-semibold-sm: 600;
@@ -127,14 +131,10 @@ body {
 }
 
 /*
- * Body copy moved to Inter for legibility (self-hosted via next/font in
- * app/layout.tsx). Headings stay on Nohemi — since `body` no longer sets
- * Nohemi as the inherited default, headings need it set explicitly here
- * instead of relying on inheritance.
+ * Site-wide: Inter for body copy and regular headings. Decorative/display
+ * titles keep the "Taprom" class name — Taprom itself, loaded via Google
+ * Fonts in app/layout.tsx.
  */
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Nohemi", Arial, Helvetica, sans-serif;
-}
 
 button:not(:disabled),
 a,
@@ -143,7 +143,7 @@ a,
   cursor: pointer;
 }
 .font-taprom {
- font-family: "Taprom";
+  font-family: "Taprom", cursive;
 }
 .leaflet-container {
   background: #f5f5f5;
@@ -151,16 +151,4 @@ a,
 
 .leaflet-tile {
   filter: sepia(25%) saturate(30%) brightness(108%);
-}
-
-@font-face {
-  font-family: "Nohemi";
-  src: url("/fonts/Nohemi-Light-BF6438cc5899919.ttf") format("truetype");
-  font-weight: 300;
-}
-
-@font-face {
-  font-family: "Nohemi";
-  src: url("/fonts/Nohemi-Regular-BF6438cc4d0e493.ttf") format("truetype");
-  font-weight: 400;
 }
