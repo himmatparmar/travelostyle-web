@@ -1,5 +1,7 @@
 "use client";
 
+import { TRAVEL_YEARS, TRAVEL_MONTHS } from "./constants";
+
 function RadioOption({ name, value, checked, onChange, label }) {
   return (
     <label className="inline-flex cursor-pointer items-center gap-1.5 select-none">
@@ -180,6 +182,47 @@ export default function StepOne({ formData, updateField, showTravelWindow }) {
             />
           </div>
         </div>
+
+        {showTravelWindow && (
+          <div className="sm:col-span-2">
+            <p className="mb-1.5 text-[11px] font-bold text-[#1A1A1A]">
+              When do you want to travel?
+            </p>
+            <div className="grid grid-cols-1 gap-x-6 gap-y-3.5 sm:grid-cols-2">
+              <select
+                name="travelYear"
+                value={formData.travelYear || ""}
+                onChange={handleChange}
+                className="mt-0.5 block w-full border-b border-[#5A5A5A] bg-transparent pb-1 text-[11px] text-[#1A1A1A] focus:border-black focus:outline-none"
+              >
+                <option value="" disabled>
+                  Pick Year of Travel
+                </option>
+                {TRAVEL_YEARS.map((year) => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                ))}
+              </select>
+
+              <select
+                name="travelMonth"
+                value={formData.travelMonth || ""}
+                onChange={handleChange}
+                className="mt-0.5 block w-full border-b border-[#5A5A5A] bg-transparent pb-1 text-[11px] text-[#1A1A1A] focus:border-black focus:outline-none"
+              >
+                <option value="" disabled>
+                  Pick Month of Travel
+                </option>
+                {TRAVEL_MONTHS.map((month) => (
+                  <option key={month} value={month}>
+                    {month}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -21,12 +21,20 @@ export default function PrivateInquiryForm({
   onSubmit,
   journey,
   departure,
+  journeyId,
+  departureId,
   // false when there's no specific departure to attach (e.g. the generic
   // "Request A Private Journey" CTA on a journey page, or an "Explore All
   // ... Journeys" CTA not tied to one trip). In that case the card hides
   // the departure-date block and Step 1 asks "when do you want to travel"
   // instead.
   showDepartureDate = true,
+  // Optional small label rendered above the modal (e.g. "Inspirational
+  // Itineraries Form" for the generic CTA, matching the "Group Trip
+  // Inquiry" label above the Group form). Omitted entirely when not set,
+  // so existing triggers (e.g. the Dates & Pricing sold-out flow) keep
+  // their current label-less look.
+  label,
 }) {
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
@@ -71,10 +79,15 @@ export default function PrivateInquiryForm({
     onSubmit?.({ ...formData, journey, departure });
     setSubmitted(true);
   };
-
+ 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 font-sans backdrop-blur-[0.5px]">
       <div className="w-full max-w-[1000px]">
+        {label && (
+          <p className="mb-2 flex items-center gap-1.5 pl-1 text-[13px] font-medium text-[#7C3AED]">
+            <span aria-hidden="true">&#10070;</span> {label}
+          </p>
+        )}
         {/* Modal Outer Box */}
         <div className=" relative flex max-h-[92vh] w-full flex-col rounded-xl border border-[#3A3A3A] bg-white shadow-2xl">
           {/* Header */}

@@ -290,6 +290,8 @@ function transformItem(item, included) {
 
   return {
     ...MOCK_JOURNEY,
+        id: item.id,
+
     title: item.attributes.title || MOCK_JOURNEY.title,
     desc: item.attributes.field_short_description || MOCK_JOURNEY.desc,
     image: resolveImage(item, included),

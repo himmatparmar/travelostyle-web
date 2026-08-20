@@ -204,7 +204,10 @@ export default function HeroSection({
           <div className="mt-[0.65vw] text-[0.57vw] text-[#555]">
             Want to make this itinerary entirely your own?
             <br />
-            <button className="mt-[0.1vw] font-bold text-ink underline underline-offset-[2px]">
+            <button
+              onClick={() => setIsPrivateFormOpen(true)}
+              className="mt-[0.1vw] font-bold text-ink underline underline-offset-[2px]"
+            >
               Tailor This Journey For You
             </button>
           </div>
@@ -353,6 +356,17 @@ export default function HeroSection({
                 Request a Private Journey
               </button>
             </div>
+
+            <div className="border-t border-[#2E2E2E] bg-white px-4 py-3 text-center text-[13px] text-[#555]">
+              Want to make this itinerary entirely your own?
+              <br />
+              <button
+                onClick={() => setIsPrivateFormOpen(true)}
+                className="mt-1 font-bold text-ink underline underline-offset-2"
+              >
+                Tailor This Journey For You
+              </button>
+            </div>
           </div>
         </div>}
       </div>
@@ -370,6 +384,7 @@ export default function HeroSection({
         onSubmit={(data) => console.log("Private journey inquiry submitted:", data)}
         journey={journey}
         showDepartureDate={false}
+        label="Inspirational Itineraries Form"
       />
     </>
   );

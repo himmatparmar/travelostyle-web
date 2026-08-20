@@ -3,7 +3,7 @@
 import Image from "next/image";
 import CtaBanner from "./CtaBanner";
 
-export default function MobileHighlights({ onBack, highlightsRecord }) {
+export default function MobileHighlights({ onBack, highlightsRecord, journey }) {
  const highlights = highlightsRecord?.length > 0 ? highlightsRecord : [];
 
   return (
@@ -53,7 +53,11 @@ export default function MobileHighlights({ onBack, highlightsRecord }) {
         </div>
 
         <div className="-mx-4 mt-2">
-          <CtaBanner />
+          <CtaBanner
+            formType="private"
+            journey={journey}
+            showDepartureDate={false}
+          />
         </div>
       </main>
     </div>
