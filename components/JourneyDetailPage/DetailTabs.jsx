@@ -61,7 +61,11 @@ export default function DetailTabs({
               highlights={journey?.highlights}
               drupalData={journey?.tabHighlights}
             />
-            <CtaBanner />
+            <CtaBanner
+              formType="private"
+              journey={journey}
+              showDepartureDate={false}
+            />
           </>
         )}
 

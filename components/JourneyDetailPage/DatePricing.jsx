@@ -11,13 +11,16 @@ export default function JourneyPricing({
     departures = [],
      journeyId,
 }) {
+      console.log("DATE PRICING JOURNEY ID:", journeyId);
+
     const [expandedCard, setExpandedCard] = useState(null);
     const [privateFormDeparture, setPrivateFormDeparture] = useState(null);
     const [groupFormTrip, setGroupFormTrip] = useState(null);
     const router = useRouter();
 
     const openPrivateForm = (trip) =>
-        setPrivateFormDeparture({ startDate: trip.startDate, endDate: trip.endDate });
+        setPrivateFormDeparture({         id: trip.id,
+startDate: trip.startDate, endDate: trip.endDate });
     const openGroupForm = (trip) => setGroupFormTrip(trip);
 
     const toggleCard = (index) => {
@@ -37,10 +40,17 @@ export default function JourneyPricing({
         item.attributes?.field_offer || 0
     );
 
+    // Early Bird is a separate flag on the departure (field_early_bird) —
+    // only relevant when an offer/discount is also present on this trip.
+    const isEarlyBird = Boolean(item.attributes?.field_early_bird);
+
     const discountedPrice =
         offerPercentage > 0
             ? originalPrice * (1 - offerPercentage / 100)
             : originalPrice;
+
+    const hasEarlyBirdOffer = isEarlyBird && offerPercentage > 0;
+    const isSoldOut = item.attributes?.field_status === "soldout";
 
     return {
         id: item.id,
@@ -53,10 +63,13 @@ export default function JourneyPricing({
         originalPrice,
         offerPercentage,
         discountedPrice,
+        isEarlyBird,
+        hasEarlyBirdOffer,
 
-        button:
-            item.attributes?.field_status === "soldout"
-                ? "Request a Private Journey"
+        button: isSoldOut
+            ? "Request a Private Journey"
+            : hasEarlyBirdOffer
+                ? "Claim Early Bird Offer"
                 : "Enquire For This Date",
     };
 });
@@ -224,10 +237,17 @@ export default function JourneyPricing({
                             {isExpanded && (
                                 <div className="border-t border-neutral-300 p-4">
                                     <div className="text-center mb-4">
-                                        {trip.offer ? (
-                                            <p className="text-[#128914] font-semibold">
-                                                {trip.offer}
-                                            </p>
+                                        {trip.offerPercentage > 0 ? (
+                                            <>
+                                                <p className="text-[#128914] font-semibold">
+                                                    {trip.offerPercentage}% off
+                                                </p>
+                                                {trip.isEarlyBird && (
+                                                    <p className="mt-1 text-xs text-[#128914]">
+                                                        Early Bird Offer applied to price
+                                                    </p>
+                                                )}
+                                            </>
                                         ) : (
                                             <p className="text-gray-500">
                                                 No offers available
@@ -338,7 +358,14 @@ export default function JourneyPricing({
                                         </td>
 
                                         <td className="border px-4 py-5 align-middle">
-                                            {trip.statusType === "available" && (
+                                            {trip.statusType === "soldout" ? (
+                                                <div
+                                                    className="text-red-600 text-[14px] leading-[16px] font-medium"
+                                                    style={{ fontFamily: "Nohemi" }}
+                                                >
+                                                    Journey Sold Out
+                                                </div>
+                                            ) : (
                                                 <div
                                                     className="text-[#128914] text-[14px] leading-[16px] font-medium"
                                                     style={{ fontFamily: "Nohemi" }}
@@ -376,9 +403,16 @@ export default function JourneyPricing({
 </td>
                                       <td className="border px-4 py-5">
     {trip.offerPercentage > 0 ? (
-        <div className="text-[14px] text-[#128914]">
-            {trip.offerPercentage}% off
-        </div>
+        <>
+            <div className="text-[14px] text-[#128914]">
+                {trip.offerPercentage}% off
+            </div>
+            {trip.isEarlyBird && (
+                <div className="mt-1 text-[12px] text-[#128914]">
+                    Early Bird Offer applied to price
+                </div>
+            )}
+        </>
     ) : (
         <div className="text-[14px] text-[#4B5563]">
             No offers available
@@ -471,7 +505,7 @@ export default function JourneyPricing({
                 isOpen={Boolean(groupFormTrip)}
                 onClose={() => setGroupFormTrip(null)}
                 onSubmit={(data) => console.log("Group trip inquiry submitted:", data)}
-                journey={journey}
+               journey={journey}
                 trip={groupFormTrip}
             />
         </section>

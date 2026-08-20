@@ -5,6 +5,7 @@ import { X } from "lucide-react";
 import GroupSummaryCard from "./GroupSummaryCard";
 
 const initialFormData = {
+  
   firstName: "",
   lastName: "",
   title: "",
@@ -69,6 +70,30 @@ export default function GroupInquiryForm({
     onSubmit?.({ ...formData, journey, trip });
     setSubmitted(true);
   };
+//   const handleSubmit = (e) => {
+//   e.preventDefault();
+
+//   const inquiryData = {
+    
+//     journeyId: journey?.id ?? null,
+    
+//     journeyDepartureId: trip?.id ?? null,
+//     ...formData,
+//   };
+// console.log("JOURNEY FULL JSON:", JSON.stringify(journey, null, 2));
+//   console.log(
+//     "GROUP INQUIRY JSON:",
+//     JSON.stringify(inquiryData, null, 2)
+//   );
+
+//   localStorage.setItem(
+//     "groupInquiryData",
+//     JSON.stringify(inquiryData)
+//   );
+
+//   onSubmit?.(inquiryData);
+//   setSubmitted(true);
+// };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 font-sans backdrop-blur-[1px]">
