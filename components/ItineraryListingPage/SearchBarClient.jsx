@@ -284,7 +284,6 @@ export default function SearchBar({ destinations = [] }) {
         <div className="hidden md:flex justify-center items-center py-8">
           <p
             className="text-center text-[2.2vw] leading-[1.5]"
-            style={{ fontFamily: "'Dancing Script', cursive" }}
           >
             <span className="bg-[#F2D5C4] px-2">
               The range is wide because we&apos;ve never believed in a

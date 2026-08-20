@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Nohemi", "sans-serif"],
+        sans: ["var(--font-inter)", "Arial", "Helvetica", "sans-serif"],
         taprom: ["Taprom", "cursive"],
       },
     },
