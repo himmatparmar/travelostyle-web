@@ -13,7 +13,7 @@ export default function AdvisorCallout({ content }) {
       <div className="max-w-6xl w-full mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-center">
 
         <div className="flex flex-col space-y-10 items-start">
-          <h2 className="text-4xl sm:text-5xl md:text-[54px] font-bold text-black leading-tight tracking-tight">
+          <h2 className="text-4xl sm:text-5xl md:text-[48px] md:max-w-[310px] font-bold text-black leading-tight tracking-tight">
             {headingLines.map((line, i) => (
               <React.Fragment key={i}>
                 {line}

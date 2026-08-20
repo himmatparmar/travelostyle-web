@@ -128,7 +128,6 @@ export default function JourneyPricing({
           tracking-[0.05em]
           text-ink
         "
-                    style={{ fontFamily: "Nohemi" }}
                 >
                     Book Your Journey
                 </h2>
@@ -147,7 +146,6 @@ export default function JourneyPricing({
                                         : "bg-white text-[#666666]"
                                     }`}
                                 style={{
-                                    fontFamily: "Nohemi",
                                     fontWeight: 500,
                                     fontSize: "14px",
                                     lineHeight: "13px",
@@ -304,14 +302,12 @@ export default function JourneyPricing({
                                                 <div>
                                                     <div
                                                         className="font-medium text-[16px] text-ink"
-                                                        style={{ fontFamily: "Nohemi" }}
                                                     >
                                                         {formatDate(trip.startDate)}
                                                     </div>
 
                                                     <div
                                                         className="text-[12px] text-[#6B7280] mt-1"
-                                                        style={{ fontFamily: "Nohemi" }}
                                                     >
                                                         {getDay(trip.startDate)}
                                                     </div>
@@ -322,14 +318,12 @@ export default function JourneyPricing({
                                                 <div>
                                                     <div
                                                         className="font-medium text-[16px] text-ink"
-                                                        style={{ fontFamily: "Nohemi" }}
                                                     >
                                                         {formatDate(trip.endDate)}
                                                     </div>
 
                                                     <div
                                                         className="text-[12px] text-[#6B7280] mt-1"
-                                                        style={{ fontFamily: "Nohemi" }}
                                                     >
                                                         {getDay(trip.endDate)}
                                                     </div>
@@ -341,7 +335,6 @@ export default function JourneyPricing({
                                             {trip.statusType === "available" && (
                                                 <div
                                                     className="text-[#128914] text-[14px] leading-[16px] font-medium"
-                                                    style={{ fontFamily: "Nohemi" }}
                                                 >
                                                     Seats Available
                                                 </div>
@@ -396,7 +389,6 @@ export default function JourneyPricing({
         cursor-pointer
         text-ink
       "
-                                                    style={{ fontFamily: "Nohemi" }}
                                                 >
                                                     Request a Private Journey
                                                 </span>
@@ -433,7 +425,6 @@ export default function JourneyPricing({
                     style={{
                         width: "263px",
                         height: "13px",
-                        fontFamily: "Nohemi",
                         fontWeight: 400,
                         fontSize: "14px",
                         lineHeight: "13px",
@@ -447,7 +438,6 @@ export default function JourneyPricing({
                     style={{
                         width: "185px",
                         height: "13px",
-                        fontFamily: "Nohemi",
                         fontWeight: 400,
                         fontSize: "14px",
                         lineHeight: "13px",

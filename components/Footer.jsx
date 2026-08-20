@@ -48,7 +48,6 @@ export default function Footer() {
   return (
     <footer
       className="w-full overflow-hidden bg-[#2C3078] text-[#FAFAFA] px-6 md:px-[110px] py-12 md:py-[24px]"
-      style={{ fontFamily: "Nohemi" }}
     >
       <div className="flex flex-col items-center pt-2 max-w-xl mx-auto md:max-w-none">
         <div className="flex items-center gap-4 md:gap-10 w-full justify-center">

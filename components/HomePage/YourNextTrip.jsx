@@ -3,7 +3,7 @@
 import { useState } from "react";
 import JourneysWeLove from "./JourneysWeLove";
 
-export default function YourNextTrip() {
+export default function YourNextTrip({ initialJourneys = null }) {
 
   const [activeTab, setActiveTab] = useState("journeys");
 
@@ -71,7 +71,7 @@ export default function YourNextTrip() {
         </div>
 
         {activeTab === "journeys" && (
-      <JourneysWeLove/>
+      <JourneysWeLove initialJourneys={initialJourneys} />
         )}
         {activeTab === "destinations" &&  <JourneysWeLove onlyPopular/>}
         {activeTab === "deals" &&  <JourneysWeLove onlyWithOffer/>}

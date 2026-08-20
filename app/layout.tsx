@@ -34,11 +34,11 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} h-full antialiased`}
     >
-        <head>
+      <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Taprom&family=Dancing+Script:wght@400;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Taprom&display=swap"
           rel="stylesheet"
         ></link>
       </head>
