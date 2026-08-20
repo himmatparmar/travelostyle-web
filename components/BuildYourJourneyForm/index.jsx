@@ -87,7 +87,7 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
                 </div>
 
                 {index < STEPS.length - 1 && (
-                  <span className="mx-auto text-[18px] font-light text-[#000000]/60 select-none">
+                  <span className="mx-auto text-[22px] font-[600] font-light text-[#000000]/60 select-none">
                     &rarr;
                   </span>
                 )}

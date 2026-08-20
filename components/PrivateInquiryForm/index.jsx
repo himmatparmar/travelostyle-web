@@ -89,9 +89,9 @@ export default function PrivateInquiryForm({
           </p>
         )}
         {/* Modal Outer Box */}
-        <div className=" relative flex max-h-[92vh] w-full flex-col rounded-xl border border-[#3A3A3A] bg-white shadow-2xl">
+        <div className=" relative flex max-h-[92vh] w-full flex-col rounded-xl border border-[#3A3A3A] bg-[#fafafa] shadow-2xl">
           {/* Header */}
-          <div className="flex shrink-0 items-center justify-between border-b border-[#3A3A3A] px-6 py-3">
+          <div className="flex shrink-0 items-center justify-between border-b border-[#3A3A3A] px-4 py-4 ">
             <h2 className="text-[15px] font-bold text-[#1A1A1A]">
               Inquire With Us
             </h2>
