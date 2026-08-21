@@ -6,6 +6,7 @@ export default function StepThree({
   formData,
   toggleStopover,
   updateField,
+  options = STOPOVER_OPTIONS,
 }) {
   const [stopoverOptions, setStopoverOptions] = useState([]);
 
