@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { countryCodes } from "../utils/country";
 
 export default function ContactInquiry() {
   const [formData, setFormData] = useState({
@@ -345,12 +346,15 @@ export default function ContactInquiry() {
         className="w-full bg-transparent text-[0.72vw]
         max-md:text-[13px] text-white outline-none"
       >
-        <option className="text-black" value="+1">
-          +1
-        </option>
-        <option className="text-black" value="+91">
-          +91
-        </option>
+        {countryCodes.map((item, index) => (
+                        <option
+                          key={`${item.code}-${index}`}
+                          value={item.code}
+                          className="text-[#000000] bg-white"
+                        >
+                          {item.code} ({item.country})
+                        </option>
+                      ))}
       </select>
     </div>
 

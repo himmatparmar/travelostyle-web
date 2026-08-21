@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { X } from "lucide-react";
-import { countryCodes } from "./country";
+import { countryCodes } from "../utils/country";
 
 const initialFormData = {
   firstName: "",
@@ -58,7 +58,7 @@ export default function GeneralInquiryForm({ isOpen, onClose, onSubmit }) {
 
       // 2. Exact Drupal Webform REST Payload
       const payload = {
-        webform_id: "general_inquiry_form",
+        webform_id: "contact_inquiry",
         first_name: formData.firstName.trim(),
         last_name: formData.lastName.trim(),
         title: formData.title.trim(),

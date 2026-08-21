@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import bgImage from "./bgimg.png";
+import { countryCodes } from "../utils/country";
 
 export default function Form() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,11 @@ export default function Form() {
     message: "",
     consent: false,
   });
+
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Parameter 'e' added here
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
@@ -22,29 +28,139 @@ export default function Form() {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = "First name is required.";
+    }
+
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = "Last name is required.";
+    }
+
+    if (!formData.title.trim()) {
+      newErrors.title = "Title is required.";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email ID is required.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address.";
+    }
+
+    if (!formData.countryCode.trim()) {
+      newErrors.countryCode = "Country code is required.";
+    }
+
+    if (!formData.contact.trim()) {
+      newErrors.contact = "Contact number is required.";
+    } else if (!/^\d+$/.test(formData.contact.trim())) {
+      newErrors.contact = "Contact number must contain only numbers.";
+    } else if (formData.contact.trim().length < 7) {
+      newErrors.contact = "Please enter a valid contact number.";
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required.";
+    }
+
+    if (!formData.consent) {
+      newErrors.consent = "Please provide your consent to continue.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    localStorage.setItem(
-      "travelInquiry",
-      JSON.stringify(formData)
-    );
+    if (!validateForm()) {
+      return;
+    }
 
-    console.log("========== FORM SUBMITTED ==========");
-    console.log(formData);
+    setIsSubmitting(true);
 
-    const storedData = JSON.parse(
-      localStorage.getItem("travelInquiry")
-    );
+    try {
+      const csrfRes = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/session/token`
+      );
 
-    console.log("========== STORED IN LOCALSTORAGE ==========");
-    console.log(storedData);
+      if (!csrfRes.ok) {
+        throw new Error("Failed to fetch CSRF token");
+      }
+
+      const csrfToken = await csrfRes.text();
+
+      const credentials = btoa(
+        `${process.env.NEXT_PUBLIC_DRUPAL_USER}:${process.env.NEXT_PUBLIC_DRUPAL_PASS}`
+      );
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/webform_rest/submit`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Basic ${credentials}`,
+            "X-CSRF-Token": csrfToken,
+          },
+          body: JSON.stringify({
+            webform_id: "contact_inquiry",
+            first_name: formData.firstName.trim(),
+            last_name: formData.lastName.trim(),
+            title: formData.title.trim(),
+            email_id: formData.email.trim(),
+            country_code: formData.countryCode,
+            phone: formData.contact.trim(),
+            message: formData.message.trim(),
+            consent: formData.consent,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error("Submission Error:", data);
+        alert(data.message || "Something went wrong.");
+        return;
+      }
+
+      console.log("Success Response:", data);
+      alert("Form Submitted Successfully!");
+
+      setFormData({
+        firstName: "",
+        lastName: "",
+        title: "",
+        email: "",
+        countryCode: "+1",
+        contact: "",
+        message: "",
+        consent: false,
+      });
+
+      setErrors({});
+    } catch (error) {
+      console.error(error);
+      alert("Unable to submit the form. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
   return (
     <section className="relative min-h-[900px] md:min-h-[700px] w-full overflow-hidden">
-      {/* Background Image */}
       <Image
         src={bgImage}
         alt="Background"
@@ -53,35 +169,27 @@ export default function Form() {
         className="object-cover"
       />
 
-      {/* Overlay */}
       <div className="absolute inset-0 bg-black/45" />
-
-      {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-20 py-6 md:py-12">
         <div className="flex flex-col lg:flex-row gap-8 md:gap-16">
-          {/* LEFT SIDE - 40% */}
           <div className="w-full lg:w-[40%]">
             <h2 className="font-[Nohemi] font-semibold text-white text-[25px] md:text-[40px] leading-[24px] md:leading-[48px] max-w-[397px]">
-              <span className="block">Can't decide</span>
+              <span className="block">Can&apos;t decide</span>
               <span className="block">where to go?</span>
             </h2>
-            <p
-              className="mt-3 w-[336px] max-w-full text-white text-[15px] leading-[20px] font-normal tracking-[0.02em] md:max-w-[360px]
-    md:text-[18px] md:leading-[32px]">
-              Tell us what you're drawn to – your interests, how long
-              you have, your budget, your group size and anything else –
-              we'll come back with a curated list of destinations and
-              journeys that make sense for you!
+            <p className="mt-3 w-[336px] max-w-full text-white text-[15px] leading-[20px] font-normal tracking-[0.02em] md:max-w-[360px] md:text-[18px] md:leading-[32px]">
+              Tell us what you&apos;re drawn to – your interests, how long you
+              have, your budget, your group size and anything else – we&apos;ll
+              come back with a curated list of destinations and journeys that
+              make sense for you!
             </p>
           </div>
 
-          {/* RIGHT SIDE - 60% */}
           <div className="w-full lg:w-[60%]">
-            <form onSubmit={handleSubmit} className="text-white">
-
+            <form onSubmit={handleSubmit} className="text-white" noValidate>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className=" mb-2 block text-[15px] md:text-[18px] leading-[18px] md:leading-[32px] font-normal tracking-[0.05em] text-white">
+                  <label className="mb-2 block text-[15px] md:text-[18px] leading-[18px] md:leading-[32px] font-normal tracking-[0.05em] text-white">
                     First Name*
                   </label>
                   <input
@@ -90,14 +198,17 @@ export default function Form() {
                     value={formData.firstName}
                     onChange={handleChange}
                     placeholder="Your first name"
-                    className=" w-full border-b border-white bg-transparent pb-2 md:pb-3 
-        text-[15px] md:text-[14px] text-whitecplaceholder:text-white/70 focus:outline-none"
+                    className={`w-full border-b ${
+                      errors.firstName ? "border-red-400" : "border-white"
+                    } bg-transparent pb-2 md:pb-3 text-[15px] md:text-[14px] text-white placeholder:text-white/70 focus:outline-none`}
                   />
+                  {errors.firstName && (
+                    <p className="mt-1 text-xs text-red-300">{errors.firstName}</p>
+                  )}
                 </div>
 
                 <div>
-                  <label className=" mb-2 block text-[15px] md:text-[18px] leading-[18px] md:leading-[32px]
-                                                    font-normal tracking-[0.05em] text-white">
+                  <label className="mb-2 block text-[15px] md:text-[18px] leading-[18px] md:leading-[32px] font-normal tracking-[0.05em] text-white">
                     Last Name*
                   </label>
                   <input
@@ -106,20 +217,18 @@ export default function Form() {
                     value={formData.lastName}
                     onChange={handleChange}
                     placeholder="Your last name"
-                    className=" w-full border-b border-white bg-transparent pb-2 md:pb-3
-                                                    text-[15px] md:text-[14px] text-white placeholder:text-white/70
-                                                    focus:outline-none"
+                    className={`w-full border-b ${
+                      errors.lastName ? "border-red-400" : "border-white"
+                    } bg-transparent pb-2 md:pb-3 text-[15px] md:text-[14px] text-white placeholder:text-white/70 focus:outline-none`}
                   />
+                  {errors.lastName && (
+                    <p className="mt-1 text-xs text-red-300">{errors.lastName}</p>
+                  )}
                 </div>
               </div>
-
-              {/* Row 2 */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                 <div>
-                  <label
-                    className="mb-2 block text-[15px] md:text-[18px] leading-[18px] md:leading-[32px]
-                                                    font-normal tracking-[0.05em]  text-white"
-                  >
+                  <label className="mb-2 block text-[15px] md:text-[18px] leading-[18px] md:leading-[32px] font-normal tracking-[0.05em] text-white">
                     Title*
                   </label>
                   <input
@@ -128,66 +237,86 @@ export default function Form() {
                     value={formData.title}
                     onChange={handleChange}
                     placeholder="Your title"
-                    className="w-full border-b border-white bg-transparent pb-2 md:pb-3 text-[15px] md:text-[14px] 
-                         text-white placeholder:text-white/70 focus:outline-none"
+                    className={`w-full border-b ${
+                      errors.title ? "border-red-400" : "border-white"
+                    } bg-transparent pb-2 md:pb-3 text-[15px] md:text-[14px] text-white placeholder:text-white/70 focus:outline-none`}
                   />
+                  {errors.title && (
+                    <p className="mt-1 text-xs text-red-300">{errors.title}</p>
+                  )}
                 </div>
 
                 <div>
-                  <label
-                    className="mb-2 block text-[15px] md:text-[18px] leading-[18px] md:leading-[32px]
-                                font-normal tracking-[0.05em]  text-white"
-                  >
+                  <label className="mb-2 block text-[15px] md:text-[18px] leading-[18px] md:leading-[32px] font-normal tracking-[0.05em] text-white">
                     Email Id*
                   </label>
                   <input
-                    type="text"
+                    type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="Your email Id"
-                    className=" w-full pb-2 md:pb-3 text-[15px] md:text-[14px] border-b bg-transparent
-                                                     border-white text-white placeholder:text-white/70 focus:outline-none"
+                    className={`w-full border-b ${
+                      errors.email ? "border-red-400" : "border-white"
+                    } bg-transparent pb-2 md:pb-3 text-[15px] md:text-[14px] text-white placeholder:text-white/70 focus:outline-none`}
                   />
+                  {errors.email && (
+                    <p className="mt-1 text-xs text-red-300">{errors.email}</p>
+                  )}
                 </div>
               </div>
 
               {/* Contact Number */}
               <div className="mt-6">
-                <label
-                  className="mb-2 block font-normal  text-[15px] md:text-[18px] leading-[18px] md:leading-[32px] tracking-[0.05em] text-white">
-                  Contact*
+                <label className="mb-2 block font-normal text-[15px] md:text-[18px] leading-[18px] md:leading-[32px] tracking-[0.05em] text-white">
+                  Contact Number*
                 </label>
 
                 <div className="flex gap-2 md:gap-3">
-                  <select
-                    name="countryCode"
-                    value={formData.countryCode}
-                    onChange={handleChange}
-                    className="bg-transparent border-b border-white/70 pb-2 text-sm focus:outline-none"
+                  <div
+                    className={`border-b ${
+                      errors.countryCode ? "border-red-400" : "border-white/70"
+                    } pb-2`}
                   >
-                    <option className="text-black">+1</option>
-                    <option className="text-black">+91</option>
-                    <option className="text-black">+44</option>
-                  </select>
+                    <select
+                      name="countryCode"
+                      value={formData.countryCode}
+                      onChange={handleChange}
+                      className="bg-transparent text-sm text-white focus:outline-none"
+                    >
+                      {countryCodes.map((item, index) => (
+                        <option
+                          key={`${item.code}-${index}`}
+                          value={item.code}
+                          className="text-[#000000] bg-white"
+                        >
+                          {item.code} ({item.country})
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
                   <input
                     type="tel"
                     name="contact"
                     value={formData.contact}
                     onChange={handleChange}
                     placeholder="Your number"
-                    className="flex-1 bg-transparent border-b border-white/70 pb-2 text-sm placeholder:text-white/70 focus:outline-none"
+                    className={`flex-1 bg-transparent border-b ${
+                      errors.contact ? "border-red-400" : "border-white/70"
+                    } pb-2 text-sm text-white placeholder:text-white/70 focus:outline-none`}
                   />
                 </div>
+                {(errors.countryCode || errors.contact) && (
+                  <p className="mt-1 text-xs text-red-300">
+                    {errors.countryCode || errors.contact}
+                  </p>
+                )}
               </div>
 
-              {/* Message */}
               <div className="mt-8">
-                <label
-                  className=" mb-2 block font-normal
-   text-[11px] md:text-[18px] leading-[18px] md:leading-[32px] tracking-[0.05em] text-white "
-                >
-                  Your Message
+                <label className="mb-2 block font-normal text-[11px] md:text-[18px] leading-[18px] md:leading-[32px] tracking-[0.05em] text-white">
+                  Your Message*
                 </label>
                 <textarea
                   rows={6}
@@ -195,56 +324,54 @@ export default function Form() {
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Tell us everything- your budget, your vision, your interests. The more the better."
-                  className="h-[200px] md:h-[180px] w-full rounded-[10px] border-2 border-white bg-white p-4 text-black resize-none focus:outline-none md:placeholder-transparent "
-                /></div>
-
-              {/* Submit */}
-              <button type="submit" className="mt-8 flex h-[35px] md:h-[47px] w-fit text-[#2D3482] text-[16px] font-semibold md:text-base px-4 md:px-6 bg-white rounded-[100px]   items-center justify-center
-                whitespace-nowrap">
-                Submit Inquiry
-              </button>
+                  className={`h-[200px] md:h-[180px] w-full rounded-[10px] border-2 ${
+                    errors.message ? "border-red-400" : "border-white"
+                  } bg-white p-4 text-black resize-none focus:outline-none`}
+                />
+                {errors.message && (
+                  <p className="mt-1 text-xs text-red-300">{errors.message}</p>
+                )}
+              </div>
 
               {/* Consent */}
               <div className="mt-8">
-                {/* Checkbox Row */}
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-4">
                   <input
                     type="checkbox"
                     name="consent"
                     checked={formData.consent}
                     onChange={handleChange}
-                    className="  h-[16px] md:h-[32px] w-[16px] md:w-[25px] shrink-0 rounded-[5px] border-white"
-                  />    <p
-                    className="
-    w-[296px] md:w-auto
-    h-[59px] md:h-auto
-    font-normal
-    text-[15px] md:text-[14px]
-    leading-[18px] md:leading-[32px]
-    tracking-[0.05em]
-    text-white
-    md:max-w-[685px]
-  "
-                  >
+                    className={`h-[16px] md:h-[20px] w-[16px] md:w-[20px] shrink-0 cursor-pointer accent-white ${
+                      errors.consent ? "outline outline-2 outline-red-400" : ""
+                    }`}
+                  />
+                  <p className="font-normal text-[15px] md:text-[14px] leading-[18px] md:leading-[32px] tracking-[0.05em] text-white">
                     I consent to being contacted on the above provided details by
                     TravelOStyle
                   </p>
                 </div>
+                {errors.consent && (
+                  <p className="mt-1 text-xs text-red-300">{errors.consent}</p>
+                )}
 
-                {/* Bottom Line */}
-                <p
-                  className="mt-8 font-normal text-[15px] md:text-[12px] leading-[20px] md:leading-[32px]
-                                           max-w-[260px] md:max-w-[1125px] tracking-[0.05em] text-white"
-                >
+                <p className="mt-4 font-normal text-[15px] md:text-[12px] leading-[20px] md:leading-[32px] max-w-[260px] md:max-w-[1125px] tracking-[0.05em] text-white/80">
                   TravelOStyle typically responds within 48 hours. Your details are
                   never shared with third parties.
                 </p>
               </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="mt-8 flex h-[35px] md:h-[47px] w-fit text-[#2D3482] text-[16px] font-semibold md:text-base px-6 bg-white rounded-[100px] items-center justify-center whitespace-nowrap disabled:opacity-60 transition"
+              >
+                {isSubmitting ? "Submitting..." : "Submit Inquiry"}
+              </button>
             </form>
           </div>
-
         </div>
       </div>
     </section>
   );
-} 
+}
