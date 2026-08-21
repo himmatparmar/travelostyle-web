@@ -14,6 +14,7 @@ import SuccessStep from "./SuccessStep";
 export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
 
   if (!isOpen) return null;
@@ -49,16 +50,89 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
     setFormData(initialFormData);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit?.(formData);
-    setSubmitted(true);
+  const handleSubmit = async (e) => {
+    if (e) e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // 1. Fetch CSRF Token
+      const csrfRes = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/session/token`
+      );
+
+      if (!csrfRes.ok) {
+        throw new Error("Failed to fetch CSRF token");
+      }
+
+      const csrfToken = await csrfRes.text();
+
+      const credentials = btoa(
+        `${process.env.NEXT_PUBLIC_DRUPAL_USER}:${process.env.NEXT_PUBLIC_DRUPAL_PASS}`
+      );
+
+      // 2. Exact Drupal Webform Payload Mapping
+      const payload = {
+        webform_id: "craft_your_journey",
+        destination: formData.destination,
+        experiences: formData.experiences,
+        adults: formData.guests?.adults || 2,
+        children: formData.guests?.children || 0,
+        duration: formData.duration,
+        tailortopics: formData.tailorTopics,
+        tripreason: formData.tripReason,
+        expertnote: formData.expertNote,
+        budgetamount: formData.budgetAmount,
+        budgetrange: formData.budgetRange,
+        includesflights: formData.includesFlights,
+        flightassistance: formData.flightAssistance,
+        budgetpreference: formData.budgetPreference,
+        title: formData.title,
+        firstname: formData.firstName,
+        lastname: formData.lastName,
+        phone: formData.phone,
+        email: formData.email,
+        consent: formData.consent ? "1" : "0",
+      };
+
+      // 3. API Request to Drupal
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/webform_rest/submit`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Basic ${credentials}`,
+            "X-CSRF-Token": csrfToken,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error("Submission Error:", data);
+        alert(data.message || data.error?.message || "Something went wrong.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      console.log("Success Response:", data);
+      onSubmit?.(formData);
+      setSubmitted(true);
+      setFormData(initialFormData);
+    } catch (error) {
+      console.error("Form Submission Error:", error);
+      alert("Unable to submit the form. Please check your connection.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 sm:p-6 overflow-y-auto antialiased">
       <div className="relative my-auto w-full max-w-[1200px] flex flex-col rounded-[10px] border-2 border-[#1A1A1A] bg-[#FAFAFA] shadow-[5px_10px_24px_rgba(26,26,26,0.1)] overflow-hidden">
-       
         <div className="relative flex shrink-0 items-center justify-between px-6 sm:px-[60px] pt-[26px] pb-2">
           <h2 className="text-[18px] sm:text-[21px] font-[500] leading-[35px] tracking-[0.05em] text-[#1A1A1A]">
             Build Your Journey With Us
@@ -73,7 +147,7 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
           </button>
         </div>
 
-        <div className=" px-6 sm:px-[60px] pt-2 pb-[24px] border-b-2 border-[#1A1A1A]">
+        <div className="px-6 sm:px-[60px] pt-2 pb-[24px] border-b-2 border-[#1A1A1A]">
           <div className="flex items-center justify-between rounded-[8px] bg-[#F2E5DE] px-6 sm:px-6 py-3.5 gap-2">
             {STEPS.map((s, index) => (
               <div key={s.id} className="flex items-center gap-3 sm:gap-4 flex-1">
@@ -87,7 +161,7 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
                 </div>
 
                 {index < STEPS.length - 1 && (
-                  <span className="mx-auto text-[22px] font-[600] font-light text-[#000000]/60 select-none">
+                  <span className="mx-auto text-[22px] font-light text-[#000000]/60 select-none">
                     &rarr;
                   </span>
                 )}
@@ -95,6 +169,7 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
             ))}
           </div>
         </div>
+
         <form
           onSubmit={step === TOTAL_STEPS ? handleSubmit : (e) => e.preventDefault()}
           className="px-6 sm:px-[60px] py-7"
@@ -138,7 +213,8 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
                   <button
                     type="button"
                     onClick={goPrevious}
-                    className="h-[37px]  text-[15px] font-medium text-[#555555] transition hover:text-[#000000] cursor-pointer"
+                    disabled={isSubmitting}
+                    className="h-[37px] text-[15px] font-medium text-[#555555] transition hover:text-[#000000] cursor-pointer disabled:opacity-50"
                   >
                     Previous
                   </button>
@@ -157,9 +233,10 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
                   <button
                     key="nav-submit"
                     type="submit"
-                    className="flex h-[37px] px-8 items-center justify-center rounded-[30px] bg-[#2C3078] text-[15px] font-semibold tracking-[0.05em] text-[#FAFAFA] transition hover:opacity-90 cursor-pointer shadow-sm"
+                    disabled={isSubmitting}
+                    className="flex h-[37px] px-8 items-center justify-center rounded-[30px] bg-[#2C3078] text-[15px] font-semibold tracking-[0.05em] text-[#FAFAFA] transition hover:opacity-90 cursor-pointer shadow-sm disabled:opacity-50"
                   >
-                    Submit Inquiry
+                    {isSubmitting ? "Submitting..." : "Submit Inquiry"}
                   </button>
                 )}
               </div>
