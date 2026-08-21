@@ -6,29 +6,27 @@ export default function LetsFindOut() {
     <>
     {/* MOBILE */}
     <section className="lg:hidden bg-white overflow-hidden px-5 py-16">
-      <h2 className="text-[26px] font-semibold leading-[36px] text-[#1A1A2E]">
-        Curious about what&apos;s possible?
-        <br />
-        Let&apos;s find out together
+      <h2 className="max-w-[240px] text-[26px] font-semibold leading-[36px] text-[#1A1A2E]">
+        Curious about what&apos;s possible? Let&apos;s find out together
       </h2>
 
-      <div className="relative w-full max-w-[320px] h-[300px] mt-10 mx-auto">
-        <div className="absolute top-0 right-0 w-[190px] h-[220px] rotate-[9.87deg] border-2 border-[#2C3078] bg-white shadow-[0_15px_25px_rgba(26,26,26,0.12)] p-2">
-          <Image
-            src="/Dubai.svg"
-            alt=""
-            width={180}
-            height={180}
-            className="w-full h-full object-cover"
-          />
-        </div>
-
-        <div className="absolute bottom-0 left-0 w-[210px] h-[240px] rotate-[-6.48deg] border-2 border-[#2C3078] bg-white shadow-[0_15px_25px_rgba(26,26,26,0.12)] p-2 z-10">
+      <div className="relative mx-auto mt-10 h-[420px] w-full max-w-[330px]">
+        <div className="absolute top-0 right-0 w-[215px] h-[250px] rotate-[9.87deg] border-2 border-[#2C3078] bg-white shadow-[0_15px_25px_rgba(26,26,26,0.12)] p-2">
           <Image
             src="/Dubai.svg"
             alt=""
             width={200}
-            height={200}
+            height={230}
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        <div className="absolute bottom-0 left-0 z-10 w-[240px] h-[280px] rotate-[-6.48deg] border-2 border-[#2C3078] bg-white shadow-[0_15px_25px_rgba(26,26,26,0.12)] p-2">
+          <Image
+            src="/Dubai.svg"
+            alt=""
+            width={225}
+            height={260}
             className="w-full h-full object-cover"
           />
         </div>
@@ -41,7 +39,9 @@ export default function LetsFindOut() {
         you like to travel. That&apos;s usually enough to begin.
       </p>
 
-      <TalkToAdvisorButton className="mt-8 w-full h-[44px] rounded-[100px] bg-[#2C3078] text-white text-[16px] font-medium" />
+      <div className="mt-8 flex justify-center">
+        <TalkToAdvisorButton className="h-[44px] rounded-[100px] bg-[#2C3078] px-8 text-[16px] font-medium text-white" />
+      </div>
     </section>
 
     {/* DESKTOP */}

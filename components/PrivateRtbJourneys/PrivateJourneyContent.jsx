@@ -12,19 +12,19 @@ function mapMatrix(result) {
 
   const features = resolveRefs(block, included, "field_features").map((f) => ({
     imgUrl: resolveMediaImage(f, included, "field_image") || PLACEHOLDER_IMAGE,
-    description: f.attributes?.field_description?.value || "",
+    description: stripHtml(f.attributes?.field_description?.value || ""),
   }));
 
   const matrixRows = resolveRefs(block, included, "field_matrix_rows").map((r) => ({
     label: r.attributes?.field_label || "",
-    text: r.attributes?.field_text?.value || "",
+    text: stripHtml(r.attributes?.field_text?.value || ""),
   }));
 
   return {
     badgeText: block.attributes?.field_badge_text || "",
-    titleText: block.attributes?.field_title_text?.value || "",
-    topIntroText: block.attributes?.field_top_intro_text?.value || "",
-    footerText: block.attributes?.field_footer_text?.value || "",
+    titleText: stripHtml(block.attributes?.field_title_text?.value || ""),
+    topIntroText: stripHtml(block.attributes?.field_top_intro_text?.value || ""),
+    footerText: stripHtml(block.attributes?.field_footer_text?.value || ""),
     features,
     matrixRows,
   };

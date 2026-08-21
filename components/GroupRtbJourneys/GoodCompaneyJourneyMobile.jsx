@@ -44,17 +44,6 @@ export default function GoodCompaneyJourneyMobile() {
       borderColor: "border-[#1d2d5f]/70",
       zIndex: "z-40",
     },
-    {
-      id: 5,
-      imgUrl: "/CottonBro.svg",
-      rotation: "-rotate-[4deg]",
-      imgRotation: "rotate-[-5deg]",
-      offsetX: "-translate-x-6",
-      marginTop: "-mt-20",
-      borderColor: "border-[#1d2d5f]/70",
-      hasButton: true,
-      zIndex: "z-50",
-    },
   ];
 
   return (

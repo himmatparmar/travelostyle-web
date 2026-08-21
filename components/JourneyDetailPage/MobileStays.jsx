@@ -26,7 +26,7 @@ export default function MobileStays({ onBack, StaysRecord }) {
         </button>
 
         <h1 className="text-base font-bold tracking-tight text-ink">
-          Additional Information
+          Stays
         </h1>
 
         <div className="w-12" />

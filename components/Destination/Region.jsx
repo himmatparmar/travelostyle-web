@@ -76,16 +76,14 @@ export default function Region() {
 
 
   return (
-    <section className="max-w-7xl mx-auto px-12 py-16">
+    <section className="max-w-7xl mx-auto px-4 md:px-12 py-16">
       <div className="mb-12 flex flex-col items-center">
         <h2 className="
   w-full
   max-w-[792px]
-  font-[Nohemi]
-  font-semibold
+  font-bold
   text-[32px] md:text-[48px]
   leading-[42px] md:leading-[80px]
-  text-center
 ">
           Where are you headed to next?
         </h2>
@@ -93,10 +91,9 @@ export default function Region() {
   w-full
   max-w-[646px]
   mt-2
-  px-4
+  md:px-4
   text-[14px] md:text-[16px]
   leading-[24px] md:leading-[32px]
-  text-center
 ">
           Begin with the part of the world that’s calling to you and narrow from there.
           Or wander freely. Either approach works.

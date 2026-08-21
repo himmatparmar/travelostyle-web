@@ -2,6 +2,7 @@
 import { useState } from "react";
 import React from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import PrivateInquiryForm from "@/components/PrivateInquiryForm";
 import GroupInquiryForm from "@/components/GroupInquiryForm";
 import GeneralInquiryForm from "../GeneralInquiryForm";
@@ -11,6 +12,9 @@ export default function JourneyPricing({
     journey,
     departures = [],
      journeyId,
+    // Mobile tab view passes this so the back button sits inline with the
+    // "Book Your Journey" title, matching the other mobile tab headers.
+    onBack,
 }) {
       console.log("DATE PRICING JOURNEY ID:", journeyId);
 
@@ -85,7 +89,26 @@ startDate: trip.startDate, endDate: trip.endDate });
     if (filteredTrips.length === 0) {
   return (
     <section className="w-full px-4 py-10">
-      <h2 className="text-center text-[32px] font-semibold">
+      {onBack && (
+        <div className="mb-6 flex items-center gap-4 md:hidden">
+          <button
+            onClick={onBack}
+            className="shrink-0 transition active:scale-95"
+          >
+            <Image src="/LeftArrow.svg" alt="Back" width={56} height={24} />
+          </button>
+
+          <h1 className="text-[20px] font-bold leading-[28px] tracking-tight text-ink">
+            Book Your Journey
+          </h1>
+        </div>
+      )}
+
+      <h2
+        className={`text-center text-[32px] font-semibold ${
+          onBack ? "hidden md:block" : ""
+        }`}
+      >
         Book Your Journey
       </h2>
 
@@ -133,16 +156,32 @@ startDate: trip.startDate, endDate: trip.endDate });
 
     return (
         <section className="w-full max-w-full px-4 py-6 overflow-x-hidden">
-            <div className="text-center mb-8">
-                <h2
+            <div className="mb-8">
+                {onBack && (
+                    <div className="mb-6 flex items-center gap-4 md:hidden">
+                        <button
+                            onClick={onBack}
+                            className="shrink-0 transition active:scale-95"
+                        >
+                            <Image src="/LeftArrow.svg" alt="Back" width={56} height={24} />
+                        </button>
 
-                    className="
+                        <h1 className="text-[20px] font-bold leading-[28px] tracking-tight text-ink">
+                            Book Your Journey
+                        </h1>
+                    </div>
+                )}
+
+                <h2
+                    className={`
+          text-center
           font-semibold
           text-[28px] md:text-[32px]
           leading-[36px] md:leading-[56px]
           tracking-[0.05em]
           text-ink
-        "
+          ${onBack ? "hidden md:block" : ""}
+        `}
                 >
                     Book Your Journey
                 </h2>

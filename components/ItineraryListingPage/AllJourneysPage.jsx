@@ -506,7 +506,7 @@ offer: item.attributes.field_offer_message || "",
               >
                 Explore All Journeys
               </button>
-              <div className="w-full mt-10 md:mt-16">
+              <div className="w-full mt-10 md:mt-16 bg-white">
                 <div className="border-b-2 border-ink mb-6">
                   <h2 className="text-left text-lg md:text-[24px] font-medium pb-2 border-b-2">
                     Popular Journeys
@@ -517,7 +517,7 @@ offer: item.attributes.field_offer_message || "",
               </div>
             </div>
          ) : (
-  <>
+  <div className="bg-white">
     <JourneyGrid journeys={paginatedJourneys} />
 
     <Pagination
@@ -525,7 +525,7 @@ offer: item.attributes.field_offer_message || "",
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
     />
-  </>
+  </div>
 )}
         </div>
       </div>

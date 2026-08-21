@@ -27,7 +27,7 @@ export default function MobileInclusionsExclusions({ onBack }) {
             <div className="w-12"></div>
           </div>
 
-          <div className="flex gap-2.5 rounded-lg bg-[#FAF0E6] p-3.5 text-xs leading-relaxed text-[#555] mb-5">
+          <div className="flex gap-2.5 rounded-lg bg-[#F2E2DA] p-3.5 text-xs leading-relaxed text-[#555] mb-5">
             <Info size={16} className="mt-0.5 shrink-0 text-[#8B5A2B]" />
             <p>
               Everything listed below is included in your journey pricing. No

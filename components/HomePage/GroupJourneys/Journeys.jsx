@@ -12,8 +12,9 @@ export default function Journey({
   btnText,
   bgColor,
   href,
+  defaultOpen = false,
 }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
     <>
@@ -126,13 +127,25 @@ export default function Journey({
         </div>
 
         <div className="px-4 pt-4 ">
-          <Image
-            src={imageSrc}
-            alt=""
-            width={500}
-            height={320}
-            className="w-full h-auto object-cover"
-          />
+          <div
+            className="aspect-[306/191] w-full"
+            style={{
+              WebkitMaskImage: "url(/scallop-frame.svg)",
+              maskImage: "url(/scallop-frame.svg)",
+              WebkitMaskSize: "100% 100%",
+              maskSize: "100% 100%",
+              WebkitMaskRepeat: "no-repeat",
+              maskRepeat: "no-repeat",
+            }}
+          >
+            <Image
+              src={imageSrc}
+              alt=""
+              width={500}
+              height={320}
+              className="h-full w-full object-cover"
+            />
+          </div>
 
           <p className="mt-3 mb-2 text-[21px] leading-5 text-[#2f2f2f] font-taprom">
             {imageQuote}

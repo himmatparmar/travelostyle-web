@@ -8,6 +8,7 @@ import MobileAdditionalInformation from "./MobileAdditionalInformation";
 import MobileStays from "./MobileStays";
 import JourneyPricing from "./DatePricing";
 import BookYourJourneyMobile from "./BookYourJourneyMobile";
+import CtaBanner from "./CtaBanner";
 
 export default function MobileNavigationMenu({
   journey,
@@ -46,6 +47,16 @@ export default function MobileNavigationMenu({
             </button>
           ))}
         </div>
+
+        <div className="mt-6">
+          <CtaBanner
+            variant="card"
+            buttonText="Request A Private Journey"
+            formType="private"
+            journey={journey}
+            showDepartureDate={false}
+          />
+        </div>
       </div>
     );
  }
@@ -56,6 +67,7 @@ if (activeView === "inclusions-exclusions") {
     <InclusionsExclusions
       inclusions={inclusions}
       exclusions={exclusions}
+      onBack={() => setActiveView("menu")}
     />
   );
 }
@@ -97,27 +109,11 @@ if (activeView === "stays") {
 }
 if (activeView === "dates-pricing") {
   return (
-    <div>
-      <div className="p-4">
-        <button
-          onClick={() => setActiveView("menu")}
-          className="flex h-6 w-12 items-center justify-center rounded-full bg-white border border-neutral-300"
-        >
-          <Image
-            src="/LeftArrow.svg"
-            alt="Back"
-            width={56}
-            height={24}
-          />
-        </button>
-      </div>
-
-     <JourneyPricing
-  journey={journey}
-  departures={departures}
-/>
-
-    </div>
+    <JourneyPricing
+      journey={journey}
+      departures={departures}
+      onBack={() => setActiveView("menu")}
+    />
   );
 }
 }

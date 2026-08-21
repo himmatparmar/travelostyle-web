@@ -130,24 +130,24 @@ export default function JourneySection() {
     font-taprom
     font-normal
     text-[11vw]
-    leading-[27px]
+    leading-[1.15]
     tracking-[0.01em]
     text-[#2A2522]
   "
 >
-  <span className="inline-block bg-[#F1E3D8] px-[3px] py-[1px]">
+  <span className="inline-block bg-[#F1E3D8] px-[3px] py-[1px] mb-3">
     Journeys made
   </span>
 
   <br />
 
-  <span className="inline-block bg-[#F1E3D8] px-[3px] py-[1px]">
+  <span className="inline-block bg-[#F1E3D8] px-[3px] py-[1px] mb-3">
     for you, by you &
   </span>
 
   <br />
 
-  <span className="inline-block bg-[#F1E3D8] px-[3px] py-[1px]">
+  <span className="inline-block bg-[#F1E3D8] px-[3px] py-[1px] mb-3">
     with you.
   </span>
 </h2>

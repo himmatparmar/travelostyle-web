@@ -60,7 +60,7 @@ export default function PopularDestinations({
     <div className="relative md:h-[700px]">
 
       {/* MOBILE */}
-      <div className="block md:hidden px-3 py-3 bg-[#F6F6F6]">
+      <div className="block md:hidden bg-[#F6F6F6]">
         <div className="relative overflow-hidden">
 
           <img

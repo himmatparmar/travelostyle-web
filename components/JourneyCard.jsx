@@ -79,8 +79,8 @@ export default function JourneyCard({ trip, variant = "carousel", onCompare }) {
     <div
       className={
         variant === "carousel"
-          ? "relative flex h-auto w-[85vw] min-w-[85vw] shrink-0 cursor-pointer flex-col px-8 pt-4 pb-5 max-md:snap-center md:w-[390px] md:min-w-[390px] md:h-[633px]  md:pt-3 md:pb-4"
-          : "relative flex h-auto w-[85vw] min-w-[85vw] shrink-0 cursor-pointer flex-col px-4 pt-4 pb-5 max-md:snap-center md:w-full md:min-w-0 md:h-[640px]  md:pt-3 md:pb-4"
+          ? "relative flex w-[85vw] min-w-[85vw] shrink-0 cursor-pointer flex-col px-8 pt-4 pb-12 max-md:snap-center md:w-[390px] md:min-w-[390px] h-[590px] md:h-[585px] md:pt-3 md:pb-11"
+          : "relative flex w-[85vw] min-w-[85vw] shrink-0 cursor-pointer flex-col px-4 pt-4 pb-5 max-md:snap-center md:w-full md:min-w-0 md:max-w-[390px] h-[586px] md:h-auto md:min-h-[670px] md:pt-3 md:pb-4"
       }
     >
       <div
@@ -108,11 +108,11 @@ export default function JourneyCard({ trip, variant = "carousel", onCompare }) {
       </div>
 
       <div className="flex flex-1 flex-col pt-3 md:pt-4">
-        <h3 className="line-clamp-2 min-h-[2.6em] text-lg font-semibold leading-[1.3] text-[#232323] md:text-[11px]">
+        <h3 className="line-clamp-2 min-h-[2.6em] text-lg font-semibold leading-[1.3] text-[#232323] md:text-[21px]">
           {trip.title}
         </h3>
 
-        <p className="mt-2 line-clamp-2 text-sm leading-[1.55] text-[#666666] md:mt-2 md:text-[11px]">
+        <p className="mt-2 line-clamp-2 min-h-[3.1em] text-sm leading-[1.55] text-[#666666] md:text-[11px]">
           {trip.desc}
         </p>
         <div className="mt-3 flex items-center gap-4 text-xs text-[#717171] md:mt-3 md:gap-4 md:text-[8px]">
@@ -148,7 +148,7 @@ export default function JourneyCard({ trip, variant = "carousel", onCompare }) {
           <a
             href={trip.viewTripUrl}
             onClick={(e) => e.stopPropagation()}
-            className="flex h-10 items-center justify-center rounded-full bg-[#2D3482] px-5 text-sm font-semibold text-white md:h-[29px] md:w-[89px] md:px-0 md:text-[11px]"
+            className="flex h-10 items-center justify-center rounded-full bg-[#2D3482] px-2 md:px-5 text-sm font-semibold text-white w-auto md:h-[29px] md:w-[93px] md:px-0 md:text-[11px]"
           >
             {trip.viewTripText || "View Trip"}
           </a>
