@@ -50,7 +50,12 @@ export default async function BlogDetailBySlug({
 
   const { previousPost, nextPost } = getAdjacentPosts(blogs, blog.id);
   const categories = resolveBlogCategories(blog, included);
-  const bannerImage = resolveBlogImage(blog, included, "field_banner_image");
+  const bannerImage = resolveBlogImage(
+    blog,
+    included,
+    "field_banner_image",
+    "/placeholder-image.svg",
+  );
 
   const categoryRes = await fetch(
     `${API_BASE_URL}/jsonapi/taxonomy_term/categories`,
