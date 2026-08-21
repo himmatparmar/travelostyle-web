@@ -1,11 +1,24 @@
 import Image from "next/image";
-import { STOPOVER_OPTIONS } from "./constants";
+import { useEffect, useState } from "react";
+import { getStopoverOptions } from "@/lib/stopoverJourney";
 
 export default function StepThree({
   formData,
   toggleStopover,
   updateField,
 }) {
+  const [stopoverOptions, setStopoverOptions] = useState([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    getStopoverOptions().then((options) => {
+      if (!cancelled) setStopoverOptions(options);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <div className="w-full font-sans">
       <h3 className="text-[13px] font-bold text-[#1A1A1A]">
@@ -19,7 +32,7 @@ export default function StepThree({
 
  
       <div className="mt-3.5 grid grid-cols-1 gap-x-5 gap-y-2.5 sm:grid-cols-2">
-        {STOPOVER_OPTIONS.map((option) => {
+        {stopoverOptions.map((option) => {
           const checked = (formData.stopovers || []).includes(option.id);
           return (
             <label

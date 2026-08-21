@@ -72,7 +72,7 @@ export default function ExploreAllJourneys() {
               alt="Barcelona Spain"
               width={948}
               height={888}
-              className="w-full h-[888px] object-cover"
+              className="w-[390px] h-[390px] lg:w-full lg:h-[888px] object-cover"
               priority
             />
 
@@ -86,8 +86,8 @@ export default function ExploreAllJourneys() {
          
           </div>
    <div className="flex justify-center mt-8 lg:hidden">
-  <button className="w-[240px] h-[56px] rounded-full bg-[#2C3078] flex items-center justify-center">
-    <span className="font-semibold text-[18px] leading-[32px] tracking-[0.05em] text-[#FAFAFA]">
+  <button className="h-[37px] px-4 rounded-full bg-[#2C3078] flex items-center justify-center">
+    <span className="font-semibold text-[14px] leading-[20px] tracking-[0.05em] text-[#FAFAFA] whitespace-nowrap">
       Explore All Journeys
     </span>
   </button>

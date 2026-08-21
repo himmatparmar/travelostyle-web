@@ -113,8 +113,10 @@ export default function BlogGrid({ blogs, categories }) {
                 className="
                   flex
                   h-[31px]
+                  shrink-0
                   items-center
                   justify-center
+                  whitespace-nowrap
                   rounded-full
                   border
                   border-ink
@@ -204,8 +206,8 @@ export default function BlogGrid({ blogs, categories }) {
             onClick={() => setCurrentPage(page)}
             className={
               page === currentPage
-                ? "text-[9px] font-semibold text-ink underline underline-offset-4"
-                : "text-[9px] text-[#9B9B9B]"
+                ? "flex w-[13px] h-[40px] md:w-auto md:h-auto items-center justify-center text-[13px] md:text-[9px] font-black md:font-semibold text-ink underline underline-offset-4"
+                : "flex w-[13px] h-[40px] md:w-auto md:h-auto items-center justify-center text-[13px] md:text-[9px] font-black md:font-normal text-[#9B9B9B]"
             }
           >
             {page}

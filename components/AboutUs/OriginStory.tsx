@@ -46,11 +46,11 @@ export default function OriginStory() {
 
         {/* Right Content */}
         <div className="flex-1 pt-0 lg:pt-[95px]">
-          <p className="font-taprom text-[28px] leading-none">
+          <p className="font-taprom text-[20px] md:text-[28px] leading-none text-center lg:text-left">
             our origin story
           </p>
 
-          <h2 className="mt-2 text-[36px] md:text-[48px] font-semibold leading-[52px]">
+          <h2 className="mt-2 mx-auto max-w-[338px] font-[Nohemi] text-[32px] md:text-[48px] font-semibold leading-[40px] md:leading-[52px] tracking-[0.05em] md:tracking-normal text-black text-center lg:text-left lg:mx-0 lg:max-w-none">
             How TravelOStyle began
           </h2>
 

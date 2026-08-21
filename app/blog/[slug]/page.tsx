@@ -3,12 +3,14 @@ import Hero from "@/components/BlogDetailPage/Hero";
 import BlogContent from "@/components/BlogDetailPage/BlogContent";
 import Footer from "@/components/Footer";
 import { notFound } from "next/navigation";
+import { API_BASE_URL } from "@/lib/config";
 import {
   getAllBlogs,
   findBlogBySlug,
   getAdjacentPosts,
   resolveBlogImage,
   resolveBlogCategories,
+  getBlogSlug,
 } from "@/lib/blog";
 
 export default async function BlogDetailBySlug({
@@ -50,6 +52,38 @@ export default async function BlogDetailBySlug({
   const categories = resolveBlogCategories(blog, included);
   const bannerImage = resolveBlogImage(blog, included, "field_banner_image");
 
+  const categoryRes = await fetch(
+    `${API_BASE_URL}/jsonapi/taxonomy_term/categories`,
+    { cache: "no-store" },
+  );
+  const { data: categoryData = [] } = await categoryRes.json();
+  const allCategoryNames = categoryData.map((cat: any) => cat.attributes.name);
+
+  const recommendedBlogs = blogs
+    .filter((item: any) => item.id !== blog.id)
+    .map((item: any) => {
+      const cats = resolveBlogCategories(item, included).map(
+        (cat: any) => cat.attributes.name,
+      );
+      return {
+        id: item.id,
+        title: item.attributes.title,
+        dateLabel: new Date(item.attributes.created).toLocaleDateString(
+          "en-US",
+          { month: "long", day: "numeric", year: "numeric" },
+        ),
+        categoryName: cats[0] || "Experiences",
+        categoryNames: cats,
+        imageUrl: resolveBlogImage(
+          item,
+          included,
+          "field_banner_image",
+          "/recommended-blog.svg",
+        ),
+        slug: getBlogSlug(item),
+      };
+    });
+
   const galleryRefs = blog.relationships?.field_gallery_images?.data || [];
   const galleryImages = galleryRefs
     .map((ref: any) => {
@@ -73,6 +107,8 @@ export default async function BlogDetailBySlug({
       <BlogContent
         blog={blog}
         categories={categories}
+        allCategories={allCategoryNames}
+        recommendedBlogs={recommendedBlogs}
         bannerImage={bannerImage}
         galleryImages={galleryImages}
         previousPost={previousPost}

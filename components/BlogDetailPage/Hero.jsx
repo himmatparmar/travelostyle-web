@@ -10,24 +10,28 @@ export default function Hero({ blog, categories }) {
           })}
         </p>
 
-        <button
-          className="
-          h-[31px]
-          px-[16px]
-          bg-[#F2E2DA]
-          border
-          border-ink
-          rounded-full
-          text-[16px]
-          leading-none
-          text-[#2B2B2B]
-          flex
-          items-center
-          justify-center
-        "
-        >
-          {categories[0]?.attributes?.name}
-        </button>
+        {categories[0]?.attributes?.name && (
+          <button
+            className="
+            h-[31px]
+            px-[16px]
+            shrink-0
+            whitespace-nowrap
+            bg-[#F2E2DA]
+            border
+            border-ink
+            rounded-full
+            text-[16px]
+            leading-none
+            text-[#2B2B2B]
+            flex
+            items-center
+            justify-center
+          "
+          >
+            {categories[0].attributes.name}
+          </button>
+        )}
       </div>
 
       <div className="mt-[24px] border-b border-[#2B2B2B]" />

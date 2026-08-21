@@ -1,15 +1,29 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import RecommendedBlogs from "./RecommendedBlogs";
 
 export default function BlogContent({
   blog,
   categories,
+  allCategories = [],
+  recommendedBlogs = [],
   bannerImage,
   galleryImages = [],
   previousPost,
   nextPost,
 }) {
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const filteredRecommended = (
+    selectedCategory === "All"
+      ? recommendedBlogs
+      : recommendedBlogs.filter((item) =>
+          item.categoryNames.includes(selectedCategory)
+        )
+  ).slice(0, 3);
+
   return (
     <section className="px-5 md:px-8 overflow-x-hidden lg:px-[60px] pb-[60px] lg:pb-[80px]">
       <div className="mt-8 lg:mt-[44px] flex flex-col lg:flex-row items-start gap-10 lg:gap-[48px]">
@@ -69,7 +83,7 @@ export default function BlogContent({
                   className="flex items-center gap-[12px] text-[14px] font-medium text-ink self-start sm:self-auto"
                 >
                   <Image src="/ArrowLeft.svg" alt="Previous" width={24} height={24} />
-                  <span>Previous Post Name</span>
+                  <span>{previousPost.title}</span>
                 </Link>
               ) : (
                 <span />
@@ -80,7 +94,7 @@ export default function BlogContent({
                   href={`/blog/${nextPost.slug}`}
                   className="flex items-center gap-[12px] text-[14px] font-medium text-ink self-end sm:self-auto"
                 >
-                  <span>Next Post Name</span>
+                  <span>{nextPost.title}</span>
                   <Image src="/ArrowUpRight.svg" alt="Next" width={24} height={24} />
                 </Link>
               ) : (
@@ -99,12 +113,23 @@ export default function BlogContent({
           </h3>
 
           <div className="mt-[16px] flex flex-wrap gap-[10px]">
-            {categories.map((category) => (
+            <button
+              onClick={() => setSelectedCategory("All")}
+              className={`lg:hidden flex h-[31px] items-center justify-center px-[16px] text-[16px] leading-none rounded-full border border-ink font-normal text-ink ${
+                selectedCategory === "All" ? "bg-[#F2E2DA]" : "bg-white"
+              }`}
+            >
+              All
+            </button>
+            {allCategories.map((name) => (
               <button
-                key={category.id}
-                className="flex h-[31px] items-center justify-center px-[16px] text-[16px] leading-none rounded-full border border-ink font-normal text-ink"
+                key={name}
+                onClick={() => setSelectedCategory(name)}
+                className={`flex h-[31px] items-center justify-center px-[16px] text-[16px] leading-none rounded-full border border-ink font-normal text-ink lg:pointer-events-none lg:!bg-white ${
+                  selectedCategory === name ? "bg-[#F2E2DA]" : "bg-white"
+                }`}
               >
-                {category.attributes.name}
+                {name}
               </button>
             ))}
           </div>
@@ -114,12 +139,108 @@ export default function BlogContent({
           <h3 className="mt-[28px] text-[20px] font-semibold leading-[30px] text-ink">
             Recommended Blogs
           </h3>
-          <RecommendedBlogs currentBlogId={blog.id} />
+          {/* Mobile: filtered by selected category */}
+          <div className="lg:hidden">
+            {filteredRecommended.map((item) => (
+              <div
+                key={item.id}
+                className="mt-5 flex flex-col overflow-hidden rounded-[10px] border-2 border-ink bg-[#FAFAFA]"
+              >
+                <div className="flex items-center justify-between px-[14px] py-[12px]">
+                  <p className="text-[16px] font-semibold leading-[40px] tracking-[0.05em] text-[#000000]">
+                    {item.dateLabel}
+                  </p>
+                  <button className="flex h-[31px] items-center justify-center rounded-full border border-ink bg-white px-[16px] text-[16px] leading-none text-ink">
+                    {item.categoryName}
+                  </button>
+                </div>
 
-          <div className="mt-[24px] border-b border-ink" />
+                <div className="px-[14px]">
+                  <div className="relative w-full aspect-[524/296]">
+                    <Image
+                      src={item.imageUrl}
+                      alt="Recommended Blog"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+
+                <div className="min-h-[105px] px-[12px] pt-[12px]">
+                  <h4 className="font-[Nohemi] text-[21px] font-semibold leading-[32px] tracking-[0.05em] text-ink">
+                    {item.title}
+                  </h4>
+                </div>
+
+                <div className="mt-[10px] px-[14px] pb-[12px]">
+                  <div className="border-t border-ink" />
+                  <Link
+                    href={`/blog/${item.slug}`}
+                    className="mt-[10px] flex items-center justify-between"
+                  >
+                    <span className="text-[16px] font-semibold leading-[40px] tracking-[0.05em] text-ink">
+                      READ MORE
+                    </span>
+                    <Image src="/ArrowUpRight.svg" alt="Arrow" width={24} height={24} />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop: always shows all, unfiltered */}
+          <div className="hidden lg:block">
+            {recommendedBlogs.slice(0, 3).map((item) => (
+              <div
+                key={item.id}
+                className="mt-5 flex flex-col overflow-hidden rounded-[10px] border-2 border-ink bg-[#FAFAFA]"
+              >
+                <div className="flex items-center justify-between px-[14px] py-[12px]">
+                  <p className="text-[16px] font-semibold leading-[40px] tracking-[0.05em] text-[#000000]">
+                    {item.dateLabel}
+                  </p>
+                  <button className="flex h-[31px] items-center justify-center rounded-full border border-ink bg-white px-[16px] text-[16px] leading-none text-ink">
+                    {item.categoryName}
+                  </button>
+                </div>
+
+                <div className="px-[14px]">
+                  <div className="relative w-full aspect-[524/296]">
+                    <Image
+                      src={item.imageUrl}
+                      alt="Recommended Blog"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+
+                <div className="min-h-[105px] px-[12px] pt-[12px]">
+                  <h4 className="font-[Nohemi] text-[21px] font-semibold leading-[32px] tracking-[0.05em] text-ink">
+                    {item.title}
+                  </h4>
+                </div>
+
+                <div className="mt-[10px] px-[14px] pb-[12px]">
+                  <div className="border-t border-ink" />
+                  <Link
+                    href={`/blog/${item.slug}`}
+                    className="mt-[10px] flex items-center justify-between"
+                  >
+                    <span className="text-[16px] font-semibold leading-[40px] tracking-[0.05em] text-ink">
+                      READ MORE
+                    </span>
+                    <Image src="/ArrowUpRight.svg" alt="Arrow" width={24} height={24} />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-[24px] border-b border-ink hidden lg:block" />
 
           {/* Subscribe */}
-          <div className="mt-[28px]">
+          <div className="mt-[28px] hidden lg:block">
             <h3 className="text-[20px] font-semibold leading-[30px] text-ink">
               Subscribe To Our Newsletter
             </h3>
