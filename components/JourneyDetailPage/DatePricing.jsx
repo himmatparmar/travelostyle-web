@@ -4,6 +4,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import PrivateInquiryForm from "@/components/PrivateInquiryForm";
 import GroupInquiryForm from "@/components/GroupInquiryForm";
+import GeneralInquiryForm from "../GeneralInquiryForm";
 
 
 export default function JourneyPricing({
@@ -16,6 +17,7 @@ export default function JourneyPricing({
     const [expandedCard, setExpandedCard] = useState(null);
     const [privateFormDeparture, setPrivateFormDeparture] = useState(null);
     const [groupFormTrip, setGroupFormTrip] = useState(null);
+    const [isOpenGeneralInquiryForm, setIsOpenGeneralInquiryForm] = useState(false);
     const router = useRouter();
 
     const openPrivateForm = (trip) =>
@@ -477,6 +479,7 @@ startDate: trip.startDate, endDate: trip.endDate });
                         lineHeight: "13px",
                         textAlign: "left",
                     }}
+                    onClick={()=> setIsOpenGeneralInquiryForm(true)}
                 >
                     Speak to an advisor
                 </button>
@@ -498,6 +501,11 @@ startDate: trip.startDate, endDate: trip.endDate });
                journey={journey}
                 trip={groupFormTrip}
             />
+             <GeneralInquiryForm
+        isOpen={isOpenGeneralInquiryForm}
+        onClose={() => setIsOpenGeneralInquiryForm(false)}
+        onSubmit={(data) => console.log("Advisor inquiry submitted:", data)}
+      />
         </section>
     );
 }
