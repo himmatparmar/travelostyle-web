@@ -18,6 +18,7 @@ const initialFormData = {
 export default function GeneralInquiryForm({ isOpen, onClose, onSubmit }) {
   const [formData, setFormData] = useState(initialFormData);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen) return null;
 
@@ -35,10 +36,73 @@ export default function GeneralInquiryForm({ isOpen, onClose, onSubmit }) {
     setSubmitted(false);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit?.(formData);
-    setSubmitted(true);
+  const handleSubmit = async (e) => {
+    if (e) e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // 1. CSRF Token Fetch
+      const csrfRes = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/session/token`
+      );
+
+      if (!csrfRes.ok) {
+        throw new Error("Failed to fetch CSRF token");
+      }
+
+      const csrfToken = await csrfRes.text();
+
+      const credentials = btoa(
+        `${process.env.NEXT_PUBLIC_DRUPAL_USER}:${process.env.NEXT_PUBLIC_DRUPAL_PASS}`
+      );
+
+      // 2. Exact Drupal Webform REST Payload
+      const payload = {
+        webform_id: "general_inquiry_form",
+        first_name: formData.firstName.trim(),
+        last_name: formData.lastName.trim(),
+        title: formData.title.trim(),
+        email_id: formData.email.trim(),
+        country_code: formData.countryCode,
+        phone: `${formData.countryCode} ${formData.phone.trim()}`,
+        message: formData.message.trim(),
+        consent: formData.consent ? "1" : "0",
+      };
+
+      // 3. API Request
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/webform_rest/submit`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Basic ${credentials}`,
+            "X-CSRF-Token": csrfToken,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error("Submission Error:", data);
+        alert(data.message || data.error?.message || "Something went wrong.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      console.log("Success Response:", data);
+      onSubmit?.(formData);
+      setSubmitted(true);
+      setFormData(initialFormData);
+    } catch (error) {
+      console.error("Form Submission Error:", error);
+      alert("Unable to submit the form. Please check your connection.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -218,9 +282,10 @@ export default function GeneralInquiryForm({ isOpen, onClose, onSubmit }) {
 
                   <button
                     type="submit"
-                    className="h-[37px] w-[172px] shrink-0 rounded-[30px] bg-[#2C3078] text-[15px] font-medium tracking-[0.03em] text-[#FAFAFA] transition hover:opacity-90 cursor-pointer flex items-center justify-center self-end sm:self-auto"
+                    disabled={isSubmitting}
+                    className="h-[37px] w-[172px] shrink-0 rounded-[30px] bg-[#2C3078] text-[15px] font-medium tracking-[0.03em] text-[#FAFAFA] transition hover:opacity-90 cursor-pointer flex items-center justify-center self-end sm:self-auto disabled:opacity-50"
                   >
-                    Submit Inquiry
+                    {isSubmitting ? "Submitting..." : "Submit Inquiry"}
                   </button>
                 </div>
 
