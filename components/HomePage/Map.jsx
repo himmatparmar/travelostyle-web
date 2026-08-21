@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -23,7 +23,60 @@ const months = [
   "December",
 ];
 
-const createMarker = (item) =>
+// The card sits to the right of the pin, not centered on it, so its
+// on-screen footprint (relative to the pin's lat/lng point) is a rectangle,
+// not a circle — matching the pin+card markup's own dimensions (card is
+// ~34px tall, 125px wide, offset 28px right of the pin) plus a small
+// safety margin so cards never render edge-to-edge.
+const CARD_BOX = { left: -16, right: 150, top: -20, bottom: 20 };
+
+// Every pin's small round icon is always visible, whether or not its card
+// is shown — so a shown card must also avoid every *other* pin's icon, not
+// just other shown cards.
+const PIN_BOX = { left: -12, right: 12, top: -12, bottom: 12 };
+
+const rectsOverlap = (a, b) =>
+  a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+
+// Greedily show as many cards as possible without overlap: walk the pins in
+// order and show a card whenever it doesn't collide with an already-shown
+// card OR with any other pin's own (always-visible) icon, instead of hiding
+// a card just because some other, itself-hidden, pin happens to be nearby.
+// Uses the live map's own projection (not a guessed zoom level) so it stays
+// correct however far the view is zoomed.
+const getIsolatedFlags = (map, items) => {
+  const points = items.map((item) => map.latLngToContainerPoint(item.position));
+
+  const cardBoxes = points.map((p) => ({
+    left: p.x + CARD_BOX.left,
+    right: p.x + CARD_BOX.right,
+    top: p.y + CARD_BOX.top,
+    bottom: p.y + CARD_BOX.bottom,
+  }));
+
+  const pinBoxes = points.map((p) => ({
+    left: p.x + PIN_BOX.left,
+    right: p.x + PIN_BOX.right,
+    top: p.y + PIN_BOX.top,
+    bottom: p.y + PIN_BOX.bottom,
+  }));
+
+  const shown = new Array(items.length).fill(false);
+
+  cardBoxes.forEach((box, i) => {
+    const hitsOtherPin = pinBoxes.some(
+      (pinBox, j) => j !== i && rectsOverlap(box, pinBox),
+    );
+    const hitsShownCard = cardBoxes.some(
+      (other, j) => shown[j] && rectsOverlap(box, other),
+    );
+    shown[i] = !hitsOtherPin && !hitsShownCard;
+  });
+
+  return shown;
+};
+
+const createMarker = (item, alwaysShow) =>
   L.divIcon({
     className: "map-marker-icon",
     html: `
@@ -33,7 +86,7 @@ const createMarker = (item) =>
             <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z" fill="#4A4E69"/>
           </svg>
         </div>
-        <div class="map-marker-card" style="
+        <div class="map-marker-card${alwaysShow ? " map-marker-card-static" : ""}" style="
           position:absolute;
           top:50%;
           left:28px;
@@ -76,6 +129,15 @@ const createMarker = (item) =>
             ">
               ${item.subtitle}
             </div>
+            <div style="
+              font-size:7px;
+              font-weight:600;
+              color:#2f2d89;
+              text-decoration:underline;
+              margin-top:2px;
+            ">
+              Browse Journeys
+            </div>
           </div>
         </div>
       </div>
@@ -84,7 +146,7 @@ const createMarker = (item) =>
     iconAnchor: [12, 12],
   });
 
-function MapZoomController({ destinations }) {
+function MapZoomController({ destinations, onIsolationChange }) {
   const map = useMap();
 
   useEffect(() => {
@@ -98,6 +160,16 @@ function MapZoomController({ destinations }) {
     }
   }, [map, destinations]);
 
+  // Recompute which cards can show without overlap once the view actually
+  // settles (fitBounds/setView above are animated, so the map's real zoom
+  // and center aren't final until "moveend" fires).
+  useEffect(() => {
+    const recompute = () => onIsolationChange(getIsolatedFlags(map, destinations));
+    recompute();
+    map.on("moveend", recompute);
+    return () => map.off("moveend", recompute);
+  }, [map, destinations, onIsolationChange]);
+
   return null;
 }
 
@@ -105,6 +177,7 @@ export default function TravelDestinationWidget() {
   const router = useRouter();
   const [selectedMonth, setSelectedMonth] = useState("January");
   const [isMobile, setIsMobile] = useState(false);
+  const [isolatedFlags, setIsolatedFlags] = useState([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -115,8 +188,9 @@ export default function TravelDestinationWidget() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const filteredDestinations = destinations.filter((item) =>
-    item.months.includes(selectedMonth),
+  const filteredDestinations = useMemo(
+    () => destinations.filter((item) => item.months.includes(selectedMonth)),
+    [selectedMonth],
   );
 
   return (
@@ -371,6 +445,11 @@ export default function TravelDestinationWidget() {
                   visibility: visible;
                   pointer-events: auto;
                 }
+                .map-marker-card-static {
+                  opacity: 1;
+                  visibility: visible;
+                  pointer-events: auto;
+                }
               `}</style>
 
               <MapContainer
@@ -389,12 +468,15 @@ export default function TravelDestinationWidget() {
                   url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png"
                   className="screenshot-exact-tiles"
                 />
-                <MapZoomController destinations={filteredDestinations} />
+                <MapZoomController
+                  destinations={filteredDestinations}
+                  onIsolationChange={setIsolatedFlags}
+                />
                 {filteredDestinations.map((item, index) => (
                   <Marker
                     key={index}
                     position={item.position}
-                    icon={createMarker(item)}
+                    icon={createMarker(item, isolatedFlags[index])}
                     eventHandlers={{
                       click: () => {
                         if (item.countryCode) {
