@@ -65,10 +65,76 @@ export default function GroupInquiryForm({
     setSubmitted(false);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit?.({ ...formData, journey, trip });
-    setSubmitted(true);
+  const handleSubmit = async(e) => {
+    e.preventDefault()
+     try {
+      const csrfRes = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/session/token`
+      );
+
+      if (!csrfRes.ok) {
+        throw new Error("Failed to fetch CSRF token");
+      }
+
+      const csrfToken = await csrfRes.text();
+
+      const credentials = btoa(
+        `${process.env.NEXT_PUBLIC_DRUPAL_USER}:${process.env.NEXT_PUBLIC_DRUPAL_PASS}`
+      );
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/webform_rest/submit`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Basic ${credentials}`,
+            "X-CSRF-Token": csrfToken,
+          },
+          body: JSON.stringify({
+            webform_id: "group_trip_inquiry_webform",
+            first_name: formData.firstName.trim(),
+            last_name: formData.lastName.trim(),
+            title: formData.title.trim(),
+            email: formData.email.trim(),
+            country_code: formData.countryCode,
+            phone: formData.phone.trim(),
+            traveling_with_children: formData.travelingWithChildren,
+            message: formData.message.trim(),
+            consent: formData.consent,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error("Submission Error:", data);
+        alert(data.message || "Something went wrong.");
+        return;
+      }
+      alert("Form Submitted Successfully!");
+
+      setFormData({
+        firstName: "",
+        lastName: "",
+        title: "",
+        email: "",
+        countryCode: "+1",
+        phone: "",
+        message: "",
+        consent: false,
+      });
+      onSubmit?.({ ...formData, journey, trip })
+
+    } catch (error) {
+      console.error(error);
+      alert("Unable to submit the form. Please try again.");
+    }
+    // e.preventDefault();
+    // onSubmit?.({ ...formData, journey, trip });
+    // setSubmitted(true);
   };
 //   const handleSubmit = (e) => {
 //   e.preventDefault();
