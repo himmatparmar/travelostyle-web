@@ -29,8 +29,8 @@ export const initialFormData = {
 export const CUSTOMIZATION_OPTIONS = [
   "I would like to explore different accommodation categories or stay styles",
   "I would like to adjust how relaxed or packed the journey feels",
-  "I would like to increase or decrease the no.of days for which I'm traveling",
-  "I'm traveling with my own group and would like a private rate",
+  "I would like to increase or decrease the no.of days for which I am traveling",
+  "I am traveling with my own group and would like a private rate",
   "I would like to explore sights, activities, or experience different from those mentioned in the itinerary",
   "I have dietary, accessibility, rooming, or other travel needs which I would like to discuss",
   "My budget is flexible for the right experience",
@@ -39,48 +39,45 @@ export const CUSTOMIZATION_OPTIONS = [
   "I would like to customize another part of the trip which is not listed above",
 ];
 
+// Option `id` values here MUST match the "Option value" keys configured on
+// the "Stopovers" element of the private_journey_inquiry_webform in Drupal
+// exactly, or the webform_rest submission is rejected with a "Submitted
+// Data contains validation errors" 400 response.
 export const STOPOVER_OPTIONS = [
   {
-    id: "dubai-2n",
+    id: "dubai-3d2n",
     title: "Dubai, U.A.E",
-    duration: "3 Days,2 Nights",
+    duration: "3 Days, 2 Nights",
     price: 750,
     image: "/Dubai.svg",
   },
   {
-    id: "muscat-2n",
+    id: "muscat-3d2n",
     title: "Muscat, Oman",
-    duration: "3 Days,2 Nights",
+    duration: "3 Days, 2 Nights",
     price: 750,
+    image: "/placeholder-image.svg",
+  },
+  {
+    id: "mumbai-3d2n",
+    title: "Mumbai, India",
+    duration: "3 Days, 2 Nights",
+    price: 1000,
     image: "/placeholder-image.svg",
   },
   {
     id: "mumbai-2n",
     title: "Mumbai, India",
-    duration: "3 Days,2 Nights",
+    duration: "2 Nights",
     price: 1000,
     image: "/placeholder-image.svg",
   },
   {
-    id: "dubai-4n",
+    id: "dubai-5d4n",
     title: "Dubai, U.A.E",
-    duration: "5 Days,4 Nights",
+    duration: "5 Days, 4 Nights",
     price: 1500,
     image: "/Dubai.svg",
-  },
-  {
-    id: "muscat-2n-b",
-    title: "Muscat, Oman",
-    duration: "3 Days,2 Nights",
-    price: 750,
-    image: "/placeholder-image.svg",
-  },
-  {
-    id: "mumbai-2n-b",
-    title: "Mumbai, India",
-    duration: "3 Days,2 Nights",
-    price: 1000,
-    image: "/placeholder-image.svg",
   },
 ];
 

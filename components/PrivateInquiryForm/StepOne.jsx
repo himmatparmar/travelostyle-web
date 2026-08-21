@@ -71,15 +71,25 @@ export default function StepOne({ formData, updateField, showTravelWindow }) {
           <label className="block text-[11px] font-bold text-[#1A1A1A]">
             Title*
           </label>
-          <input
-            type="text"
+          <select
             name="title"
             value={formData.title || ""}
             onChange={handleChange}
-            placeholder="Your Title"
             required
-            className="mt-0.5 block w-full border-b border-[#5A5A5A] bg-transparent pb-1 text-[11px] text-[#1A1A1A] placeholder:text-[#B0B0B0] focus:border-black focus:outline-none"
-          />
+            className="mt-0.5 block w-full border-b border-[#5A5A5A] bg-transparent pb-1 text-[11px] text-[#1A1A1A] focus:border-black focus:outline-none"
+          >
+            <option value="" disabled>
+              Select your title
+            </option>
+            {/* Values here MUST match the Title element's "Option value"
+                keys in the Drupal webform exactly (mr/ms/mrs/dr), not the
+                displayed text — otherwise webform_rest rejects the
+                submission. */}
+            <option value="mr">Mr.</option>
+            <option value="ms">Ms.</option>
+            <option value="mrs">Mrs.</option>
+            <option value="dr">Dr.</option>
+          </select>
         </div>
 
         {/* Number / WhatsApp */}
