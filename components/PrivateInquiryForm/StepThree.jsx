@@ -5,6 +5,7 @@ export default function StepThree({
   formData,
   toggleStopover,
   updateField,
+  options = STOPOVER_OPTIONS,
 }) {
   return (
     <div className="w-full font-sans">
@@ -19,7 +20,7 @@ export default function StepThree({
 
  
       <div className="mt-3.5 grid grid-cols-1 gap-x-5 gap-y-2.5 sm:grid-cols-2">
-        {STOPOVER_OPTIONS.map((option) => {
+        {options.map((option) => {
           const checked = (formData.stopovers || []).includes(option.id);
           return (
             <label

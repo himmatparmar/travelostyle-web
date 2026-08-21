@@ -111,3 +111,62 @@ export const TRIP_REASONS = [
   "Friend Trip",
   "Because I love to travel",
 ];
+
+// ---------------------------------------------------------------------
+// The "Inspirational Itineraries" flow (showDepartureDate = false, submits
+// to the separate `inspirational_itineraries_form` webform) has its OWN
+// option lists configured in Drupal — confirmed distinct from the values
+// above, which belong only to `private_journey_inquiry_webform`.
+// ---------------------------------------------------------------------
+
+// Confirmed as the complete list (only 2 real options configured).
+export const INSPIRATIONAL_CUSTOMIZATION_OPTIONS = [
+  "I would like to explore different accommodation categories or stay styles",
+  "I would like to adjust how relaxed or packed the journey feels",
+];
+
+// Option `id` values match the "Stopovers" element's configured option
+// values on the inspirational form exactly. NOTE: Drupal only gave us the
+// value/label pairs, not price or duration — `price`/`duration`/`image`
+// below are placeholders and should be swapped for the real figures.
+export const INSPIRATIONAL_STOPOVER_OPTIONS = [
+  {
+    id: "dubai-2n",
+    title: "Dubai, U.A.E",
+    duration: "2 Nights",
+    price: 750,
+    image: "/Dubai.svg",
+  },
+  {
+    id: "mumbai-2n",
+    title: "Mumbai, India",
+    duration: "2 Nights",
+    price: 750,
+    image: "/placeholder-image.svg",
+  },
+  {
+    id: "singapore-2n",
+    title: "Singapore",
+    duration: "2 Nights",
+    price: 750,
+    image: "/placeholder-image.svg",
+  },
+  {
+    id: "doha-2n",
+    title: "Doha, Qatar",
+    duration: "2 Nights",
+    price: 750,
+    image: "/placeholder-image.svg",
+  },
+];
+
+// Confirmed as the complete list configured on the inspirational form's
+// "Reason for Trip" element.
+export const INSPIRATIONAL_TRIP_REASONS = [
+  "Anniversary",
+  "Honeymoon",
+  "Vacation",
+  "Birthday",
+  "Graduation",
+  "Other",
+];
