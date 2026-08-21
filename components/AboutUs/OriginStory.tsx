@@ -1,21 +1,49 @@
 import Image from "next/image";
 
+// One tint per rail, matching the desktop staggered columns below.
+const MOBILE_RAIL_BG = ["bg-[#EFF3CF]", "bg-[#F2E2DA]", "bg-[#F2D09F]"];
+
+// Six per rail so one copy of the set is wider than any phone viewport —
+// otherwise the -50% loop would expose a gap mid-scroll.
+const MOBILE_RAILS = [
+  ["/Rectangle920.svg", "/Rectangle911.svg", "/Rectangle914.svg", "/Rectangle917.svg", "/Rectangle912.svg", "/Rectangle915.svg"],
+  ["/Rectangle918.svg", "/Rectangle913.svg", "/Rectangle916.svg", "/Rectangle920.svg", "/Rectangle914.svg", "/Rectangle911.svg"],
+  ["/Rectangle912.svg", "/Rectangle917.svg", "/Rectangle915.svg", "/Rectangle913.svg", "/Rectangle918.svg", "/Rectangle916.svg"],
+];
+
 export default function OriginStory() {
   return (
     <section className="px-4 md:px-[60px] lg:px-[113px] py-[60px] pt-0">
       <div className="flex flex-col lg:flex-row items-end gap-8 lg:gap-[40px]">
 
-        {/* Left Images — clean grid on mobile */}
-        <div className="grid lg:hidden grid-cols-4 gap-2 w-full mb-[30px]">
-          <Image src="/Rectangle920.svg" alt="" width={264} height={264} className="rounded-[8px] w-full aspect-square object-cover" />
-          <Image src="/Rectangle911.svg" alt="" width={264} height={264} className="rounded-[8px] w-full aspect-square object-cover" />
-          <Image src="/Rectangle914.svg" alt="" width={264} height={264} className="rounded-[8px] w-full aspect-square object-cover" />
-          <Image src="/Rectangle917.svg" alt="" width={264} height={264} className="rounded-[8px] w-full aspect-square object-cover" />
-          <Image src="/Rectangle912.svg" alt="" width={264} height={264} className="rounded-[8px] w-full aspect-square object-cover" />
-          <Image src="/Rectangle915.svg" alt="" width={264} height={264} className="rounded-[8px] w-full aspect-square object-cover" />
-          <Image src="/Rectangle918.svg" alt="" width={264} height={264} className="rounded-[8px] w-full aspect-square object-cover" />
-          <Image src="/Rectangle913.svg" alt="" width={264} height={264} className="rounded-[8px] w-full aspect-square object-cover" />
-          <Image src="/Rectangle916.svg" alt="" width={264} height={264} className="rounded-[8px] w-full aspect-square object-cover" />
+        {/* Left Images — continuously scrolling rails on mobile. Each row
+            renders its image set twice so the -50% translate loops seamlessly;
+            middle row runs the opposite way for a woven feel. */}
+        <div className="lg:hidden w-full mb-[30px] space-y-2 overflow-hidden">
+          {MOBILE_RAILS.map((rail, rowIndex) => (
+            <div
+              key={rowIndex}
+              className={`overflow-hidden rounded-lg ${MOBILE_RAIL_BG[rowIndex]}`}
+            >
+              <div
+                className={`about-rail-track gap-2 ${
+                  rowIndex === 1 ? "about-rail-track--reverse" : ""
+                }`}
+                style={{ animationDuration: `${70 + rowIndex * 12}s` }}
+              >
+                {[...rail, ...rail].map((src, i) => (
+                  <Image
+                    key={i}
+                    src={src}
+                    alt=""
+                    width={264}
+                    height={264}
+                    className="rounded-[8px] w-[120px] md:w-[88px] aspect-square object-cover shrink-0"
+                  />
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* Left Images — 3 staggered columns (desktop) */}
@@ -50,7 +78,7 @@ export default function OriginStory() {
             our origin story
           </p>
 
-          <h2 className="mt-2 mx-auto max-w-[338px] font-[Nohemi] text-[32px] md:text-[48px] font-semibold leading-[40px] md:leading-[52px] tracking-[0.05em] md:tracking-normal text-black text-center lg:text-left lg:mx-0 lg:max-w-none">
+          <h2 className="mt-2 mx-auto max-w-[338px] text-[32px] md:text-[48px] font-bold leading-[40px] md:leading-[52px] tracking-[0.05em] md:tracking-normal text-black text-center lg:text-left lg:mx-0 lg:max-w-none">
             How TravelOStyle began
           </h2>
 

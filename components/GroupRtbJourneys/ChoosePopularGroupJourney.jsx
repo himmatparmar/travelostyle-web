@@ -86,11 +86,13 @@ export default function ChoosePopularGroupJourney() {
   }, []);
   return (
     <div className=" min-h-screen py-16 px-4 sm:px-6 lg:px-8 font-sans overflow-hidden">
-      <div className="text-center mb-12">
-        <p className="font-serif italic text-2xl text-neutral-600 lowercase tracking-wide">
-          choose from our popular group journeys
+      <div className="mb-12">
+        <p
+          className="font-taprom text-[32px] font-normal leading-[40px] tracking-[0.05em] text-black lowercase [text-box-trim:cap] [text-box-edge:cap_alphabetic] md:text-center"
+        >
+          our popular group journeys
         </p>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-[#111827] mt-1 tracking-tight">
+        <h2 className="mt-1 font-[Nohemi] text-[32px] font-semibold leading-[40px] tracking-[0.05em] text-black [text-box-trim:cap] [text-box-edge:cap_alphabetic] md:text-center">
           Where are you headed to next?
         </h2>
       </div>

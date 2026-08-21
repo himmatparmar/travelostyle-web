@@ -136,7 +136,7 @@ export default function GroupRevelationsSectionMobile({
                     borderColor: isHex(borderStyle) ? borderStyle : undefined,
                   }}
                 >
-                  <p className="text-[12.5px] text-[#2a2a2a] leading-relaxed font-normal tracking-wide">
+                  <p className="font-[Nohemi] text-[16px] font-normal leading-[28px] tracking-[0.05em] text-[#2a2a2a] [text-box-trim:cap] [text-box-edge:cap_alphabetic]">
                     {row.text}
                   </p>
                 </div>

@@ -85,7 +85,7 @@ export default function ExploreAllJourneys() {
             </div>
          
           </div>
-   <div className="flex justify-center mt-8 lg:hidden">
+   <div className="flex justify-center mt-5 md:mt-8 lg:hidden">
   <button className="h-[37px] px-4 rounded-full bg-[#2C3078] flex items-center justify-center">
     <span className="font-semibold text-[14px] leading-[20px] tracking-[0.05em] text-[#FAFAFA] whitespace-nowrap">
       Explore All Journeys

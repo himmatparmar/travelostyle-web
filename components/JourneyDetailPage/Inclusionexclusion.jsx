@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Info } from "lucide-react";
+import Image from "next/image";
 
 function TableCard({ title, items = [], theme }) {
     const current =
@@ -205,7 +206,7 @@ font-bold
           <span>{item.title}</span>
         </div>
 
-        <p className="text-xs mt-2 text-gray-700">
+        <p className="text-xs mt-2 text-black">
           {item.description}
         </p>
       </div>
@@ -274,7 +275,7 @@ font-bold
           <span>{item.title}</span>
         </div>
 
-        <p className="text-xs mt-2 text-gray-700">
+        <p className="text-xs mt-2 text-black">
           {item.description}
         </p>
       </div>
@@ -293,6 +294,7 @@ font-bold
 export default function InclusionsExclusions({
     inclusions,
     exclusions,
+    onBack,
 }) {
 
 
@@ -301,6 +303,24 @@ export default function InclusionsExclusions({
 
     return (
         <>
+            {/* MOBILE HEADER */}
+            {onBack && (
+              <div className="flex items-center justify-between border-b border-gray-100 px-4 py-4 md:hidden">
+                <button
+                  onClick={onBack}
+                  className="flex h-6 w-12 items-center justify-center rounded-full active:scale-95 transition"
+                >
+                  <Image src="/LeftArrow.svg" alt="Back" height={24} width={56} />
+                </button>
+
+                <h1 className="text-base font-bold tracking-tight text-ink">
+                  Inclusions &amp; Exclusions
+                </h1>
+
+                <div className="w-12" />
+              </div>
+            )}
+
             {/* DESKTOP ONLY */}
            <section className="hidden md:block max-w-7xl mx-auto px-4 py-10">
   <div className="grid lg:grid-cols-2 gap-8 items-start">

@@ -84,15 +84,18 @@ existingTrips.push(trip);
 };
   return (
     <div
-      className={`relative flex h-auto min-w-0 flex-col overflow-hidden rounded-2xl px-4 pt-4 pb-5
-      md:w-[390px] md:min-w-[390px] md:h-[640px] md:rounded-xl md:px-3 md:pt-3 md:pb-4
-      ${
-        trip.active
-          ? "border border-[#6BA6FF]"
-          : "border border-[#E8E8E8]"
-      }`}
-      style={{ backgroundColor: "#FAFAFA", boxShadow: "0px 10px 15px 0px #0000001A" }}
+      className="relative flex h-auto min-w-0 flex-col px-4 pt-4 pb-5
+      md:w-[390px] md:min-w-[390px] md:h-auto md:min-h-[670px] md:pt-3 md:pb-4"
     >
+      <div
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          backgroundImage: "url(/Union-it.svg)",
+          backgroundSize: "100% 100%",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+
       <div className="mb-3 flex min-h-[1.5rem] flex-wrap gap-2 md:mb-3 md:min-h-[28px] md:gap-2">
         {(trip.tags || []).map((tag) => (
           <span
@@ -110,16 +113,16 @@ existingTrips.push(trip);
         ))}
       </div>
 
-      <div className="relative h-48 w-full overflow-hidden rounded-lg md:h-[213px] md:w-[349px] md:rounded-[3px]">
+      <div className="relative h-48 w-full overflow-hidden rounded-lg md:h-[213px] md:w-full md:rounded-[3px]">
         <JourneyCardImage src={trip.image} alt={trip.title} />
       </div>
 
       <div className="flex flex-1 flex-col pt-3 md:pt-4">
-        <h3 className="text-lg font-semibold leading-[1.3] text-[#232323] md:text-[16px]">
+        <h3 className="line-clamp-2 min-h-[2.6em] text-lg font-semibold leading-[1.3] text-[#232323] md:text-[16px]">
           {trip.title}
         </h3>
 
-        <p className="mt-2 text-sm leading-[1.55] text-[#666666] md:mt-2 md:text-[11px]">
+        <p className="mt-2 line-clamp-2 min-h-[3.1em] text-sm leading-[1.55] text-[#666666] md:mt-2 md:text-[11px]">
           {trip.desc}
         </p>
 
@@ -167,44 +170,32 @@ existingTrips.push(trip);
 </a>
         </div>
 
-        {trip.offer && (
-          <div className="mt-4 flex items-center gap-2 rounded-md bg-[#F4E5DA] px-3 py-2 text-xs text-[#65574D] md:mt-4 md:gap-1.5 md:rounded-[5px] md:px-2.5 md:py-2 md:text-[8px]">
-            <Info size={11} />
-            <span>{trip.offer}</span>
-          </div>
-        )}
+        <div className="mt-4 min-h-9 md:mt-4 md:min-h-8">
+          {trip.offer && (
+            <div className="flex items-center gap-2 rounded-md bg-[#F4E5DA] px-3 py-2 text-xs text-[#65574D] md:gap-1.5 md:rounded-[5px] md:px-2.5 md:py-2 md:text-[8px]">
+              <Info size={11} className="shrink-0" />
+              <span className="line-clamp-1">{trip.offer}</span>
+            </div>
+          )}
+        </div>
 
-        <div className="mt-4 border-t border-dashed border-[#D7D7D7] md:mt-4" />
-
-<button
-  onClick={handleAddToCompare}
-  className="mt-3 flex items-center gap-2 text-sm text-[#4E4E4E] md:mt-3 md:gap-1.5 md:text-[11px]"
->          {isSelected ? (
-   <>
-  <CheckCircle2
-    size={14}
-    strokeWidth={2}
-    className="text-green-600"
-    />
-     <span>Added to Compare</span>
-    </>
-  ) : (
-    <>
-  <CirclePlus size={14} strokeWidth={1.8} />
-   <span>Add to Compare</span>
-  </>
-)}
-
+        <button
+          type="button"
+          onClick={handleAddToCompare}
+          className="mt-4 flex items-center gap-2 text-sm text-[#4E4E4E] md:mt-4 md:gap-1.5 md:text-[11px]"
+        >
+          {isSelected ? (
+            <>
+              <CheckCircle2 size={14} strokeWidth={2} className="text-green-600" />
+              <span>Added to Compare</span>
+            </>
+          ) : (
+            <>
+              <CirclePlus size={14} strokeWidth={1.8} />
+              <span>Add to Compare</span>
+            </>
+          )}
         </button>
-      </div>
-
-      <div className="absolute bottom-[-2px] left-0 hidden w-full justify-between px-1.5 md:flex">
-        {Array.from({ length: 14 }).map((_, i) => (
-          <div
-            key={i}
-            className="h-3 w-3 rounded-full bg-[#F5F5F3]"
-          />
-        ))}
       </div>
     </div>
   );

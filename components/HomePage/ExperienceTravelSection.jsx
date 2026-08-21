@@ -34,10 +34,20 @@ async function getExperienceTravelContent() {
   return { heading, paragraph1, paragraph2, cards };
 }
 
+// The Figma design only highlights the first clause of the heading — the
+// "with <brand>" tail stays plain. The brand name is data-driven, so split
+// on " with " rather than hardcoding "TravelOStyle".
+function splitHeading(heading) {
+  const match = heading.match(/^(.*?)(\s+with\s+.+)$/i);
+  return match ? [match[1], match[2]] : [heading, ""];
+}
+
+
 export default async function ExperienceTravelSection() {
   const content = await getExperienceTravelContent();
   if (!content) return <ComingSoon label="Experience Travel" />;
   const { heading, paragraph1, paragraph2, cards } = content;
+  const [highlightedHeading, plainHeading] = splitHeading(heading);
 
   return (
     <section className="w-full bg-[#f4f4f4] max-md:bg-[#fcfcfc] px-6 py-16 md:px-14 max-md:py-12">
@@ -45,39 +55,37 @@ export default async function ExperienceTravelSection() {
         
         <div className="max-w-[500px]">
           <h2
-            className="mb-6 font-taprom text-[2.4vw] text-ink max-md:text-[28px] max-md:leading-[36px] max-md:mb-5"
+            className="mb-6 font-taprom text-[2.4vw] leading-[1.4] text-ink max-md:text-[40px] max-md:leading-[1.4] max-md:mb-8"
             style={{ letterSpacing: "var(--ls-heading-taprom-md)" }}
           >
-            {heading}
+            <span className="bg-[#F1E3D8] px-[3px] py-[1px] mb-5">
+              Experience travel the
+            </span>
+            <span className="bg-[#F1E3D8] px-[3px] py-[1px] mb-2">
+              way it should be
+            </span>
+            {plainHeading}
           </h2>
 
           <p
-            className="mb-4 text-ink max-md:text-[13px] max-md:leading-[22px] max-md:text-[#4a4a4a]"
-            style={{
-              fontSize: "var(--fs-body-nohemi-light)",
-              fontWeight: "var(--fw-body-nohemi-light)",
-              letterSpacing: "var(--ls-body-nohemi-light)",
-            }}
+            className="mb-4 text-ink max-md:text-[16px] max-md:leading-[22px] font-medium text-[#1A1A1A] text-[16px]"
+         
           >
             {paragraph1}
           </p>
 
           <p
-            className="text-ink max-md:text-[13px] max-md:leading-[22px] max-md:text-[#4a4a4a]"
-            style={{
-              fontSize: "var(--fs-body-nohemi-light)",
-              fontWeight: "var(--fw-body-nohemi-light)",
-              letterSpacing: "var(--ls-body-nohemi-light)",
-            }}
+            className="mb-4 text-ink max-md:text-[16px] max-md:leading-[22px] font-medium text-[#1A1A1A] text-[16px]"
+    
           >
             {paragraph2}
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 max-md:flex max-md:flex-col max-md:gap-4">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 max-md:flex max-md:flex-col max-md:items-center max-md:gap-4">
           {cards.map((card, index) => (
             <div
               key={index}
-              className="rounded-[4px] max-md:rounded-[6px] border border-[#5b5fae] max-md:border-[#7175c0]/60 bg-[#e8edc9] max-md:bg-[#eef3d4] p-6 max-md:p-5 flex flex-col"
+              className="rounded-[4px] max-md:w-[337px] max-md:h-[264px] max-md:rounded-[5px] border border-[#5b5fae] max-md:border-2 max-md:border-[#2C3078] bg-[#e8edc9] max-md:bg-[#EFF3CF] p-6 max-md:p-5 flex flex-col"
             >
             
               <div className="mb-5 max-md:mb-3 flex items-center gap-0.5">
@@ -92,10 +100,10 @@ export default async function ExperienceTravelSection() {
                   />
                 ))}
               </div>
-              <h3 className="mb-2 whitespace-pre-line text-[1.2vw] font-semibold leading-[1.2] text-ink max-md:text-[16px] max-md:leading-[20px] max-md:font-bold max-md:whitespace-normal">
+              <h3 className="mb-2 whitespace-pre-line text-[1.2vw] font-semibold leading-[1.2] text-ink max-md:text-[21px] max-md:leading-[20px] max-md:font-bold max-md:whitespace-normal">
                 {card.title}
               </h3>
-              <p className="text-[0.8vw] leading-6 text-ink max-md:text-[13px] max-md:leading-[20px] max-md:text-[#333333]">
+              <p className="text-[16px] leading-6 text-ink max-md:text-[16px] max-md:leading-[20px] max-md:text-[#1A1A1A] mt-[10px]">
                 {card.desc}
               </p>
             </div>

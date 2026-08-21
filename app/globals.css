@@ -122,6 +122,12 @@
   --lh-body-nohemi-light: 36px;
   --ls-body-nohemi-light: 0.05em;
   --fw-body-nohemi-light: 300;
+
+  /* Nohemi, 400 (Regular), 21px / 40px / 5% — e.g. AdvisorCallout right-column copy */
+  --fs-body-nohemi-regular-callout: 21px;
+  --lh-body-nohemi-regular-callout: 40px;
+  --ls-body-nohemi-regular-callout: 0.05em;
+  --fw-body-nohemi-regular-callout: 400;
 }
 
 body {
@@ -151,4 +157,33 @@ a,
 
 .leaflet-tile {
   filter: sepia(25%) saturate(30%) brightness(108%);
+}
+
+/* Continuous horizontal image rails (About Us mobile hero grid).
+   The track holds the image set twice, so translating it -50% lands
+   exactly on the duplicate and the loop is seamless. */
+@keyframes about-rail-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes about-rail-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+.about-rail-track {
+  display: flex;
+  width: max-content;
+  animation: about-rail-left 40s linear infinite;
+}
+
+.about-rail-track--reverse {
+  animation-name: about-rail-right;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-rail-track {
+    animation: none;
+  }
 }

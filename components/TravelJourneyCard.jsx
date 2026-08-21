@@ -29,8 +29,8 @@ export default function TravelJourneyCard({
   onCompare,
 }) {
   return (
-    <div className="w-full max-w-7xl mx-auto pt-6 pb-12 overflow-hidden">
-      <div className="flex flex-row overflow-x-auto snap-x snap-mandatory gap-4 scroll-smooth pt-2 pb-6 pl-4 pr-12 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 md:overflow-visible md:px-0 md:pb-0 md:pt-0">
+    <div className="w-full max-w-7xl mx-auto pt-6 md:pb-12 overflow-hidden">
+      <div className="flex flex-row overflow-x-auto snap-x snap-mandatory gap-4 scroll-smooth pt-2 pb-6 pl-4 pr-12 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-2 md:justify-items-center lg:grid-cols-4 md:gap-6 md:overflow-visible md:px-0 md:pb-0 md:pt-0">
         {journeys.map((journey) => {
           const trip = mapJourneyToTrip(journey);
           return (

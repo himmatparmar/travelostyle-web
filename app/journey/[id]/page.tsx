@@ -177,27 +177,35 @@ export default async function JourneyDetailPage({
   const journeyId = journeyData.data.id;
   const testimonialData = await getTestimonials();
 
-const journeyTestimonials = {
-  ...testimonialData,
+  const testimonialsForThisJourney = (testimonialData.data || []).filter(
+    (testimonial: any) => {
+      const relationshipData =
+        testimonial.relationships?.field_testimonial_journey?.data;
 
-  data: (testimonialData.data || []).filter((testimonial: any) => {
-    const relationshipData =
-      testimonial.relationships?.field_testimonial_journey?.data;
+      // Drupal can return either:
+      // 1. an array when multiple journeys are allowed
+      // 2. an object when only one journey is allowed
+      const testimonialJourneys = Array.isArray(relationshipData)
+        ? relationshipData
+        : relationshipData
+          ? [relationshipData]
+          : [];
 
-    // Drupal can return either:
-    // 1. an array when multiple journeys are allowed
-    // 2. an object when only one journey is allowed
-    const testimonialJourneys = Array.isArray(relationshipData)
-      ? relationshipData
-      : relationshipData
-        ? [relationshipData]
-        : [];
+      return testimonialJourneys.some(
+        (journey: any) => journey.id === journeyId
+      );
+    },
+  );
 
-    return testimonialJourneys.some(
-      (journey: any) => journey.id === journeyId
-    );
-  }),
-};
+  // Most journeys don't have a testimonial linked to them specifically —
+  // fall back to the general pool (same as the homepage) rather than
+  // hiding the section entirely.
+  const journeyTestimonials = {
+    ...testimonialData,
+    data: testimonialsForThisJourney.length
+      ? testimonialsForThisJourney
+      : testimonialData.data,
+  };
   // Fetch departures linked to this journey
   const departureRes = await fetch(
     `${API_BASE_URL}/jsonapi/node/book_your_journey`,

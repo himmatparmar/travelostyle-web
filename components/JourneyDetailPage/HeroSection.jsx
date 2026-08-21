@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { Clock3, MapPin, Info } from "lucide-react";
 import MobileNavigationMenu from "./MobileNavigationMenu";
 import PrivateInquiryForm from "@/components/PrivateInquiryForm";
+import JourneyCardImage from "@/components/JourneyCardImage";
 import { useState } from "react";
 
 // Fixed badge colors matching the design (Figma) reference:
@@ -96,13 +96,9 @@ export default function HeroSection({
       </div>
 
       <div className="relative w-full overflow-hidden  " style={{ height: "40vw" }}>
-        <Image
-          src={journey.image || "/Morocco.svg"}
+        <JourneyCardImage
+          src={journey.image}
           alt={journey.title || "Journey"}
-          fill
-          unoptimized
-          className="object-cover"
-          priority
         />
 
         <div
@@ -224,13 +220,9 @@ export default function HeroSection({
           
        {activeView === "menu"&&<div className="relative">
           <div className="relative h-[580px] w-full">
-            <Image
-              src={journey.image || "/Morocco.svg"}
+            <JourneyCardImage
+              src={journey.image}
               alt={journey.title}
-              fill
-              unoptimized
-              className="object-cover"
-              priority
             />
             <div className="absolute left-4 right-4 top-3 rounded-md border-2 border-[#3A3A3A] bg-white p-4 shadow-lg">
               <h1 className="text-[28px] font-bold leading-[34px] text-ink">

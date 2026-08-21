@@ -330,9 +330,9 @@ export default function TravelDestinationWidget() {
                             </div>
                           </div>
 
-                          <button className="absolute right-[36px] z-20 cursor-pointer active:scale-95 transition">
+                          <button className="shrink-0 cursor-pointer active:scale-95 transition">
                             <Image
-                              src="/RightArrow.svg"
+                              src="/arrow.png"
                               alt="Next"
                               height={24}
                               width={56}

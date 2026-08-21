@@ -24,19 +24,19 @@ export default function TravelBetter() {
       />
 
       <div className="relative z-10 max-w-[520px]">
-        <p className="font-taprom text-[36px] md:text-[48px] leading-[56px] md:leading-[64px] tracking-[0.05em]">
+        <p className="font-taprom text-[21px] font-normal leading-[64px] tracking-[0.05em] text-black [text-box-trim:cap] [text-box-edge:cap_alphabetic]">
           ways we like to travel
         </p>
 
-        <h2 className="mt-3 text-[36px] md:text-[48px] font-semibold leading-[56px] md:leading-[80px] tracking-[0.05em]">
+        <h2 className="mt-3 text-[32px] font-bold leading-[40px] tracking-[0.05em] text-black [text-box-trim:cap] [text-box-edge:cap_alphabetic]">
           Travel better with us
         </h2>
 
-        <p className="mt-8 text-[16px] md:text-[18px] font-normal leading-[32px] md:leading-[36px] tracking-[0.05em] text-[#4A4A4A] max-w-[830px]">
-          We offer a curated collection of ready-to-book journeys across the
-          world across travel styles, budget points, and modes of travel.
-          Alongside that, we personalise journeys for those who want something
-          that's truly, specifically theirs.
+        <p className="mt-8 max-w-[830px] font-[Nohemi] text-[16px] font-normal leading-[28px] tracking-[0.05em] text-black [text-box-trim:cap] [text-box-edge:cap_alphabetic]">
+          TravelOStyle offers a curated collection of ready-to-book journeys
+          across the world &ndash; across travel styles, budget points, and modes of
+          travel. Alongside that, we personalise journeys for those who want
+          something that&rsquo;s truly, specifically theirs.
         </p>
       </div>
 

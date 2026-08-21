@@ -4,7 +4,7 @@ import TalkToAdvisorButton from "@/components/GeneralInquiryForm/TalkToAdvisorBu
 export default function PrivateJourneysLuxury() {
   return (
     <section className="py-16">
-      <div className="relative h-[330px] md:h-[450px] lg:h-[520px] w-full overflow-hidden rounded-1xl">
+      <div className="relative h-[720px] md:h-[450px] lg:h-[520px] w-full overflow-hidden rounded-1xl">
         <Image
           src="/Ship.svg"
           alt="Private Journey"
@@ -12,7 +12,7 @@ export default function PrivateJourneysLuxury() {
           className="object-cover"
         />
         <div className="absolute inset-0 " />
-        <div className="absolute inset-0 flex items-center">
+        <div className="absolute inset-0 flex items-start pt-[6vw] md:pt-[5vw] lg:pt-[4vw]">
           <div className="max-w-[700px] ml-[6vw] md:ml-[10vw] lg:ml-[8vw]">
             <span className="text-white text-[30px] md:text-[46px] font-semibold leading-tight">
               Private Journeys aren&apos;t meant to be luxury

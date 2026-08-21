@@ -93,14 +93,14 @@ export default async function Index() {
             </h2>
 
           <div
-  className="mt-4 text-[16px] md:text-[1.05vw] leading-[26px] text-[#4A4A4A] text-left md:text-center"
+  className="mt-4 text-[16px] md:text-[1.05vw] leading-[26px] font-medium text-[#1A1A1A] text-left md:text-center"
   dangerouslySetInnerHTML={{ __html: description }}
 />
           </div>
         </div>
       </section>
 
-      {journeyCards.map((journey) => (
+      {journeyCards.map((journey, index) => (
         <Journey
           key={journey.id}
           title={journey.title}
@@ -111,6 +111,7 @@ export default async function Index() {
           btnText={journey.btnText}
           bgColor={journey.bgColor}
           href={journey.href}
+          defaultOpen={index === 1}
         />
       ))}
     </div>

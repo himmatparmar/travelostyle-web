@@ -24,7 +24,7 @@ export default function TimingSection() {
 
       <div className="relative z-10 mx-auto max-w-6xl px-6 md:px-12">
         <div className="max-w-3xl">
-          <h2 className="mt-0 md:mt-15 text-[24px] md:text-[2.8vw] font-bold md:font-semibold leading-[34px] md:leading-[1.2] text-ink">
+          <h2 className="mt-0 md:mt-15 text-[30px] md:text-[2.8vw] font-bold md:font-semibold leading-[40px] md:leading-[1.2] text-ink">
             Be at the right <br className="md:hidden" /> place, at exactly the
             <br />
             right time
@@ -35,7 +35,7 @@ export default function TimingSection() {
             you&apos;re travelling alongside the grain of a place. Trust us,
             arriving somewhere in its best season is a rare kind of magic.
           </p>
-          <div className="md:hidden mt-5 flex flex-col gap-5 text-[13px] leading-[20px] text-[#555555]">
+          <div className="md:hidden mt-5 flex flex-col gap-5 text-[16px] font-medium leading-[20px] text-ink">
             <p>
               Timing isn&apos;t everything — but it is a lot. Travel alongside the grain of a place with TravelOStyle!
             </p>
