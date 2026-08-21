@@ -1,6 +1,10 @@
 import { CUSTOMIZATION_OPTIONS } from "./constants";
 
-export default function StepTwo({ formData, toggleCustomization }) {
+export default function StepTwo({
+  formData,
+  toggleCustomization,
+  options = CUSTOMIZATION_OPTIONS,
+}) {
   return (
     <div>
       <h3 className="text-[15px] font-semibold text-[#1A1A1A]">
@@ -11,7 +15,7 @@ export default function StepTwo({ formData, toggleCustomization }) {
       </p>
 
       <div className="mt-5 flex flex-col gap-4">
-        {CUSTOMIZATION_OPTIONS.map((option) => (
+        {options.map((option) => (
           <label
             key={option}
             className="flex cursor-pointer items-start gap-2.5"

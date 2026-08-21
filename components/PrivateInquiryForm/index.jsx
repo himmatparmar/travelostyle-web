@@ -2,7 +2,15 @@
 
 import { useState } from "react";
 import { X } from "lucide-react";
-import { TOTAL_STEPS, initialFormData } from "./constants";
+import {
+  TOTAL_STEPS,
+  initialFormData,
+  CUSTOMIZATION_OPTIONS,
+  STOPOVER_OPTIONS,
+  INSPIRATIONAL_CUSTOMIZATION_OPTIONS,
+  INSPIRATIONAL_STOPOVER_OPTIONS,
+  INSPIRATIONAL_TRIP_REASONS,
+} from "./constants";
 import JourneySummaryCard from "./JourneySummaryCard";
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
@@ -80,9 +88,22 @@ export default function PrivateInquiryForm({
   // Submits to Drupal's webform_rest endpoint, same pattern as the
   // ContactInquiry ("contact_inquiry") form: fetch a CSRF token, basic-auth
   // with the service account, then POST the mapped field values.
+  // true when the form is opened without a specific departure (the
+  // generic "Inspirational Itineraries" flow) — false for the
+  // departure-specific "Request A Private Journey" flow.
+  const isInspirational = !showDepartureDate;
+
+  const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitError("");
+
+    if (!EMAIL_PATTERN.test(formData.email.trim())) {
+      setSubmitError("Please enter a valid email address.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -110,28 +131,71 @@ export default function PrivateInquiryForm({
             Authorization: `Basic ${credentials}`,
             "X-CSRF-Token": csrfToken,
           },
-          body: JSON.stringify({
-            webform_id: "private_journey_inquiry_webform",
-            journey_id: journey?.id || journeyId || "",
-            journey_departure_id: departure?.id || departureId || "",
-            first_name: formData.firstName.trim(),
-            last_name: formData.lastName.trim(),
-            title: formData.title,
-            country_code: formData.countryCode,
-            phone: formData.phone.trim(),
-            email: formData.email.trim(),
-            guests: Number(formData.guests) || 0,
-            traveling_with_children: formData.travelingWithChildren,
-            flight_assistance: formData.flightAssistance,
-            customizations: formData.customizations,
-            stopovers: formData.stopovers,
-            discuss_custom_stopovers: formData.discussCustomStopovers ? 1 : 0,
-            trip_reason: formData.tripReason,
-            travel_month: formData.travelMonth,
-            travel_year: formData.travelYear,
-            travel_info_note: formData.travelInfoNote.trim(),
-            consent: formData.consent ? 1 : 0,
-          }),
+          // Same modal/component powers both the departure-specific "Request
+          // A Private Journey" flow and the generic "Inspirational
+          // Itineraries" flow (see the `showDepartureDate`/`label` props) —
+          // each submits to a different Drupal webform with slightly
+          // different field names, so the payload is branched here.
+          body: JSON.stringify(
+            isInspirational
+              ? {
+                  webform_id: "inspirational_itineraries_form",
+                  journey_id: journey?.id || journeyId || "",
+                  journey_departure_id: departure?.id || departureId || "",
+                  journey_title: journey?.title || "",
+                  // NOTE: assumed shape — Drupal only specifies this as a
+                  // JSON-encoded string, not the exact keys it should
+                  // contain. Adjust if the real webform expects different
+                  // nested fields.
+                  journey_data: JSON.stringify({
+                    route: journey?.route || "",
+                    base_price: journey?.offerPrice ?? journey?.basePrice ?? 0,
+                  }),
+                  guests: Number(formData.guests) || 0,
+                  traveling_with_children: formData.travelingWithChildren,
+                  flight_assistance: formData.flightAssistance,
+                  travel_year: formData.travelYear,
+                  travel_month: formData.travelMonth,
+                  customizations: formData.customizations,
+                  stopovers: formData.stopovers,
+                  discuss_custom_stopovers: formData.discussCustomStopovers
+                    ? 1
+                    : 0,
+                  trip_reason: formData.tripReason,
+                  travel_info_note: formData.travelInfoNote.trim(),
+                  title: formData.title,
+                  first_name: formData.firstName.trim(),
+                  last_name: formData.lastName.trim(),
+                  country_code: formData.countryCode,
+                  phone: formData.phone.trim(),
+                  email_id: formData.email.trim(),
+                  consent: formData.consent ? 1 : 0,
+                }
+              : {
+                  webform_id: "private_journey_inquiry_webform",
+                  journey_id: journey?.id || journeyId || "",
+                  journey_departure_id: departure?.id || departureId || "",
+                  first_name: formData.firstName.trim(),
+                  last_name: formData.lastName.trim(),
+                  title: formData.title,
+                  country_code: formData.countryCode,
+                  phone: formData.phone.trim(),
+                  email: formData.email.trim(),
+                  guests: Number(formData.guests) || 0,
+                  traveling_with_children: formData.travelingWithChildren,
+                  flight_assistance: formData.flightAssistance,
+                  customizations: formData.customizations,
+                  stopovers: formData.stopovers,
+                  discuss_custom_stopovers: formData.discussCustomStopovers
+                    ? 1
+                    : 0,
+                  trip_reason: formData.tripReason,
+                  travel_month: formData.travelMonth,
+                  travel_year: formData.travelYear,
+                  travel_info_note: formData.travelInfoNote.trim(),
+                  consent: formData.consent ? 1 : 0,
+                }
+          ),
         }
       );
 
@@ -226,6 +290,11 @@ export default function PrivateInquiryForm({
                       <StepTwo
                         formData={formData}
                         toggleCustomization={toggleCustomization}
+                        options={
+                          isInspirational
+                            ? INSPIRATIONAL_CUSTOMIZATION_OPTIONS
+                            : CUSTOMIZATION_OPTIONS
+                        }
                       />
                     )}
                     {step === 3 && (
@@ -233,10 +302,21 @@ export default function PrivateInquiryForm({
                         formData={formData}
                         toggleStopover={toggleStopover}
                         updateField={updateField}
+                        options={
+                          isInspirational
+                            ? INSPIRATIONAL_STOPOVER_OPTIONS
+                            : STOPOVER_OPTIONS
+                        }
                       />
                     )}
                     {step === 4 && (
-                      <StepFour formData={formData} updateField={updateField} />
+                      <StepFour
+                        formData={formData}
+                        updateField={updateField}
+                        reasonOptions={
+                          isInspirational ? INSPIRATIONAL_TRIP_REASONS : undefined
+                        }
+                      />
                     )}
                   </div>
 

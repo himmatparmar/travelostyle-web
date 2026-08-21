@@ -20,10 +20,12 @@ function RadioOption({ name, value, checked, onChange, label }) {
   );
 }
 
-export default function StepFour({ formData, updateField }) {
+export default function StepFour({ formData, updateField, reasonOptions }) {
   // Row 1: Honeymoon, Birthday, Babymoon, Anniversary, Family Trip, Bucket List
   // Row 2: Graduation, Friend Trip, Family Trip, Because I love to travel
-  const row1 = [
+  // When `reasonOptions` is supplied (the inspirational form's shorter,
+  // Drupal-configured list), it's rendered as a single wrapped row instead.
+  const row1 = reasonOptions || [
     "Honeymoon",
     "Birthday",
     "Babymoon",
@@ -31,12 +33,9 @@ export default function StepFour({ formData, updateField }) {
     "Family Trip",
     "Bucket List",
   ];
-  const row2 = [
-    "Graduation",
-    "Friend Trip",
-    "Family Trip",
-    "Because I love to travel",
-  ];
+  const row2 = reasonOptions
+    ? []
+    : ["Graduation", "Friend Trip", "Family Trip", "Because I love to travel"];
 
   return (
     <div className="w-full font-sans">
