@@ -39,6 +39,8 @@ export default function PrivateInquiryForm({
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   if (!isOpen) return null;
 
@@ -71,15 +73,87 @@ export default function PrivateInquiryForm({
     onClose?.();
     setStep(1);
     setSubmitted(false);
+    setSubmitError("");
     setFormData(initialFormData);
   };
 
-  const handleSubmit = (e) => {
+  // Submits to Drupal's webform_rest endpoint, same pattern as the
+  // ContactInquiry ("contact_inquiry") form: fetch a CSRF token, basic-auth
+  // with the service account, then POST the mapped field values.
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit?.({ ...formData, journey, departure });
-    setSubmitted(true);
+    setSubmitError("");
+    setIsSubmitting(true);
+
+    try {
+      const csrfRes = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/session/token`
+      );
+
+      if (!csrfRes.ok) {
+        throw new Error("Failed to fetch CSRF token");
+      }
+
+      const csrfToken = await csrfRes.text();
+
+      const credentials = btoa(
+        `${process.env.NEXT_PUBLIC_DRUPAL_USER}:${process.env.NEXT_PUBLIC_DRUPAL_PASS}`
+      );
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/webform_rest/submit`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Basic ${credentials}`,
+            "X-CSRF-Token": csrfToken,
+          },
+          body: JSON.stringify({
+            webform_id: "private_journey_inquiry_webform",
+            journey_id: journey?.id || journeyId || "",
+            journey_departure_id: departure?.id || departureId || "",
+            first_name: formData.firstName.trim(),
+            last_name: formData.lastName.trim(),
+            title: formData.title,
+            country_code: formData.countryCode,
+            phone: formData.phone.trim(),
+            email: formData.email.trim(),
+            guests: Number(formData.guests) || 0,
+            traveling_with_children: formData.travelingWithChildren,
+            flight_assistance: formData.flightAssistance,
+            customizations: formData.customizations,
+            stopovers: formData.stopovers,
+            discuss_custom_stopovers: formData.discussCustomStopovers ? 1 : 0,
+            trip_reason: formData.tripReason,
+            travel_month: formData.travelMonth,
+            travel_year: formData.travelYear,
+            travel_info_note: formData.travelInfoNote.trim(),
+            consent: formData.consent ? 1 : 0,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error("Private journey inquiry submission error:", data);
+        setSubmitError(data.message || "Something went wrong. Please try again.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      onSubmit?.({ ...formData, journey, departure, response: data });
+      setSubmitted(true);
+    } catch (error) {
+      console.error(error);
+      setSubmitError("Unable to submit the form. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
- 
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 font-sans backdrop-blur-[0.5px]">
       <div className="w-full max-w-[1000px]">
@@ -166,6 +240,12 @@ export default function PrivateInquiryForm({
                     )}
                   </div>
 
+                  {submitError && (
+                    <p className="mt-2 text-[11.5px] font-medium text-red-600">
+                      {submitError}
+                    </p>
+                  )}
+
                   {/* Navigation Buttons */}
                   <div className="mt-2 flex items-center justify-end gap-4">
                     {step > 1 && (
@@ -191,9 +271,10 @@ export default function PrivateInquiryForm({
                       <button
                         key="nav-submit"
                         type="submit"
-                        className="rounded-full bg-[#2B3377] px-7 py-1.5 text-[11.5px] font-bold text-white shadow-sm transition hover:bg-[#202761]"
+                        disabled={isSubmitting}
+                        className="rounded-full bg-[#2B3377] px-7 py-1.5 text-[11.5px] font-bold text-white shadow-sm transition hover:bg-[#202761] disabled:opacity-60"
                       >
-                        Submit Inquiry
+                        {isSubmitting ? "Submitting..." : "Submit Inquiry"}
                       </button>
                     )}
                   </div>
