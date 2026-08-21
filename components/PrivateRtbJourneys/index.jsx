@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import BookingSteps from "../BookingSteps";
 import GroupRevelationsSectionMobile from "../JourneyRevelationsMobile";
 import JourneyRevelationsSection from "../JourneyRevelationsSection";
@@ -11,8 +12,14 @@ import PrivateJourneysLuxury from "./PrivateJourneysLuxury";
 import ComingSoon from "../ComingSoon";
 
 export default function Index({ matrixContent, whyTakeContent, bookingStepsContent, advisorCalloutContent }) {
+  const router = useRouter();
+
   const handlePrivateCtaClick = () => {
-    console.log("Navigating to journeys...");
+    sessionStorage.setItem(
+      "journeyData",
+      JSON.stringify({ style: ["Group Journey", "Private Journey"] })
+    );
+    router.push("/itinerary");
   };
 
   return (

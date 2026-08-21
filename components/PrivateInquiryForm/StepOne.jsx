@@ -1,6 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { TRAVEL_YEARS, TRAVEL_MONTHS } from "./constants";
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function RadioOption({ name, value, checked, onChange, label }) {
   return (
@@ -23,9 +26,27 @@ function RadioOption({ name, value, checked, onChange, label }) {
 }
 
 export default function StepOne({ formData, updateField, showTravelWindow }) {
+  const [emailError, setEmailError] = useState("");
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     updateField(name, value);
+
+    if (name === "email" && emailError) {
+      // clear the error as soon as they start fixing it
+      if (value.trim() === "" || EMAIL_PATTERN.test(value.trim())) {
+        setEmailError("");
+      }
+    }
+  };
+
+  const handleEmailBlur = (e) => {
+    const value = e.target.value.trim();
+    if (value && !EMAIL_PATTERN.test(value)) {
+      setEmailError("Please enter a valid email address.");
+    } else {
+      setEmailError("");
+    }
   };
 
   return (
@@ -117,10 +138,21 @@ export default function StepOne({ formData, updateField, showTravelWindow }) {
             name="email"
             value={formData.email || ""}
             onChange={handleChange}
+            onBlur={handleEmailBlur}
             placeholder="Your Email ID"
             required
-            className="mt-0.5 block w-full border-b border-[#5A5A5A] bg-transparent pb-1 text-[11px] text-[#1A1A1A] placeholder:text-[#B0B0B0] focus:border-black focus:outline-none"
+            aria-invalid={Boolean(emailError)}
+            className={`mt-0.5 block w-full border-b bg-transparent pb-1 text-[11px] text-[#1A1A1A] placeholder:text-[#B0B0B0] focus:outline-none ${
+              emailError
+                ? "border-red-500 focus:border-red-500"
+                : "border-[#5A5A5A] focus:border-black"
+            }`}
           />
+          {emailError && (
+            <p className="mt-0.5 text-[10.5px] font-medium text-red-600">
+              {emailError}
+            </p>
+          )}
         </div>
 
         {/* No. of Guests */}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import JourneyRevelationsSection from "../JourneyRevelationsSection";
 import WhyTakeJourney from "../WhyTakeJourney";
 import AdvisorCallout from "./AdvisorCallout";
@@ -18,8 +19,14 @@ export default function Index({
   heroHeading,
   heroDescription,
 }) {
+  const router = useRouter();
+
   const handleCtaClick = () => {
-    console.log("Navigating to journeys...");
+    sessionStorage.setItem(
+      "journeyData",
+      JSON.stringify({ style: ["Group Journey"] })
+    );
+    router.push("/itinerary");
   };
 
   return (
