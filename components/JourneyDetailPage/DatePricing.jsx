@@ -26,6 +26,8 @@ export default function JourneyPricing({
 
     const openPrivateForm = (trip) =>
         setPrivateFormDeparture({         id: trip.id,
+nodeId: trip.nodeId,
+title: trip.title,
 startDate: trip.startDate, endDate: trip.endDate });
     const openGroupForm = (trip) => setGroupFormTrip(trip);
 
@@ -60,6 +62,13 @@ startDate: trip.startDate, endDate: trip.endDate });
 
     return {
         id: item.id,
+        // Node ID (not the JSON:API UUID) — needed for the Drupal
+        // webform_rest submission in PrivateInquiryForm.
+        nodeId: item.attributes?.drupal_internal__nid ?? null,
+        // Node title — paired with nodeId to build the "Label (id)"
+        // value the webform's journey_departure entity-autocomplete
+        // field expects.
+        title: item.attributes?.title || "",
 
         startDate: item.attributes?.field_departure_date,
         endDate: item.attributes?.field_return_date,

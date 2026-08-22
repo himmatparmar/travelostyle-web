@@ -4,6 +4,7 @@ import { useState } from "react";
 import { TRAVEL_YEARS, TRAVEL_MONTHS } from "./constants";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_PATTERN = /^\d{10}$/;
 
 function RadioOption({ name, value, checked, onChange, label }) {
   return (
@@ -25,8 +26,9 @@ function RadioOption({ name, value, checked, onChange, label }) {
   );
 }
 
-export default function StepOne({ formData, updateField, showTravelWindow }) {
+export default function StepOne({ formData, updateField, showTravelWindow, phoneError: externalPhoneError }) {
   const [emailError, setEmailError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +38,12 @@ export default function StepOne({ formData, updateField, showTravelWindow }) {
       // clear the error as soon as they start fixing it
       if (value.trim() === "" || EMAIL_PATTERN.test(value.trim())) {
         setEmailError("");
+      }
+    }
+
+    if (name === "phone" && phoneError) {
+      if (value.trim() === "" || PHONE_PATTERN.test(value.trim())) {
+        setPhoneError("");
       }
     }
   };
@@ -48,6 +56,20 @@ export default function StepOne({ formData, updateField, showTravelWindow }) {
       setEmailError("");
     }
   };
+
+  const handlePhoneBlur = (e) => {
+    const value = e.target.value.trim();
+    if (value && !PHONE_PATTERN.test(value)) {
+      setPhoneError("Please enter a valid 10-digit mobile number.");
+    } else {
+      setPhoneError("");
+    }
+  };
+
+  // The parent (index.jsx) also validates phone at submit time and jumps
+  // back to this step on failure — show that error here too, in case the
+  // visitor never blurred the field (e.g. browser autofill).
+  const displayedPhoneError = phoneError || externalPhoneError || "";
 
   return (
     <div className="w-full">
@@ -123,9 +145,22 @@ export default function StepOne({ formData, updateField, showTravelWindow }) {
             name="phone"
             value={formData.phone || ""}
             onChange={handleChange}
+            onBlur={handlePhoneBlur}
             placeholder="Your Mobile Number"
-            className="mt-0.5 block w-full border-b border-[#5A5A5A] bg-transparent pb-1 text-[11px] text-[#1A1A1A] placeholder:text-[#B0B0B0] focus:border-black focus:outline-none"
+            maxLength={10}
+            inputMode="numeric"
+            aria-invalid={Boolean(displayedPhoneError)}
+            className={`mt-0.5 block w-full border-b bg-transparent pb-1 text-[11px] text-[#1A1A1A] placeholder:text-[#B0B0B0] focus:outline-none ${
+              displayedPhoneError
+                ? "border-red-500 focus:border-red-500"
+                : "border-[#5A5A5A] focus:border-black"
+            }`}
           />
+          {displayedPhoneError && (
+            <p className="mt-0.5 text-[10.5px] font-medium text-red-600">
+              {displayedPhoneError}
+            </p>
+          )}
         </div>
 
         {/* Email */}

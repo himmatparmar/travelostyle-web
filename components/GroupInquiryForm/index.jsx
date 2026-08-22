@@ -48,8 +48,22 @@ export default function GroupInquiryForm({
 }) {
   const [formData, setFormData] = useState(initialFormData);
   const [submitted, setSubmitted] = useState(false);
+  const [phoneError, setPhoneError] = useState("");
 
   if (!isOpen) return null;
+
+  // NOTE: sending these as "Label (id)" strings turned out to be wrong —
+  // it broke `destination`, which had been working with a plain ID.
+  // Reverted to plain IDs (confirmed working for `destination`).
+  //
+  // `journeytype` has multiple values enabled on the webform, so it
+  // expects an array of ids via webform_rest rather than one scalar —
+  // see PrivateInquiryForm/index.jsx for the full explanation.
+  const journeyTypeValue = journey?.tagIds?.length ? journey.tagIds : "";
+  const tripNodeId = trip?.nodeId || trip?.id || "";
+  const journeyDepartureValue = tripNodeId;
+  const journeyNodeId = journey?.nodeId || journey?.id || "";
+  const destinationValue = journeyNodeId;
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -57,16 +71,24 @@ export default function GroupInquiryForm({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+    if (name === "phone") setPhoneError("");
   };
 
   const handleClose = () => {
     onClose?.();
     setFormData(initialFormData);
     setSubmitted(false);
+    setPhoneError("");
   };
 
   const handleSubmit = async(e) => {
     e.preventDefault()
+
+    if (!/^\d{10}$/.test(formData.phone.trim())) {
+      setPhoneError("Please enter a valid 10-digit mobile number.");
+      return;
+    }
+
      try {
       const csrfRes = await fetch(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/session/token`
@@ -94,6 +116,18 @@ export default function GroupInquiryForm({
           },
           body: JSON.stringify({
             webform_id: "group_trip_inquiry_webform",
+            // Node ID (not the JSON:API UUID) — same pattern as
+            // PrivateInquiryForm. `journey`/`trip` are the shared journey
+            // and departure objects from JourneyDetailClient/DatePricing,
+            // which carry `nodeId` (drupal_internal__nid).
+            journey_id: journeyNodeId,
+            journey_departure_id: tripNodeId,
+            // Entity-autocomplete fields on the webform — Drupal only
+            // extracts an ID from a "Label (id)" string (see
+            // toAutocompleteValue above).
+            journey_departure: journeyDepartureValue,
+            journeytype: journeyTypeValue,
+            destination: destinationValue,
             first_name: formData.firstName.trim(),
             last_name: formData.lastName.trim(),
             title: formData.title.trim(),
@@ -291,9 +325,14 @@ export default function GroupInquiryForm({
                         value={formData.phone}
                         onChange={handleChange}
                         placeholder="Your Mobile Number"
+                        maxLength={10}
+                        inputMode="numeric"
                         className="ml-2 w-full bg-transparent text-[12px] text-neutral-900 placeholder:text-neutral-400 focus:outline-none"
                       />
                     </div>
+                    {phoneError && (
+                      <p className="mt-1 text-[11px] text-red-500">{phoneError}</p>
+                    )}
                   </div>
 
                   {/* Email */}

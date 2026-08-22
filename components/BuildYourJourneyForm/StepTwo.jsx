@@ -1,21 +1,5 @@
 import { TRIP_REASONS } from "./constants";
 
-const ROW_1 = [
-  "Honeymoon",
-  "Birthday",
-  "Babymoon",
-  "Anniversary",
-  "Family Trip",
-  "Bucket List",
-];
-
-const ROW_2 = [
-  "Graduation",
-  "Friend Trip",
-  "Family Trip",
-  "Because I love to travel",
-];
-
 export default function StepTwo({ formData, updateField }) {
   const renderRadio = (reason, keyId) => {
     const isSelected = formData.tripReason === reason;
@@ -56,13 +40,8 @@ export default function StepTwo({ formData, updateField }) {
 
      
       <div className="mt-8 flex flex-col gap-y-4">
-     
         <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
-          {ROW_1.map((reason, idx) => renderRadio(reason, `r1-${idx}`))}
-        </div>
-
-        <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
-          {ROW_2.map((reason, idx) => renderRadio(reason, `r2-${idx}`))}
+          {TRIP_REASONS.map((reason, idx) => renderRadio(reason, `r-${idx}`))}
         </div>
       </div>
       <div className="mt-9">

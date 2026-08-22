@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { STEPS, TOTAL_STEPS, initialFormData } from "./constants";
 import StepOne from "./StepOne";
@@ -16,11 +16,67 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
+  const [phoneError, setPhoneError] = useState("");
+  // [{ id, title, tagIds }] real journeys for the "Where do you want to
+  // go?" list in StepOne — id is the plain Drupal node ID
+  // (drupal_internal__nid), tagIds are the plain ids of that journey's
+  // field_journey_tag ("Journey Style") terms, e.g. "Private Journey".
+  const [destinationOptions, setDestinationOptions] = useState([]);
+
+  // This modal is mounted from many places (CraftJourneyButton, CtaBanner)
+  // with no server-rendered parent to fetch this for it, so it's fetched
+  // client-side, once, the first time the modal opens.
+  useEffect(() => {
+    if (!isOpen || destinationOptions.length) return;
+
+    let cancelled = false;
+
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/jsonapi/node/journey?include=field_journey_tag`
+    )
+      .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
+      .then((json) => {
+        if (cancelled) return;
+        const included = json.included || [];
+
+        const options = (json.data || [])
+          .map((item) => {
+            const tagData = item.relationships?.field_journey_tag?.data;
+            const tagRefs = Array.isArray(tagData) ? tagData : tagData ? [tagData] : [];
+            const tagIds = tagRefs
+              .map((t) => {
+                const e = included.find((inc) => inc.id === t.id);
+                const tid =
+                  e?.attributes?.drupal_internal__tid ??
+                  e?.attributes?.drupal_internal__nid;
+                return tid != null ? Number(tid) : null;
+              })
+              .filter((id) => id !== null && !Number.isNaN(id));
+
+            return {
+              id: item.attributes?.drupal_internal__nid ?? null,
+              title: item.attributes?.title || "",
+              tagIds,
+            };
+          })
+          .filter((option) => option.id && option.title);
+        setDestinationOptions(options);
+      })
+      .catch((err) => {
+        console.error("Failed to load destination options", err);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isOpen, destinationOptions.length]);
 
   if (!isOpen) return null;
 
-  const updateField = (name, value) =>
+  const updateField = (name, value) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
+    if (name === "phone") setPhoneError("");
+  };
 
   const toggleArrayValue = (field, value) =>
     setFormData((prev) => ({
@@ -48,10 +104,20 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
     setStep(1);
     setSubmitted(false);
     setFormData(initialFormData);
+    setPhoneError("");
   };
 
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
+
+    if (!/^\d{10}$/.test((formData.phone || "").trim())) {
+      setPhoneError("Please enter a valid 10-digit mobile number.");
+      // Phone is on step 6 (StepFour) — jump back to it so the error is
+      // actually visible, in case this fires from some other path.
+      setStep(TOTAL_STEPS);
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -73,7 +139,24 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
       // 2. Exact Drupal Webform Payload Mapping
       const payload = {
         webform_id: "craft_your_journey",
-        destination: formData.destination,
+        // `destination` on this webform is an entity-autocomplete field
+        // (same pattern as PrivateInquiryForm/GroupInquiryForm) — it
+        // needs the journey node's plain ID, not the free-typed title
+        // text, or Drupal silently drops it. Empty if the visitor typed
+        // something that wasn't actually selected from the list.
+        destination: formData.destinationId || "",
+        // journeytype -> the selected journey's field_journey_tag term(s)
+        // (e.g. "Private Journey"). Sent as an array since this element
+        // (like journeytype on the other forms) has multiple values
+        // enabled.
+        journeytype: formData.journeyTypeIds?.length ? formData.journeyTypeIds : "",
+        // Plain node ID (drupal_internal__nid) of the journey selected
+        // from the "Where do you want to go?" list — empty if the
+        // visitor free-typed something not in the list. NOTE: this
+        // "journey_id" key is a guess at the webform's element machine
+        // name — confirm/rename to match whatever element is added on
+        // the Drupal side (see conversation).
+        journey_id: formData.destinationId || "",
         experiences: formData.experiences,
         adults: formData.guests?.adults || 2,
         children: formData.guests?.children || 0,
@@ -183,6 +266,7 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
                   formData={formData}
                   updateField={updateField}
                   toggleExperience={toggleExperience}
+                  destinationOptions={destinationOptions}
                 />
               )}
               {step === 2 && (
@@ -205,7 +289,11 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
                 <StepThree formData={formData} updateField={updateField} />
               )}
               {step === 6 && (
-                <StepFour formData={formData} updateField={updateField} />
+                <StepFour
+                  formData={formData}
+                  updateField={updateField}
+                  phoneError={phoneError}
+                />
               )}
 
               <div className="mt-8 flex items-center gap-8">
