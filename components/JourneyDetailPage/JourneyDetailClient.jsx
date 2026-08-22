@@ -59,17 +59,29 @@ function resolveImage(item, included) {
   return buildFileUrl(raw) || "/Morocco.svg";
 }
 
-function resolveTags(item, included) {
+// field_journey_tag ("Journey Type" field in Drupal, machine name
+// field_journey_tag) references the "Journey Style" taxonomy vocabulary
+// (e.g. "Private Journey"). Resolves each referenced term to both its
+// label and its plain Drupal id (drupal_internal__tid) in one pass, so
+// the two always stay paired correctly.
+function resolveJourneyStyleTerms(item, included) {
   const data = item.relationships?.field_journey_tag?.data;
   const arr = Array.isArray(data) ? data : data ? [data] : [];
+
   return arr
+    .filter((t) => t.type === "taxonomy_term--journey_style")
     .map((t) => {
-      const e = included.find((i) => i.type === "taxonomy_term--tags" && i.id === t.id);
-      return e?.attributes?.name;
+      // The relationship entry itself carries the real plain id via
+      // meta.drupal_internal__target_id — read it straight from there
+      // instead of re-deriving it by matching through `included`, which
+      // depends on the referenced entity actually being present there.
+      const id = t.meta?.drupal_internal__target_id;
+      const e = included.find((i) => i.id === t.id && i.type === t.type);
+      const label = e?.attributes?.name || e?.attributes?.title;
+      return label && id != null ? { id: Number(id), label } : null;
     })
     .filter(Boolean);
 }
-
 function resolveLocation(rel, included) {
   const id = rel?.data?.id;
 
@@ -287,10 +299,16 @@ tabs.itinerary = {
 
 function transformItem(item, included) {
   const tabSections = resolveTabSections(item, included);
+  const journeyStyleTerms = resolveJourneyStyleTerms(item, included);
 
   return {
     ...MOCK_JOURNEY,
         id: item.id,
+        // Drupal's JSON:API `id` is the node UUID. The webform_rest
+        // submission (see PrivateInquiryForm) needs the plain node ID
+        // instead, which JSON:API exposes as `drupal_internal__nid` on
+        // node attributes.
+        nodeId: item.attributes?.drupal_internal__nid ?? null,
 
     title: item.attributes.title || MOCK_JOURNEY.title,
     desc: item.attributes.field_short_description || MOCK_JOURNEY.desc,
@@ -306,7 +324,15 @@ originalPrice: item.attributes.field_original_price,
     // (not a relationship), so it's already present in item.attributes —
     // no change to the `include` param needed to fetch it.
     earlyBird: Boolean(item.attributes.field_early_bird),
-    tags: resolveTags(item, included),
+    // {id, label} pairs for the field_journey_tag ("Journey Style")
+    // terms — used to build the "Label (id)" value the webform's
+    // journeytype entity-autocomplete field expects.
+    journeyStyleTerms,
+    tags: journeyStyleTerms.map((t) => t.label),
+    // Plain IDs for the same terms — kept for any caller still using the
+    // bare ID (most webform entity-autocomplete fields need the "Label
+    // (id)" form instead — see journeyStyleTerms above).
+    tagIds: journeyStyleTerms.map((t) => t.id),
     startCity: resolveLocation(item.relationships?.field_starts_in, included) || MOCK_JOURNEY.startCity,
     endCity: resolveLocation(item.relationships?.field_ends_in, included) || MOCK_JOURNEY.endCity,
     bestSeason: resolveBestSeasons(item, included) || MOCK_JOURNEY.bestSeason,

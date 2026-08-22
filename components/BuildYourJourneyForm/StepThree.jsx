@@ -1,4 +1,4 @@
-import { BUDGET_RANGES } from "./constants";
+import { BUDGET_PREFERENCES, BUDGET_RANGES } from "./constants";
 
 export default function StepThree({ formData, updateField }) {
   const renderRadioOption = (name, value, label, isSelected) => (
@@ -99,22 +99,16 @@ export default function StepThree({ formData, updateField }) {
             What feels right?
           </label>
           <div className="mt-4 flex flex-col gap-y-3 sm:flex-row sm:items-start sm:gap-x-6">
-            <div className="sm:max-w-[210px]">
-              {renderRadioOption(
-                "budgetPreference",
-                "best-within-budget",
-                "I want to experience the best I can within my budget",
-                formData.budgetPreference === "best-within-budget"
-              )}
-            </div>
-            <div className="sm:max-w-[230px]">
-              {renderRadioOption(
-                "budgetPreference",
-                "open-to-increase",
-                "I am open to increasing my budget for the right set of experiences",
-                formData.budgetPreference === "open-to-increase"
-              )}
-            </div>
+            {BUDGET_PREFERENCES.map((option) => (
+              <div key={option.value} className="sm:max-w-[230px]">
+                {renderRadioOption(
+                  "budgetPreference",
+                  option.value,
+                  option.label,
+                  formData.budgetPreference === option.value
+                )}
+              </div>
+            ))}
           </div>
         </div>
 

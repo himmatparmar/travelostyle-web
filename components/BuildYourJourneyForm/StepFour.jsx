@@ -1,4 +1,4 @@
-export default function StepFour({ formData, updateField }) {
+export default function StepFour({ formData, updateField, phoneError }) {
   return (
     <div className="flex flex-col">
       <h3 className="text-[18px] font-[600] leading-[21px] tracking-[0.05em] text-[#1A1A1A]">
@@ -58,8 +58,13 @@ export default function StepFour({ formData, updateField }) {
             value={formData.phone || ""}
             onChange={(e) => updateField("phone", e.target.value)}
             placeholder="Your Mobile Number"
+            maxLength={10}
+            inputMode="numeric"
             className="w-full border-b border-[#1A1A1A] bg-transparent pb-1 pt-1 text-[13.5px] sm:text-[14px] tracking-[0.03em] text-[#1A1A1A] placeholder:text-[#757575] focus:outline-none"
           />
+          {phoneError && (
+            <p className="mt-1 text-[11px] text-red-500">{phoneError}</p>
+          )}
         </div>
 
         <div className="flex flex-col">

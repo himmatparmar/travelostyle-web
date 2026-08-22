@@ -19,6 +19,7 @@ export default function GeneralInquiryForm({ isOpen, onClose, onSubmit }) {
   const [formData, setFormData] = useState(initialFormData);
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [phoneError, setPhoneError] = useState("");
 
   if (!isOpen) return null;
 
@@ -28,16 +29,24 @@ export default function GeneralInquiryForm({ isOpen, onClose, onSubmit }) {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+    if (name === "phone") setPhoneError("");
   };
 
   const handleClose = () => {
     onClose?.();
     setFormData(initialFormData);
     setSubmitted(false);
+    setPhoneError("");
   };
 
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
+
+    if (!/^\d{10}$/.test(formData.phone.trim())) {
+      setPhoneError("Please enter a valid 10-digit mobile number.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -243,9 +252,14 @@ export default function GeneralInquiryForm({ isOpen, onClose, onSubmit }) {
                         onChange={handleChange}
                         placeholder="Your number"
                         required
+                        maxLength={10}
+                        inputMode="numeric"
                         className="w-full border-b border-[#262626] bg-transparent pb-1 text-[13px] sm:text-[14px] leading-tight tracking-[0.04em] text-[#000000] placeholder:text-[#757575] focus:outline-none"
                       />
                     </div>
+                    {phoneError && (
+                      <p className="mt-1 text-[11px] text-red-500">{phoneError}</p>
+                    )}
                   </div>
                 </div>
 
