@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function TravelBetter() {
   const cardClass =
-    "rounded-[10px] border-[2px] border-[#4E4DAA] p-[16px] w-full max-w-[337px] h-[209px] mx-auto lg:max-w-none lg:h-[209px]";
+    "rounded-[10px] border-[2px] border-[#2C3078] p-[24px] lg:p-[16px] w-full max-w-[337px] h-[209px] mx-auto flex flex-col lg:max-w-none lg:h-[209px]";
 
   return (
     <section className="relative px-4 md:px-[60px] lg:px-[113px] pt-[60px] md:pt-[100px] lg:pt-[140px] pb-[60px] lg:pb-[120px] overflow-hidden">
@@ -24,7 +24,7 @@ export default function TravelBetter() {
       />
 
       <div className="relative z-10 max-w-[520px]">
-        <p className="font-taprom text-[21px] font-normal leading-[64px] tracking-[0.05em] text-black [text-box-trim:cap] [text-box-edge:cap_alphabetic]">
+        <p className="font-taprom text-[21px] font-normal leading-[32px] lg:leading-[64px] tracking-[0.05em] text-black [text-box-trim:cap] [text-box-edge:cap_alphabetic]">
           ways we like to travel
         </p>
 
@@ -32,7 +32,7 @@ export default function TravelBetter() {
           Travel better with us
         </h2>
 
-        <p className="mt-8 max-w-[830px] font-[Nohemi] text-[16px] font-normal leading-[28px] tracking-[0.05em] text-black [text-box-trim:cap] [text-box-edge:cap_alphabetic]">
+        <p className="mt-8 max-w-[830px]  text-[16px] font-normal leading-[28px] tracking-[0.05em] text-black [text-box-trim:cap] [text-box-edge:cap_alphabetic]">
           TravelOStyle offers a curated collection of ready-to-book journeys
           across the world &ndash; across travel styles, budget points, and modes of
           travel. Alongside that, we personalise journeys for those who want
@@ -44,34 +44,34 @@ export default function TravelBetter() {
       <div className="relative z-10 mt-[40px] md:mt-[70px]">
         {/* Row 1 */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8 lg:gap-x-[24px] lg:gap-y-[24px]">
-          <div className={`${cardClass} bg-[#E7ECC7]`}>
+          <div className={`${cardClass} bg-[#EFF3CF]`}>
             <p className="text-[20px]">✦</p>
-            <h3 className="mt-2 font-semibold">Group Journeys</h3>
-            <p className="mt-2 text-[12px]">
+            <h3 className="mt-4 text-[18px] font-semibold leading-[28px] tracking-[0.05em]">Group Journeys</h3>
+            <p className="mt-3 text-[16px] leading-[24px] tracking-[0.05em]">
               Curated journeys with shared departures.
             </p>
           </div>
 
-          <div className={`${cardClass} bg-[#CFE5F8]`}>
+          <div className={`${cardClass} bg-[#C2E5FF]`}>
             <p className="text-[20px]">✦</p>
-            <h3 className="mt-2 font-semibold">Private Journeys</h3>
-            <p className="mt-2 text-[12px]">
+            <h3 className="mt-4 text-[18px] font-semibold leading-[28px] tracking-[0.05em]">Private Journeys</h3>
+            <p className="mt-3 text-[16px] leading-[24px] tracking-[0.05em]">
               Pre-planned journeys customized for you
             </p>
           </div>
 
-          <div className={`${cardClass} bg-[#F5D6B9]`}>
+          <div className={`${cardClass} bg-[#FFDDBD]`}>
             <p className="text-[20px]">✦</p>
-            <h3 className="mt-2 font-semibold">Tailormade Journeys</h3>
-            <p className="mt-2 text-[12px]">
+            <h3 className="mt-4 text-[18px] font-semibold leading-[28px] tracking-[0.05em]">Tailormade Journeys</h3>
+            <p className="mt-3 text-[16px] leading-[24px] tracking-[0.05em]">
               Start from scratch &amp; take a trip that's entirely yours
             </p>
           </div>
 
-          <div className={`${cardClass} bg-[#EFE2DC]`}>
+          <div className={`${cardClass} bg-[#F2E2DA]`}>
             <p className="text-[20px]">✦</p>
-            <h3 className="mt-2 font-semibold">Cruises</h3>
-            <p className="mt-2 text-[12px]">
+            <h3 className="mt-4 text-[18px] font-semibold leading-[28px] tracking-[0.05em]">Cruises</h3>
+            <p className="mt-3 text-[16px] leading-[24px] tracking-[0.05em]">
               Sea and river journeys with changing views
             </p>
           </div>
@@ -79,27 +79,27 @@ export default function TravelBetter() {
 
         {/* Row 2 */}
         <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8 lg:gap-x-[24px] lg:gap-y-[24px] items-center">
-          <div className={`${cardClass} bg-[#FFFFFF]`}>
+          <div className={`${cardClass} bg-[#FAFAFA]`}>
             <p className="text-[20px]">✦</p>
-            <h3 className="mt-2 font-semibold">Land &amp; Rail Journeys</h3>
-            <p className="mt-2 text-[12px]">
+            <h3 className="mt-4 text-[18px] font-semibold leading-[28px] tracking-[0.05em]">Land &amp; Rail Journeys</h3>
+            <p className="mt-3 text-[16px] leading-[24px] tracking-[0.05em]">
               Scenic routes that can be experienced with a group or privately
             </p>
           </div>
 
-          <div className={`${cardClass} bg-[#E7ECC7]`}>
+          <div className={`${cardClass} bg-[#EFF3CF]`}>
             <p className="text-[20px]">✦</p>
-            <h3 className="mt-2 font-semibold">Private Jet Journeys</h3>
-            <p className="mt-2 text-[12px]">
+            <h3 className="mt-4 text-[18px] font-semibold leading-[28px] tracking-[0.05em]">Private Jet Journeys</h3>
+            <p className="mt-3 text-[16px] leading-[24px] tracking-[0.05em]">
               Luxurious air travel so you can move freely through the world
             </p>
           </div>
 
-          <div className="sm:col-span-2 lg:col-span-2 pt-2">
-            <p className="font-taprom font-normal text-[26px] md:text-[32px] lg:text-[34px] leading-[48px] md:leading-[58px] lg:leading-[46px] lg:tracking-[0.05em] text-[#000000]">
+          <div className="sm:col-span-2 lg:col-span-2 pt-6 lg:pt-2">
+            <p className="font-taprom font-normal text-[40px] md:text-[32px] lg:text-[34px] leading-[48px] md:leading-[58px] lg:leading-[46px] tracking-[0.05em] text-[#000000]">
               Our range is wide{" "}
-              <span className="bg-[#F2E2DA] px-1 py-0 box-decoration-clone">
-                because we don't believe in a one-size-fits all
+              <span className="bg-[#F2E2DA] box-decoration-slice leading-[1.9] [-webkit-box-decoration-break:slice] [box-decoration-break:slice]">
+                because we don&apos;t believe in a one-size-fits all
               </span>{" "}
               approach to the world
             </p>

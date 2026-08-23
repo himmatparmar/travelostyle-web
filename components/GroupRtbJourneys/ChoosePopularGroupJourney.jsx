@@ -39,6 +39,7 @@ export default function ChoosePopularGroupJourney() {
     }
 
     const compareTrip = {
+      viewTripUrl: trip.viewTripUrl,
       id: trip.id,
       title: trip.title,
       image: trip.image,

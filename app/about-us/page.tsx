@@ -84,7 +84,7 @@ async function getJourneys(): Promise<{
 export default async function AboutUs() {
    const testimonialData = await getTestimonials();
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-[#F9F9F9] lg:bg-white min-h-screen">
       <div className="border-b-2 border-[#2C3078]">
       <SearchBar />
       </div>

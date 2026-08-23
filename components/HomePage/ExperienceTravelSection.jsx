@@ -61,7 +61,7 @@ export default async function ExperienceTravelSection() {
             <span className="bg-[#F1E3D8] px-[3px] py-[1px] mb-5">
               Experience travel the
             </span>
-            <span className="bg-[#F1E3D8] px-[3px] py-[1px] mb-2">
+            <span className="bg-[#F1E3D8] px-[3px] py-[1px] mb-2 inline-block w-fit mt-6">
               way it should be
             </span>
             {plainHeading}

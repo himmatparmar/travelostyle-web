@@ -5,34 +5,36 @@ export default function LetsFindOut() {
   return (
     <>
     {/* MOBILE */}
-    <section className="lg:hidden bg-white overflow-hidden px-5 py-16">
-      <h2 className="max-w-[240px] text-[26px] font-semibold leading-[36px] text-[#1A1A2E]">
+    <section className="lg:hidden bg-[#F9F9F9] overflow-hidden px-5 py-16">
+      <h2 className="max-w-[336px] text-[32px] font-semibold leading-[40px] tracking-[0.05em] text-[#000000]">
         Curious about what&apos;s possible? Let&apos;s find out together
       </h2>
 
-      <div className="relative mx-auto mt-10 h-[420px] w-full max-w-[330px]">
-        <div className="absolute top-0 right-0 w-[215px] h-[250px] rotate-[9.87deg] border-2 border-[#2C3078] bg-white shadow-[0_15px_25px_rgba(26,26,26,0.12)] p-2">
+      <div className="relative -mx-5 mt-10 h-[470px] w-[calc(100%+40px)]">
+        {/* Back photo — upper right, tilted counter-clockwise, bleeds off the right edge */}
+        <div className="absolute top-0 left-[107px] w-[284px] h-[324px] -rotate-[9.87deg] border-2 border-[#2C3078] bg-[#FAFAFA] shadow-[0_15px_25px_rgba(26,26,26,0.1)] p-[15px]">
           <Image
             src="/Dubai.svg"
             alt=""
-            width={200}
-            height={230}
-            className="w-full h-full object-cover"
+            width={254}
+            height={254}
+            className="w-full h-[254px] object-cover"
           />
         </div>
 
-        <div className="absolute bottom-0 left-0 z-10 w-[240px] h-[280px] rotate-[-6.48deg] border-2 border-[#2C3078] bg-white shadow-[0_15px_25px_rgba(26,26,26,0.12)] p-2">
+        {/* Front photo — lower left, tilted clockwise, bleeds off the left edge */}
+        <div className="absolute bottom-0 -left-[100px] z-10 w-[319px] h-[363px] rotate-[6.48deg] border-2 border-[#2C3078] bg-[#FAFAFA] shadow-[0_15px_25px_rgba(26,26,26,0.1)] p-[16px]">
           <Image
             src="/Dubai.svg"
             alt=""
-            width={225}
-            height={260}
-            className="w-full h-full object-cover"
+            width={286}
+            height={286}
+            className="w-full h-[286px] object-cover"
           />
         </div>
       </div>
 
-      <p className="mt-10 text-[15px] leading-[26px] text-[#4A4A4A]">
+      <p className="mt-10 text-[18px] leading-[32px] tracking-[0.05em] text-[#000000]">
         Whether you know exactly where you want to go or you&apos;re still at
         the &apos;somewhere warm, sometime soon&apos; stage – TravelOStyle is
         here. Start a conversation, browse the journeys, or just tell us how
@@ -40,7 +42,7 @@ export default function LetsFindOut() {
       </p>
 
       <div className="mt-8 flex justify-center">
-        <TalkToAdvisorButton className="h-[44px] rounded-[100px] bg-[#2C3078] px-8 text-[16px] font-medium text-white" />
+        <TalkToAdvisorButton className="h-[44px] w-full md:max-w-[269px] rounded-[100px] bg-[#2C3078] px-6 text-[18px] font-semibold tracking-[0.05em] text-[#FAFAFA]" />
       </div>
     </section>
 

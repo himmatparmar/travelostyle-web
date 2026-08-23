@@ -30,20 +30,20 @@ export default function ExploreAllJourneys() {
 </h2>
 
 {/* Mobile Heading */}
-<h2 className="block lg:hidden font-[Taprom] text-[38px] leading-[1.2] text-ink text-center">
-  <span className="block w-fit mx-auto bg-[#F1E7E2] mb-2">
+<h2 className="block lg:hidden font-[Taprom] text-[40px] leading-[48px] tracking-[0.05em] text-ink text-center">
+  <span className="block w-fit mx-auto bg-[#F2E2DA]  mb-[15px]">
     There’s a version of
   </span>
 
-  <span className="block w-fit mx-auto bg-[#F1E7E2] mb-2">
+  <span className="block w-fit mx-auto bg-[#F2E2DA] mb-[15px]">
     the world out there
   </span>
 
-  <span className="block w-fit mx-auto bg-[#F1E7E2] mb-2">
+  <span className="block w-fit mx-auto bg-[#F2E2DA]  mb-[15px]">
     that has your name
   </span>
 
-  <span className="block w-fit mx-auto bg-[#F1E7E2]">
+  <span className="block w-fit mx-auto bg-[#F2E2DA]">
     on it.
   </span>
 </h2>
@@ -72,22 +72,22 @@ export default function ExploreAllJourneys() {
               alt="Barcelona Spain"
               width={948}
               height={888}
-              className="w-[390px] h-[390px] lg:w-full lg:h-[888px] object-cover"
+              className="w-full h-[390px] lg:h-[888px] object-cover"
               priority
             />
 
             <div className="absolute inset-0 bg-black/20" />
 
-            <div className="absolute bottom-8 left-8 z-10">
-              <p className="text-white text-[18px] font-medium">
+            <div className="absolute bottom-[38px] left-[26px] z-10 lg:bottom-8 lg:left-8">
+              <p className="text-[#FAFAFA] text-[18px] font-semibold leading-[28px] tracking-[0.05em]">
                 Barcelona, Spain
               </p>
             </div>
          
           </div>
-   <div className="flex justify-center mt-5 md:mt-8 lg:hidden">
-  <button className="h-[37px] px-4 rounded-full bg-[#2C3078] flex items-center justify-center">
-    <span className="font-semibold text-[14px] leading-[20px] tracking-[0.05em] text-[#FAFAFA] whitespace-nowrap">
+   <div className="flex md:justify-center ml-7 md:ml-0 mt-5 md:mt-8 lg:hidden">
+  <button className="h-[37px] w-[224px] px-4 rounded-full bg-[#2C3078] flex items-center justify-center">
+    <span className="font-semibold text-[18px] leading-[32px] tracking-[0.05em] text-[#FAFAFA] whitespace-nowrap">
       Explore All Journeys
     </span>
   </button>

@@ -215,7 +215,7 @@ export default function TravelDestinationWidget() {
               <div
                 key={month}
                 style={{
-                  border: "1px solid #333333",
+                  border: "2px solid #333333",
                   borderRadius: "6px",
                   background: isExpanded ? "#ebdccb" : "#eef2da",
                   overflow: "hidden",
