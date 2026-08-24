@@ -149,7 +149,7 @@ export default function JourneyPricing({
       </div>
 
       <div className="text-center mt-10">
-        <p className="text-gray-500">
+        <p className="text-[#757575]">
           No departures currently available for {selectedYear}
         </p>
       </div>
@@ -266,7 +266,7 @@ export default function JourneyPricing({
                                     </div>
 
                                     <div className="text-right">
-                                      <p className="text-[10px] text-gray-500">
+                                      <p className="text-[10px] text-[#757575]">
     from
 </p>
 
@@ -283,7 +283,7 @@ export default function JourneyPricing({
 </div>
 )}
 
-<p className="text-[10px] text-gray-500">
+<p className="text-[10px] text-[#757575]">
     / person
 </p>
                                     </div>
@@ -306,7 +306,7 @@ export default function JourneyPricing({
                                                 )}
                                             </>
                                         ) : (
-                                            <p className="text-gray-500">
+                                            <p className="text-[#757575]">
                                                 No offers available
                                             </p>
                                         )}
@@ -428,7 +428,7 @@ export default function JourneyPricing({
                                         </td>
                                       <td className="border px-4 py-5">
     {/* From */}
-    <div className="text-[10px] text-gray-500 mb-1">
+    <div className="text-[10px] text-[#757575] mb-1">
         from
     </div>
 

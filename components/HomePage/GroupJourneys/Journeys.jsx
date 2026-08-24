@@ -96,14 +96,14 @@ export default function Journey({
         </section>
       </div>
       <div
-        className="lg:hidden w-full max-w-[320px] mx-auto border border-[#575757] overflow-hidden mt-6"
+        className="lg:hidden w-full max-w-[342px] mx-auto border-2 border-ink rounded-[5px] overflow-hidden mt-6"
         style={{ backgroundColor: bgColor }}
       >
         <div
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center justify-between px-4 py-3 border-b border-[#575757] cursor-pointer"
+          className="flex items-center justify-between px-4 py-3 border-b-2 border-ink cursor-pointer"
         >
-          <h2 className="uppercase font-bold text-[18px] sm:text-[16px] leading-[18px] tracking-[0.4px] text-[#222] max-w-[70%]">
+          <h2 className="uppercase font-semibold text-[21px] leading-[36px] tracking-[0.05em] text-ink max-w-[70%]">
             {title}
           </h2>
 
@@ -156,7 +156,7 @@ export default function Journey({
             isOpen ? "max-h-[1200px]" : "max-h-0"
           }`}
         >
-          <div className="border-t border-[#575757] border-b-[2px] border-[#575757] px-4 py-4">
+          <div className="border-t-2 border-b-2 border-ink px-4 py-4">
           <div
   className="text-[16px] leading-[20px] text-[#444]"
   dangerouslySetInnerHTML={{ __html: description || "" }}
@@ -180,7 +180,7 @@ export default function Journey({
           ))}
         </div>
         <div className="py-5">
-          <hr className="border-0 border-t border-[#575757] mb-5" />
+          <hr className="border-0 border-t-2 border-ink mb-5" />
           <div className="px-4">
             {href ? (
               <Link

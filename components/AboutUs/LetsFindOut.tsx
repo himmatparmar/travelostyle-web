@@ -41,8 +41,8 @@ export default function LetsFindOut() {
         you like to travel. That&apos;s usually enough to begin.
       </p>
 
-      <div className="mt-8 flex justify-center">
-        <TalkToAdvisorButton className="h-[44px] w-full md:max-w-[269px] rounded-[100px] bg-[#2C3078] px-6 text-[18px] font-semibold tracking-[0.05em] text-[#FAFAFA]" />
+      <div className="mt-8 md:flex justify-center">
+        <TalkToAdvisorButton className="h-[44px] md:w-full md:max-w-[269px] rounded-[100px] bg-[#2C3078] px-6 text-[18px] font-semibold tracking-[0.05em] text-[#FAFAFA]" />
       </div>
     </section>
 
