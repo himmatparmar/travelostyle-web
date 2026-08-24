@@ -18,12 +18,15 @@ export default function MobileNavigationMenu({
   exclusions,
   setActiveView
 }){
+  // Inspirational journeys have no bookable departures, so "Dates &
+  // Pricing" is left out of the mobile menu entirely (matches the desktop
+  // DetailTabs behavior).
   const menuItems = [
     { label: "Highlights", id: "highlights" },
     { label: "Itinerary", id: "itinerary" },
     { label: "Stays", id: "stays" },
     { label: "Inclusions & Exclusions", id: "inclusions-exclusions" },
-    { label: "Dates & Pricing", id: "dates-pricing" },
+    ...(journey?.isInspirational ? [] : [{ label: "Dates & Pricing", id: "dates-pricing" }]),
     { label: "Additional Information", id: "additional-information" },
   ];
 
