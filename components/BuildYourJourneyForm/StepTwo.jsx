@@ -50,7 +50,7 @@ export default function StepTwo({ formData, updateField }) {
         </label>
 
         <textarea
-          rows={3}
+          rows={5}
           value={formData.expertNote || ""}
           onChange={(e) => updateField("expertNote", e.target.value)}
           placeholder="Do you have questions? Quirks? Preferences? or special considerations that you would like us to keep in mind?&#10;Tell us everything! The more we know, the better we can help."

@@ -311,7 +311,7 @@ export default function PrivateInquiryForm({
           <div className="overflow-y-auto px-6 py-5">
             {submitted ? (
               <div className="flex flex-col items-start gap-8 md:flex-row md:items-center">
-                <div className="w-full shrink-0 md:w-[210px]">
+                <div className="hidden w-full shrink-0 sm:block md:w-[210px]">
                   <JourneySummaryCard
                     journey={journey}
                     departure={departure}
@@ -393,7 +393,7 @@ export default function PrivateInquiryForm({
                   )}
 
                   {/* Navigation Buttons */}
-                  <div className="mt-2 flex items-center justify-end gap-4">
+                  <div className="mt-2 flex items-center justify-between sm:justify-end sm:gap-4">
                     {step > 1 && (
                       <button
                         type="button"

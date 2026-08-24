@@ -54,7 +54,7 @@ export default function StepFour({ formData, updateField, reasonOptions }) {
         </p>
 
         <div className="space-y-2.5">
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <div className="flex flex-col gap-y-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4">
             {row1.map((reason, idx) => (
               <RadioOption
                 key={`row1-${reason}-${idx}`}
@@ -67,7 +67,7 @@ export default function StepFour({ formData, updateField, reasonOptions }) {
             ))}
           </div>
 
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <div className="flex flex-col gap-y-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4">
             {row2.map((reason, idx) => (
               <RadioOption
                 key={`row2-${reason}-${idx}`}
