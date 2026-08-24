@@ -49,7 +49,7 @@ export default function StepThree({ formData, updateField }) {
           <p className="mt-4 mb-2.5 text-[12px] sm:text-[13px] font-[500] tracking-[0.03em] text-[#1A1A1A]">
             <span className="font-bold">OR</span> select a range
           </p>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2.5">
+          <div className="flex flex-col gap-y-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-2.5">
             {BUDGET_RANGES.map((range) =>
               renderRadioOption(
                 "budgetRange",
@@ -65,7 +65,7 @@ export default function StepThree({ formData, updateField }) {
           <label className="text-[15px] sm:text-[16px] font-[600] leading-normal tracking-[0.04em] text-[#1A1A1A]">
             Does this budget include flight tickets?
           </label>
-          <div className="mt-4 flex items-center gap-6">
+          <div className="mt-4 flex flex-col gap-y-2.5 sm:flex-row sm:items-center sm:gap-6">
             {["Yes", "No"].map((option) =>
               renderRadioOption(
                 "includesFlights",
@@ -81,7 +81,7 @@ export default function StepThree({ formData, updateField }) {
           <label className="text-[15px] sm:text-[16px] font-[600] leading-normal tracking-[0.04em] text-[#1A1A1A]">
             Do you require assistance with flight bookings?
           </label>
-          <div className="mt-4 flex items-center gap-6">
+          <div className="mt-4 flex flex-col gap-y-2.5 sm:flex-row sm:items-center sm:gap-6">
             {["Yes", "No"].map((option) =>
               renderRadioOption(
                 "flightAssistance",

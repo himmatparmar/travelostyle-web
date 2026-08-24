@@ -40,7 +40,7 @@ export default function StepTwo({ formData, updateField }) {
 
      
       <div className="mt-8 flex flex-col gap-y-4">
-        <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
+        <div className="flex flex-col gap-y-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-3">
           {TRIP_REASONS.map((reason, idx) => renderRadio(reason, `r-${idx}`))}
         </div>
       </div>

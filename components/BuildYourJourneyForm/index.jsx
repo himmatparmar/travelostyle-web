@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { X } from "lucide-react";
+import { X, Plus, Minus } from "lucide-react";
 import { STEPS, TOTAL_STEPS, initialFormData } from "./constants";
 import StepOne from "./StepOne";
 import StepGuests from "./StepGuests";
@@ -15,6 +15,7 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isHowItWorksOpen, setIsHowItWorksOpen] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
   const [phoneError, setPhoneError] = useState("");
   // [{ id, title, tagIds }] real journeys for the "Where do you want to
@@ -105,6 +106,7 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
     setSubmitted(false);
     setFormData(initialFormData);
     setPhoneError("");
+    setIsHowItWorksOpen(false);
   };
 
   const handleSubmit = async (e) => {
@@ -224,13 +226,14 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
             type="button"
             onClick={handleClose}
             aria-label="Close"
-            className="absolute right-6 sm:right-[36px] top-6 sm:top-[26px] flex items-center justify-center cursor-pointer text-[#1A1A1A] transition-opacity hover:opacity-60 focus:outline-none"
+            className="flex shrink-0 items-center justify-center cursor-pointer text-[#1A1A1A] transition-opacity hover:opacity-60 focus:outline-none"
           >
             <X size={24} strokeWidth={1.5} />
           </button>
         </div>
 
-        <div className="px-6 sm:px-[60px] pt-2 pb-[24px] border-b-2 border-[#1A1A1A]">
+        {/* Step tabs — desktop / tablet */}
+        <div className="hidden sm:block px-6 sm:px-[60px] pt-2 pb-[24px] border-b-2 border-[#1A1A1A]">
           <div className="flex items-center justify-between rounded-[8px] bg-[#F2E5DE] px-6 sm:px-6 py-3.5 gap-2">
             {STEPS.map((s, index) => (
               <div key={s.id} className="flex items-center gap-3 sm:gap-4 flex-1">
@@ -250,6 +253,44 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
                 )}
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* "How it Works" accordion — mobile only */}
+        <div className="sm:hidden px-6 pt-2 pb-[24px]">
+          <div className="rounded-[8px] border border-[#1A1A1A] bg-[#F2E5DE] px-4 py-3.5">
+            <button
+              type="button"
+              onClick={() => setIsHowItWorksOpen((prev) => !prev)}
+              aria-expanded={isHowItWorksOpen}
+              className="flex w-full items-center justify-between cursor-pointer"
+            >
+              <span className="text-[14px] font-[600] tracking-[0.03em] text-[#1A1A1A]">
+                How it Works
+              </span>
+              <span className="flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full border border-[#1A1A1A] text-[#1A1A1A]">
+                {isHowItWorksOpen ? (
+                  <Minus size={12} strokeWidth={2} />
+                ) : (
+                  <Plus size={12} strokeWidth={2} />
+                )}
+              </span>
+            </button>
+
+            {isHowItWorksOpen && (
+              <ol className="mt-3.5 flex flex-col gap-y-3">
+                {STEPS.map((s) => (
+                  <li key={s.id} className="flex gap-2.5">
+                    <span className="text-[13px] font-[600] leading-[18px] text-[#1A1A1A]">
+                      {s.id}.
+                    </span>
+                    <span className="text-[12px] font-[400] leading-[18px] tracking-[0.02em] text-[#1A1A1A]">
+                      {s.label}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            )}
           </div>
         </div>
 
@@ -296,7 +337,7 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
                 />
               )}
 
-              <div className="mt-8 flex items-center gap-8">
+              <div className="mt-8 flex items-center justify-between sm:justify-start sm:gap-8">
                 {step > 1 && (
                   <button
                     type="button"
