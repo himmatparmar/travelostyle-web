@@ -19,6 +19,11 @@ function stripHtml(html: string): string {
 const INCLUDE = [
   "field_journey_image.field_media_image",
   "field_journey_tag",
+  // Entity reference to the "Journey Experience Type" taxonomy vocabulary
+  // (Group / Inspirational) — without this include, the relationship's
+  // referenced term never shows up in `included`, so the frontend can't
+  // resolve its name even though the relationship id is present.
+  "field_journey_experience_type",
   "field_category",
   "field_month",
   "field_starts_in",

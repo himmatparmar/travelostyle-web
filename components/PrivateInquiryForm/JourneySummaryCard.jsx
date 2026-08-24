@@ -32,9 +32,22 @@ export default function JourneySummaryCard({
 
   const startDate = showDepartureDate ? departure?.startDate : null;
   const endDate = showDepartureDate ? departure?.endDate : null;
-  const price = journey?.offerPrice;
-  const originalPrice = journey?.originalPrice;
-  const hasOffer = Boolean(journey?.earlyBird) || Boolean(originalPrice);
+
+  // When a specific departure is attached (picked from Dates & Pricing, or
+  // auto-picked as the closest offer/upcoming date for a Group journey's
+  // "Request a Private Journey"), show that departure's own price instead
+  // of the journey's generic "from" price — they can differ once an
+  // offer is active on one date but not another.
+  const hasDeparturePrice = showDepartureDate && departure?.discountedPrice != null;
+  const hasDepartureOffer = hasDeparturePrice && departure.offerPercentage > 0;
+
+  const price = hasDeparturePrice ? departure.discountedPrice : journey?.offerPrice;
+  const originalPrice = hasDeparturePrice
+    ? (hasDepartureOffer ? departure.originalPrice : null)
+    : journey?.originalPrice;
+  const hasOffer = hasDeparturePrice
+    ? hasDepartureOffer
+    : Boolean(journey?.earlyBird) || Boolean(originalPrice);
 
   return (
     <div className="w-full max-w-[210px] overflow-hidden rounded-[5px] border-[1.5px] border-[#222222] bg-[#fafafa] font-sans shadow-sm mb-6">
