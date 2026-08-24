@@ -2,9 +2,20 @@
 
 import { useState } from "react";
 import { TRAVEL_YEARS, TRAVEL_MONTHS } from "./constants";
+import CustomSelect from "@/components/ui/CustomSelect";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_PATTERN = /^\d{10}$/;
+
+// Values here MUST match the Title element's "Option value" keys in the
+// Drupal webform exactly (mr/ms/mrs/dr), not the displayed text —
+// otherwise webform_rest rejects the submission.
+const TITLE_OPTIONS = [
+  { value: "mr", label: "Mr." },
+  { value: "ms", label: "Ms." },
+  { value: "mrs", label: "Mrs." },
+  { value: "dr", label: "Dr." },
+];
 
 function RadioOption({ name, value, checked, onChange, label }) {
   return (
@@ -114,25 +125,14 @@ export default function StepOne({ formData, updateField, showTravelWindow, phone
           <label className="block text-[11px] font-bold text-[#1A1A1A]">
             Title*
           </label>
-          <select
+          <CustomSelect
             name="title"
             value={formData.title || ""}
             onChange={handleChange}
-            required
-            className="mt-0.5 block w-full border-b border-[#5A5A5A] bg-transparent pb-1 text-[11px] text-[#1A1A1A] focus:border-black focus:outline-none"
-          >
-            <option value="" disabled>
-              Select your title
-            </option>
-            {/* Values here MUST match the Title element's "Option value"
-                keys in the Drupal webform exactly (mr/ms/mrs/dr), not the
-                displayed text — otherwise webform_rest rejects the
-                submission. */}
-            <option value="mr">Mr.</option>
-            <option value="ms">Ms.</option>
-            <option value="mrs">Mrs.</option>
-            <option value="dr">Dr.</option>
-          </select>
+            placeholder="Select your title"
+            options={TITLE_OPTIONS}
+            triggerClassName="mt-0.5 border-b border-[#5A5A5A] pb-1 text-[11px] text-[#1A1A1A]"
+          />
         </div>
 
         {/* Number / WhatsApp */}
@@ -212,7 +212,7 @@ export default function StepOne({ formData, updateField, showTravelWindow, phone
           <p className="mb-1.5 text-[11px] font-bold text-[#1A1A1A]">
             Are you traveling with children?* (under 12yrs)
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
             <RadioOption
               name="travelingWithChildren"
               value="Yes"
@@ -235,7 +235,7 @@ export default function StepOne({ formData, updateField, showTravelWindow, phone
           <p className="mb-1.5 text-[11px] font-bold text-[#1A1A1A]">
             Do you require assistance with flight bookings?
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
             <RadioOption
               name="flightAssistance"
               value="Yes"
@@ -266,37 +266,23 @@ export default function StepOne({ formData, updateField, showTravelWindow, phone
               When do you want to travel?
             </p>
             <div className="grid grid-cols-1 gap-x-6 gap-y-3.5 sm:grid-cols-2">
-              <select
+              <CustomSelect
                 name="travelYear"
                 value={formData.travelYear || ""}
                 onChange={handleChange}
-                className="mt-0.5 block w-full border-b border-[#5A5A5A] bg-transparent pb-1 text-[11px] text-[#1A1A1A] focus:border-black focus:outline-none"
-              >
-                <option value="" disabled>
-                  Pick Year of Travel
-                </option>
-                {TRAVEL_YEARS.map((year) => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </select>
+                placeholder="Pick Year of Travel"
+                options={TRAVEL_YEARS.map((year) => ({ value: year, label: year }))}
+                triggerClassName="mt-0.5 border-b border-[#5A5A5A] pb-1 text-[11px] text-[#1A1A1A]"
+              />
 
-              <select
+              <CustomSelect
                 name="travelMonth"
                 value={formData.travelMonth || ""}
                 onChange={handleChange}
-                className="mt-0.5 block w-full border-b border-[#5A5A5A] bg-transparent pb-1 text-[11px] text-[#1A1A1A] focus:border-black focus:outline-none"
-              >
-                <option value="" disabled>
-                  Pick Month of Travel
-                </option>
-                {TRAVEL_MONTHS.map((month) => (
-                  <option key={month} value={month}>
-                    {month}
-                  </option>
-                ))}
-              </select>
+                placeholder="Pick Month of Travel"
+                options={TRAVEL_MONTHS.map((month) => ({ value: month, label: month }))}
+                triggerClassName="mt-0.5 border-b border-[#5A5A5A] pb-1 text-[11px] text-[#1A1A1A]"
+              />
             </div>
           </div>
         )}

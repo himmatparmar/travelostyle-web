@@ -20,7 +20,18 @@ export const EXPERIENCES = [
 
 // Must match the "Reason for Trip" webform element's configured option
 // values in Drupal exactly.
-export const TRIP_REASONS = ["Anniversary", "Honeymoon", "Vacation", "Birthday", "Other"];
+export const TRIP_REASONS = [
+  "Honeymoon",
+  "Birthday",
+  "Babymoon",
+  "Anniversary",
+  "Family Trip",
+  "Bucket List",
+  "Graduation",
+  "Friend Trip",
+  "Because I love to travel",
+  "Other",
+];
 
 // Must match the "budget preferences" webform element's configured
 // option values/text in Drupal exactly.
@@ -40,11 +51,15 @@ export const DURATION_OPTIONS = ["2-5 Days", "6-10 Days", "11-15 Days", "16+ Day
 // Must match the "Tailor Topics" webform element's configured option
 // values in Drupal exactly.
 export const TAILOR_TOPICS = [
-  "I want you to recommend more destinations and/or stopovers",
-  "I am traveling with an infant and require some guidance",
-  "I need accessible accommodations",
   "I want to discuss my ideal accommodation type",
   "I want to discuss the pace of my journey",
+  "I'm traveling with my own group and would like a private rate",
+  "I want you to recommend sights, activities, or experiences",
+  "I have dietary, accessibility, rooming, or other travel needs which I would like to discuss",
+  "My budget is flexible for the right experience",
+  "I want to explore different travel dates",
+  "I am traveling with an infant and require some guidance",
+  "I want you to recommend more destinations and/or stopovers",
 ];
 
 export const TOTAL_STEPS = 6;
