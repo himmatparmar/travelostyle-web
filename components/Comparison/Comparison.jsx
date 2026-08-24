@@ -416,9 +416,14 @@ export default function TripComparison() {
                 double occupancy*
               </div>
             </div>
-            <button className="bg-[#2C3078] hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors shrink-0 self-start md:self-auto">
-  View Trip
-</button>
+            {trip.viewTripUrl && (
+              <a
+                href={trip.viewTripUrl}
+                className="inline-flex items-center justify-center bg-[#2C3078] hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors shrink-0 self-start md:self-auto"
+              >
+                View Trip
+              </a>
+            )}
           </div>
         );
 
@@ -539,7 +544,7 @@ export default function TripComparison() {
     row.key === "travel" ? "pt-14" : "pt-4"
   }`}
 >
-      <span className="text-[11px] font-bold uppercase tracking-wide text-gray-400">
+      <span className="text-[12px] font-bold uppercase tracking-wide text-black">
         {row.label}
       </span>
     </div>

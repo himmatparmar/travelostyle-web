@@ -23,11 +23,11 @@ export default function YourNextTrip({ initialJourneys = null }) {
 
         <div className="mt-6 md:mt-[4vw]">
 
-          <div className="border-b border-[#D8D8D8]">
-            <div className="flex items-center justify-center gap-4 text-[13px] px-4 md:gap-[4vw] md:text-[1vw] md:px-0">
+          <div className="border-b border-[#D8D8D8] overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:overflow-x-visible">
+            <div className="flex w-max min-w-full items-center justify-center gap-6 whitespace-nowrap text-[13px] px-4 md:w-auto md:min-w-0 md:gap-[4vw] md:text-[1vw] md:px-0">
               <button
                 onClick={() => setActiveTab("journeys")}
-                className={`relative pb-3 transition-all duration-300 md:pb-[1vw] ${
+                className={`relative shrink-0 pb-3 transition-all duration-300 md:pb-[1vw] ${
                   activeTab === "journeys"
                     ? "font-medium text-black"
                     : "text-[#707070]"
@@ -41,7 +41,7 @@ export default function YourNextTrip({ initialJourneys = null }) {
 
               <button
                 onClick={() => setActiveTab("destinations")}
-                className={`relative pb-3 transition-all duration-300 md:pb-[1vw] ${
+                className={`relative shrink-0 pb-3 transition-all duration-300 md:pb-[1vw] ${
                   activeTab === "destinations"
                     ? "font-medium text-black"
                     : "text-[#707070]"
@@ -55,7 +55,7 @@ export default function YourNextTrip({ initialJourneys = null }) {
 
               <button
                 onClick={() => setActiveTab("deals")}
-                className={`relative pb-3 transition-all duration-300 md:pb-[1vw] ${
+                className={`relative shrink-0 pb-3 transition-all duration-300 md:pb-[1vw] ${
                   activeTab === "deals"
                     ? "font-medium text-black"
                     : "text-[#707070]"

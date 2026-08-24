@@ -4,11 +4,11 @@ import { CalendarDays, CirclePlus, Info, MapPinned } from "lucide-react";
 import JourneyCardImage from "@/components/JourneyCardImage";
 
 const TAG_COLORS = {
-  "group journey": "bg-[#E1EEDB] text-[#4C6B49]",
-  "private journey": "bg-[#F4E5DA] text-[#8A5A3B]",
-  "tailormade journey": "bg-[#F4E5DA] text-[#8A5A3B]",
+  "group journey": "bg-[#E1EEDB] text-[#1A1A1A]",
+  "private journey": "bg-[#FFDDBD] text-[#1A1A1A]",
+  "tailormade journey": "bg-[#FFDDBD] text-[#1A1A1A]",
 };
-const DEFAULT_TAG_COLOR = "bg-[#EAEBCB] text-[#63634E]";
+const DEFAULT_TAG_COLOR = "bg-[#EAEBCB] text-[#1A1A1A]";
 
 function getTagColor(tag) {
   return TAG_COLORS[tag?.toLowerCase().trim()] || DEFAULT_TAG_COLOR;
@@ -80,14 +80,14 @@ export default function JourneyCard({ trip, variant = "carousel", onCompare }) {
       className={
         variant === "carousel"
           ? "relative flex w-[85vw] min-w-[85vw] shrink-0 cursor-pointer flex-col px-8 pt-4 pb-12 max-md:snap-center md:w-[390px] md:min-w-[390px] h-[590px] md:h-[585px] md:pt-3 md:pb-11"
-          : "relative flex w-[85vw] min-w-[85vw] shrink-0 cursor-pointer flex-col px-4 pt-4 pb-5 max-md:snap-center md:w-full md:min-w-0 md:max-w-[390px] h-[586px] md:h-auto md:min-h-[670px] md:pt-3 md:pb-4"
+          : "relative flex w-[85vw] min-w-[85vw] shrink-0 cursor-pointer flex-col px-4 pt-4 pb-5 max-md:snap-center md:w-full md:min-w-0 md:max-w-[390px] h-[586px] md:h-[585px] md:px-6 md:pt-3 md:pb-11"
       }
     >
       <div
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
-          backgroundImage: "url(/Union.svg)",
-          backgroundSize: "100% 100%",
+          backgroundImage: "url(/Union-it.svg)",
+          backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
         }}
       />
@@ -96,7 +96,7 @@ export default function JourneyCard({ trip, variant = "carousel", onCompare }) {
         {trip.tags?.map((tag) => (
           <span
             key={tag}
-            className={`rounded-md px-3 py-1 text-xs font-medium md:rounded-[5px] md:px-3 md:py-1 md:text-[14px] ${getTagColor(tag)}`}
+            className={`rounded-[2px] px-2 py-[2px] text-[10px] leading-[16px] tracking-[0.05em] font-normal md:rounded-[5px] md:px-3 md:py-1 md:text-[14px] md:font-medium ${getTagColor(tag)}`}
           >
             {tag}
           </span>

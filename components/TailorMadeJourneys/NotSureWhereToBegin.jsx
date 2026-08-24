@@ -39,6 +39,7 @@ export default function NotSureWhereToBegin() {
       }
   
       const compareTrip = {
+        viewTripUrl: trip.viewTripUrl,
         id: trip.id,
         title: trip.title,
         image: trip.image,
@@ -94,7 +95,7 @@ export default function NotSureWhereToBegin() {
         <h2 className="mb-5 text-[32px] font-semibold leading-[40px] tracking-[0.05em] text-black [text-box-trim:cap] [text-box-edge:cap_alphabetic]">
           Not sure where to begin? Start here
         </h2>
-        <p className="text-black text-sm sm:text-base leading-relaxed max-w-1xl mx-auto font-normal">
+        <p className="text-black text-[16px] sm:text-base leading-relaxed max-w-1xl mx-auto font-normal">
           Explore our collection of inspirational itineraries – journey ideas
           across regions and travel styles that work as a starting point. Think
           of them as conversation starters. We’ll take it from there.

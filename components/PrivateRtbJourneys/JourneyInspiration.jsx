@@ -42,6 +42,7 @@ const handleCompareSelection = (trip) => {
   if (alreadyExists) return;
 
   const compareTrip = {
+    viewTripUrl: trip.viewTripUrl,
     id: trip.id,
     title: trip.title,
     image: trip.image,

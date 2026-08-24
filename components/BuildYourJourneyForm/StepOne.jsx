@@ -120,7 +120,7 @@ export default function StepOne({
         </label>
 
         <div className="mt-4 flex flex-col gap-y-4">
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+          <div className="flex flex-col gap-y-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-3">
             {EXPERIENCES.map(renderCheckbox)}
           </div>
         </div>
