@@ -3,7 +3,7 @@ import { DURATION_OPTIONS } from "./constants";
 function NumberStepper({ label, value, onChange, min = 0 }) {
   return (
     <div className="flex items-center gap-3">
-      <span className="text-[14px] font-[400] tracking-[0.03em] text-[#1A1A1A]">
+      <span className="w-20 shrink-0 text-[14px] font-[400] tracking-[0.03em] text-[#1A1A1A]">
         {label}
       </span>
       <div className="flex items-center rounded-[6px] border border-[#2C3078] bg-white overflow-hidden shadow-sm">
@@ -60,7 +60,7 @@ export default function StepGuests({ formData, updateGuests, toggleDuration }) {
           For how long do you want to travel?
         </label>
 
-        <div className="mt-3.5 flex flex-wrap items-center gap-x-8 gap-y-4">
+        <div className="mt-3.5 flex flex-col gap-y-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8">
           {DURATION_OPTIONS.map((option) => {
             const isChecked = formData.duration?.includes(option);
             return (
