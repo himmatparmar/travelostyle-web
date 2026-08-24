@@ -25,10 +25,19 @@ export default function JourneyPricing({
     const router = useRouter();
 
     const openPrivateForm = (trip) =>
-        setPrivateFormDeparture({         id: trip.id,
-nodeId: trip.nodeId,
-title: trip.title,
-startDate: trip.startDate, endDate: trip.endDate });
+        setPrivateFormDeparture({
+            id: trip.id,
+            nodeId: trip.nodeId,
+            title: trip.title,
+            startDate: trip.startDate,
+            endDate: trip.endDate,
+            // So JourneySummaryCard shows this specific departure's price
+            // (incl. any offer) instead of falling back to the journey's
+            // generic "from" price.
+            originalPrice: trip.originalPrice,
+            offerPercentage: trip.offerPercentage,
+            discountedPrice: trip.discountedPrice,
+        });
     const openGroupForm = (trip) => setGroupFormTrip(trip);
 
     const toggleCard = (index) => {

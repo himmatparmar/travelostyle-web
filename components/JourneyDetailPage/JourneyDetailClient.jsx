@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import TestimonialSection from "@/components/HomePage/TestimonialSection";
 import { buildFileUrl } from "@/lib/config";
 import DetailTabs from "./DetailTabs";
@@ -69,7 +70,11 @@ function resolveJourneyStyleTerms(item, included) {
   const arr = Array.isArray(data) ? data : data ? [data] : [];
 
   return arr
-    .filter((t) => t.type === "taxonomy_term--journey_style")
+    .filter(
+      (t) =>
+        t.type === "taxonomy_term--journey_style" ||
+        t.type === "taxonomy_term--tags",
+    )
     .map((t) => {
       // The relationship entry itself carries the real plain id via
       // meta.drupal_internal__target_id — read it straight from there
@@ -297,12 +302,73 @@ tabs.itinerary = {
   return tabs;
 }
 
+// field_journey_experience_type ("Group" / "Inspirational" radio on the
+// journey node) decides what the hero summary card + Dates & Pricing tab
+// show: Group journeys get "Check Dates & Availability" (which opens the
+// Dates & Pricing tab) plus a "Request a Private Journey" link pre-filled
+// with the closest offer/upcoming departure; Inspirational journeys skip
+// dates entirely and only offer "Request a Private Journey" (submitted as
+// the Inspirational Itineraries webform) + "Tailor This Journey For You".
+// Handles either a plain text-list attribute or (defensively) an entity
+// reference, and defaults to "group" when the field is unset so journeys
+// created before this field existed keep the fuller, dates-enabled card.
+function resolveExperienceType(item, included) {
+  const attr = item.attributes?.field_journey_experience_type;
+
+  // Plain string ("Group" / "inspirational" / ...).
+  if (typeof attr === "string" && attr) return attr;
+
+  // A formatted-text-style field comes through as { value: "...", ... }
+  // instead of a bare string.
+  if (attr && typeof attr === "object" && typeof attr.value === "string") {
+    return attr.value;
+  }
+
+  // A multi-value list field comes through as an array of either shape
+  // above — only one value is expected here, so just take the first.
+  if (Array.isArray(attr) && attr.length) {
+    const first = attr[0];
+    if (typeof first === "string") return first;
+    if (first && typeof first.value === "string") return first.value;
+  }
+
+  // Entity-reference shape (e.g. a taxonomy term instead of a plain list
+  // field) — resolve it the same way field_journey_tag is resolved.
+  const rel = item.relationships?.field_journey_experience_type?.data;
+  if (rel) {
+    const relId = Array.isArray(rel) ? rel[0]?.id : rel.id;
+    const entity = included.find((i) => i.id === relId);
+    return entity?.attributes?.field_key || entity?.attributes?.name || "";
+  }
+
+  return "";
+}
+
 function transformItem(item, included) {
   const tabSections = resolveTabSections(item, included);
   const journeyStyleTerms = resolveJourneyStyleTerms(item, included);
+  const experienceTypeRaw = resolveExperienceType(item, included);
+  const isInspirational = experienceTypeRaw.toLowerCase().includes("inspir");
+  const experienceType = isInspirational ? "inspirational" : "group";
+  // TEMP debug — remove once experience-type detection is confirmed
+  // working against the live Drupal data (field_journey_experience_type is
+  // an entity reference to the "Journey Experience Type" taxonomy
+  // vocabulary, now included via the page's INCLUDE list). If "raw" still
+  // prints "" here, paste this console line back — it now also shows the
+  // raw relationship + whatever entity (if any) matched in `included`.
+  console.log("JOURNEY EXPERIENCE TYPE:", {
+    raw: experienceTypeRaw,
+    isInspirational,
+    relationship: item.relationships?.field_journey_experience_type?.data,
+    matchedEntity: included.find(
+      (i) => i.id === item.relationships?.field_journey_experience_type?.data?.id,
+    ),
+  });
 
   return {
     ...MOCK_JOURNEY,
+    experienceType,
+    isInspirational,
         id: item.id,
         // Drupal's JSON:API `id` is the node UUID. The webform_rest
         // submission (see PrivateInquiryForm) needs the plain node ID
@@ -359,6 +425,15 @@ export default function JourneyDetailClient({
       ? transformItem(initialData.data, initialData.included || [])
       : MOCK_JOURNEY;
 
+  // "Check Dates & Availability" on the hero card (Group journeys only)
+  // needs to switch DetailTabs over to its "Dates & Pricing" tab and
+  // scroll it into view — DetailTabs owns that tab state internally, so
+  // it's exposed here via a ref instead of lifting the state up.
+  const detailTabsRef = useRef(null);
+  const handleCheckAvailability = () => {
+    detailTabsRef.current?.showDatesPricing();
+  };
+
   return (
     <main>
       <HeroSection
@@ -368,9 +443,11 @@ export default function JourneyDetailClient({
         exclusions={exclusions}
         rawItem={initialData?.data}
         included={initialData?.included || []}
+        onCheckAvailability={handleCheckAvailability}
       />
       <TrustBar />
       <DetailTabs
+        ref={detailTabsRef}
         journey={journey}
         departures={departures}
         journeyId={journeyId}

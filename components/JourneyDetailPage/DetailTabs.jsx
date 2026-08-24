@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, forwardRef, useImperativeHandle } from "react";
 import HighlightsSection from "./HighlightsSection";
 import ItinerarySection from "./ItinerarySection";
 import StaysSection from "./StaysSection";
@@ -17,24 +17,41 @@ const TABS = [
   "Additional Information",
 ];
 
-export default function DetailTabs({
-  journey,
-  departures,
-  journeyId,
-  inclusions,
-  exclusions,
-}) {
-
+const DetailTabs = forwardRef(function DetailTabs(
+  { journey, departures, journeyId, inclusions, exclusions },
+  ref,
+) {
   const [activeTab, setActiveTab] = useState("Highlights");
+  const containerRef = useRef(null);
  console.log("DETAIL TABS INCLUSIONS", inclusions);
   console.log("DETAIL TABS EXCLUSIONS", exclusions);
 
+  // Inspirational journeys have no bookable departures, so the Dates &
+  // Pricing tab doesn't apply to them at all — it's dropped from the tab
+  // list entirely rather than just disabled.
+  const tabs = journey?.isInspirational
+    ? TABS.filter((tab) => tab !== "Dates & Pricing")
+    : TABS;
+
+  // Exposed to JourneyDetailClient so the hero card's "Check Dates &
+  // Availability" button (Group journeys only) can jump straight to this
+  // tab without lifting `activeTab` state out of this component.
+  useImperativeHandle(ref, () => ({
+    showDatesPricing: () => {
+      if (journey?.isInspirational) return;
+      setActiveTab("Dates & Pricing");
+      requestAnimationFrame(() => {
+        containerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    },
+  }));
+
   return (
     <>
-    <div className="bg-white hidden md:block">
+    <div ref={containerRef} className="bg-white hidden md:block">
       <div className="sticky top-0 z-20 bg-white border-b border-[#E5E5E5] shadow-[0_6px_16px_-6px_rgba(0,0,0,0.15)] h-[80px] flex items-center px-[5.5vw]">
         <div className="flex items-center w-full max-w-[1548px] h-[47px] mx-auto">
-          {TABS.map((tab) => (
+          {tabs.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -102,7 +119,7 @@ export default function DetailTabs({
 )}
     
 
-{activeTab === "Dates & Pricing" && (
+{activeTab === "Dates & Pricing" && !journey?.isInspirational && (
  <JourneyPricing
   journey={journey}
   departures={departures}
@@ -120,7 +137,9 @@ export default function DetailTabs({
       </div>
 
     </div>
-  
+
     </>
   );
-}
+});
+
+export default DetailTabs;
