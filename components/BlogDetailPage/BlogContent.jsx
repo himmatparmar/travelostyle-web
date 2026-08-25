@@ -16,6 +16,36 @@ export default function BlogContent({
 }) {
   const [selectedCategory, setSelectedCategory] = useState("All");
 
+  const [newsletterName, setNewsletterName] = useState("");
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterAgree, setNewsletterAgree] = useState(false);
+  const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
+  const [newsletterError, setNewsletterError] = useState("");
+
+  const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const handleNewsletterSubmit = (e) => {
+    e.preventDefault();
+
+    if (!newsletterName.trim() || !newsletterEmail.trim()) {
+      setNewsletterError("Please enter your name and email.");
+      return;
+    }
+
+    if (!EMAIL_PATTERN.test(newsletterEmail.trim())) {
+      setNewsletterError("Please enter a valid email address.");
+      return;
+    }
+
+    if (!newsletterAgree) {
+      setNewsletterError("Please agree to receive updates from TravelOStyle.");
+      return;
+    }
+
+    setNewsletterError("");
+    setNewsletterSubmitted(true);
+  };
+
   const filteredRecommended = (
     selectedCategory === "All"
       ? recommendedBlogs
@@ -245,41 +275,62 @@ export default function BlogContent({
               Subscribe To Our Newsletter
             </h3>
 
-            <div className="mt-[24px]">
-              <label className="block text-[14px] text-ink">
-                Your Name<span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Your first name"
-                className="mt-[8px] w-full border-b border-ink pb-[10px] text-[14px] outline-none placeholder:text-[#B5B5B5]"
-              />
-            </div>
-
-            <div className="mt-[22px]">
-              <label className="block text-[14px] text-ink">
-                Email ID<span className="text-red-500">*</span>
-              </label>
-              <input
-                type="email"
-                placeholder="Your Email ID"
-                className="mt-[8px] w-full border-b border-ink pb-[10px] text-[14px] outline-none placeholder:text-[#B5B5B5]"
-              />
-            </div>
-
-            <div className="mt-[22px] flex items-start gap-[12px]">
-              <input
-                type="checkbox"
-                className="mt-[2px] h-[18px] w-[18px] accent-[#2C3078]"
-              />
-              <p className="text-[13px] leading-[20px] text-ink">
-                I agree to receive news, updates and more from TravelOStyle
+            {newsletterSubmitted ? (
+              <p className="mt-[24px] text-[14px] font-semibold text-[#2C3078]">
+                Submitted! Thanks for subscribing — we&apos;ll be in touch.
               </p>
-            </div>
+            ) : (
+              <form onSubmit={handleNewsletterSubmit} noValidate>
+                <div className="mt-[24px]">
+                  <label className="block text-[14px] text-ink">
+                    Your Name<span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={newsletterName}
+                    onChange={(e) => setNewsletterName(e.target.value)}
+                    placeholder="Your first name"
+                    className="mt-[8px] w-full border-b border-ink pb-[10px] text-[14px] outline-none placeholder:text-[#B5B5B5]"
+                  />
+                </div>
 
-            <button className="mt-6 w-auto h-[42px] rounded-full bg-[#2C3078] px-6 text-[14px] text-white">
-              Subscribe
-            </button>
+                <div className="mt-[22px]">
+                  <label className="block text-[14px] text-ink">
+                    Email ID<span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    value={newsletterEmail}
+                    onChange={(e) => setNewsletterEmail(e.target.value)}
+                    placeholder="Your Email ID"
+                    className="mt-[8px] w-full border-b border-ink pb-[10px] text-[14px] outline-none placeholder:text-[#B5B5B5]"
+                  />
+                </div>
+
+                <div className="mt-[22px] flex items-start gap-[12px]">
+                  <input
+                    type="checkbox"
+                    checked={newsletterAgree}
+                    onChange={(e) => setNewsletterAgree(e.target.checked)}
+                    className="mt-[2px] h-[18px] w-[18px] accent-[#2C3078]"
+                  />
+                  <p className="text-[13px] leading-[20px] text-ink">
+                    I agree to receive news, updates and more from TravelOStyle
+                  </p>
+                </div>
+
+                {newsletterError && (
+                  <p className="mt-[10px] text-[12px] text-red-600">{newsletterError}</p>
+                )}
+
+                <button
+                  type="submit"
+                  className="mt-6 w-auto h-[42px] rounded-full bg-[#2C3078] px-6 text-[14px] text-white"
+                >
+                  Subscribe
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </div>
