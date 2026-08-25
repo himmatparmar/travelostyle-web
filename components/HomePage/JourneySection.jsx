@@ -189,7 +189,7 @@ export default function JourneySection() {
           </div>
         </div>
 
-        <p className="relative z-10 mx-auto max-w-[337px] text-center text-[16px] leading-[28px] tracking-[0.05em] text-ink font-sans">
+        <p className="relative z-10 mx-auto max-w-[300px] text-left text-[14px] leading-[24px] text-[#3E3E3E] font-sans">
           Our journeys are designed around real people — your budgets, your
           rhythms, your hopes and the realities you are working with. We promise
           you honest guidance, thoughtful planning, and a travel experience that

@@ -44,17 +44,17 @@ export default function StepTwo({ formData, updateField }) {
           {TRIP_REASONS.map((reason, idx) => renderRadio(reason, `r-${idx}`))}
         </div>
       </div>
-      <div className="mt-9">
-        <label className="block text-[16px] font-[600] leading-[32px] tracking-[0.05em] text-[#1A1A1A]">
+      <div className="mt-6 sm:mt-9">
+        <label className="block text-[14px] sm:text-[16px] font-[600] leading-[20px] sm:leading-[32px] tracking-[0.05em] text-[#1A1A1A]">
           What&apos;s something you would like our expert to know?
         </label>
 
         <textarea
-          rows={5}
+          rows={6}
           value={formData.expertNote || ""}
           onChange={(e) => updateField("expertNote", e.target.value)}
           placeholder="Do you have questions? Quirks? Preferences? or special considerations that you would like us to keep in mind?&#10;Tell us everything! The more we know, the better we can help."
-          className="mt-2.5 w-full max-w-[780px] resize-none rounded-[10px] border border-[#262626] bg-transparent p-3.5 text-[10px] sm:text-[14px] leading-relaxed tracking-[0.03em] text-[#1A1A1A] placeholder:text-[#757575] focus:outline-none"
+          className="mt-2.5 w-full max-w-[780px] resize-none rounded-[6px] border border-[#1A1A1A] bg-transparent p-4 text-[13px] sm:text-[14px] leading-[22px] tracking-[0.02em] sm:tracking-[0.03em] text-[#1A1A1A] placeholder:text-[#757575] focus:outline-none"
         />
       </div>
     </div>

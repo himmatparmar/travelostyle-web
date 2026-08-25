@@ -143,7 +143,7 @@ function MobileInclusions({
         <div className="block md:hidden px-4 py-5">
 
 
-     <div className="rounded-xl border border-black bg-[#EFF3CF] p-4 mb-5 flex gap-2 items-start">
+     <div className="rounded-xl bg-[#F2E2DA] p-4 mb-5 flex gap-2 items-start">
     <Info size={16} className="shrink-0 mt-1" />
     <p>
         Everything listed below is included in your journey pricing.
