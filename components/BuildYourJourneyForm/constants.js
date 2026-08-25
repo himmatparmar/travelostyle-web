@@ -5,24 +5,21 @@ export const STEPS = [
   { id: 4, label: "Complete the booking and payment schedules and set off!" },
 ];
 
+// Must match the "Experiences" webform element's configured option values
+// in Drupal exactly (Structure > Webforms > craft_your_journey > Build).
+// This element uses the same string for both option value and option
+// text, so no separate label mapping is needed.
 export const EXPERIENCES = [
   "Adventure",
-  "Nature & Wildlife",
-  "Safaris",
-  "Camping",
-  "Culture & History",
-  "Festivals",
-  "Culinary (Food & Drink)",
-  "Beaches",
-  "Coastal",
-  "City Life",
-  "Luxury Escapes",
-  "Family-focused",
-  "Cruises",
-  "Private Jet Journeys",
-  "Rail Journeys",
+  "Culture",
+  "Relaxation",
+  "Wildlife",
+  "Beach",
+  "Culinary",
 ];
 
+// Must match the "Reason for Trip" webform element's configured option
+// values in Drupal exactly.
 export const TRIP_REASONS = [
   "Honeymoon",
   "Birthday",
@@ -33,12 +30,26 @@ export const TRIP_REASONS = [
   "Graduation",
   "Friend Trip",
   "Because I love to travel",
+  "Other",
 ];
 
-export const BUDGET_RANGES = ["$2500-4000", "$4000-8000", "$6000-8000", "$8000+"];
+// Must match the "budget preferences" webform element's configured
+// option values/text in Drupal exactly.
+export const BUDGET_PREFERENCES = [
+  { value: "strict", label: "Strict budget" },
+  { value: "open-to-increase", label: "Open to increase for the right experience" },
+];
 
-export const DURATION_OPTIONS = ["2-5 Days", "6-10 Days", "11-20 Days", "20+ Days"];
+// Must match the "Budget Range" webform element's configured option
+// values in Drupal exactly.
+export const BUDGET_RANGES = ["$2500-4000", "$4000-8000", "$8000-12000", "$12000+"];
 
+// Must match the "Duration" webform element's configured option values
+// in Drupal exactly.
+export const DURATION_OPTIONS = ["2-5 Days", "6-10 Days", "11-15 Days", "16+ Days"];
+
+// Must match the "Tailor Topics" webform element's configured option
+// values in Drupal exactly.
 export const TAILOR_TOPICS = [
   "I want to discuss my ideal accommodation type",
   "I want to discuss the pace of my journey",
@@ -55,6 +66,14 @@ export const TOTAL_STEPS = 6;
 
 export const initialFormData = {
   destination: "",
+  // Drupal node ID (drupal_internal__nid) of the journey selected from the
+  // "Where do you want to go?" list — set alongside `destination` (its
+  // title, kept for display/free-text fallback) when the visitor picks a
+  // real option instead of just typing.
+  destinationId: null,
+  // field_journey_tag term ids ("Journey Style", e.g. Private Journey)
+  // of the selected destination journey — set alongside destinationId.
+  journeyTypeIds: [],
   experiences: [],
   guests: { adults: 0, children: 0 },
   duration: [],

@@ -69,10 +69,8 @@ export default function ContactInquiry() {
 
     if (!formData.phone.trim()) {
       newErrors.phone = "Contact number is required.";
-    } else if (!/^\d+$/.test(formData.phone.trim())) {
-      newErrors.phone = "Contact number must contain only numbers.";
-    } else if (formData.phone.trim().length < 7) {
-      newErrors.phone = "Please enter a valid contact number.";
+    } else if (!/^\d{10}$/.test(formData.phone.trim())) {
+      newErrors.phone = "Please enter a valid 10-digit mobile number.";
     }
 
     if (!formData.message.trim()) {

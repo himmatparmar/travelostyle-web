@@ -4,7 +4,8 @@ import { Clock3, MapPin, Info } from "lucide-react";
 import MobileNavigationMenu from "./MobileNavigationMenu";
 import PrivateInquiryForm from "@/components/PrivateInquiryForm";
 import JourneyCardImage from "@/components/JourneyCardImage";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { pickPriorityDeparture } from "@/lib/departures";
 
 // Fixed badge colors matching the design (Figma) reference:
 // Early Bird / offer = peach, tags (field_journey_tag, e.g. Group/Private
@@ -37,10 +38,22 @@ export default function HeroSection({
   exclusions,
   rawItem,
   included = [],
+  // Group journeys only — switches DetailTabs to "Dates & Pricing" and
+  // scrolls it into view (see JourneyDetailClient).
+  onCheckAvailability,
 }) {
   const [activeView, setActiveView] = useState("menu");
   const [isPrivateFormOpen, setIsPrivateFormOpen] = useState(false);
   const categories = rawItem ? resolveCategories(rawItem, included) : MOCK_CATEGORIES;
+  const isInspirational = Boolean(journey?.isInspirational);
+  // Group journeys: "Request a Private Journey" from the summary card has
+  // no specific date attached, so it's pre-filled with whichever upcoming
+  // departure is most relevant — the soonest one currently on offer, or
+  // failing that the soonest upcoming date at all.
+  const priorityDeparture = useMemo(
+    () => (isInspirational ? null : pickPriorityDeparture(departures)),
+    [isInspirational, departures],
+  );
   return (
     <>
     <section className="w-full bg-white hidden md:block">
@@ -190,23 +203,47 @@ export default function HeroSection({
 )}
           </div>
 
-          <button
-            onClick={() => setIsPrivateFormOpen(true)}
-            className="mt-[0.8vw] h-[20px] w-[150px] rounded-full bg-[#2D3482] text-[0.7vw] font-semibold text-white transition hover:bg-[#252b78]"
-          >
-            Request a Private Journey
-          </button>
+          {isInspirational ? (
+            <>
+              <button
+                onClick={() => setIsPrivateFormOpen(true)}
+                className="mt-[0.8vw] h-[20px] w-[150px] rounded-full bg-[#2D3482] text-[0.7vw] font-semibold text-white transition hover:bg-[#252b78]"
+              >
+                Request a Private Journey
+              </button>
 
-          <div className="mt-[0.65vw] text-[0.57vw] text-[#555]">
-            Want to make this itinerary entirely your own?
-            <br />
-            <button
-              onClick={() => setIsPrivateFormOpen(true)}
-              className="mt-[0.1vw] font-bold text-ink underline underline-offset-[2px]"
-            >
-              Tailor This Journey For You
-            </button>
-          </div>
+              <div className="mt-[0.65vw] text-[0.57vw] text-[#555]">
+                Want to make this itinerary entirely your own?
+                <br />
+                <button
+                  onClick={() => setIsPrivateFormOpen(true)}
+                  className="mt-[0.1vw] font-bold text-ink underline underline-offset-[2px]"
+                >
+                  Tailor This Journey For You
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={onCheckAvailability}
+                className="mt-[0.8vw] h-[20px] w-[190px] rounded-full bg-[#2D3482] text-[0.7vw] font-semibold text-white transition hover:bg-[#252b78]"
+              >
+                Check Dates & Availability
+              </button>
+
+              <div className="mt-[0.65vw] text-[0.57vw] text-[#555]">
+                Want to customize this itinerary?
+                <br />
+                <button
+                  onClick={() => setIsPrivateFormOpen(true)}
+                  className="mt-[0.1vw] font-bold text-ink underline underline-offset-[2px]"
+                >
+                  Request a Private Journey
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </section>
@@ -334,31 +371,48 @@ export default function HeroSection({
 </div>
 )}
             </div>
-            <div className="flex items-center justify-center gap-3 border-t border-[#2E2E2E] bg-white px-4 py-3">
-              <button className="rounded-full bg-[#2B2D82] px-6 py-2 text-[15px] font-semibold text-white">
-                Check Dates
-              </button>
+            {isInspirational ? (
+              <>
+                <div className="flex items-center justify-center gap-3 border-t border-[#2E2E2E] bg-white px-4 py-3">
+                  <button
+                    onClick={() => setIsPrivateFormOpen(true)}
+                    className="rounded-full bg-[#2B2D82] px-6 py-2 text-[15px] font-semibold text-white"
+                  >
+                    Request a Private Journey
+                  </button>
+                </div>
 
-              <span className="text-[15px] text-[#333]">OR</span>
+                <div className="border-t border-[#2E2E2E] bg-white px-4 py-3 text-center text-[13px] text-[#555]">
+                  Want to make this itinerary entirely your own?
+                  <br />
+                  <button
+                    onClick={() => setIsPrivateFormOpen(true)}
+                    className="mt-1 font-bold text-ink underline underline-offset-2"
+                  >
+                    Tailor This Journey For You
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="flex flex-col items-center gap-2 border-t border-[#2E2E2E] bg-white px-4 py-3 text-center">
+                <button
+                  onClick={() => setActiveView("dates-pricing")}
+                  className="rounded-full bg-[#2B2D82] px-6 py-2 text-[15px] font-semibold text-white"
+                >
+                  Check Dates & Availability
+                </button>
 
-              <button
-                onClick={() => setIsPrivateFormOpen(true)}
-                className="text-[15px] font-semibold text-ink underline underline-offset-2"
-              >
-                Request a Private Journey
-              </button>
-            </div>
-
-            <div className="border-t border-[#2E2E2E] bg-white px-4 py-3 text-center text-[13px] text-[#555]">
-              Want to make this itinerary entirely your own?
-              <br />
-              <button
-                onClick={() => setIsPrivateFormOpen(true)}
-                className="mt-1 font-bold text-ink underline underline-offset-2"
-              >
-                Tailor This Journey For You
-              </button>
-            </div>
+                <div className="mt-1 text-[13px] text-[#555]">
+                  Want to customize this itinerary?{" "}
+                  <button
+                    onClick={() => setIsPrivateFormOpen(true)}
+                    className="font-bold text-ink underline underline-offset-2"
+                  >
+                    Request a Private Journey
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>}
       </div>
@@ -370,13 +424,18 @@ export default function HeroSection({
   exclusions={exclusions}
   setActiveView={setActiveView}
 />
+      {/* Inspirational: same as before — the generic "Inspirational
+          Itineraries" webform, no specific departure attached. Group: the
+          standard private-journey webform, pre-filled with the soonest
+          offer/upcoming departure computed above. */}
       <PrivateInquiryForm
         isOpen={isPrivateFormOpen}
         onClose={() => setIsPrivateFormOpen(false)}
         onSubmit={(data) => console.log("Private journey inquiry submitted:", data)}
         journey={journey}
-        showDepartureDate={false}
-        label="Inspirational Itineraries Form"
+        departure={isInspirational ? undefined : priorityDeparture}
+        showDepartureDate={!isInspirational}
+        label={isInspirational ? "Inspirational Itineraries Form" : undefined}
       />
     </>
   );

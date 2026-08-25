@@ -44,16 +44,20 @@ export default function PrivateInquiryForm({
   // their current label-less look.
   label,
 }) {
+  console.log("journey",journey)
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
 
   if (!isOpen) return null;
 
-  const updateField = (name, value) =>
+  const updateField = (name, value) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
+    if (name === "phone") setPhoneError("");
+  };
 
   const toggleArrayValue = (field, value) =>
     setFormData((prev) => {
@@ -74,7 +78,16 @@ export default function PrivateInquiryForm({
     toggleArrayValue("customizations", value);
   const toggleStopover = (value) => toggleArrayValue("stopovers", value);
 
-  const goNext = () => setStep((prev) => Math.min(prev + 1, TOTAL_STEPS));
+  const goNext = () => {
+    // Phone lives on step 1 — validate before leaving it, rather than
+    // only at final submit, so a bad number can't sail through to step
+    // 4 unnoticed.
+    if (step === 1 && !/^\d{10}$/.test((formData.phone || "").trim())) {
+      setPhoneError("Please enter a valid 10-digit mobile number.");
+      return;
+    }
+    setStep((prev) => Math.min(prev + 1, TOTAL_STEPS));
+  };
   const goPrevious = () => setStep((prev) => Math.max(prev - 1, 1));
 
   const handleClose = () => {
@@ -82,6 +95,7 @@ export default function PrivateInquiryForm({
     setStep(1);
     setSubmitted(false);
     setSubmitError("");
+    setPhoneError("");
     setFormData(initialFormData);
   };
 
@@ -95,12 +109,36 @@ export default function PrivateInquiryForm({
 
   const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+  // NOTE: tried sending these as "Label (id)" strings on the theory that
+  // Drupal's EntityAutocomplete parser needs that format — that turned out
+  // to be wrong (it broke `destination`, which had been working with a
+  // plain ID). Reverted to plain IDs, confirmed working for `destination`.
+  //
+  // `journeytype` is configured with multiple values enabled on the
+  // webform (the "selected items" tags widget) — unlike `destination`,
+  // which is single-value. A multi-value webform element expects an
+  // array of IDs via webform_rest, not one scalar, so this sends the
+  // full list of resolved field_journey_tag term ids instead of just
+  // the first.
+  const journeyTypeValue = journey?.tagIds?.length ? journey.tagIds : "";
+  const departureNodeId = departure?.nodeId || departure?.id || departureId || "";
+  const journeyDepartureValue = departureNodeId;
+  const journeyNodeId = journey?.nodeId || journey?.id || journeyId || "";
+  const destinationValue = journeyNodeId;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitError("");
 
     if (!EMAIL_PATTERN.test(formData.email.trim())) {
       setSubmitError("Please enter a valid email address.");
+      return;
+    }
+
+    if (!/^\d{10}$/.test((formData.phone || "").trim())) {
+      setPhoneError("Please enter a valid 10-digit mobile number.");
+      // Phone is on step 1 — jump back so the inline error is visible.
+      setStep(1);
       return;
     }
 
@@ -140,8 +178,26 @@ export default function PrivateInquiryForm({
             isInspirational
               ? {
                   webform_id: "inspirational_itineraries_form",
-                  journey_id: journey?.id || journeyId || "",
-                  journey_departure_id: departure?.id || departureId || "",
+                  // Drupal's webform expects the plain node ID, not the
+                  // JSON:API UUID — `nodeId` (drupal_internal__nid) is
+                  // preferred when available, falling back to the UUID
+                  // for any caller that hasn't been updated to pass it.
+                  journey_id: journeyNodeId,
+                  journey_departure_id: departureNodeId,
+                  // Entity-autocomplete fields on the webform — Drupal's
+                  // EntityAutocomplete parser only extracts an ID out of
+                  // a "Label (id)" string, so these are built as that
+                  // rather than sent as bare IDs (see toAutocompleteValue
+                  // above).
+                  // journey_departure -> the departure ("book_your_journey")
+                  // node being enquired about.
+                  journey_departure: journeyDepartureValue,
+                  // journeytype -> the journey's field_journey_tag term
+                  // (e.g. "Private Journey"), from the "Journey Style"
+                  // vocabulary.
+                  journeytype: journeyTypeValue,
+                  // destination -> the journey node itself.
+                  destination: destinationValue,
                   journey_title: journey?.title || "",
                   // NOTE: assumed shape — Drupal only specifies this as a
                   // JSON-encoded string, not the exact keys it should
@@ -173,8 +229,15 @@ export default function PrivateInquiryForm({
                 }
               : {
                   webform_id: "private_journey_inquiry_webform",
-                  journey_id: journey?.id || journeyId || "",
-                  journey_departure_id: departure?.id || departureId || "",
+                  // See note above: prefer the plain node ID over the
+                  // JSON:API UUID.
+                  journey_id: journeyNodeId,
+                  journey_departure_id: departureNodeId,
+                  // Entity-autocomplete fields on the webform — see note
+                  // in the inspirational branch above.
+                  journey_departure: journeyDepartureValue,
+                  journeytype: journeyTypeValue,
+                  destination: destinationValue,
                   first_name: formData.firstName.trim(),
                   last_name: formData.lastName.trim(),
                   title: formData.title,
@@ -198,11 +261,13 @@ export default function PrivateInquiryForm({
           ),
         }
       );
+      console.log("journey",journey);
 
       const data = await response.json();
 
       if (!response.ok) {
         console.error("Private journey inquiry submission error:", data);
+      
         setSubmitError(data.message || "Something went wrong. Please try again.");
         setIsSubmitting(false);
         return;
@@ -246,7 +311,7 @@ export default function PrivateInquiryForm({
           <div className="overflow-y-auto px-6 py-5">
             {submitted ? (
               <div className="flex flex-col items-start gap-8 md:flex-row md:items-center">
-                <div className="w-full shrink-0 md:w-[210px]">
+                <div className="hidden w-full shrink-0 sm:block md:w-[210px]">
                   <JourneySummaryCard
                     journey={journey}
                     departure={departure}
@@ -284,6 +349,7 @@ export default function PrivateInquiryForm({
                         formData={formData}
                         updateField={updateField}
                         showTravelWindow={!showDepartureDate}
+                        phoneError={phoneError}
                       />
                     )}
                     {step === 2 && (
@@ -327,7 +393,7 @@ export default function PrivateInquiryForm({
                   )}
 
                   {/* Navigation Buttons */}
-                  <div className="mt-2 flex items-center justify-end gap-4">
+                  <div className="mt-2 flex items-center justify-between sm:justify-end sm:gap-4">
                     {step > 1 && (
                       <button
                         type="button"

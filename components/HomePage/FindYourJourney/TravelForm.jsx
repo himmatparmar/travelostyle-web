@@ -232,7 +232,7 @@ className="flex h-[42px] w-[470px] items-center justify-between rounded border-[
             When do you want to go?
           </h3>
 
-          <p className="mb-4 mt-2 text-sm text-gray-500">
+          <p className="mb-4 mt-2 text-sm text-[#757575]">
             Pick Month of Travel
           </p>
 

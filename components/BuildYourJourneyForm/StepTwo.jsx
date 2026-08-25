@@ -1,21 +1,5 @@
 import { TRIP_REASONS } from "./constants";
 
-const ROW_1 = [
-  "Honeymoon",
-  "Birthday",
-  "Babymoon",
-  "Anniversary",
-  "Family Trip",
-  "Bucket List",
-];
-
-const ROW_2 = [
-  "Graduation",
-  "Friend Trip",
-  "Family Trip",
-  "Because I love to travel",
-];
-
 export default function StepTwo({ formData, updateField }) {
   const renderRadio = (reason, keyId) => {
     const isSelected = formData.tripReason === reason;
@@ -56,13 +40,8 @@ export default function StepTwo({ formData, updateField }) {
 
      
       <div className="mt-8 flex flex-col gap-y-4">
-     
-        <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
-          {ROW_1.map((reason, idx) => renderRadio(reason, `r1-${idx}`))}
-        </div>
-
-        <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
-          {ROW_2.map((reason, idx) => renderRadio(reason, `r2-${idx}`))}
+        <div className="flex flex-col gap-y-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-3">
+          {TRIP_REASONS.map((reason, idx) => renderRadio(reason, `r-${idx}`))}
         </div>
       </div>
       <div className="mt-9">
@@ -71,7 +50,7 @@ export default function StepTwo({ formData, updateField }) {
         </label>
 
         <textarea
-          rows={3}
+          rows={5}
           value={formData.expertNote || ""}
           onChange={(e) => updateField("expertNote", e.target.value)}
           placeholder="Do you have questions? Quirks? Preferences? or special considerations that you would like us to keep in mind?&#10;Tell us everything! The more we know, the better we can help."

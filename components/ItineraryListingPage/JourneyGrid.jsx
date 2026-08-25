@@ -3,7 +3,7 @@ import JourneyCard from "./JourneyCard";
 export default function JourneyGrid({ journeys }) {
   if (!journeys.length) {
     return (
-      <div className="py-10 text-center text-gray-500">
+      <div className="py-10 text-center text-[#757575]">
         No journeys found
       </div>
     );

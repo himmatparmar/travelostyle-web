@@ -204,7 +204,7 @@ export default function TravelDestinationWidget() {
     >
       {isMobile ? (
       
-        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
           {months.map((month) => {
             const isExpanded = month === selectedMonth;
             const monthDestinations = destinations.filter((item) =>
@@ -215,9 +215,9 @@ export default function TravelDestinationWidget() {
               <div
                 key={month}
                 style={{
-                  border: "1px solid #333333",
-                  borderRadius: "6px",
-                  background: isExpanded ? "#ebdccb" : "#eef2da",
+                  border: "2px solid #1A1A1A",
+                  borderRadius: "5px",
+                  background: isExpanded ? "#F2E2DA" : "#EFF3CF",
                   overflow: "hidden",
                   transition: "background-color 0.2s ease",
                 }}
@@ -226,7 +226,8 @@ export default function TravelDestinationWidget() {
                 <div
                   onClick={() => setSelectedMonth(isExpanded ? "" : month)}
                   style={{
-                    padding: "14px 16px",
+                    height: "64px",
+                    padding: "0 16px",
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
@@ -236,10 +237,11 @@ export default function TravelDestinationWidget() {
                 >
                   <span
                     style={{
-                      fontSize: "14px",
+                      fontSize: "21px",
+                      lineHeight: "36px",
+                      letterSpacing: "0.05em",
                       fontWeight: "600",
-                      color: "#222222",
-                      fontFamily: "sans-serif",
+                      color: "#1A1A1A",
                     }}
                   >
                     {month}
@@ -270,8 +272,8 @@ export default function TravelDestinationWidget() {
                 {isExpanded && (
                   <div
                     style={{
-                      borderTop: "1px solid #333333",
-                      background: "#ebdccb",
+                      borderTop: "2px solid #1A1A1A",
+                      background: "#F2E2DA",
                       display: "flex",
                       flexDirection: "column",
                     }}
@@ -287,7 +289,7 @@ export default function TravelDestinationWidget() {
                             padding: "12px 16px",
                             borderBottom:
                               idx !== monthDestinations.length - 1
-                                ? "1px solid rgba(51,51,51,0.15)"
+                                ? "2px solid #1A1A1A"
                                 : "none",
                           }}
                         >
@@ -308,20 +310,22 @@ export default function TravelDestinationWidget() {
                                 borderRadius: "2px",
                               }}
                             />
-                            <div style={{ fontFamily: "sans-serif" }}>
+                            <div>
                               <div
                                 style={{
-                                  fontSize: "12px",
+                                  fontSize: "14px",
                                   fontWeight: "600",
-                                  color: "#222",
+                                  letterSpacing: "0.05em",
+                                  color: "#1A1A1A",
                                 }}
                               >
                                 {item.title}
                               </div>
                               <div
                                 style={{
-                                  fontSize: "10px",
-                                  color: "#555",
+                                  fontSize: "12px",
+                                  color: "#555555",
+                                  letterSpacing: "0.05em",
                                   marginTop: "2px",
                                 }}
                               >
@@ -349,7 +353,6 @@ export default function TravelDestinationWidget() {
                           color: "#666",
                           fontStyle: "italic",
                           textAlign: "center",
-                          fontFamily: "sans-serif",
                         }}
                       >
                         No journeys available for this month.
@@ -366,7 +369,7 @@ export default function TravelDestinationWidget() {
         <div style={{ position: "relative" }}>
           <div
             style={{
-              border: "1px solid #333333",
+              border: "2px solid #333333",
               borderRadius: "6px",
               padding: "24px 20px 20px 20px",
               background: "#ffffff",

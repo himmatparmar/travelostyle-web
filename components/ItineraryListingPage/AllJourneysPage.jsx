@@ -115,8 +115,6 @@ const drupalJourneys = (json.data || []).map((item, index) => {
 
          const imageUrl = buildFileUrl(rawUrl) || "/GoldenTriange.svg";
 
-          const tagIds = item.relationships?.field_journey_tag?.data || [];
-
           const tagData = item.relationships?.field_journey_tag?.data;
 
           const tagArray = Array.isArray(tagData)
@@ -125,16 +123,33 @@ const drupalJourneys = (json.data || []).map((item, index) => {
               ? [tagData]
               : [];
 
-          const tagNames = tagArray
+          // field_journey_tag references the "Journey Style" vocabulary,
+          // whose JSON:API resource type is taxonomy_term--journey_style —
+          // taxonomy_term--tags is also accepted for safety. Resolve name
+          // and id together from the matched `included` entity so a
+          // dangling reference to a deleted/unpublished term (present in
+          // the relationship but absent from `included`) never makes it
+          // into tagIds — that's what was getting forwarded to the
+          // inquiry-form webform and triggering its "referenced entity
+          // does not exist" validation error.
+          const resolvedTags = tagArray
             .map((tag) => {
               const tagEntity = included.find(
                 (inc) =>
-                  inc.type === "taxonomy_term--tags" && inc.id === tag.id,
+                  (inc.type === "taxonomy_term--tags" ||
+                    inc.type === "taxonomy_term--journey_style") &&
+                  inc.id === tag.id,
               );
-
-              return tagEntity?.attributes?.name;
+              const name = tagEntity?.attributes?.name;
+              const id =
+                tag.meta?.drupal_internal__target_id ??
+                tagEntity?.attributes?.drupal_internal__tid;
+              return name ? { id, name } : null;
             })
             .filter(Boolean);
+
+          const tagNames = resolvedTags.map((t) => t.name);
+          const tagIds = resolvedTags.map((t) => t.id).filter((id) => id != null);
 
           const cta = item.attributes?.field_cta;
 

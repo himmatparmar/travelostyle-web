@@ -25,8 +25,19 @@ export default function JourneyPricing({
     const router = useRouter();
 
     const openPrivateForm = (trip) =>
-        setPrivateFormDeparture({         id: trip.id,
-startDate: trip.startDate, endDate: trip.endDate });
+        setPrivateFormDeparture({
+            id: trip.id,
+            nodeId: trip.nodeId,
+            title: trip.title,
+            startDate: trip.startDate,
+            endDate: trip.endDate,
+            // So JourneySummaryCard shows this specific departure's price
+            // (incl. any offer) instead of falling back to the journey's
+            // generic "from" price.
+            originalPrice: trip.originalPrice,
+            offerPercentage: trip.offerPercentage,
+            discountedPrice: trip.discountedPrice,
+        });
     const openGroupForm = (trip) => setGroupFormTrip(trip);
 
     const toggleCard = (index) => {
@@ -60,6 +71,13 @@ startDate: trip.startDate, endDate: trip.endDate });
 
     return {
         id: item.id,
+        // Node ID (not the JSON:API UUID) — needed for the Drupal
+        // webform_rest submission in PrivateInquiryForm.
+        nodeId: item.attributes?.drupal_internal__nid ?? null,
+        // Node title — paired with nodeId to build the "Label (id)"
+        // value the webform's journey_departure entity-autocomplete
+        // field expects.
+        title: item.attributes?.title || "",
 
         startDate: item.attributes?.field_departure_date,
         endDate: item.attributes?.field_return_date,
@@ -131,7 +149,7 @@ startDate: trip.startDate, endDate: trip.endDate });
       </div>
 
       <div className="text-center mt-10">
-        <p className="text-gray-500">
+        <p className="text-[#757575]">
           No departures currently available for {selectedYear}
         </p>
       </div>
@@ -248,7 +266,7 @@ startDate: trip.startDate, endDate: trip.endDate });
                                     </div>
 
                                     <div className="text-right">
-                                      <p className="text-[10px] text-gray-500">
+                                      <p className="text-[10px] text-[#757575]">
     from
 </p>
 
@@ -265,7 +283,7 @@ startDate: trip.startDate, endDate: trip.endDate });
 </div>
 )}
 
-<p className="text-[10px] text-gray-500">
+<p className="text-[10px] text-[#757575]">
     / person
 </p>
                                     </div>
@@ -288,7 +306,7 @@ startDate: trip.startDate, endDate: trip.endDate });
                                                 )}
                                             </>
                                         ) : (
-                                            <p className="text-gray-500">
+                                            <p className="text-[#757575]">
                                                 No offers available
                                             </p>
                                         )}
@@ -410,7 +428,7 @@ startDate: trip.startDate, endDate: trip.endDate });
                                         </td>
                                       <td className="border px-4 py-5">
     {/* From */}
-    <div className="text-[10px] text-gray-500 mb-1">
+    <div className="text-[10px] text-[#757575] mb-1">
         from
     </div>
 

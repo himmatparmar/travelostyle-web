@@ -24,7 +24,8 @@ export default function MobileMegaMenu({
 
       <div
         className={`absolute left-0 top-0 h-screen w-[78%] max-w-[300px]
-          bg-[#2F2F87] px-6 py-8 flex flex-col
+          bg-[#2F2F87] px-6 py-8 flex flex-col overflow-y-auto overscroll-contain
+          [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
           transition-transform duration-300 ${
             menuOpen ? "translate-x-0" : "-translate-x-full"
           }`}
@@ -76,6 +77,13 @@ export default function MobileMegaMenu({
     All Journeys
   </Link>
 )}
+
+  <Link
+    href="/destination"
+    className="text-left text-white text-[18px] font-medium"
+  >
+    Destinations
+  </Link>
 
   <Link
     href="/offers"

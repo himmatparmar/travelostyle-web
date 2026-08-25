@@ -1,27 +1,34 @@
+import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
-const ROW_1 = [
-  "Adventure",
-  "Nature & Wildlife",
-  "Safaris",
-  "Camping",
-  "Culture & History",
-  "Festivals",
-  "Culinary (Food & Drink)",
-];
+import { EXPERIENCES } from "./constants";
 
-const ROW_2 = [
-  "Beaches",
-  "Coastal",
-  "City Life",
-  "Luxury Escapes",
-  "Family-focused",
-  "Cruises",
-  "Private Jet Journeys",
-];
+export default function StepOne({
+  formData,
+  updateField,
+  toggleExperience,
+  // [{ id, title, tagIds }] — real journeys fetched from Drupal (see
+  // index.jsx), id is the plain node ID (drupal_internal__nid), tagIds
+  // are that journey's field_journey_tag term ids. Populates the "Where
+  // do you want to go?" option list.
+  destinationOptions = [],
+}) {
+  const [isDestOpen, setIsDestOpen] = useState(false);
 
-const ROW_3 = ["Rail Journeys"];
+  const filteredDestinations = useMemo(() => {
+    const query = (formData.destination || "").trim().toLowerCase();
+    if (!query) return destinationOptions;
+    return destinationOptions.filter((d) =>
+      d.title.toLowerCase().includes(query)
+    );
+  }, [destinationOptions, formData.destination]);
 
-export default function StepOne({ formData, updateField, toggleExperience }) {
+  const selectDestination = (option) => {
+    updateField("destination", option.title);
+    updateField("destinationId", option.id);
+    updateField("journeyTypeIds", option.tagIds || []);
+    setIsDestOpen(false);
+  };
+
   const renderCheckbox = (experience) => {
     const isChecked = formData.experiences?.includes(experience);
     return (
@@ -49,7 +56,7 @@ export default function StepOne({ formData, updateField, toggleExperience }) {
       </h3>
 
       <div className="mt-8 flex flex-col sm:flex-row sm:items-end gap-6 sm:gap-8">
-        <div className="w-full sm:max-w-[360px]">
+        <div className="relative w-full sm:max-w-[360px]">
           <label className="block text-[16px] font-[500] leading-[32px] tracking-[0.05em] text-[#1A1A1A]">
             Where do you want to go?
           </label>
@@ -59,11 +66,47 @@ export default function StepOne({ formData, updateField, toggleExperience }) {
             <input
               type="text"
               value={formData.destination || ""}
-              onChange={(e) => updateField("destination", e.target.value)}
+              onChange={(e) => {
+                updateField("destination", e.target.value);
+                // Typing after a selection invalidates the previously
+                // picked journey's id/tags — only a re-selection from the
+                // list sets valid ones again.
+                if (formData.destinationId) {
+                  updateField("destinationId", null);
+                  updateField("journeyTypeIds", []);
+                }
+                setIsDestOpen(true);
+              }}
+              onFocus={() => setIsDestOpen(true)}
+              onBlur={() => setTimeout(() => setIsDestOpen(false), 150)}
               placeholder="Search your destination"
+              autoComplete="off"
               className="w-full bg-transparent text-[14px] leading-tight tracking-[0.05em] text-[#1A1A1A] placeholder:text-[#757575] focus:outline-none"
             />
           </div>
+
+          {isDestOpen && (
+            <div className="absolute left-0 right-0 top-full z-10 mt-1 max-h-[220px] overflow-y-auto rounded-[6px] border border-[#D9D9D9] bg-white shadow-lg">
+              {filteredDestinations.length ? (
+                filteredDestinations.map((option) => (
+                  <button
+                    key={option.id}
+                    type="button"
+                    // onMouseDown (not onClick) so the option is selected
+                    // before the input's onBlur fires and closes the list.
+                    onMouseDown={() => selectDestination(option)}
+                    className="block w-full px-4 py-2 text-left text-[13px] tracking-[0.03em] text-[#1A1A1A] hover:bg-[#F2E5DE]"
+                  >
+                    {option.title}
+                  </button>
+                ))
+              ) : (
+                <p className="px-4 py-2 text-[13px] text-[#757575]">
+                  No matching destinations
+                </p>
+              )}
+            </div>
+          )}
         </div>
 
         <p className="text-[13px] font-[400] leading-[21px] tracking-[0.05em] text-[#757575] sm:pb-0.5">
@@ -77,15 +120,8 @@ export default function StepOne({ formData, updateField, toggleExperience }) {
         </label>
 
         <div className="mt-4 flex flex-col gap-y-4">
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-            {ROW_1.map(renderCheckbox)}
-          </div>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-            {ROW_2.map(renderCheckbox)}
-          </div>
-
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-            {ROW_3.map(renderCheckbox)}
+          <div className="flex flex-col gap-y-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-3">
+            {EXPERIENCES.map(renderCheckbox)}
           </div>
         </div>
       </div>

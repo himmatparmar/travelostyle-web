@@ -19,6 +19,11 @@ function stripHtml(html: string): string {
 const INCLUDE = [
   "field_journey_image.field_media_image",
   "field_journey_tag",
+  // Entity reference to the "Journey Experience Type" taxonomy vocabulary
+  // (Group / Inspirational) — without this include, the relationship's
+  // referenced term never shows up in `included`, so the frontend can't
+  // resolve its name even though the relationship id is present.
+  "field_journey_experience_type",
   "field_category",
   "field_month",
   "field_starts_in",
@@ -34,8 +39,7 @@ const INCLUDE = [
 
   "field_journey_tabs_section",
   "field_journey_tabs_section.field_section_tabs",
-
-  "field_journey_tabs_section.field_section_tabs.field_highlight_cards",
+    "field_journey_tabs_section.field_section_tabs.field_highlight_cards",
   "field_journey_tabs_section.field_section_tabs.field_days",
   "field_journey_tabs_section.field_section_tabs.field_hotels",
   "field_journey_tabs_section.field_section_tabs.field_include_exclude.field_inclusion",
@@ -51,6 +55,7 @@ const INCLUDE = [
   "field_journey_tabs_section.field_section_tabs.field_hotels.field_featured_image.field_media_image",
   "field_journey_tabs_section.field_section_tabs.field_hotels.field_gallery.field_media_image",
   "field_journey_tabs_section.field_section_tabs.field_information_item",
+
   // "field_journey_tabs_section.field_section_tabs.field_inclusions.field_inclusion.field_icon",
   // "field_journey_tabs_section.field_section_tabs.field_exclusions.field_exclusion.field_icon",
   // "field_journey_tabs_section.field_section_tabs.field_inclusions.field_inclusion.field_icon.field_media_image",

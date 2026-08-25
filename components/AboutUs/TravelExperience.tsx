@@ -28,31 +28,31 @@ export default function TravelExperience() {
 
   return (
     <section className="px-4 md:px-[60px] lg:px-[113px] py-[50px] md:py-[100px]">
-      <div className="overflow-hidden rounded-[6px] border border-[#4A4A4A]">
+      <div className="mx-auto w-full max-w-[332px] overflow-hidden rounded-[10px] border-2 border-[#1A1A1A] lg:max-w-none lg:rounded-[6px] lg:border lg:border-[#4A4A4A]">
 
         {/* Heading */}
-        <div className="min-h-[70px] py-3 px-4 bg-[#E7ECC7] flex items-center justify-center text-center border-b border-[#4A4A4A]">
-          <h2 className="text-[18px] md:text-[22px] font-semibold">
+        <div className="min-h-[121px] lg:min-h-[70px] py-3 px-4 bg-[#EFF3CF] flex items-center justify-center text-center border-b-2 border-[#1A1A1A] lg:border-b lg:border-[#4A4A4A]">
+          <h2 className="max-w-[281px] text-[24px] leading-[32px] tracking-[0.05em] capitalize font-semibold lg:text-[22px] lg:leading-normal lg:tracking-normal lg:max-w-none">
             Our Idea Of A Good Travel Experience
           </h2>
         </div>
 
         {/* Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6">
+        <div className="bg-[#FAFAFA] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 lg:bg-transparent">
           {items.map((item, index) => (
             <div
               key={index}
-              className={`p-6 min-h-0 md:min-h-[260px] ${
+              className={`px-[27px] py-8 min-h-0 lg:p-6 md:min-h-[260px] ${
                 index !== items.length - 1
-                  ? "border-b lg:border-b-0 lg:border-r border-[#4A4A4A]"
+                  ? "border-b-2 border-[#000000] lg:border-b-0 lg:border-r lg:border-[#4A4A4A]"
                   : ""
               }`}
             >
-              <h3 className="text-[18px] font-semibold leading-[24px] mb-6">
+              <h3 className="text-[18px] font-semibold leading-[28px] tracking-[0.05em] mb-4 lg:mb-6 lg:leading-[24px] lg:tracking-normal">
                 {item.title}
               </h3>
 
-              <p className="text-[13px] leading-[28px] text-[#4A4A4A]">
+              <p className="text-[16px] leading-[28px] tracking-[0.05em] text-[#000000] lg:text-[13px] lg:tracking-normal lg:text-[#4A4A4A]">
                 {item.text}
               </p>
             </div>
