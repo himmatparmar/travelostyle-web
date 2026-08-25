@@ -107,7 +107,7 @@ export default function JourneyCard({ trip, variant = "carousel", onCompare }) {
         <JourneyCardImage src={trip.image} alt={trip.title} />
       </div>
 
-      <div className="flex flex-1 flex-col pt-2 md:pt-4">
+      <div className="flex flex-1 flex-col pt-2 text-left md:pt-4">
         <h3 className="line-clamp-2 h-[48px] text-[16px] font-semibold leading-[24px] tracking-[0.05em] text-ink md:h-auto md:min-h-[2.6em] md:text-[21px] md:leading-[1.3] md:tracking-normal md:text-[#232323]">
           {trip.title}
         </h3>

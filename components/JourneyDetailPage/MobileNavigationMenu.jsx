@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Itinerary from "./Itinerary";
 import MobileHighlightsPage from "./MobileHighlightsPage";
 import InclusionsExclusions from "./Inclusionexclusion";
@@ -32,26 +31,43 @@ export default function MobileNavigationMenu({
 
  if (activeView === "menu") {
     return (
-      <div className="w-full py-4 block md:hidden bg-white">
-        <div className="bg-white">
+      <div className="block w-full bg-[#F9F9F9] md:hidden">
+        {/* Figma: rows separated by 2px #1A1A1A rules (y=858…1234, ~61px
+            apart), label 18px/400 at x=27, and a 56x24 outlined pill with a
+            right-arrow at x=307 instead of the old RightArrow.svg. */}
+        <div className="border-t-2 border-[#1A1A1A]">
           {menuItems.map((item, index) => (
             <button
               key={index}
-             onClick={() => setActiveView(item.id)}
-              className="flex w-full items-center justify-between border-b border-black px-6 py-4 text-left transition active:bg-gray-50"
+              onClick={() => setActiveView(item.id)}
+              className="flex h-[61px] w-full items-center justify-between border-b-2 border-[#1A1A1A] px-[27px] text-left transition active:bg-black/5"
             >
-              <span className="text-base font-medium tracking-wide text-ink">
+              <span className="text-[18px] font-normal leading-[36px] tracking-[0.05em] text-[#1A1A1A]">
                 {item.label}
               </span>
 
-              <div className="transition active:scale-95">
-                <Image src="/RightArrow.svg" alt="Next" height={24} width={56} />
-              </div>
+              <span className="flex h-[24px] w-[56px] shrink-0 items-center justify-center rounded-[30px] border-2 border-[#1A1A1A] transition active:scale-95">
+                <svg
+                  width="24"
+                  height="8"
+                  viewBox="0 0 24 8"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M0 4h22M18 1l4 3-4 3"
+                    stroke="#1A1A1A"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
             </button>
           ))}
         </div>
 
-        <div className="mt-6">
+        <div className="mt-[66px] pb-[64px]">
           <CtaBanner
             variant="card"
             buttonText="Request A Private Journey"
