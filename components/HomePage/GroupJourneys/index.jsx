@@ -87,13 +87,13 @@ export default async function Index() {
     <div>
       <section className="w-full px-6 py-10">
         <div className="mx-auto max-w-4xl">
-          <div className="max-w-[300px] md:max-w-none">
-            <h2 className="text-[36px] md:text-[2.8vw] font-bold text-[#222] leading-tight text-left md:text-center">
+          <div className="max-w-[336px] md:max-w-none">
+            <h2 className="text-[32px] leading-[40px] tracking-[0.05em] md:text-[2.8vw] md:leading-tight md:tracking-normal font-semibold md:font-bold text-ink text-left md:text-center">
               {heading}
             </h2>
 
           <div
-  className="mt-4 text-[16px] md:text-[1.05vw] leading-[26px] font-medium text-[#1A1A1A] text-left md:text-center"
+  className="mt-4 text-[16px] leading-[24px] tracking-[0.05em] md:text-[1.05vw] md:leading-[26px] md:tracking-normal font-normal md:font-medium text-ink text-left md:text-center"
   dangerouslySetInnerHTML={{ __html: description }}
 />
           </div>

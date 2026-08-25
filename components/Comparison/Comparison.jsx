@@ -499,23 +499,35 @@ export default function TripComparison() {
 
   return (
     <div className="mb-8 font-nohemi">
-      <h1 className="text-xl md:text-2xl font-bold mb-4 pt-6 md:pt-8 px-4 md:px-12">
+      <nav className="px-4 pt-6 text-[12px] font-light leading-[32px] tracking-[0.05em] text-ink md:px-12">
+        <a href="/" className="hover:underline">
+          Home
+        </a>
+        {" > "}
+        <span>Compare Trips</span>
+      </nav>
+
+      <h1 className="text-[32px] font-semibold tracking-[0.05em] text-ink md:text-2xl md:font-bold md:tracking-normal mb-4 md:pt-8 px-4 md:px-12">
         Compare Trips
       </h1>
 
-      <div className="w-full max-w-[95%] md:max-w-[92%] border-2 border-gray-300 rounded-[10px] bg-white shadow-sm mb-6 mx-auto">
+      <div className="w-full max-w-[95%] md:max-w-[92%] border-2 border-[#1A1A1A] rounded-[10px] bg-white shadow-sm mb-6 mx-auto">
         {/* Header */}
-<div className="flex w-full gap-2 md:gap-4 mt-4 md:mt-1 px-2 md:px-4 pb-6">          <h2 className="text-lg md:text-[20px] font-semibold text-gray-800">
+<div className="md:flex w-full gap-2 md:gap-4 mt-4 md:mt-1 px-2 md:px-4 pb-6 ml-7">          <h2 className="text-[18px] font-medium tracking-[0.05em] text-black md:text-[20px] md:font-semibold md:tracking-normal md:text-gray-800">
             Selected Trips
           </h2>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-[14px] leading-[28px] tracking-[0.05em] text-[#757575] mt-1">
             Choose up to 3 Trips to Compare
           </p>
         </div>
 
-        <hr className="mt-3 border-gray-600" />
+        <p className="md:hidden px-2 pb-4 ml-7 text-[14px] leading-[28px] tracking-[0.05em] text-[#757575]">
+          Swipe to compare between selected trips
+        </p>
 
-        <div className="flex gap-2 md:gap-4 mt-4 md:mt-1 px-2 md:px-4 pb-6">
+        <hr className="mt-3 border-1 border-[#1A1A1A]" />
+
+        <div className="flex gap-2 md:gap-4 md:mt-4 md:mt-1 md:px-2 md:px-4 pb-6">
           {/* Desktop label column — same ROWS config as the cards,
               so it can never drift out of alignment */}
           <div className="hidden md:block md:h-[700px] md:w-[150px] w-[130px] shrink-0">
@@ -534,17 +546,17 @@ export default function TripComparison() {
               </div>
             ))}
           </div>
-<div className="md:hidden w-[90px] min-w-[90px] shrink-0 sticky left-0 z-20 bg-white">
+<div className="md:hidden w-[102px] min-w-[102px] px-2 shrink-0 sticky left-0 z-20 rounded-bl-[5px] bg-[#FAFAFA] shadow-[4px_0px_15px_5px_#0000001A]">
     <div className={CARD_HEADER} />
 
   {ROWS.map((row) => (
     <div
   key={row.key}
-  className={`${row.h} flex items-start ${
+  className={`${row.h} md:flex items-start ${
     row.key === "travel" ? "pt-14" : "pt-4"
   }`}
 >
-      <span className="text-[12px] font-bold uppercase tracking-wide text-black">
+      <span className="text-[12px] font-semibold leading-[18px] tracking-[0.05em] text-black">
         {row.label}
       </span>
     </div>

@@ -79,66 +79,87 @@ export default function JourneyCard({ trip, variant = "carousel", onCompare }) {
     <div
       className={
         variant === "carousel"
-          ? "relative flex w-[85vw] min-w-[85vw] shrink-0 cursor-pointer flex-col px-8 pt-4 pb-12 max-md:snap-center md:w-[390px] md:min-w-[390px] h-[590px] md:h-[585px] md:pt-3 md:pb-11"
-          : "relative flex w-[85vw] min-w-[85vw] shrink-0 cursor-pointer flex-col px-4 pt-4 pb-5 max-md:snap-center md:w-full md:min-w-0 md:max-w-[390px] h-[586px] md:h-[585px] md:px-6 md:pt-3 md:pb-11"
+          ? "relative flex w-[293px] min-w-[293px] shrink-0 cursor-pointer flex-col px-[14px] pt-2 pb-4 max-md:snap-center md:w-[390px] md:min-w-[390px] md:min-h-[585px] md:px-8 md:pt-3 md:pb-11"
+          : "relative flex w-[293px] min-w-[293px] shrink-0 cursor-pointer flex-col px-[14px] pt-2 pb-4 max-md:snap-center md:w-full md:min-w-0 md:max-w-[390px] md:min-h-[585px] md:px-6 md:pt-3 md:pb-11"
       }
     >
       <div
-        className="pointer-events-none absolute inset-0 -z-10"
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[106.01%] md:h-full"
         style={{
           backgroundImage: "url(/Union-it.svg)",
-          backgroundSize: "cover",
+          backgroundSize: "100% 100%",
           backgroundRepeat: "no-repeat",
         }}
       />
 
-      <div className="mb-3 flex min-h-[1.5rem] flex-wrap gap-2 md:mb-3 md:min-h-[28px] md:gap-2">
+      <div className="mb-2 flex min-h-[16px] flex-wrap gap-2 md:mb-3 md:min-h-[28px] md:gap-2">
         {trip.tags?.map((tag) => (
           <span
             key={tag}
-            className={`rounded-[2px] px-2 py-[2px] text-[10px] leading-[16px] tracking-[0.05em] font-normal md:rounded-[5px] md:px-3 md:py-1 md:text-[14px] md:font-medium ${getTagColor(tag)}`}
+            className={`rounded-[2px] px-2 text-[10px] leading-[16px] tracking-[0.05em] font-normal md:rounded-[5px] md:px-3 md:py-1 md:text-[14px] md:font-medium ${getTagColor(tag)}`}
           >
             {tag}
           </span>
         ))}
       </div>
 
-      <div className="relative h-48 w-full overflow-hidden rounded-lg md:h-[213px] md:w-full md:rounded-[3px]">
+      <div className="relative h-[128px] w-full overflow-hidden rounded-[3px] md:h-[213px] md:w-full">
         <JourneyCardImage src={trip.image} alt={trip.title} />
       </div>
 
-      <div className="flex flex-1 flex-col pt-3 md:pt-4">
-        <h3 className="line-clamp-2 min-h-[2.6em] text-lg font-semibold leading-[1.3] text-[#232323] md:text-[21px]">
+      <div className="flex flex-1 flex-col pt-2 md:pt-4">
+        <h3 className="line-clamp-2 h-[48px] text-[16px] font-semibold leading-[24px] tracking-[0.05em] text-ink md:h-auto md:min-h-[2.6em] md:text-[21px] md:leading-[1.3] md:tracking-normal md:text-[#232323]">
           {trip.title}
         </h3>
 
-        <p className="mt-2 line-clamp-2 min-h-[3.1em] text-sm leading-[1.55] text-[#666666] md:text-[11px]">
+        <p className="mt-2 line-clamp-3 h-[48px] text-[10px] font-light leading-[16px] tracking-[0.05em] text-ink md:mt-2 md:line-clamp-2 md:h-auto md:min-h-[3.1em] md:text-[11px] md:font-normal md:leading-[1.55] md:tracking-normal md:text-[#666666]">
           {trip.desc}
         </p>
-        <div className="mt-3 flex items-center gap-4 text-xs text-[#717171] md:mt-3 md:gap-4 md:text-[8px]">
-          <div className="flex items-center gap-1 md:gap-1">
-            <CalendarDays size={12} strokeWidth={1.8} />
+        <div className="mt-3 flex h-[44px] flex-col gap-2 text-[10px] leading-[16px] tracking-[0.05em] text-ink md:mt-3 md:h-auto md:flex-row md:items-center md:gap-4 md:text-[8px] md:tracking-normal md:text-[#717171]">
+          <div className="flex items-center gap-2 md:gap-1">
+            <CalendarDays size={16} strokeWidth={1.8} className="md:size-3" />
             {trip.days}
           </div>
 
-          <div className="flex items-center gap-1 md:gap-1">
-            <MapPinned size={12} strokeWidth={1.8} />
+          <div className="flex items-center gap-2 md:gap-1">
+            <MapPinned size={16} strokeWidth={1.8} className="md:size-3" />
             {trip.destinations}
           </div>
         </div>
 
-        <div className="mt-4 flex items-end justify-between md:mt-4">
-          <div className="flex items-end gap-1 md:gap-1">
-            <div className="flex flex-col">
-              <span className="text-[11px] leading-[1.15] text-[#7B7B7B] md:text-[9px]">
+        <div className="flex-1" />
+
+        <div className="mt-4 flex items-center justify-between md:items-end">
+          <div className="flex flex-col items-start md:flex-row md:items-end md:gap-1">
+            <span className="text-[10px] leading-[21px] tracking-[0.05em] text-ink md:hidden">
+              from
+            </span>
+
+            {/* Mobile (per Figma): "$3000*" and "/person" share a baseline,
+                with "double occupancy*" wrapping onto the line below. Desktop
+                keeps the original stacked-label + two-line-note arrangement. */}
+            <div className="flex items-baseline gap-1 md:hidden">
+              <h4 className="text-[16px] font-medium leading-[21px] tracking-[0.05em] text-ink">
+                ${Number(trip.price).toLocaleString()}*
+              </h4>
+              <span className="text-[10px] leading-[14px] tracking-[0.05em] text-ink">
+                /person
+              </span>
+            </div>
+            <span className="text-[10px] leading-[14px] tracking-[0.05em] text-ink md:hidden">
+              double occupancy*
+            </span>
+
+            <div className="hidden md:flex md:flex-col">
+              <span className="md:text-[9px] md:leading-[1.15] md:text-[#7B7B7B]">
                 from
               </span>
-              <h4 className="text-2xl font-semibold leading-none text-[#1D1D1D] md:text-[20px]">
+              <h4 className="md:text-[20px] md:font-semibold md:leading-none md:text-[#1D1D1D]">
                 ${Number(trip.price).toLocaleString()}*
               </h4>
             </div>
 
-            <span className="mb-1 text-[10px] leading-[1.15] text-[#7B7B7B] md:mb-[2px] md:text-[8px]">
+            <span className="hidden md:mb-[2px] md:block md:text-[8px] md:leading-[1.15] md:text-[#7B7B7B]">
               /person
               <br />
               double occupancy*
@@ -148,13 +169,13 @@ export default function JourneyCard({ trip, variant = "carousel", onCompare }) {
           <a
             href={trip.viewTripUrl}
             onClick={(e) => e.stopPropagation()}
-            className="flex h-10 items-center justify-center rounded-full bg-[#2D3482] px-2 md:px-5 text-sm font-semibold text-white w-auto md:h-[29px] md:w-[93px] md:px-0 md:text-[11px]"
+            className="flex h-8 shrink-0 items-center justify-center rounded-full bg-[#2C3078] px-6 text-[16px] font-semibold tracking-[0.05em] text-[#FAFAFA] w-auto md:h-[29px] md:w-[93px] md:px-0 md:text-[11px] md:tracking-normal md:bg-[#2D3482]"
           >
             {trip.viewTripText || "View Trip"}
           </a>
         </div>
 
-        <div className="mt-4 min-h-9 md:mt-4 md:min-h-8">
+        <div className="mt-3 md:mt-4 md:min-h-8">
           {trip.offer && (
             <div className="flex items-center gap-2 rounded-md bg-[#F4E5DA] px-3 py-2 text-xs text-[#65574D] md:gap-1.5 md:rounded-[5px] md:px-2.5 md:py-2 md:text-[8px]">
               <Info size={11} className="shrink-0" />
@@ -166,9 +187,9 @@ export default function JourneyCard({ trip, variant = "carousel", onCompare }) {
         <button
           type="button"
           onClick={handleAddToCompare}
-          className="mt-4 flex items-center gap-2 text-sm text-[#4E4E4E] md:mt-4 md:gap-1.5 md:text-[11px]"
+          className="md:mt-6 mb-6 md:mb-0 flex items-center gap-2 text-[14px] leading-[18px] tracking-[0.05em] text-ink md:mt-4 md:gap-1.5 md:text-[11px] md:tracking-normal md:text-[#4E4E4E]"
         >
-          <CirclePlus size={14} strokeWidth={1.8} />
+          <CirclePlus size={24} strokeWidth={1} className="md:size-3.5 md:stroke-[1.8]" />
           <span>Add to Compare</span>
         </button>
       </div>

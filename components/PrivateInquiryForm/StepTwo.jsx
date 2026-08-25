@@ -10,7 +10,7 @@ export default function StepTwo({
       <h3 className="text-[15px] font-semibold text-[#1A1A1A]">
         How would you like to customize this journey?
       </h3>
-      <p className="mt-1 text-[12px] text-gray-500">
+      <p className="mt-1 text-[12px] text-[#757575]">
         Choose all that applies to you
       </p>
 

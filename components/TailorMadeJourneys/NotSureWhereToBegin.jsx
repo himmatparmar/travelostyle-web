@@ -106,10 +106,10 @@ export default function NotSureWhereToBegin() {
        selectedTrips={selectedTrips}
         onCompare={handleCompareSelection}
       /> 
-      <div className="flex justify-center mt-10">
+      <div className="md:flex justify-center ml-3.5 md:ml-auto md:mt-10">
         <button
           onClick={goToAllJourneys}
-          className="bg-[#1C355E] hover:bg-[#12233F] text-white text-xs font-semibold px-6 py-2.5 rounded-full shadow-sm transition-all duration-200"
+          className="bg-[#1C355E] hover:bg-[#12233F] text-white text-xs font-semibold px-4 md:px-6 py-2.5 rounded-full shadow-sm transition-all duration-200"
         >
           Explore All Curated Journeys
         </button>

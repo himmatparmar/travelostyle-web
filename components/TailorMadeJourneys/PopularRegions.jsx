@@ -61,11 +61,11 @@ export default function PopularRegions() {
   return (
     <div className="bg-white px-4 sm:px-8 lg:px-16 max-w-7xl mx-auto">
       {" "}
-      <h3 className="text-gray-900 font-bold text-sm sm:text-base tracking-tight mb-6 sm:mb-8">
+      <h3 className="text-black font-bold text-center text-[21px] leading-[28px] w-[244px] mx-auto  tracking-tight mb-6 sm:mb-8">
         Explore some of our popular regions!
       </h3>
       {loading ? (
-        <p className="text-sm text-gray-500">Loading regions...</p>
+        <p className="text-sm text-[#757575]">Loading regions...</p>
       ) : (
         <PopularRegionCard regions={regions} />
       )}

@@ -87,7 +87,7 @@ export default function JourneysWeLove({
       </div>
       <div
         ref={scrollRef}
-        className="flex w-full items-start gap-4 overflow-x-auto scroll-smooth pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden max-md:snap-x max-md:snap-mandatory md:w-[calc(3*390px+2*1.4vw)] md:gap-[1.4vw]"
+        className="flex w-full items-stretch gap-4 overflow-x-auto scroll-smooth pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden max-md:snap-x max-md:snap-mandatory md:w-[calc(3*390px+2*1.4vw)] md:gap-[1.4vw]"
       >
         {trips.map((trip, index) => (
           <JourneyCard key={trip.id ?? index} trip={trip} variant="carousel" />
