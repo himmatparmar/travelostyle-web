@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import img from "./img.png";
 
 export default function ExploreAllJourneys() {
@@ -57,10 +58,10 @@ export default function ExploreAllJourneys() {
               </p>
 
               {/* Button */}
-<button className="hidden lg:flex mt-[48px] w-[240px] h-[56px] rounded-full bg-[#2C3078] items-center justify-center">                <span className="font-semibold text-[18px] leading-[32px] tracking-[0.05em] text-[#FAFAFA]">
+<Link href="/itinerary" className="hidden lg:flex mt-[48px] w-[240px] h-[56px] rounded-full bg-[#2C3078] items-center justify-center">                <span className="font-semibold text-[18px] leading-[32px] tracking-[0.05em] text-[#FAFAFA]">
                   Explore All Journeys
                 </span>
-              </button>
+              </Link>
 
             </div>
           </div>
@@ -85,12 +86,15 @@ export default function ExploreAllJourneys() {
             </div>
          
           </div>
+   <div className="flex justify-center mt-5 md:mt-8 lg:hidden">
+  <Link href="/itinerary" className="h-[37px] px-4 rounded-full bg-[#2C3078] flex items-center justify-center">
+    <span className="font-semibold text-[14px] leading-[20px] tracking-[0.05em] text-[#FAFAFA] whitespace-nowrap">
    <div className="flex md:justify-center ml-7 md:ml-0 mt-5 md:mt-8 lg:hidden">
   <button className="h-[37px] w-[224px] px-4 rounded-full bg-[#2C3078] flex items-center justify-center">
     <span className="font-semibold text-[18px] leading-[32px] tracking-[0.05em] text-[#FAFAFA] whitespace-nowrap">
       Explore All Journeys
     </span>
-  </button>
+  </Link>
 </div>
         </div>
       </div>
