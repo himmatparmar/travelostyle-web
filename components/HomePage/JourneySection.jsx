@@ -129,10 +129,10 @@ export default function JourneySection() {
   className="
     font-taprom
     font-normal
-    text-[11vw]
-    leading-[1.15]
-    tracking-[0.01em]
-    text-[#2A2522]
+    text-[40px]
+    leading-[48px]
+    tracking-[0.05em]
+    text-ink
   "
 >
   <span className="inline-block bg-[#F1E3D8] px-[3px] py-[1px] mb-3">
@@ -151,7 +151,7 @@ export default function JourneySection() {
     with you.
   </span>
 </h2>
-    <p className="mt-4 max-w-[285px] text-[14px] leading-[24px] text-[#3E3E3E] font-sans">
+    <p className="mt-4 max-w-[337px] text-[16px] leading-[28px] tracking-[0.05em] text-ink font-sans">
       Make travel feel calmer, clearer, and more worth it with TravelOstyle.
     </p>
   </div>

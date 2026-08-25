@@ -212,7 +212,7 @@ font-bold
       </div>
     ))
   ) : (
-    <div className="p-4 text-center text-gray-500 border-t border-black">
+    <div className="p-4 text-center text-[#757575] border-t border-black">
       No inclusions available.
     </div>
   ))
@@ -282,7 +282,7 @@ font-bold
     ))
 
   ) : (
-    <div className="p-4 text-center text-gray-500 border-t border-black">
+    <div className="p-4 text-center text-[#757575] border-t border-black">
       No exclusions available.
     </div>
   ))
@@ -332,7 +332,7 @@ export default function InclusionsExclusions({
         theme="inclusion"
       />
     ) : (
-      <div className="border-2 rounded-lg p-8 text-center text-gray-500">
+      <div className="border-2 rounded-lg p-8 text-center text-[#757575]">
         No inclusions available.
       </div>
     )}
@@ -344,7 +344,7 @@ export default function InclusionsExclusions({
         theme="exclusion"
       />
     ) : (
-      <div className="border-2 rounded-lg p-8 text-center text-gray-500">
+      <div className="border-2 rounded-lg p-8 text-center text-[#757575]">
         No exclusions available.
       </div>
     )}

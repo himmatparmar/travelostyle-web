@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { X, Plus, Minus } from "lucide-react";
 import { STEPS, TOTAL_STEPS, initialFormData } from "./constants";
 import StepOne from "./StepOne";
@@ -23,6 +24,15 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
   // (drupal_internal__nid), tagIds are the plain ids of that journey's
   // field_journey_tag ("Journey Style") terms, e.g. "Private Journey".
   const [destinationOptions, setDestinationOptions] = useState([]);
+  // Portal target isn't available during SSR, so the modal only renders
+  // once mounted client-side (see the createPortal call in the return
+  // below). Without the portal, this modal — being rendered wherever
+  // CraftJourneyButton happens to sit in the page (e.g. deep inside the
+  // Tailor-Made page's hero section) — inherits `position: fixed`
+  // relative to the nearest transformed/positioned ancestor instead of
+  // the viewport, which is why it was rendering mid-page and overlapping
+  // the sections below it instead of covering the full screen.
+  const [mounted, setMounted] = useState(false);
 
   // This modal is mounted from many places (CraftJourneyButton, CtaBanner)
   // with no server-rendered parent to fetch this for it, so it's fetched
@@ -72,7 +82,11 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
     };
   }, [isOpen, destinationOptions.length]);
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!isOpen || !mounted) return null;
 
   const updateField = (name, value) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -215,7 +229,7 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
     }
   };
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 sm:p-6 overflow-y-auto antialiased">
       <div className="relative my-auto w-full max-w-[1200px] flex flex-col rounded-[10px] border-2 border-[#1A1A1A] bg-[#FAFAFA] shadow-[5px_10px_24px_rgba(26,26,26,0.1)] overflow-hidden">
         <div className="relative flex shrink-0 items-center justify-between px-6 sm:px-[60px] pt-[26px] pb-2">
@@ -373,6 +387,7 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
           )}
         </form>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

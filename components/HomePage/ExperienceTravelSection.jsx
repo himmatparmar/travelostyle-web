@@ -55,7 +55,7 @@ export default async function ExperienceTravelSection() {
         
         <div className="max-w-[500px]">
           <h2
-            className="mb-6 font-taprom text-[2.4vw] leading-[1.4] text-ink max-md:text-[40px] max-md:leading-[1.4] max-md:mb-8"
+            className="mb-6 font-taprom text-[2.4vw] leading-[1.4] text-ink max-md:text-[40px] max-md:leading-[48px] max-md:tracking-[0.05em] max-md:mb-8"
             style={{ letterSpacing: "var(--ls-heading-taprom-md)" }}
           >
             <span className="bg-[#F1E3D8] px-[3px] py-[1px] mb-5">

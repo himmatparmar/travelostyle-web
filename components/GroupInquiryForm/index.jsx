@@ -3,6 +3,14 @@
 import { useState } from "react";
 import { X } from "lucide-react";
 import GroupSummaryCard from "./GroupSummaryCard";
+import CustomSelect from "@/components/ui/CustomSelect";
+
+const TITLE_OPTIONS = [
+  { value: "Mr.", label: "Mr." },
+  { value: "Mrs.", label: "Mrs." },
+  { value: "Ms.", label: "Ms." },
+  { value: "Dr.", label: "Dr." },
+];
 
 const initialFormData = {
   
@@ -49,6 +57,7 @@ export default function GroupInquiryForm({
   const [formData, setFormData] = useState(initialFormData);
   const [submitted, setSubmitted] = useState(false);
   const [phoneError, setPhoneError] = useState("");
+  const [titleError, setTitleError] = useState("");
 
   if (!isOpen) return null;
 
@@ -72,6 +81,7 @@ export default function GroupInquiryForm({
       [name]: type === "checkbox" ? checked : value,
     }));
     if (name === "phone") setPhoneError("");
+    if (name === "title") setTitleError("");
   };
 
   const handleClose = () => {
@@ -79,10 +89,16 @@ export default function GroupInquiryForm({
     setFormData(initialFormData);
     setSubmitted(false);
     setPhoneError("");
+    setTitleError("");
   };
 
   const handleSubmit = async(e) => {
     e.preventDefault()
+
+    if (!formData.title) {
+      setTitleError("Please select a title.");
+      return;
+    }
 
     if (!/^\d{10}$/.test(formData.phone.trim())) {
       setPhoneError("Please enter a valid 10-digit mobile number.");
@@ -199,8 +215,8 @@ export default function GroupInquiryForm({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 font-sans backdrop-blur-[1px]">
       <div className="relative flex max-h-[98vh] w-full max-w-[1000px] flex-col rounded-xl border border-neutral-800 bg-white shadow-2xl">
         {/* Header */}
-        <div className=" flex shrink-0 items-center justify-between border-b border-neutral-800 px-7 py-3.5">
-          <h2 className="text-[17px] font-bold tracking-tight text-neutral-900">
+        <div className=" flex shrink-0 items-center justify-between border-b border-neutral-800 px-4 sm:px-7 py-3 sm:py-3.5">
+          <h2 className="text-[15px] sm:text-[17px] font-bold tracking-tight text-neutral-900">
             Inquire With Us
           </h2>
           <button
@@ -214,7 +230,7 @@ export default function GroupInquiryForm({
         </div>
 
         {/* Modal Body */}
-        <div className="overflow-y-auto px-7 py-6">
+        <div className="overflow-y-auto px-4 sm:px-7 py-5 sm:py-6">
           {submitted ? (
             <div className="flex flex-col items-center gap-3 py-12 text-center">
               <h3 className="text-lg font-semibold text-neutral-900">
@@ -235,7 +251,7 @@ export default function GroupInquiryForm({
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="flex flex-col items-start gap-8 md:flex-row"
+              className="flex flex-col items-start gap-5 md:flex-row md:gap-8"
             >
               {/* Left Column: Summary Card */}
               <div className="w-full shrink-0 md:w-[250px]">
@@ -286,21 +302,19 @@ export default function GroupInquiryForm({
                     <label className="block text-[12px] font-semibold text-neutral-800">
                       Title*
                     </label>
-                    <select
+                    <CustomSelect
                       name="title"
                       value={formData.title}
                       onChange={handleChange}
-                      required
-                      className="mt-1 w-full border-b border-neutral-700 bg-transparent pb-1.5 text-[12px] text-neutral-900 focus:border-black focus:outline-none"
-                    >
-                      <option value="" disabled className="text-neutral-400">
-                        Select your title
-                      </option>
-                      <option value="Mr.">Mr.</option>
-                      <option value="Mrs.">Mrs.</option>
-                      <option value="Ms.">Ms.</option>
-                      <option value="Dr.">Dr.</option>
-                    </select>
+                      placeholder="Select your title"
+                      options={TITLE_OPTIONS}
+                      triggerClassName={`mt-1 border-b bg-transparent pb-1.5 text-[12px] text-neutral-900 ${
+                        titleError ? "border-red-500" : "border-neutral-700"
+                      }`}
+                    />
+                    {titleError && (
+                      <p className="mt-1 text-[11px] text-red-500">{titleError}</p>
+                    )}
                   </div>
 
                   {/* Number / WhatsApp */}
@@ -371,9 +385,9 @@ export default function GroupInquiryForm({
                   {/* Traveling with Children Radio */}
                   <div className="pt-1">
                     <p className="mb-2 text-[12px] font-semibold text-neutral-800">
-                      Are you traveling with children?* (under 14yrs)
+                      Are you traveling with children?* (under 12yrs)
                     </p>
-                    <div className="flex items-center gap-5">
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-5">
                       <RadioOption
                         name="travelingWithChildren"
                         value="Yes"
@@ -396,7 +410,7 @@ export default function GroupInquiryForm({
                     <p className="mb-2 text-[12px] font-semibold text-neutral-800">
                       Do you require assistance with flight bookings?
                     </p>
-                    <div className="flex items-center gap-5">
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-5">
                       <RadioOption
                         name="flightAssistance"
                         value="Yes"
@@ -456,7 +470,8 @@ export default function GroupInquiryForm({
                     type="submit"
                     className="w-full rounded-full bg-[#232B66] px-6 py-2 text-[13px] font-semibold text-white shadow-sm transition hover:bg-[#1a204e] sm:w-auto"
                   >
-                    Submit Inquiry
+                    <span className="sm:hidden">Next</span>
+                    <span className="hidden sm:inline">Submit Inquiry</span>
                   </button>
                 </div>
 
