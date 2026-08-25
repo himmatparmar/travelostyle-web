@@ -42,7 +42,7 @@ function addTripToCompare(trip) {
     viewTripUrl: trip.viewTripUrl,
     itinerary: [],
     stays: [],
-    region: "",
+    region: trip.region || "",
     travelMode: "-",
   };
 

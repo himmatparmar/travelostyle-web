@@ -57,8 +57,25 @@ function getTagIds(journey, included) {
   const data = journey.relationships?.field_journey_tag?.data;
   const arr = Array.isArray(data) ? data : data ? [data] : [];
 
+  // Only forward a tag id when the referenced term is actually present in
+  // `included` (i.e. it resolves to a real, published term). A relationship
+  // can point at a deleted/unpublished term while still carrying a
+  // drupal_internal__target_id in its meta — sending that dangling id
+  // straight to the inquiry webform is what produced "The referenced
+  // entity (taxonomy_term: X) does not exist" validation errors on
+  // submit. Same fix already applied in AllJourneysPage.jsx / journeyCard.js.
+  // Only the "journey_style" vocabulary bundle is accepted by the
+  // webform's `journeytype` target field — a taxonomy_term--tags id can
+  // resolve fine here (real, published term) yet still get rejected by
+  // Drupal on submit with "The referenced entity (taxonomy_term: X)
+  // does not exist.", because that validation is bundle-scoped, not
+  // just existence-scoped. So this only matches taxonomy_term--journey_style.
   return arr
     .map((t) => {
+      const tagEntity = included.find(
+        (inc) => inc.type === "taxonomy_term--journey_style" && inc.id === t.id,
+      );
+      if (!tagEntity) return null;
       const id = t.meta?.drupal_internal__target_id;
       return id != null ? Number(id) : null;
     })
@@ -369,12 +386,10 @@ export default function TripComparison() {
     </div>
   );
 
-      case "region":
-        return (
-          <div className="text-sm">
-            {trip.startCity} → {trip.endCity}
-          </div>
-        );
+      case "region": {
+        const regionText = (trip.region || "").trim();
+        return <div className="text-sm">{regionText}</div>;
+      }
 
    case "offer":
   return (

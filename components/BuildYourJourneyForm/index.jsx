@@ -54,12 +54,20 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
           .map((item) => {
             const tagData = item.relationships?.field_journey_tag?.data;
             const tagRefs = Array.isArray(tagData) ? tagData : tagData ? [tagData] : [];
+            // Only taxonomy_term--journey_style is accepted by the
+            // webform's `journeytype` field — matching by UUID alone
+            // (with no bundle check) let ids from other referenced
+            // entity types through, which Drupal rejects on submit with
+            // "The referenced entity (taxonomy_term: X) does not
+            // exist." even though the entity is real, just the wrong
+            // bundle for this field.
             const tagIds = tagRefs
               .map((t) => {
-                const e = included.find((inc) => inc.id === t.id);
-                const tid =
-                  e?.attributes?.drupal_internal__tid ??
-                  e?.attributes?.drupal_internal__nid;
+                const e = included.find(
+                  (inc) =>
+                    inc.id === t.id && inc.type === "taxonomy_term--journey_style",
+                );
+                const tid = e?.attributes?.drupal_internal__tid;
                 return tid != null ? Number(tid) : null;
               })
               .filter((id) => id !== null && !Number.isNaN(id));

@@ -10,12 +10,12 @@ export default function YourNextTrip({ initialJourneys = null }) {
   return (
     <section className="overflow-hidden py-8 md:py-[5vw]">
       <div className="mx-auto w-full">
-        <div className="text-center px-4 md:px-0">
-          <h2 className="text-[32px] leading-[40px] font-semibold tracking-[0.05em] text-ink md:text-[3vw] md:leading-[1.25] md:tracking-[-0.08vw]">
+        <div className="text-left md:text-center px-4 md:px-0">
+          <h2 className="max-w-[391px] font-nohemi text-[32px] leading-[40px] font-semibold tracking-[0.05em] text-ink md:max-w-none md:text-[3vw] md:leading-[1.25] md:tracking-[-0.08vw]">
             Take your next trip with TravelOStyle
           </h2>
 
-          <p className="mx-auto mt-2 max-w-[337px] text-[16px] font-light leading-[24px] tracking-[0.05em] text-ink md:mt-0 md:max-w-[43vw] md:text-[0.92vw] md:font-normal md:leading-[1.8] md:tracking-normal md:text-[#6D6D6D]">
+          <p className="mt-2 max-w-[337px] font-nohemi text-[16px] font-light leading-[24px] tracking-[0.05em] text-ink md:mx-auto md:mt-0 md:max-w-[43vw] md:text-[0.92vw] md:font-normal md:leading-[1.8] md:tracking-normal md:text-[#6D6D6D]">
             The journeys we know well, believe in genuinely, and can deliver on
             — every single time.
           </p>

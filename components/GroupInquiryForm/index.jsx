@@ -470,8 +470,7 @@ export default function GroupInquiryForm({
                     type="submit"
                     className="w-full rounded-full bg-[#232B66] px-6 py-2 text-[13px] font-semibold text-white shadow-sm transition hover:bg-[#1a204e] sm:w-auto"
                   >
-                    <span className="sm:hidden">Next</span>
-                    <span className="hidden sm:inline">Submit Inquiry</span>
+                    Submit Inquiry
                   </button>
                 </div>
 

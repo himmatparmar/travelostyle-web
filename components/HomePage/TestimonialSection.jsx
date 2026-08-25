@@ -117,7 +117,7 @@ export default function TestimonialSection({ testimonialData }) {
   return (
     <section className="py-16 md:py-20 select-none overflow-hidden bg-[#fbfbfb]">
       <div className="mx-auto max-w-6xl px-4">
-        <h2 className="mb-12 md:mb-24 text-center font-serif italic text-[32px] md:text-[38px] text-[#1d3557] md:text-[#2d2d2d] tracking-wide font-taprom max-md:max-w-[280px] max-md:mx-auto max-md:leading-[42px]">
+        <h2 className="mb-12 md:mb-24 text-left md:text-center font-serif italic text-[40px] md:text-[38px] text-[#1A1A1A] md:text-[#2d2d2d] tracking-[0.05em] md:tracking-wide font-taprom font-normal max-md:max-w-[326px] max-md:mx-auto max-md:leading-[48px]">
           Hear from those who&apos;ve travelled with us
         </h2>
 
@@ -197,27 +197,27 @@ export default function TestimonialSection({ testimonialData }) {
 
         <div className="relative mt-6">
           <span className="absolute -top-3 left-0">
-            <div className="relative w-[18px] h-[14px]">
+            <div className="relative w-[24px] h-[16.97px]">
               <Image
                 src="/RightQuote.svg"
                 alt=""
                 fill
-                className="object-contain opacity-40"
+                className="object-contain opacity-100"
               />
             </div>
           </span>
 
-          <p className="text-[13px] leading-[28px] text-[#4A4A4A]">
+          <p className="w-[242px] font-nohemi text-[14px] font-normal leading-[24px] tracking-[0.05em] text-[#1A1A1A]">
             {item.quote}
           </p>
 
           <span className="absolute -bottom-4 right-0">
-            <div className="relative w-[18px] h-[14px]">
+            <div className="relative w-[24px] h-[16.97px]">
               <Image
                 src="/LeftQuote.svg"
                 alt=""
                 fill
-                className="object-contain opacity-40"
+                className="object-contain opacity-100"
               />
             </div>
           </span>

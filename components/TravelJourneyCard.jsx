@@ -13,6 +13,7 @@ function mapJourneyToTrip(journey) {
     price: journey.price,
     offer: journey.earlyBird || "",
     image: journey.image,
+    region: journey.region,
     tags: journey.types,
     viewTripUrl: journey.viewTripUrl,
     viewTripText: journey.viewTripText,

@@ -87,6 +87,33 @@ function resolveJourneyStyleTerms(item, included) {
     })
     .filter(Boolean);
 }
+
+// The webform's `journeytype` entity-autocomplete field only accepts
+// references to the "Journey Style" vocabulary (JSON:API type
+// taxonomy_term--journey_style). resolveJourneyStyleTerms() above also
+// matches taxonomy_term--tags "for safety" so display tags/chips never
+// go missing, but forwarding a taxonomy_term--tags id as `journeytype`
+// on submit fails Drupal's entity-reference validation with "The
+// referenced entity (taxonomy_term: X) does not exist." — the term does
+// exist, it's just outside the field's allowed target bundle, and
+// Drupal reports that the same way it reports a truly missing id. Build
+// a submission-safe id list restricted to the one bundle the webform
+// actually accepts, kept separate from the (intentionally broader)
+// display list above.
+function resolveJourneyTypeSubmissionIds(item, included) {
+  const data = item.relationships?.field_journey_tag?.data;
+  const arr = Array.isArray(data) ? data : data ? [data] : [];
+
+  return arr
+    .filter((t) => t.type === "taxonomy_term--journey_style")
+    .map((t) => {
+      const id = t.meta?.drupal_internal__target_id;
+      const e = included.find((i) => i.id === t.id && i.type === t.type);
+      const label = e?.attributes?.name || e?.attributes?.title;
+      return label && id != null ? Number(id) : null;
+    })
+    .filter((id) => id != null);
+}
 function resolveLocation(rel, included) {
   const id = rel?.data?.id;
 
@@ -347,6 +374,7 @@ function resolveExperienceType(item, included) {
 function transformItem(item, included) {
   const tabSections = resolveTabSections(item, included);
   const journeyStyleTerms = resolveJourneyStyleTerms(item, included);
+  const journeyTypeSubmissionIds = resolveJourneyTypeSubmissionIds(item, included);
   const experienceTypeRaw = resolveExperienceType(item, included);
   const isInspirational = experienceTypeRaw.toLowerCase().includes("inspir");
   const experienceType = isInspirational ? "inspirational" : "group";
@@ -398,7 +426,10 @@ originalPrice: item.attributes.field_original_price,
     // Plain IDs for the same terms — kept for any caller still using the
     // bare ID (most webform entity-autocomplete fields need the "Label
     // (id)" form instead — see journeyStyleTerms above).
-    tagIds: journeyStyleTerms.map((t) => t.id),
+    // Restricted to the journey_style bundle only — see
+    // resolveJourneyTypeSubmissionIds() above for why the broader
+    // journeyStyleTerms list isn't safe to submit as-is.
+    tagIds: journeyTypeSubmissionIds,
     startCity: resolveLocation(item.relationships?.field_starts_in, included) || MOCK_JOURNEY.startCity,
     endCity: resolveLocation(item.relationships?.field_ends_in, included) || MOCK_JOURNEY.endCity,
     bestSeason: resolveBestSeasons(item, included) || MOCK_JOURNEY.bestSeason,
