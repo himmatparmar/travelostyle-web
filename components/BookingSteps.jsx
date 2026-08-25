@@ -9,7 +9,7 @@ function stripHtml(html) {
 
 
 
-export default function BookingSteps({ bookingRecords }) {
+export default function BookingSteps({ bookingRecords, showCraftButton = true }) {
   const { subheading, mainHeading, steps } = bookingRecords;
   function capitalizeFirstLetter(text) {
   const value = stripHtml(text);
@@ -48,9 +48,11 @@ export default function BookingSteps({ bookingRecords }) {
         ))}
       </div>
 
-      <div className="mt-12 flex justify-center">
-        <CraftJourneyButton className="rounded-full bg-[#2F3695] px-8 py-3 text-base font-semibold text-white shadow-md transition duration-200 hover:bg-[#232a7c] active:scale-95" />
-      </div>
+      {showCraftButton && (
+        <div className="mt-12 flex justify-center">
+          <CraftJourneyButton className="rounded-full bg-[#2F3695] px-8 py-3 text-base font-semibold text-white shadow-md transition duration-200 hover:bg-[#232a7c] active:scale-95" />
+        </div>
+      )}
     </section>
   );
 }
