@@ -76,7 +76,7 @@ export default function Index({
         <ComingSoon label="Why Take Journey" />
       )}
       {bookingStepsContent ? (
-        <BookingSteps bookingRecords={bookingStepsContent} />
+        <BookingSteps bookingRecords={bookingStepsContent} showCraftButton={false} />
       ) : (
         <ComingSoon label="Booking Steps" />
       )}

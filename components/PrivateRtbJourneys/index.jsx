@@ -72,7 +72,7 @@ export default function Index({ matrixContent, whyTakeContent, bookingStepsConte
         <ComingSoon label="Why Take Journey" />
       )}
       {bookingStepsContent ? (
-        <BookingSteps bookingRecords={bookingStepsContent} />
+        <BookingSteps bookingRecords={bookingStepsContent} showCraftButton={false} />
       ) : (
         <ComingSoon label="Booking Steps" />
       )}
