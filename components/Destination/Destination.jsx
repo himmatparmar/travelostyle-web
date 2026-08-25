@@ -76,7 +76,7 @@ export default function Destination() {
   <section className="w-full overflow-hidden flex flex-col items-start md:items-center text-left px-4">
   <div className="flex flex-col items-start md:items-center text-left md:text-center">
     <h2 className="mt-5 text-[32px] leading-[40px] md:text-[48px] md:leading-[56px] font-semibold text-black">
-      The Destinations TravelOStyle Knows Best
+        Destinations TravelOStyle Knows Best
     </h2>
 
     <p className="w-full max-w-[1100px] text-[16px] mt-4 leading-[28px] md:text-[18px] md:leading-[32px] tracking-[0.05em] text-black">
@@ -84,7 +84,7 @@ export default function Destination() {
       <br className="hidden md:block" />
       well enough to recommend without reservation, and that our travelers reliably come home
       <br className="hidden md:block" />
-      grateful they chose!
+        grateful they chose!
     </p>
   </div>
 
