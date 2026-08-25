@@ -24,7 +24,7 @@ export default function GroupRevelationsSectionMobile({
   return (
     <div className="block md:hidden w-full px-4 py-8 font-sans antialiased select-none">
       <section
-        className={`w-full rounded-xl border overflow-hidden flex flex-col shadow-sm ${
+        className={`w-full max-w-[336px] mx-auto rounded-xl border overflow-hidden flex flex-col shadow-sm ${
           !isHex(borderStyle) ? borderStyle : ""
         } ${!isHex(cardBgStyle) ? cardBgStyle : ""}`}
         style={{
