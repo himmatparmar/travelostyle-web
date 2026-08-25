@@ -13,7 +13,7 @@ export default function TimingSection() {
           className="object-fill"
         />
       </div>
-      <div className="block md:hidden absolute top-0 right-[-15vw] z-0 pointer-events-none w-[120vw] h-[40vw]">
+      <div className="block md:hidden absolute top-0 right-[-15vw] z-0 pointer-events-none w-[136vw] md:w-[120vw] h-[50vw] md:h-[40vw]">
         <Image
           src="/TriangleLine.svg"
           alt="Dashed Wave Pattern Mobile"
@@ -25,9 +25,9 @@ export default function TimingSection() {
       <div className="relative z-10 mx-auto max-w-6xl px-6 md:px-12">
         <div className="max-w-3xl">
           <h2 className="mt-0 md:mt-15 text-[30px] md:text-[2.8vw] font-bold md:font-semibold leading-[40px] md:leading-[1.2] text-ink">
-            Be at the right <br className="md:hidden" /> place, at exactly the
+            Be at the right <br className="md:hidden" /> place, at exactly 
             <br />
-            right time
+           the right time
           </h2>
           <p className="hidden md:block text-[0.9vw] mt-4 text-ink">
             Timing isn&apos;t everything — but it is a lot. Browse our

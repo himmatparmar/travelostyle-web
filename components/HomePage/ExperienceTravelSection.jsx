@@ -54,18 +54,18 @@ export default async function ExperienceTravelSection() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 lg:grid-cols-2 max-md:max-w-[390px] max-md:gap-8">
         
         <div className="max-w-[500px]">
-          <h2
+          <h3
             className="mb-6 font-taprom text-[2.4vw] leading-[1.4] text-ink max-md:text-[40px] max-md:leading-[48px] max-md:tracking-[0.05em] max-md:mb-8"
-            style={{ letterSpacing: "var(--ls-heading-taprom-md)" }}
+            // style={{ letterSpacing: "var(--ls-heading-taprom-md)" }}
           >
-            <span className="bg-[#F1E3D8] px-[3px] py-[1px] mb-5">
+            <span className="bg-[#F1E3D8] px-[3px] py-[1px] mb-5 block w-max">
               Experience travel the
             </span>
-            <span className="bg-[#F1E3D8] px-[3px] py-[1px] mb-2 inline-block w-fit mt-6">
+            <span className="bg-[#F1E3D8] px-[3px] py-[1px] block mb-2 w-max mt-2">
               way it should be
             </span>
             {plainHeading}
-          </h2>
+          </h3>
 
           <p
             className="mb-4 text-ink max-md:text-[16px] max-md:leading-[22px] font-medium text-[#1A1A1A] text-[16px]"

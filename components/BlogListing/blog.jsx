@@ -63,7 +63,7 @@ export default async function Blog() {
 <section className="relative w-full overflow-hidden">
 
   {/* MOBILE HERO */}
-  <div className="md:hidden flex flex-col items-center px-5 pt-6 pb-4">
+  <div className="md:hidden flex flex-col items-center px-5 mt-20 md:pt-6 pb-4">
     <div className="relative">
       <img
         src="/blog-journal-dots-mobile.svg"
@@ -72,10 +72,15 @@ export default async function Blog() {
         className="
           pointer-events-none
           absolute
+          md:-top-[55px]
+          md:right-[15px]
+          md:h-[74px]
+          md:w-[153px]
+          h-[82px]
+          w-[152px]
           -top-[55px]
-          -right-[15px]
-          h-[74px]
-          w-[153px]
+          -right-[38px]
+          z-0
         "
       />
       <img
@@ -85,7 +90,8 @@ export default async function Blog() {
         className="
           pointer-events-none
           absolute
-          -bottom-[95px]
+          md:-bottom-[95px]
+          -bottom-[130px]
           -left-[70px]
           h-[113px]
           w-[196px]
@@ -100,7 +106,7 @@ export default async function Blog() {
           h-[29px]
           max-w-full
           px-[5px]
-          text-[30px]
+          text-[40px]
           font-normal
           not-italic
           leading-none
@@ -110,9 +116,11 @@ export default async function Blog() {
           flex
           items-center
           justify-center
+          z-[2]
+          relative
         "
       >
-        The TOS Travel Journal
+        The TOS Journal
       </h1>
     </div>
 
