@@ -472,7 +472,7 @@ export default function ContactInquiry() {
 
            <button
   type="submit"
-  className="mt-[1vw] flex h-[40px] w-[200px] items-center justify-center gap-[10px] rounded-[100px] bg-white px-[24px] py-[16px] text-[14px] font-semibold text-[#2f2d89] max-md:mt-5 max-md:mb-5 max-md:w-full"
+  className="mt-[1vw] flex h-[40px] w-[200px] items-center justify-center gap-[10px] rounded-[100px] bg-white px-[24px] py-[16px] text-[14px] font-semibold text-[#2f2d89] max-md:mt-5 max-md:mb-5 max-md:h-[37px] max-md:w-auto max-md:self-start max-md:px-4 max-md:py-3"
 >
   Submit Inquiry
 </button>

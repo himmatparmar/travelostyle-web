@@ -71,36 +71,45 @@ export default async function TravelOStylePromise() {
   className="
     mx-auto
     w-full
-    max-w-[380px]
+    max-w-[336px]
+    font-nohemi
     text-left
-    text-[30px]
-    leading-[30px]
-    font-bold
-    text-[#2C2C2C]
+    text-[32px]
+    leading-[40px]
+    tracking-[0.05em]
+    font-semibold
+    text-[#1A1A1A]
 
     md:max-w-[741px]
     md:text-center
     md:text-[40px]
     md:leading-[40px]
+    md:tracking-normal
     md:font-medium
+    md:text-[#2C2C2C]
   "
 >
   {heading}
 </h2>
-     <div className="mx-auto w-full max-w-[1246px]">
+     <div className="mx-auto w-full max-w-[339px] md:max-w-[1246px]">
   <div
     className="
     mt-[25px]
       w-full
+      font-nohemi
       text-left
-      text-[19px]
-      leading-[26px]
-      text-[#4A4A4A]
+      text-[16px]
+      font-normal
+      leading-[28px]
+      tracking-[0.05em]
+      text-[#1A1A1A]
       [&_p]:mb-4
       [&_p:last-child]:mb-0
       md:text-center
       md:text-[18px]
       md:leading-[24px]
+      md:tracking-normal
+      md:text-[#4A4A4A]
       md:[&_p]:mb-0
     "
     dangerouslySetInnerHTML={{ __html: description || "" }}

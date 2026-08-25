@@ -1,3 +1,5 @@
+import TalkToAdvisorButton from "@/components/GeneralInquiryForm/TalkToAdvisorButton";
+
 export default function TravelExperience() {
   const items = [
     {
@@ -58,6 +60,11 @@ export default function TravelExperience() {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Desktop only — mobile gets its own button just above the footer */}
+      <div className="mt-10 hidden lg:flex justify-center">
+        <TalkToAdvisorButton className="inline-flex h-[44px] w-full max-w-[269px] items-center justify-center rounded-full bg-[#2C3078] px-6 text-[16px] font-medium tracking-[0.05em] text-white transition-colors duration-200 hover:bg-[#1E2254]" />
       </div>
     </section>
   );

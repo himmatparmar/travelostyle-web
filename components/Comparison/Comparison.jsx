@@ -369,12 +369,10 @@ export default function TripComparison() {
     </div>
   );
 
-      case "region":
-        return (
-          <div className="text-sm">
-            {trip.startCity} → {trip.endCity}
-          </div>
-        );
+      case "region": {
+        const regionText = (trip.region || "").trim();
+        return <div className="text-sm">{regionText}</div>;
+      }
 
    case "offer":
   return (
