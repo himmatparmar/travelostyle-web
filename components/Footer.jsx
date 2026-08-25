@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FaFacebookSquare, FaInstagram } from "react-icons/fa";
 import FooterNewsletterForm from "./FooterNewsletterForm";
 
@@ -11,19 +12,19 @@ const footer = {
     {
       title: "Company",
       links: [
-        { label: "About Us", url: "#" },
+        { label: "About Us", url: "/about-us" },
         { label: "General FAQs", url: "#" },
-        { label: "Write To Us", url: "#" },
-        { label: "Travel Journal", url: "#" },
+        { label: "Write To Us", url: "/enquiry" },
+        { label: "Travel Journal", url: "/blog" },
       ],
     },
     {
       title: "Travel",
       links: [
-        { label: "All Journeys", url: "#" },
-        { label: "Group Journeys", url: "#" },
-        { label: "Private Journeys", url: "#" },
-        { label: "Tailor-Made Journey", url: "#" },
+        { label: "All Journeys", url: "/itinerary" },
+        { label: "Group Journeys", url: "/group-rtb-journeys" },
+        { label: "Private Journeys", url: "/private-rtb-journeys" },
+        { label: "Tailor-Made Journey", url: "/tailor-made-journeys" },
         { label: "Offers", url: "#" },
       ],
     },
@@ -84,13 +85,13 @@ export default function Footer() {
               </h3>
               <div className="space-y-3 text-[13px] md:text-[14px] font-light text-white/90">
                 {companyGroup.links.map((link) => (
-                  <a
+                  <Link
                     key={link.label}
                     href={link.url}
                     className="block cursor-pointer hover:underline"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -103,13 +104,13 @@ export default function Footer() {
               </h3>
               <div className="space-y-3 text-[13px] md:text-[14px] font-light text-white/90">
                 {travelGroup.links.map((link) => (
-                  <a
+                  <Link
                     key={link.label}
                     href={link.url}
                     className="block cursor-pointer hover:underline"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
