@@ -79,8 +79,8 @@ export default function JourneyCard({ trip, variant = "carousel", onCompare }) {
     <div
       className={
         variant === "carousel"
-          ? "relative flex w-[293px] min-w-[293px] shrink-0 cursor-pointer flex-col px-[14px] pt-2 pb-4 max-md:snap-center md:w-[390px] md:min-w-[390px] md:min-h-[585px] md:px-8 md:pt-3 md:pb-11"
-          : "relative flex w-[293px] min-w-[293px] shrink-0 cursor-pointer flex-col px-[14px] pt-2 pb-4 max-md:snap-center md:w-full md:min-w-0 md:max-w-[390px] md:min-h-[585px] md:px-6 md:pt-3 md:pb-11"
+          ? "relative isolate flex w-[293px] min-w-[293px] shrink-0 cursor-pointer flex-col px-[14px] pt-2 pb-4 max-md:snap-center md:w-[390px] md:min-w-[390px] md:min-h-[585px] md:px-8 md:pt-3 md:pb-11"
+          : "relative isolate flex w-[293px] min-w-[293px] shrink-0 cursor-pointer flex-col px-[14px] pt-2 pb-4 max-md:snap-center md:w-full md:min-w-0 md:max-w-[390px] md:min-h-[585px] md:px-6 md:pt-3 md:pb-11"
       }
     >
       <div
@@ -107,7 +107,7 @@ export default function JourneyCard({ trip, variant = "carousel", onCompare }) {
         <JourneyCardImage src={trip.image} alt={trip.title} />
       </div>
 
-      <div className="flex flex-1 flex-col pt-2 md:pt-4">
+      <div className="flex flex-1 flex-col pt-2 text-left md:pt-4">
         <h3 className="line-clamp-2 h-[48px] text-[16px] font-semibold leading-[24px] tracking-[0.05em] text-ink md:h-auto md:min-h-[2.6em] md:text-[21px] md:leading-[1.3] md:tracking-normal md:text-[#232323]">
           {trip.title}
         </h3>
@@ -187,7 +187,7 @@ export default function JourneyCard({ trip, variant = "carousel", onCompare }) {
         <button
           type="button"
           onClick={handleAddToCompare}
-          className="md:mt-6 mb-6 md:mb-0 flex items-center gap-2 text-[14px] leading-[18px] tracking-[0.05em] text-ink md:mt-4 md:gap-1.5 md:text-[11px] md:tracking-normal md:text-[#4E4E4E]"
+          className="md:mt-3 mb-6 md:mb-0 flex items-center gap-2 text-[14px] leading-[18px] tracking-[0.05em] text-ink md:mt-4 md:gap-1.5 md:text-[11px] md:tracking-normal md:text-[#4E4E4E]"
         >
           <CirclePlus size={24} strokeWidth={1} className="md:size-3.5 md:stroke-[1.8]" />
           <span>Add to Compare</span>

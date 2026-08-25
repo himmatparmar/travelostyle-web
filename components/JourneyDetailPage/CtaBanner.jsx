@@ -27,14 +27,14 @@ export default function CtaBanner({
   if (variant === "card") {
     return (
       <div className="mx-auto flex h-[216px] w-[336px] max-w-full flex-col items-center justify-center gap-5 rounded-[5px] border-2 border-[#1A1A1A] bg-[#F2E2DA] px-6">
-        <p className="text-center text-[16px] font-bold leading-[24px] text-ink">
+        <p className="text-center text-[18px] font-semibold leading-[32px] tracking-[0.05em] text-black">
           Love the itinerary, but need something different? Make this journey
           yours!
         </p>
 
         <button
           onClick={formType === "none" ? undefined : () => setIsFormOpen(true)}
-          className="h-10 rounded-full bg-[#2D3482] px-6 text-[15px] font-bold text-white transition hover:bg-[#252b78] active:scale-95"
+          className="h-[37px] w-[284px] max-w-full rounded-full bg-[#2C3078] px-4 text-[16px] font-semibold tracking-[0.05em] text-[#FAFAFA] transition hover:bg-[#252b78] active:scale-95"
         >
           {buttonText}
         </button>
