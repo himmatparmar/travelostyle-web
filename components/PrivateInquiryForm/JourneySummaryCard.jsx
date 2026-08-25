@@ -35,6 +35,8 @@ export default function JourneySummaryCard({
 
   if (!journey) return null;
 
+  const seatsLeft = journey?.seatsLeft ?? departure?.seatsLeft ?? null;
+
   const startDate = showDepartureDate ? departure?.startDate : null;
   const endDate = showDepartureDate ? departure?.endDate : null;
 
