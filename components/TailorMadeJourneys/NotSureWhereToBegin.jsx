@@ -89,13 +89,13 @@ export default function NotSureWhereToBegin() {
   return (
     <div className="min-h-screen py-16 px-3 sm:px-6 lg:px-8 font-sans">
       <div className="max-w-3xl mx-auto mb-12">
-        <p className="font-taprom text-[32px] font-normal leading-[40px] tracking-[0.05em] text-black [text-box-trim:cap] [text-box-edge:cap_alphabetic]">
+        {/* <p className="font-taprom text-[32px] font-normal leading-[40px] tracking-[0.05em] text-black [text-box-trim:cap] [text-box-edge:cap_alphabetic]">
           get inspired
-        </p>
-        <h2 className="mb-5 text-[32px] font-semibold leading-[40px] tracking-[0.05em] text-black [text-box-trim:cap] [text-box-edge:cap_alphabetic]">
+        </p> */}
+        <h2 className="mb-5 text-[32px] text-center font-semibold leading-[40px] tracking-[0.05em] text-black [text-box-trim:cap] [text-box-edge:cap_alphabetic]">
           Not sure where to begin? Start here
         </h2>
-        <p className="text-black text-[16px] sm:text-base leading-relaxed max-w-1xl mx-auto font-normal">
+        <p className="text-black text-center text-[16px] sm:text-base leading-relaxed max-w-1xl mx-auto font-normal">
           Explore our collection of inspirational itineraries – journey ideas
           across regions and travel styles that work as a starting point. Think
           of them as conversation starters. We’ll take it from there.
