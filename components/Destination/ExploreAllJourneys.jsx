@@ -93,7 +93,7 @@ export default function ExploreAllJourneys() {
           </div>
 
           {/* Mobile Button */}
-          <div className="flex justify-center mt-5 md:mt-8 lg:hidden">
+          <div className="flex justify-left ml-7 mt-8 md:mt-8 lg:hidden">
             <Link
               href="/itinerary"
               className="h-[37px] w-[224px] rounded-full bg-[#2C3078] flex items-center justify-center"

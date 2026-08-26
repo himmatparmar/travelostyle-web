@@ -20,8 +20,8 @@ export default function BookingSteps({ bookingRecords, showCraftButton = true })
     <section className="w-full py-16 px-4 md:px-12 bg-white font-sans text-stone-900">
       <div className="max-w-6xl mx-auto text-center mb-16">
       <p className="font-taprom font-serif text-xl text-stone-600 mb-2 tracking-wide">
-  {capitalizeFirstLetter(subheading)}
-</p>  <h2 className="text-3xl sm:text-4xl md:text-3xl font-bold tracking-tight text-black">
+  {capitalizeFirstLetter(subheading)} 
+</p>  <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-black">
           {mainHeading}
         </h2>
       </div>

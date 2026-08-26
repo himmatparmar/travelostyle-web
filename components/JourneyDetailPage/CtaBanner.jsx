@@ -67,7 +67,7 @@ export default function CtaBanner({
         <p className="text-[15px] font-semibold text-ink sm:text-[1vw]">
           Love the itinerary, but need more?
         </p>
-        <p className="mt-1 text-[13px] text-[#555] sm:mt-[0.2vw] sm:text-[0.82vw]">
+        <p className="text-[15px] font-semibold text-ink sm:text-[1vw]">
           Make this journey yours!
         </p>
       </div>
