@@ -55,11 +55,11 @@ export default async function WhollyJourneyHero() {
         </div>
       </div>
 
-      <div className="absolute bottom-4 right-6 z-10">
+      {/* <div className="absolute bottom-4 right-6 z-10">
         <span className="text-[11px] sm:text-xs text-white/80 tracking-wide font-light drop-shadow-sm">
           Images are only for representation purposes
         </span>
-      </div>
+      </div> */}
     </section>
   );
 }

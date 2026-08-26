@@ -96,7 +96,7 @@ export default function TravelBetter() {
           </div>
 
           <div className="sm:col-span-2 lg:col-span-2 pt-6 lg:pt-2">
-            <p className="font-taprom font-normal text-[40px] leading-[56px] tracking-normal text-[#000000] max-w-[345px] md:max-w-none">
+            <p className="font-taprom font-normal text-[45px] leading-[56px] tracking-normal text-[#000000] max-w-[345px] md:max-w-none">
               Our range is wide because{" "}
               <span className="[background-image:linear-gradient(#F2E2DA,#F2E2DA)] [background-size:100%_38px] [background-position:0_center] bg-no-repeat [-webkit-box-decoration-break:clone] [box-decoration-break:clone]">
                 we don&apos;t believe in a one-size-fits all
