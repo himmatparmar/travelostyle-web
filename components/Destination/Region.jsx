@@ -94,6 +94,7 @@ export default function Region() {
   mt-4 md:mt-2
   md:px-4
   text-[16px]
+  text-center
   leading-[24px] md:leading-[32px]
   tracking-[0.05em] md:tracking-normal
   text-black

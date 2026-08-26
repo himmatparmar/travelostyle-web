@@ -59,8 +59,8 @@ export default function Journey({
                   <div className="grid grid-cols-1 md:grid-cols-2">
                     {steps.map((item, index) => (
                       <div key={index} className={`px-5 py-2 border-[#4A4A4A]`}>
-                        <div className="text-[0.9vw] font-bold font-normal text-ink">
-                          {item.id}
+                        <div className="text-[0.9vw] font-semibold font-normal text-ink">
+                          {item.id} 
                         </div>
 
                         <h3 className="mt-5 text-[0.9vw] font-semibold leading-[1.3] text-ink">
