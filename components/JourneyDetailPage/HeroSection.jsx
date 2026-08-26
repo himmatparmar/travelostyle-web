@@ -3,6 +3,7 @@
 import { Clock3, MapPin, Info } from "lucide-react";
 import MobileNavigationMenu from "./MobileNavigationMenu";
 import PrivateInquiryForm from "@/components/PrivateInquiryForm";
+import BuildYourJourneyForm from "@/components/BuildYourJourneyForm";
 import JourneyCardImage from "@/components/JourneyCardImage";
 import { useMemo, useState } from "react";
 import { pickPriorityDeparture } from "@/lib/departures";
@@ -44,6 +45,7 @@ export default function HeroSection({
 }) {
   const [activeView, setActiveView] = useState("menu");
   const [isPrivateFormOpen, setIsPrivateFormOpen] = useState(false);
+  const [isCraftFormOpen, setIsCraftFormOpen] = useState(false);
   const categories = rawItem ? resolveCategories(rawItem, included) : MOCK_CATEGORIES;
   const isInspirational = Boolean(journey?.isInspirational);
   // Group journeys: "Request a Private Journey" from the summary card has
@@ -216,7 +218,7 @@ export default function HeroSection({
                 Want to make this itinerary entirely your own?
                 <br />
                 <button
-                  onClick={() => setIsPrivateFormOpen(true)}
+                  onClick={() => setIsCraftFormOpen(true)}
                   className="mt-[0.1vw] font-bold text-ink underline underline-offset-[2px]"
                 >
                   Tailor This Journey For You
@@ -390,7 +392,7 @@ export default function HeroSection({
                   Want to make this itinerary entirely your own?
                   <br />
                   <button
-                    onClick={() => setIsPrivateFormOpen(true)}
+                    onClick={() => setIsCraftFormOpen(true)}
                     className="mt-1 font-bold text-ink underline underline-offset-2"
                   >
                     Tailor This Journey For You
@@ -443,6 +445,24 @@ export default function HeroSection({
         showDepartureDate={!isInspirational}
         label={isInspirational ? "Inspirational Itineraries Form" : undefined}
       />
+      {/* "Tailor This Journey For You" (inspirational/tailor-made journeys
+          only) opens the full "Craft Your Journey" build form instead,
+          pre-selected to the journey currently being viewed — e.g. an
+          Africa journey page pre-fills "Africa" as the Step 1
+          destination rather than leaving it blank for the visitor to
+          search for again. */}
+      {isInspirational && (
+        <BuildYourJourneyForm
+          isOpen={isCraftFormOpen}
+          onClose={() => setIsCraftFormOpen(false)}
+          onSubmit={(data) => console.log("Journey inquiry submitted:", data)}
+          prefillDestination={{
+            id: journey?.nodeId,
+            title: journey?.title,
+            tagIds: journey?.tagIds,
+          }}
+        />
+      )}
     </>
   );
 }
