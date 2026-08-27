@@ -25,9 +25,9 @@ export default function JourneySection() {
 
         <div className="relative z-10 mx-auto flex max-w-[1400px] items-center justify-between px-[4vw]">
           <div className="max-w-[48vw] mt-[5vw]">
-            <div className="inline-block bg-[#F0E4DC] px-[1px]">
+            <div className="inline-block px-[1px] ">
               <h2
-                className="whitespace-nowrap text-[clamp(36px,2.8125vw,54px)] font-taprom font-normal text-ink"
+                className="whitespace-nowrap sub-title-bg text-[clamp(36px,2.8125vw,54px)] font-taprom font-normal text-ink"
                 style={{
                   lineHeight: "var(--lh-heading-taprom-lg)",
                   letterSpacing: "var(--ls-heading-taprom-lg)",
@@ -94,7 +94,7 @@ export default function JourneySection() {
           <div className="absolute top-[-20px] right-[47px] w-[170px] opacity-100">
          
           </div>
-          <div className="absolute top-[217px] left-[-5px]   opacity-100">
+          <div className="absolute top-[320px] md:top-[217px] left-[-26px] md:left-[-5px]   opacity-100">
             <Image
               src="/ResLine2Journey.svg"
               alt=""
@@ -103,7 +103,7 @@ export default function JourneySection() {
               className="w-full h-auto"
             />
           </div>
-          <div className="absolute top-[283px] opacity-100 width-[180px]">
+          <div className="absolute top-[355px] md:top-[283px] opacity-100 width-[180px]">
             <Image
               src="/ResLine3Journey.svg"
               alt=""

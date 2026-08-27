@@ -50,21 +50,22 @@ export default async function ExperienceTravelSection() {
   const [highlightedHeading, plainHeading] = splitHeading(heading);
 
   return (
-    <section className="w-full bg-[#f4f4f4] max-md:bg-[#fcfcfc] px-6 py-16 md:px-14 max-md:py-12">
+    <section className="w-full px-6 py-16 md:px-14 max-md:py-12">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 lg:grid-cols-2 max-md:max-w-[390px] max-md:gap-8">
         
         <div className="max-w-[500px]">
           <h3
             className="mb-6 font-taprom text-[2.4vw] leading-[1.4] text-ink max-md:text-[40px] max-md:leading-[48px] max-md:tracking-[0.05em] max-md:mb-8"
-            // style={{ letterSpacing: "var(--ls-heading-taprom-md)" }}
           >
-            <span className="bg-[#F1E3D8] px-[3px] py-[1px] mb-5 block w-max">
-              Experience travel the
-            </span>
-            <span className="bg-[#F1E3D8] px-[3px] py-[1px] block mb-2 w-max mt-2">
-              way it should be
-            </span>
+            <div className="sub-title-bg it md:w-max">
+              Experience travel the <span className="max-md:hidden">way it </span>
+            </div>
+            <div className="md:w-max">
+              <span className="sub-title-bg should-be w-max">
+                <span className="md:hidden">way it </span>should be
+              </span>
             {plainHeading}
+            </div>
           </h3>
 
           <p
