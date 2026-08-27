@@ -178,9 +178,9 @@ export default function GeneralInquiryForm({ isOpen, onClose, onSubmit }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 overflow-y-auto antialiased">
-      <div className="bg-[#fafafa] p-[1px] w-full max-w-[1100px] rounded-[12px]">
-        <div className="relative my-auto rounded-[12px] flex flex-col border border-[#262626] shadow-2xl overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center bg-black/40 overflow-y-auto antialiased py-6 sm:py-0">
+      <div className="bg-[#fafafa] p-[1px] w-full max-w-[1100px] rounded-[12px] my-auto">
+        <div className="relative rounded-[12px] flex flex-col border border-[#262626] shadow-2xl overflow-hidden">
 
           {/* Header */}
           <div className="flex shrink-0 items-center justify-between border-b border-[#262626] px-6 sm:px-10 py-3.5">
