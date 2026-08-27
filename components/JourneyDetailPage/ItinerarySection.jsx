@@ -17,11 +17,11 @@ function DayAccordion({ item, isOpen, onToggle }) {
           <p className="text-[0.65vw] font-medium uppercase tracking-[0.1em] text-[#888] mb-[0.2vw]">
             DAY {item.day}
           </p>
-          <p className="text-[0.85vw] font-semibold text-ink">
+          <p className="text-[0.85vw] font-medium text-ink">
             {item.title}
           </p>
-          <p className="text-[0.72vw] text-[#666] mt-[0.2vw]">
-            Stay: {item.stay}
+          <p className="text-[0.72vw] font-normal text-[#666] mt-[0.2vw]">
+            <span className="font-bold text-ink">Stay:</span> {item.stay}
           </p>
           {isOpen && (
             <p className="text-[0.75vw] text-[#444] leading-[1.6] mt-[0.8vw]">

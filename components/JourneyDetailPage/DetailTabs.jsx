@@ -50,12 +50,14 @@ const DetailTabs = forwardRef(function DetailTabs(
     <>
     <div ref={containerRef} className="bg-white hidden md:block">
       <div className="sticky top-0 z-20 bg-white border-b border-[#E5E5E5] shadow-[0_6px_16px_-6px_rgba(0,0,0,0.15)] h-[80px] flex items-center px-[5.5vw]">
-        <div className="flex items-center w-full max-w-[1548px] h-[47px] mx-auto">
+        <div className="flex items-center justify-center w-full max-w-[1548px] h-[47px] mx-auto">
           {tabs.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`relative px-[1.75vw] py-[1.1vw] whitespace-nowrap font-[Nohemi] text-[21px] leading-[32px] tracking-[0.05em] transition-colors ${
+              className={`relative ${
+                journey?.isInspirational ? "px-[4.6vw]" : "px-[1.75vw]"
+              } py-[1.1vw] whitespace-nowrap font-[Nohemi] text-[21px] leading-[32px] tracking-[0.05em] transition-colors ${
                 activeTab === tab
                   ? "font-bold text-black"
                   : "font-light text-black/50 hover:text-black/80"

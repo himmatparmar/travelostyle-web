@@ -8,7 +8,11 @@ import HeroSection from "./HeroSection";
 import OtherDestinations from "./OtherDestinations";
 import TrustBar from "./TrustBar";
 function stripHtml(html) {
-  return (html || "").replace(/<[^>]*>/g, "").trim();
+  return (html || "")
+    .replace(/<[^>]*>/g, "")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 const MOCK_JOURNEY = {
   title: "The Moroccan Getaway",
@@ -156,16 +160,25 @@ function resolvePace(item, included) {
 
 
 function resolveTabSections(item, included) {
-  // Level 1: journey_tabs_section container
+  // Level 1: journey_tabs_section container(s). This field only has one
+  // value in the intended content model, but it used to only ever read
+  // containerRefs[0] — if a content editor ends up with a second
+  // "Journey Tabs Section" paragraph on the node (easy to do by accident
+  // in the Paragraphs widget — "add another item" instead of editing the
+  // existing one), EVERYTHING nested under that second container
+  // (every tab: Highlights, Itinerary, Stays, Additional Information)
+  // was silently ignored, which looks exactly like "I edited it and
+  // nothing shows up" for all tabs at once. Now every container's
+  // field_section_tabs is merged, so a stray extra container still gets
+  // picked up instead of dropped.
   const containerRefs = item.relationships?.field_journey_tabs_section?.data;
   if (!Array.isArray(containerRefs) || containerRefs.length === 0) return {};
 
-  const container = included.find((inc) => inc.id === containerRefs[0].id);
-  if (!container) return {};
-
-  // Level 2: individual tab paragraphs inside field_section_tabs
-  const tabRefs = container.relationships?.field_section_tabs?.data;
-  if (!Array.isArray(tabRefs) || tabRefs.length === 0) return {};
+  const tabRefs = containerRefs.flatMap((ref) => {
+    const container = included.find((inc) => inc.id === ref.id);
+    return container?.relationships?.field_section_tabs?.data || [];
+  });
+  if (tabRefs.length === 0) return {};
 
   const tabs = {};
 
@@ -476,7 +489,7 @@ export default function JourneyDetailClient({
         included={initialData?.included || []}
         onCheckAvailability={handleCheckAvailability}
       />
-      <TrustBar />
+      <TrustBar isInspirational={Boolean(journey?.isInspirational)} />
       <DetailTabs
         ref={detailTabsRef}
         journey={journey}
