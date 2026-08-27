@@ -1,6 +1,7 @@
 "use client";
 
-import { Clock3, MapPin, Info } from "lucide-react";
+import { Info } from "lucide-react";
+import Image from "next/image";
 import MobileNavigationMenu from "./MobileNavigationMenu";
 import PrivateInquiryForm from "@/components/PrivateInquiryForm";
 import BuildYourJourneyForm from "@/components/BuildYourJourneyForm";
@@ -128,11 +129,11 @@ export default function HeroSection({
           </p>
           <div className="mt-[0.75vw] flex items-center gap-[1vw] text-[0.6vw] text-[#333]">
             <div className="flex items-center gap-[0.28vw]">
-              <Clock3 size={11} strokeWidth={1.8} />
+              <Image src="/CalenderIcon.svg" alt="" width={11} height={11} className="shrink-0" />
               <span>{journey.days || "13 Days | 12 Nights"}</span>
             </div>
             <div className="flex items-center gap-[0.28vw]">
-              <MapPin size={11} strokeWidth={1.8} />
+              <Image src="/Destination.svg" alt="" width={11} height={11} className="shrink-0" />
               <span>{journey.destinations || "10 Destinations"}</span>
             </div>
           </div>
@@ -274,12 +275,12 @@ export default function HeroSection({
 
               <div className="mt-[14px] flex items-center gap-[16px] text-[12px] font-light leading-[18px] tracking-[0.05em] text-black">
                 <div className="flex items-center gap-[8px]">
-                  <Clock3 size={16} strokeWidth={1.5} className="shrink-0" />
+                  <Image src="/CalenderIcon.svg" alt="" width={16} height={16} className="shrink-0" />
                   <span>{journey.days || "13 Days | 12 Nights"}</span>
                 </div>
 
                 <div className="flex items-center gap-[8px]">
-                  <MapPin size={16} strokeWidth={1.5} className="shrink-0" />
+                  <Image src="/Destination.svg" alt="" width={16} height={16} className="shrink-0" />
                   <span>{journey.destinations || "10 Destinations"}</span>
                 </div>
               </div>

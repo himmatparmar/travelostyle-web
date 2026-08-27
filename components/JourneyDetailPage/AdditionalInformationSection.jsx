@@ -56,7 +56,7 @@ function AccordionItem({ item }) {
       >
         <div className="overflow-hidden">
           <div
-            className={`${styles.infoRichText} border-t border-[#E5E5E5] px-[1.4vw] py-[1.2vw] text-[0.8vw] leading-[1.7] text-[#333]`}
+            className={`${styles.infoRichText} border-t border-[#E5E5E5] px-[1.4vw] py-[1.2vw] text-left text-[0.8vw] leading-[1.7] text-[#333]`}
             dangerouslySetInnerHTML={{ __html: item.content }}
           />
         </div>
@@ -70,7 +70,7 @@ export default function AdditionalInformationSection({ drupalData }) {
     drupalData && drupalData.length > 0 ? drupalData : DEFAULT_ADDITIONAL_INFO;
 
   return (
-    <div className="bg-[#fafafa] px-[8vw] py-[3vw] text-center">
+    <div className="bg-[#fafafa] px-[8vw] py-[3vw]">
       {groups.map((group, gi) => (
         <div key={gi} className={gi > 0 ? "mt-[3vw]" : ""}>
           <h2 className="mb-[1.6vw] text-center text-[1.5vw] font-bold text-ink">

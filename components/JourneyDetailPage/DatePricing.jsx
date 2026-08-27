@@ -392,7 +392,7 @@ export default function JourneyPricing({
                                                     </div>
                                                 </div>
 
-                                                <span className="text-[16px] mt-[1px]">→</span>
+                                                <span className="flex h-[24px] items-center text-[18px] font-bold text-ink">→</span>
 
                                                 <div>
                                                     <div
