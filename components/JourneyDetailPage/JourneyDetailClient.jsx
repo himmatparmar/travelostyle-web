@@ -441,6 +441,16 @@ originalPrice: item.attributes.field_original_price,
 mapImage: tabSections.itinerary?.mapImage || null,
     tabStays: tabSections.stays || null,
     tabAdditionalInfo: tabSections.additionalInfo || null,
+    // IDs of the "Stopover Journey" nodes selected on this specific journey
+    // in Drupal (field_stopover_journey, entity reference, multi-value).
+    // Used to filter the "Take your journey a little further" step of the
+    // inquiry form down to only the stopovers configured for this journey,
+    // instead of showing every stopover journey that exists.
+    stopoverJourneyIds: (() => {
+      const rel = item.relationships?.field_stopover_journey?.data;
+      const refs = Array.isArray(rel) ? rel : rel ? [rel] : [];
+      return refs.map((r) => r.id).filter(Boolean);
+    })(),
   };
 }
 
