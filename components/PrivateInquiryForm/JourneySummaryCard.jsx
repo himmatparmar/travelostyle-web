@@ -81,91 +81,93 @@ export default function JourneySummaryCard({
           </button>
 
           {isExpanded && (
-            <div className="mt-2.5 flex gap-3">
-              <div className="relative h-[92px] w-[104px] shrink-0 overflow-hidden rounded-[3px]">
-                <Image
-                  src={journey.image || "/Morocco.svg"}
-                  alt={journey.title || "Journey"}
-                  fill
-                  unoptimized
-                  className="object-cover"
-                />
-              </div>
+            <>
+              <div className="mt-2.5 flex gap-3">
+                <div className="relative h-[92px] w-[104px] shrink-0 overflow-hidden rounded-[3px]">
+                  <Image
+                    src={journey.image || "/Morocco.svg"}
+                    alt={journey.title || "Journey"}
+                    fill
+                    unoptimized
+                    className="object-cover"
+                  />
+                </div>
 
-              <div className="min-w-0 flex-1 text-[10px] leading-tight text-[#444444]">
-                {journey.days && <p>{journey.days}</p>}
-                {journey.destinations && <p>{journey.destinations}</p>}
+                <div className="min-w-0 flex-1 text-[10px] leading-tight text-[#444444]">
+                  {journey.days && <p>{journey.days}</p>}
+                  {journey.destinations && <p>{journey.destinations}</p>}
 
-                {showDepartureDate && (
-                  <div className="mt-1 space-y-0.5">
-                    {seatsLeft != null && (
-                      <p className="text-[9.5px] font-bold leading-tight text-[#A31D1D]">
-                        {seatsLeft} seats left
-                      </p>
-                    )}
-                    <p className="text-[9.5px] font-bold leading-tight text-[#238823]">
-                      Guaranteed departure
-                    </p>
-                    {Boolean(journey?.earlyBird) && (
+                  {showDepartureDate && (
+                    <div className="mt-1 space-y-0.5">
+                      {seatsLeft != null && (
+                        <p className="text-[9.5px] font-bold leading-tight text-[#A31D1D]">
+                          {seatsLeft} seats left
+                        </p>
+                      )}
                       <p className="text-[9.5px] font-bold leading-tight text-[#238823]">
-                        Early bird offer applied
+                        Guaranteed departure
+                      </p>
+                      {Boolean(journey?.earlyBird) && (
+                        <p className="text-[9.5px] font-bold leading-tight text-[#238823]">
+                          Early bird offer applied
+                        </p>
+                      )}
+                    </div>
+                  )}
+
+                  <div className="mt-1">
+                    {hasOffer && originalPrice && (
+                      <p className="text-[9px] leading-tight text-[#666666] line-through">
+                        ${Number(originalPrice).toLocaleString()}
                       </p>
                     )}
-                  </div>
-                )}
-
-                <div className="mt-1">
-                  {hasOffer && originalPrice && (
-                    <p className="text-[9px] leading-tight text-[#666666] line-through">
-                      ${Number(originalPrice).toLocaleString()}
+                    <p className="text-[13px] font-extrabold leading-tight text-[#1A1A1A]">
+                      ${Number(price || 0).toLocaleString()}*
+                      <span className="text-[9px] font-medium text-[#444444]">
+                        {" "}
+                        /person
+                      </span>
                     </p>
-                  )}
-                  <p className="text-[13px] font-extrabold leading-tight text-[#1A1A1A]">
-                    ${Number(price || 0).toLocaleString()}*
-                    <span className="text-[9px] font-medium text-[#444444]">
-                      {" "}
-                      /person
-                    </span>
-                  </p>
-                  <p className="text-[8px] leading-none text-[#666666]">
-                    *double occupancy
-                  </p>
+                    <p className="text-[8px] leading-none text-[#666666]">
+                      *double occupancy
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+
+              {(startDate || endDate) && (
+                <div className="mt-2.5 -mx-2.5 -mb-2.5 border-t-[1.5px] border-[#222222] bg-[#eddcd2] px-2.5 py-2">
+                  <p className="text-[10px] font-bold leading-none text-[#1A1A1A]">
+                    Departure Date
+                  </p>
+                  <div className="mt-1.5 flex items-center justify-between text-[#1A1A1A]">
+                    <div>
+                      <p className="text-[9.5px] font-bold leading-tight">
+                        {formatDate(startDate)}
+                      </p>
+                      <p className="text-[8.5px] font-normal text-[#555555] leading-tight">
+                        {formatDay(startDate)}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center justify-center px-1">
+                      <MoveRight size={18} strokeWidth={1.5} className="text-[#333333]" />
+                    </div>
+
+                    <div className="text-right">
+                      <p className="text-[9.5px] font-bold leading-tight">
+                        {formatDate(endDate)}
+                      </p>
+                      <p className="text-[8.5px] font-normal text-[#555555] leading-tight">
+                        {formatDay(endDate)}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
-
-        {(startDate || endDate) && (
-          <div className="border-t-[1.5px] border-[#222222] bg-[#eddcd2] px-2.5 py-2">
-            <p className="text-[10px] font-bold leading-none text-[#1A1A1A]">
-              Departure Date
-            </p>
-            <div className="mt-1.5 flex items-center justify-between text-[#1A1A1A]">
-              <div>
-                <p className="text-[9.5px] font-bold leading-tight">
-                  {formatDate(startDate)}
-                </p>
-                <p className="text-[8.5px] font-normal text-[#555555] leading-tight">
-                  {formatDay(startDate)}
-                </p>
-              </div>
-
-              <div className="flex items-center justify-center px-1">
-                <MoveRight size={18} strokeWidth={1.5} className="text-[#333333]" />
-              </div>
-
-              <div className="text-right">
-                <p className="text-[9.5px] font-bold leading-tight">
-                  {formatDate(endDate)}
-                </p>
-                <p className="text-[8.5px] font-normal text-[#555555] leading-tight">
-                  {formatDay(endDate)}
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Full card — tablet / desktop */}
