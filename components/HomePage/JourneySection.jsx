@@ -197,6 +197,7 @@ export default function JourneySection() {
         </p>
         <div className="w-full h-[2px] bg-[#4A4A4A] mt-8" />
       </section>
+    <div className="w-full h-[2px] bg-[#4A4A4A] z-20" />
     </>
   );
 }
