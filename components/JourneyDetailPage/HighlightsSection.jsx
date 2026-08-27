@@ -1,15 +1,15 @@
 import Image from "next/image";
 
 
-function HighlightCard({ card, tall = false }) {
-  const height = tall ? "17vw" : "13vw";
-
+// Every highlight card — image or text, first row or second — is the
+// same fixed size (Figma: 410x160, 10px radius, 2px border), so the grid
+// reads as one uniform set of boxes rather than the first row being
+// shorter than the "tall" second row. Height/radius/border are fixed;
+// width still comes from the grid column so the layout stays responsive.
+function HighlightCard({ card }) {
   if (card.type === "image") {
     return (
-      <div
-        className="relative overflow-hidden rounded-[0.5vw]"
-        style={{ height }}
-      >
+      <div className="relative h-[160px] overflow-hidden rounded-[10px] border-2 border-[#C8CE90]">
         <Image
           src={card.image}
           alt={card.alt || ""}
@@ -29,11 +29,18 @@ function HighlightCard({ card, tall = false }) {
   }
 
   return (
-    <div
-      className="flex flex-col justify-center rounded-[0.5vw] border border-[#C8CE90] bg-[#EAEDC9] px-[1.2vw] py-[1.4vw]"
-      style={{ height }}
-    >
-      <p className="text-[0.78vw] leading-[1.65] text-ink">{card.text}</p>
+    <div className="flex h-[160px] flex-col justify-start overflow-hidden rounded-[10px] border-2 border-[#C8CE90] bg-[#EAEDC9] px-[1.2vw] py-[1.2vw]">
+      <p
+        className="text-[13px] font-normal leading-[1.55] text-ink"
+        style={{
+          display: "-webkit-box",
+          WebkitBoxOrient: "vertical",
+          WebkitLineClamp: 6,
+          overflow: "hidden",
+        }}
+      >
+        {card.text}
+      </p>
     </div>
   );
 }
@@ -53,28 +60,18 @@ export default function HighlightsSection({ drupalData }) {
     );
   }
 
-  const cards = drupalData;
-  const firstRow = cards.slice(0, 4);
-  const secondRow = cards.slice(4);
-
+  // One grid for every card, however many there are — a leftover 5th
+  // (or 6th, 7th, ...) card just wraps to the next row in the same
+  // grid-cols-4 track instead of getting stretched across 2 of the 4
+  // columns in a separate row, which was making that leftover box twice
+  // as wide as (and visually inconsistent with) all the others.
   return (
     <div className="px-[5.5vw] py-[2.5vw]">
-      {/* Row 1 — 4 equal columns */}
       <div className="grid grid-cols-4 gap-[1vw]">
-        {firstRow.map((card, i) => (
+        {drupalData.map((card, i) => (
           <HighlightCard key={i} card={card} />
         ))}
       </div>
-
-      {/* Row 2 — 2 columns, each spanning 2 of the 4 */}
-      {secondRow.length > 0 && (
-        <div className="mt-[1vw] grid grid-cols-2 gap-[1vw]">
-          {secondRow.map((card, i) => (
-            <HighlightCard key={i + 4} card={card} tall />
-          ))}
-        </div>
-      )}
-
     </div>
   );
 }
