@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -15,22 +14,16 @@ export default function TestimonialSection({ testimonialData }) {
     const included = testimonialData?.included || [];
 
     // IMAGE
-    const imageId =
-      item.relationships?.field_testimonial_image?.data?.id;
+    const imageId = item.relationships?.field_testimonial_image?.data?.id;
 
     const media = included.find(
-      (inc) =>
-        inc.type === "media--image" &&
-        inc.id === imageId
+      (inc) => inc.type === "media--image" && inc.id === imageId,
     );
 
-    const fileId =
-      media?.relationships?.field_media_image?.data?.id;
+    const fileId = media?.relationships?.field_media_image?.data?.id;
 
     const file = included.find(
-      (inc) =>
-        inc.type === "file--file" &&
-        inc.id === fileId
+      (inc) => inc.type === "file--file" && inc.id === fileId,
     );
 
     const imageUrl = file?.attributes?.uri?.url
@@ -39,9 +32,7 @@ export default function TestimonialSection({ testimonialData }) {
 
     // NAME
     const name =
-      item.attributes?.field_testimonial_name ||
-      item.attributes?.title ||
-      "";
+      item.attributes?.field_testimonial_name || item.attributes?.title || "";
 
     // QUOTE
     const attributes = item.attributes || {};
@@ -111,17 +102,13 @@ export default function TestimonialSection({ testimonialData }) {
 
   const current = testimonials[currentIndex];
 
-
-
-
   return (
-    <section className="py-16 md:py-20 select-none overflow-hidden bg-[#fbfbfb]">
+    <section className="py-8 md:py-20 select-none overflow-hidden">
       <div className="mx-auto max-w-6xl px-4">
         <h2 className="mb-12 md:mb-24 text-left md:text-center font-serif italic text-[40px] md:text-[38px] text-[#1A1A1A] md:text-[#2d2d2d] tracking-[0.05em] md:tracking-wide font-taprom font-normal max-md:max-w-[326px] max-md:mx-auto max-md:leading-[48px]">
-          Hear from those who&apos;ve travelled with us
+          Hear from those who&apos;ve travelled with us 
         </h2>
 
-     
         <div className="hidden md:flex items-center justify-between gap-4 max-w-5xl mx-auto">
           <button
             onClick={handlePrev}
@@ -148,7 +135,12 @@ export default function TestimonialSection({ testimonialData }) {
             <div className="relative flex-1 py-4 px-10">
               <span className="absolute -left-5 top-[-8px]">
                 <div className="relative w-[2.9vw] h-[2.05vw] min-w-[25px] min-h-[18px]">
-                  <Image src="/RightQuote.svg" alt="Quote Start" fill className="object-cover" />
+                  <Image
+                    src="/RightQuote.svg"
+                    alt="Quote Start"
+                    fill
+                    className="object-cover"
+                  />
                 </div>
               </span>
 
@@ -158,7 +150,12 @@ export default function TestimonialSection({ testimonialData }) {
 
               <span className="absolute -right-4 bottom-0">
                 <div className="relative w-[2.9vw] h-[2.05vw] min-w-[25px] min-h-[18px]">
-                  <Image src="/LeftQuote.svg" alt="Quote End" fill className="object-cover" />
+                  <Image
+                    src="/LeftQuote.svg"
+                    alt="Quote End"
+                    fill
+                    className="object-cover"
+                  />
                 </div>
               </span>
             </div>
@@ -172,61 +169,57 @@ export default function TestimonialSection({ testimonialData }) {
           </button>
         </div>
 
-
         <div className="md:hidden overflow-x-scroll overflow-y-hidden snap-x snap-mandatory scrollbar-hide">
-  <div className="flex gap-4 px-4 items-start">
-    {testimonials.map((item) => (
-      <div
-        key={item.id}
-        className="snap-start shrink-0 w-[230px]"
-      >
-        <div className="border-[2px] border-[#4c4b75] rounded-[4px] bg-white p-3">
-          <div className="relative w-full h-[180px]">
-            <Image
-              src={item.image}
-              alt={item.name}
-              fill
-              className="object-cover"
-            />
+          <div className="flex gap-4 px-4 items-start">
+            {testimonials.map((item) => (
+              <div key={item.id} className="snap-start shrink-0 w-[230px]">
+                <div className="border-[2px] border-[#4c4b75] rounded-[4px] bg-white p-3">
+                  <div className="relative w-full h-[180px]">
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+
+                  <p className="mt-3 text-[13px] font-bold text-[#111111]">
+                    {item.name}
+                  </p>
+                </div>
+
+                <div className="relative mt-6">
+                  <span className="absolute -top-3 left-0">
+                    <div className="relative w-[24px] h-[16.97px]">
+                      <Image
+                        src="/RightQuote.svg"
+                        alt=""
+                        fill
+                        className="object-contain opacity-100"
+                      />
+                    </div>
+                  </span>
+
+                  <p className="w-[242px] font-nohemi text-[14px] font-normal leading-[24px] tracking-[0.05em] text-[#1A1A1A]">
+                    {item.quote}
+                  </p>
+
+                  <span className="absolute -bottom-6 md:-bottom-4 right-0">
+                    <div className="relative w-[24px] h-[16.97px]">
+                      <Image
+                        src="/LeftQuote.svg"
+                        alt=""
+                        fill
+                        className="object-contain opacity-100"
+                      />
+                    </div>
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
-
-          <p className="mt-3 text-[13px] font-bold text-[#111111]">
-            {item.name}
-          </p>
-        </div>
-
-        <div className="relative mt-6">
-          <span className="absolute -top-3 left-0">
-            <div className="relative w-[24px] h-[16.97px]">
-              <Image
-                src="/RightQuote.svg"
-                alt=""
-                fill
-                className="object-contain opacity-100"
-              />
-            </div>
-          </span>
-
-          <p className="w-[242px] font-nohemi text-[14px] font-normal leading-[24px] tracking-[0.05em] text-[#1A1A1A]">
-            {item.quote}
-          </p>
-
-          <span className="absolute -bottom-4 right-0">
-            <div className="relative w-[24px] h-[16.97px]">
-              <Image
-                src="/LeftQuote.svg"
-                alt=""
-                fill
-                className="object-contain opacity-100"
-              />
-            </div>
-          </span>
         </div>
       </div>
-    ))}
-  </div>
-</div>
-</div>
     </section>
   );
 }

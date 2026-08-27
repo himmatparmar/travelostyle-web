@@ -64,7 +64,7 @@ export default async function TravelOStylePromise() {
     .filter(Boolean);
 
   return (
-    <section className="py-16 md:py-20 bg-[#fbfbfb] select-none">
+    <section className="py-16 md:py-20 select-none">
       <div className="mx-auto max-w-[1200px] px-6">
 <div className="text-left md:text-center w-full mx-auto">
           <h2

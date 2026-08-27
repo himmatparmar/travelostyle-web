@@ -187,3 +187,32 @@ a,
     animation: none;
   }
 }
+.sub-title-bg{
+  position: relative;
+}
+.sub-title-bg::after{
+    content: "";
+    z-index: -1;
+    background-color: #f0e4dc;
+    width: 101%;
+    height: 39px;
+    position: absolute;
+    top: 19px;
+    left: -8px;
+}
+.sub-title-bg.it::after{
+    width: 104.5%;
+    height: 50px;
+    position: absolute;
+    top: -8px;
+    left: -4px;
+}
+@media (max-width: 767px) {
+  .sub-title-bg.it::after{
+    height: 36px;
+    top: 8px;
+  }
+  .sub-title-bg:after{
+    left: -2.4px;
+  }
+}

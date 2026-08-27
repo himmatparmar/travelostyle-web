@@ -7,18 +7,24 @@ export default function StepThree({
   toggleStopover,
   updateField,
   options = STOPOVER_OPTIONS,
+  // IDs of the stopover_journeys nodes selected on the current journey in
+  // Drupal (field_stopover_journey). When present, only these are shown —
+  // e.g. on "Essence of Japan", only the stopover(s) added to that specific
+  // journey, not every stopover journey in the system.
+  allowedStopoverIds = null,
 }) {
   const [stopoverOptions, setStopoverOptions] = useState([]);
 
   useEffect(() => {
     let cancelled = false;
-    getStopoverOptions().then((options) => {
+    getStopoverOptions(allowedStopoverIds).then((options) => {
       if (!cancelled) setStopoverOptions(options);
     });
     return () => {
       cancelled = true;
     };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [Array.isArray(allowedStopoverIds) ? allowedStopoverIds.join(",") : allowedStopoverIds]);
 
   return (
     <div className="w-full font-sans">

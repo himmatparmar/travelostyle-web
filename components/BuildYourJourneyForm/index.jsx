@@ -12,7 +12,18 @@ import StepThree from "./StepThree";
 import StepFour from "./StepFour";
 import SuccessStep from "./SuccessStep";
 
-export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
+export default function BuildYourJourneyForm({
+  isOpen,
+  onClose,
+  onSubmit,
+  // Optional { id, title, tagIds } for the journey the visitor was just
+  // looking at (e.g. opened from that journey's "Tailor This Journey For
+  // You" link) — pre-selects it as the Step 1 destination instead of
+  // making them search for it again. Same shape as one entry of
+  // destinationOptions below (id = plain node id, tagIds = that
+  // journey's journey_style term ids).
+  prefillDestination,
+}) {
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -93,6 +104,21 @@ export default function BuildYourJourneyForm({ isOpen, onClose, onSubmit }) {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Seed Step 1's destination from the journey the visitor came from,
+  // each time the modal is (re)opened with one available. handleClose
+  // resets formData back to initialFormData, so this only ever overrides
+  // that fresh blank state on open — it never clobbers what the visitor
+  // typed while the form stays open.
+  useEffect(() => {
+    if (!isOpen || !prefillDestination?.id) return;
+    setFormData((prev) => ({
+      ...prev,
+      destination: prefillDestination.title || prev.destination,
+      destinationId: prefillDestination.id,
+      journeyTypeIds: prefillDestination.tagIds || [],
+    }));
+  }, [isOpen, prefillDestination]);
 
   if (!isOpen || !mounted) return null;
 

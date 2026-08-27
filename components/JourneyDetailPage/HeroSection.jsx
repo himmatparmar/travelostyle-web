@@ -3,6 +3,7 @@
 import { Clock3, MapPin, Info } from "lucide-react";
 import MobileNavigationMenu from "./MobileNavigationMenu";
 import PrivateInquiryForm from "@/components/PrivateInquiryForm";
+import BuildYourJourneyForm from "@/components/BuildYourJourneyForm";
 import JourneyCardImage from "@/components/JourneyCardImage";
 import { useMemo, useState } from "react";
 import { pickPriorityDeparture } from "@/lib/departures";
@@ -44,6 +45,7 @@ export default function HeroSection({
 }) {
   const [activeView, setActiveView] = useState("menu");
   const [isPrivateFormOpen, setIsPrivateFormOpen] = useState(false);
+  const [isCraftFormOpen, setIsCraftFormOpen] = useState(false);
   const categories = rawItem ? resolveCategories(rawItem, included) : MOCK_CATEGORIES;
   const isInspirational = Boolean(journey?.isInspirational);
   // Group journeys: "Request a Private Journey" from the summary card has
@@ -216,7 +218,7 @@ export default function HeroSection({
                 Want to make this itinerary entirely your own?
                 <br />
                 <button
-                  onClick={() => setIsPrivateFormOpen(true)}
+                  onClick={() => setIsCraftFormOpen(true)}
                   className="mt-[0.1vw] font-bold text-ink underline underline-offset-[2px]"
                 >
                   Tailor This Journey For You
@@ -249,58 +251,58 @@ export default function HeroSection({
     </section>
 
      {/* ================= MOBILE DESIGN ================= */}
-     <div className="block md:hidden   ">
-        <div className="px-4 py-3 text-[11px] text-[#666]">
+     <div className="block bg-[#F9F9F9] md:hidden">
+        <div className="px-[27px] text-[12px] font-light leading-[32px] tracking-[0.05em] text-[#1A1A1A]">
           Home &gt; All Journeys &gt;
-          <span className="font-medium text-[#222]"> {journey.title}</span>
+          <span> {journey.title}</span>
         </div>
           
        {activeView === "menu"&&<div className="relative">
-          <div className="relative h-[580px] w-full">
+          <div className="relative h-[640px] w-full">
             <JourneyCardImage
               src={journey.image}
               alt={journey.title}
             />
-            <div className="absolute left-4 right-4 top-3 rounded-md border-2 border-[#3A3A3A] bg-white p-4 shadow-lg">
-              <h1 className="text-[28px] font-bold leading-[34px] text-ink">
+            <div className="absolute left-[27px] right-[27px] top-[20px] rounded-[5px] border-2 border-[#1A1A1A] bg-[#FAFAFA] px-[19px] py-[15px]">
+              <h1 className="text-[18px] font-semibold leading-[24px] tracking-[0.05em] text-black">
                 {journey.title}
               </h1>
 
-              <p className="mt-2 text-[15px] leading-[24px] text-[#555]">
+              <p className="mt-[10px] text-[12px] font-light leading-[18px] tracking-[0.05em] text-black">
                 {journey.desc}
               </p>
 
-              <div className="mt-4 flex items-center gap-6 text-[15px] text-[#444]">
-                <div className="flex items-center gap-2">
-                  <Clock3 size={18} />
+              <div className="mt-[14px] flex items-center gap-[16px] text-[12px] font-light leading-[18px] tracking-[0.05em] text-black">
+                <div className="flex items-center gap-[8px]">
+                  <Clock3 size={16} strokeWidth={1.5} className="shrink-0" />
                   <span>{journey.days || "13 Days | 12 Nights"}</span>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <MapPin size={18} />
+                <div className="flex items-center gap-[8px]">
+                  <MapPin size={16} strokeWidth={1.5} className="shrink-0" />
                   <span>{journey.destinations || "10 Destinations"}</span>
                 </div>
               </div>
-              <div className="mt-4 space-y-2 text-[16px]">
+              <div className="mt-[14px] space-y-[8px] text-[12px] font-light leading-[16px] tracking-[0.05em] text-black">
                 <div>
-                  <span className="font-bold">Best Seasons:</span>{" "}
+                  <span className="font-semibold">Best Seasons:</span>{" "}
                   {journey.bestSeason || "Jan–March, July–Sep"}
                 </div>
 
                 <div>
-                  <span className="font-bold">Pace:</span>{" "}
+                  <span className="font-semibold">Pace:</span>{" "}
                   {journey.pace || "Moderate"}
                 </div>
 
                 <div>
-                  <span className="font-bold">Group Size:</span> upto 18 guests
+                  <span className="font-semibold">Group Size:</span> upto 18 guests
                 </div>
               </div>
-              <div className="mt-5 flex flex-wrap gap-[10px]">
+              <div className="mt-[18px] flex flex-wrap gap-[8px]">
                {journey?.offer && (
-  <div className="flex flex-1 items-start gap-[0.3vw] rounded-[0.3vw] border border-[#D8D8D8] bg-[#F5DFC9] px-[0.5vw] py-[0.45vw]">
-    <Info size={10} className="mt-[0.1vw] shrink-0 text-[#555]" />
-    <p className="text-[0.5vw] leading-[1.4] text-[#555]">
+  <div className="flex w-full items-start gap-[6px] rounded-[2px] border border-[#D8D8D8] bg-[#F5DFC9] px-[10px] py-[8px]">
+    <Info size={14} className="mt-[1px] shrink-0 text-[#555]" />
+    <p className="text-[11px] font-light leading-[16px] tracking-[0.05em] text-[#555]">
       {journey.offer}
     </p>
   </div>
@@ -309,7 +311,7 @@ export default function HeroSection({
                 {categories?.map((category) => (
                   <span
                     key={category}
-                    className="rounded-[5px] px-3 py-2 text-[14px] font-semibold tracking-[0.05em]"
+                    className="rounded-[2px] px-[12px] py-[8px] text-[12px] font-medium leading-[9px] tracking-[0.05em]"
                     style={{ backgroundColor: "#C2E5FF", color: "#000000" }}
                   >
                     {category}
@@ -319,7 +321,7 @@ export default function HeroSection({
                 {journey?.tags?.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-[5px] px-3 py-2 text-[14px] font-semibold tracking-[0.05em]"
+                    className="rounded-[2px] px-[12px] py-[8px] text-[12px] font-medium leading-[9px] tracking-[0.05em]"
                     style={{ backgroundColor: "#EFF3CF", color: "#000000" }}
                   >
                     {tag}
@@ -329,43 +331,47 @@ export default function HeroSection({
             </div>
           </div>
 
-          <div className="-mt-2 overflow-hidden rounded-t-[20px] border-2 border-[#333] bg-white">
-            <div className="flex border-b">
-           <div className="flex-1 p-4">
+          <div className="md:mx-[27px] overflow-hidden rounded-[5px] border-2 border-[#1A1A1A] bg-[#FAFAFA]">
+            <div className="flex border-b-2 border-[#1A1A1A]">
+           <div className="flex-1 px-[14px] py-[12px]">
 
   {/* From */}
-  <p className="text-[12px] text-[#666]">
+  <p className="text-[10px] font-light leading-[16px] tracking-[0.05em] text-[#1A1A1A]">
     from
   </p>
 
   {/* Offer Price */}
-  <div className="flex items-end">
-    <span className="text-[36px] font-bold leading-none">
-      ${Number(journey.offerPrice).toLocaleString()}
+  <div className="flex items-end gap-[6px]">
+    <span className="text-[24px] font-semibold leading-[28px] tracking-[0.05em] text-[#1A1A1A] md:text-[28px] md:leading-[32px]">
+      ${Number(journey.offerPrice).toLocaleString()}*
     </span>
 
-    <span className="mb-1 ml-1 text-[16px]">
+    <span className="mb-[3px] text-[11px] font-light leading-[14px] tracking-[0.05em] text-[#1A1A1A]">
       /person
     </span>
   </div>
 
+  {/* SVG spec puts "double occupancy*" on its own line under the price. */}
+  <p className="text-[11px] font-light leading-[14px] tracking-[0.05em] text-[#1A1A1A]">
+    double occupancy*
+  </p>
 
-  {/* Original Price */}
+  {/* Original Price — not part of the mobile SVG spec, desktop only. */}
   {journey.originalPrice && (
-    <p className="text-[14px] text-[#777]">
+    <p className="hidden text-[12px] font-light leading-[16px] tracking-[0.05em] text-[#777] md:block">
       was{" "}
       <span className="line-through">
-        {journey.originalPrice}
+        ${Number(journey.originalPrice).toLocaleString()}
       </span>
     </p>
   )}
 </div>
 {journey?.earlyBird && (
-<div className="w-[52%] bg-[#F6EEE8] p-4">
-  <div className="flex gap-2">
-    <Info size={20} />
-    <p className="text-[15px] leading-[24px]">
-      Early Bird
+<div className="my-[8px] mr-[14px] w-[168px] shrink-0 self-start rounded-[2px] bg-[#F2E2DA] px-[10px] py-[8px] md:m-0 md:w-[52%] md:shrink md:self-auto md:rounded-none md:border-l-2 md:border-[#1A1A1A] md:px-[14px] md:py-[12px]">
+  <div className="flex gap-[8px]">
+    <Info size={16} strokeWidth={1.5} className="mt-[1px] shrink-0" />
+    <p className="text-[11px] font-light leading-[16px] tracking-[0.05em] text-black">
+      {journey.offer || "Early Bird Offers available"}
     </p>
   </div>
 </div>
@@ -373,20 +379,20 @@ export default function HeroSection({
             </div>
             {isInspirational ? (
               <>
-                <div className="flex items-center justify-center gap-3 border-t border-[#2E2E2E] bg-white px-4 py-3">
+                <div className="flex items-center justify-center gap-3 bg-[#FAFAFA] px-4 py-[12px]">
                   <button
                     onClick={() => setIsPrivateFormOpen(true)}
-                    className="rounded-full bg-[#2B2D82] px-6 py-2 text-[15px] font-semibold text-white"
+                    className="h-[37px] rounded-full bg-[#2C3078] px-6 text-[16px] font-semibold tracking-[0.05em] text-[#FAFAFA]"
                   >
                     Request a Private Journey
                   </button>
                 </div>
 
-                <div className="border-t border-[#2E2E2E] bg-white px-4 py-3 text-center text-[13px] text-[#555]">
+                <div className="border-t-2 border-[#1A1A1A] bg-[#FAFAFA] px-4 py-[12px] text-center text-[12px] font-light leading-[18px] tracking-[0.05em] text-[#1A1A1A]">
                   Want to make this itinerary entirely your own?
                   <br />
                   <button
-                    onClick={() => setIsPrivateFormOpen(true)}
+                    onClick={() => setIsCraftFormOpen(true)}
                     className="mt-1 font-bold text-ink underline underline-offset-2"
                   >
                     Tailor This Journey For You
@@ -394,21 +400,23 @@ export default function HeroSection({
                 </div>
               </>
             ) : (
-              <div className="flex flex-col items-center gap-2 border-t border-[#2E2E2E] bg-white px-4 py-3 text-center">
+              <div className="flex items-center justify-between gap-3 bg-[#FAFAFA] px-[27px] py-[9px] md:flex-col md:justify-center md:px-4 md:py-[12px] md:text-center">
                 <button
                   onClick={() => setActiveView("dates-pricing")}
-                  className="rounded-full bg-[#2B2D82] px-6 py-2 text-[15px] font-semibold text-white"
+                  className="h-[31px] w-[138px] shrink-0 rounded-[15.5px] bg-[#2C3078] text-[16px] font-semibold tracking-[0.05em] text-[#FAFAFA] md:h-[37px] md:w-auto md:rounded-full md:px-6"
                 >
-                  Check Dates & Availability
+                  Check Dates
                 </button>
 
-                <div className="mt-1 text-[13px] text-[#555]">
-                  Want to customize this itinerary?{" "}
+                <div className="text-[12px] font-light leading-[18px] tracking-[0.05em] text-[#1A1A1A] md:mt-1">
+                  <span className="hidden md:inline">
+                    Want to customize this itinerary?{" "}
+                  </span>
                   <button
                     onClick={() => setIsPrivateFormOpen(true)}
-                    className="font-bold text-ink underline underline-offset-2"
+                    className="font-normal text-[#1A1A1A] underline underline-offset-[3px] md:font-bold md:text-ink md:underline-offset-2"
                   >
-                    Request a Private Journey
+                    Request A Private Journey
                   </button>
                 </div>
               </div>
@@ -437,6 +445,24 @@ export default function HeroSection({
         showDepartureDate={!isInspirational}
         label={isInspirational ? "Inspirational Itineraries Form" : undefined}
       />
+      {/* "Tailor This Journey For You" (inspirational/tailor-made journeys
+          only) opens the full "Craft Your Journey" build form instead,
+          pre-selected to the journey currently being viewed — e.g. an
+          Africa journey page pre-fills "Africa" as the Step 1
+          destination rather than leaving it blank for the visitor to
+          search for again. */}
+      {isInspirational && (
+        <BuildYourJourneyForm
+          isOpen={isCraftFormOpen}
+          onClose={() => setIsCraftFormOpen(false)}
+          onSubmit={(data) => console.log("Journey inquiry submitted:", data)}
+          prefillDestination={{
+            id: journey?.nodeId,
+            title: journey?.title,
+            tagIds: journey?.tagIds,
+          }}
+        />
+      )}
     </>
   );
 }

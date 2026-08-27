@@ -54,6 +54,13 @@ export default function PrivateInquiryForm({
 
   if (!isOpen) return null;
 
+  // Step 3 ("Take your journey a little further") only makes sense when
+  // this specific journey has stopover journeys configured in Drupal
+  // (field_stopover_journey). If none were added for this journey, skip
+  // the step entirely in both directions instead of showing an empty form.
+  const hasStopovers = Array.isArray(journey?.stopoverJourneyIds)
+    && journey.stopoverJourneyIds.length > 0;
+
   const updateField = (name, value) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (name === "phone") setPhoneError("");
@@ -86,9 +93,18 @@ export default function PrivateInquiryForm({
       setPhoneError("Please enter a valid 10-digit mobile number.");
       return;
     }
-    setStep((prev) => Math.min(prev + 1, TOTAL_STEPS));
+    setStep((prev) => {
+      const next = Math.min(prev + 1, TOTAL_STEPS);
+      // Skip step 3 (stopovers) on the way forward if this journey has none.
+      return next === 3 && !hasStopovers ? Math.min(next + 1, TOTAL_STEPS) : next;
+    });
   };
-  const goPrevious = () => setStep((prev) => Math.max(prev - 1, 1));
+  const goPrevious = () =>
+    setStep((prev) => {
+      const previous = Math.max(prev - 1, 1);
+      // Skip step 3 (stopovers) on the way back if this journey has none.
+      return previous === 3 && !hasStopovers ? Math.max(previous - 1, 1) : previous;
+    });
 
   const handleClose = () => {
     onClose?.();
@@ -363,7 +379,7 @@ export default function PrivateInquiryForm({
                         }
                       />
                     )}
-                    {step === 3 && (
+                    {step === 3 && hasStopovers && (
                       <StepThree
                         formData={formData}
                         toggleStopover={toggleStopover}
@@ -373,6 +389,7 @@ export default function PrivateInquiryForm({
                             ? INSPIRATIONAL_STOPOVER_OPTIONS
                             : STOPOVER_OPTIONS
                         }
+                        allowedStopoverIds={journey?.stopoverJourneyIds}
                       />
                     )}
                     {step === 4 && (
