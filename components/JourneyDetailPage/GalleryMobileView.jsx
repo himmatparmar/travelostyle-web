@@ -32,7 +32,7 @@ export default function GalleryMobileView({ selectedStay, onBack }) {
         {galleryImages.map((image) => (
           <div 
             key={image.id} 
-            className="w-full h-64 overflow-hidden rounded-xl border border-neutral-300 shadow-sm bg-white"
+            className="w-full h-64 overflow-hidden border border-neutral-300 shadow-sm bg-white"
           >
             <img 
               src={image.url} 

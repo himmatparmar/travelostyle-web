@@ -40,14 +40,20 @@ export default async function TravelOStylePromise() {
   const heading = block.attributes.field_heading || "";
   const rawDescription = block.attributes.field_description?.value || "";
 
-  // Force "We truly believe..." onto its own paragraph on mobile, even if
-  // the CMS content doesn't already break it into a separate <p>. Uses a
-  // mobile-only spacer block (line break + gap) so desktop rendering is
-  // unaffected.
-  const description = rawDescription.replace(
-    /(\s*)(We truly believe)/i,
-    '<span class="block h-6 md:hidden" aria-hidden="true"></span>$2'
-  );
+  // Split into two real paragraphs at "We truly believe...", regardless of
+  // whether the CMS content already has separate <p> tags, so the mb-4 gap
+  // between paragraphs is guaranteed to render.
+  const splitMarker = /We truly believe/i;
+  const splitMatch = rawDescription.match(splitMarker);
+  let descriptionParagraphs;
+  if (splitMatch) {
+    const idx = splitMatch.index;
+    const before = rawDescription.slice(0, idx).replace(/<\/?p[^>]*>/gi, "").trim();
+    const after = rawDescription.slice(idx).replace(/<\/?p[^>]*>/gi, "").trim();
+    descriptionParagraphs = [before, after].filter(Boolean);
+  } else {
+    descriptionParagraphs = [rawDescription.replace(/<\/?p[^>]*>/gi, "").trim()].filter(Boolean);
+  }
 
   const itemRefs = block.relationships?.field_promise_items?.data || [];
   const promises = itemRefs
@@ -64,8 +70,8 @@ export default async function TravelOStylePromise() {
     .filter(Boolean);
 
   return (
-    <section className="py-16 md:py-20 select-none">
-      <div className="mx-auto max-w-[1200px] px-6">
+    <section className="py-16 md:py-20 select-none overflow-x-hidden">
+      <div className="mx-auto w-full max-w-[1200px] px-6">
 <div className="text-left md:text-center w-full mx-auto">
           <h2
   className="
@@ -74,56 +80,79 @@ export default async function TravelOStylePromise() {
     max-w-[336px]
     font-nohemi
     text-left
-    text-[32px]
-    leading-[40px]
+    text-[26px]
+    leading-[32px]
     tracking-[0.05em]
-    font-semibold
+    font-bold
     text-[#1A1A1A]
 
     md:max-w-[741px]
     md:text-center
-    md:text-[40px]
-    md:leading-[40px]
+    md:text-[38px]
+    md:leading-[46px]
     md:tracking-normal
-    md:font-medium
-    md:text-[#2C2C2C]
+    md:font-bold
+    md:text-[#1A1A1A]
   "
 >
   {heading}
 </h2>
-     <div className="mx-auto w-full max-w-[339px] md:max-w-[1246px]">
+     <div className="mx-auto w-full max-w-[339px] md:max-w-full">
+  {/* Mobile: split into two paragraphs with a gap between them. */}
   <div
     className="
     mt-[25px]
       w-full
+      max-w-full
+      break-words
       font-nohemi
       text-left
-      text-[16px]
+      text-[15.5px]
       font-normal
-      leading-[28px]
+      leading-[29px]
       tracking-[0.05em]
       text-[#1A1A1A]
-      [&_p]:mb-4
-      [&_p:last-child]:mb-0
+      md:hidden
+    "
+  >
+    {descriptionParagraphs.map((para, i) => (
+      <p
+        key={i}
+        className={i < descriptionParagraphs.length - 1 ? "mb-4" : ""}
+        dangerouslySetInnerHTML={{ __html: para }}
+      />
+    ))}
+  </div>
+
+  {/* Desktop: single continuous block, same as before — wraps naturally
+      instead of being forced into two separate block elements. */}
+  <div
+    className="
+    mt-[25px]
+      hidden
+      w-full
+      font-nohemi
+      md:mx-auto
+      md:block
+      md:max-w-[1000px]
       md:text-center
-      md:text-[18px]
+      md:text-[15px]
       md:leading-[24px]
       md:tracking-normal
       md:text-[#4A4A4A]
-      md:[&_p]:mb-0
     "
-    dangerouslySetInnerHTML={{ __html: description || "" }}
+    dangerouslySetInnerHTML={{ __html: rawDescription || "" }}
   />
 </div>
 
         
         </div>
-        <div className="mt-12 md:mt-16 flex flex-col md:flex-row flex-wrap justify-center items-center gap-5 md:gap-8 max-w-[340px] md:max-w-none mx-auto">
+        <div className="mt-8 md:mt-16 flex flex-col md:flex-row flex-wrap justify-center items-center gap-4 md:gap-8 max-w-[340px] md:max-w-none mx-auto">
           {promises.map((item, index) => {
             return (
               <div
                 key={index}
-                className="flex h-[150px] md:h-[145px] w-full md:w-[290px] flex-col items-center justify-center rounded-[6px] border border-[#6A67B5]/70 md:border-[#6A67B5] gap-3 p-5"
+                className="flex min-h-[130px] md:h-[145px] w-full md:w-[290px] flex-col items-center justify-center rounded-[6px] border-2 border-[#2f2d89] gap-2 p-5"
                 style={{ backgroundColor: item.bg }}
               >
                 <div className="relative w-[36px] h-[36px] md:w-[40px] md:h-[40px] flex items-center justify-center">
@@ -137,13 +166,7 @@ export default async function TravelOStylePromise() {
                 </div>
 
                 <p
-                  className="whitespace-pre-line max-md:whitespace-normal text-center text-[#2C2C2C]"
-                  style={{
-                    fontSize: "var(--fs-title-nohemi-semibold-sm)",
-                    lineHeight: "var(--lh-title-nohemi-semibold-sm)",
-                    letterSpacing: "var(--ls-title-nohemi-semibold-sm)",
-                    fontWeight: "var(--fw-title-nohemi-semibold-sm)",
-                  }}
+                  className="whitespace-pre-line max-md:whitespace-normal font-nohemi text-center text-black text-[20px] leading-[25px] font-bold tracking-[0.03em] md:text-[20px] md:leading-[25px] md:tracking-normal md:font-bold"
                 >
                   {item.title}
                 </p>

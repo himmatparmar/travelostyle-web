@@ -122,13 +122,19 @@ const DetailTabs = forwardRef(function DetailTabs(
     
 
 {activeTab === "Dates & Pricing" && !journey?.isInspirational && (
- <JourneyPricing
-  journey={journey}
-  departures={departures}
-   journeyId={journeyId}
- 
-
-/>
+  <>
+    <JourneyPricing
+      journey={journey}
+      departures={departures}
+      journeyId={journeyId}
+    />
+    <CtaBanner
+      buttonText="Request A Private Journey"
+      formType="private"
+      journey={journey}
+      showDepartureDate={false}
+    />
+  </>
 )}
 
         {activeTab === "Additional Information" && (

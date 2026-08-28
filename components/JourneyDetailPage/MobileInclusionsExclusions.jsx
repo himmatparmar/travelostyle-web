@@ -46,29 +46,15 @@ export default function MobileInclusionsExclusions({ onBack }) {
                 INCLUSIONS
               </span>
 
-              {isInclusionsOpen ? (
-                <Image
-                  src="/CircleSub.svg"
-                  alt="Collapse"
-                  height={24}
-                  width={48}
-                  className="w-[28px] h-auto"
-                />
-              ) : (
-                <Image
-                  src="/CircleAdd.svg"
-                  alt="Expand"
-                  height={24}
-                  width={48}
-                  className="w-[28px] h-auto"
-                />
-              )}
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-black bg-white font-mono text-sm font-bold text-black select-none">
+                {isInclusionsOpen ? "−" : "+"}
+              </span>
             </button>
 
             {isInclusionsOpen && (
               <div className="flex flex-col">
                 <div className="p-4 border-b border-black space-y-2">
-                  <div className="flex items-center gap-3 font-extrabold text-sm text-black">
+                  <div className="flex items-center gap-3 font-extrabold text-sm text-black whitespace-nowrap">
                     <Image
                       src="/Meals.svg"
                       alt="Meals"
@@ -88,13 +74,13 @@ export default function MobileInclusionsExclusions({ onBack }) {
                 </div>
 
                 <div className="p-4 border-b border-black space-y-2">
-                  <div className="flex items-center gap-3 font-extrabold text-sm text-black">
+                  <div className="flex items-center gap-3 font-extrabold text-sm text-black whitespace-nowrap">
                     <Image
                       src="/Accommodation.svg"
                       alt="Accommodation"
                       height={24}
                       width={48}
-                      className="w-[24px] h-auto"
+                      className="w-[24px] h-auto shrink-0"
                     />
                     Accommodation
                   </div>
@@ -106,7 +92,7 @@ export default function MobileInclusionsExclusions({ onBack }) {
                 </div>
 
                 <div className="p-4 border-b border-black space-y-2">
-                  <div className="flex items-center gap-3 font-extrabold text-sm text-black">
+                  <div className="flex items-center gap-3 font-extrabold text-sm text-black whitespace-nowrap">
                     <Image
                       src="/Portage.svg"
                       alt="Portage"
@@ -122,7 +108,7 @@ export default function MobileInclusionsExclusions({ onBack }) {
                 </div>
 
                 <div className="p-4 border-b border-black space-y-2">
-                  <div className="flex items-center gap-3 font-extrabold text-sm text-black">
+                  <div className="flex items-center gap-3 font-extrabold text-sm text-black whitespace-nowrap">
                     <Image
                       src="/OnGroundTravel.svg"
                       alt="On-ground travel"
@@ -141,7 +127,7 @@ export default function MobileInclusionsExclusions({ onBack }) {
                 </div>
 
                 <div className="p-4 border-b border-black space-y-2">
-                  <div className="flex items-center gap-3 font-extrabold text-sm text-black">
+                  <div className="flex items-center gap-3 font-extrabold text-sm text-black whitespace-nowrap">
                     <Image
                       src="/GuidesTickets.svg"
                       alt="Guides & Tickets"
@@ -159,7 +145,7 @@ export default function MobileInclusionsExclusions({ onBack }) {
                 </div>
 
                 <div className="p-4 space-y-2">
-                  <div className="flex items-center gap-3 font-extrabold text-sm text-black">
+                  <div className="flex items-center gap-3 font-extrabold text-sm text-black whitespace-nowrap">
                     <Image
                       src="/Transfers.svg"
                       alt="Transfers"
@@ -188,23 +174,9 @@ export default function MobileInclusionsExclusions({ onBack }) {
                 EXCLUSIONS
               </span>
 
-              {isExclusionsOpen ? (
-                <Image
-                  src="/CircleSub.svg"
-                  alt="Next"
-                  height={24}
-                  width={48}
-                  className="w-[32px] h-auto"
-                />
-              ) : (
-                <Image
-                  src="/CircleAdd.svg"
-                  alt="Next"
-                  height={24}
-                  width={48}
-                  className="w-[32px] h-auto"
-                />
-              )}
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-black bg-white font-mono text-sm font-bold text-black select-none">
+                {isExclusionsOpen ? "−" : "+"}
+              </span>
             </button>
 
             {isExclusionsOpen && (

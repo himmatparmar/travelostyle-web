@@ -19,7 +19,7 @@ function AccordionItem({ item }: { item: InfoItem }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="rounded-xl border border-ink bg-white overflow-hidden">
+    <div className="border border-ink bg-white overflow-hidden">
       <button
         onClick={() => setIsOpen((v) => !v)}
         className="flex w-full items-center justify-between p-4 text-left"
