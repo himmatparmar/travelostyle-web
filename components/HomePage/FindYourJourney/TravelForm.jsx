@@ -153,9 +153,9 @@ className="flex h-[42px] w-[470px] items-center justify-between rounded border-[
 
      <button
   onClick={handleFindJourney}
-  className="mb-3 w-[210px] h-[45px] px-[21px] py-3 bg-[#2F2E8B] text-white text-[14px] font-medium rounded-[100px] flex items-center justify-center gap-[10px]"
+  className="mb-3 w-[220px] h-[45px] px-[21px] py-3 bg-[#2F2E8B] text-white text-[14px] font-medium rounded-[100px] flex items-center justify-center gap-[10px]"
 >
-  Find Journey
+  Find Your Journey 
 </button>
       </div>
       {/* <div className="mt-3 h-[1px] bg-[#2C3078] mx-[-60px]"></div> */}
