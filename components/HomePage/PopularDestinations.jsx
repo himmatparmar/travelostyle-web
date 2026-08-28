@@ -107,13 +107,7 @@ export default function PopularDestinations({
               Live your next story with TravelOStyle.
             </p> */}
 
-            <button
-              type="button"
-              onClick={() => router.push("/group-rtb-journeys")}
-              className="mt-5 rounded-full bg-white px-5 py-2.5 text-[14px] font-semibold text-[#2E2787]"
-            >
-              {btnExplorePopular}
-            </button>
+         <div className="mt-5"> 
             {isExternal ? (
               <a
                 href={formattedLink}
@@ -131,6 +125,7 @@ export default function PopularDestinations({
                 {btnExplorePopular}
               </Link>
             )}
+            </div>
           </div>
 
           <div className="absolute bottom-12 left-5 right-5 z-10 flex flex-col gap-3">
