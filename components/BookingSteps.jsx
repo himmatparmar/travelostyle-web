@@ -17,7 +17,7 @@ export default function BookingSteps({ bookingRecords, showCraftButton = true })
 }
   
   return (
-    <section className="w-full py-16 px-4 md:px-12 bg-white font-sans text-stone-900">
+    <section className="w-full py-16 px-4 md:px-12 2xl:px-16 bg-white font-sans text-stone-900">
       <div className="max-w-6xl mx-auto text-center mb-16">
       <p className="font-taprom font-serif text-xl text-stone-600 mb-2 tracking-wide">
   {capitalizeFirstLetter(subheading)} 
@@ -25,11 +25,11 @@ export default function BookingSteps({ bookingRecords, showCraftButton = true })
           {mainHeading}
         </h2>
       </div>
-      <div className="flex flex-wrap justify-center gap-6 max-w-7xl mx-auto">
+      <div className="flex flex-wrap justify-center gap-6 max-w-7xl 2xl:max-w-[1704px] mx-auto">
         {steps?.map((step, index) => (
           <div
             key={index}
-            className="p-8 rounded-xl border border-[#646461] flex flex-col justify-between transition-shadow hover:shadow-md w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[280px] min-h-[380px]"
+            className="p-8 lg:p-6 xl:p-8 rounded-xl border border-[#646461] flex flex-col justify-between transition-shadow hover:shadow-md w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[280px] 2xl:w-[320px] min-h-[380px]"
             style={{ backgroundColor: step.bgColor || "#ffffff" }}
           >
             <div>

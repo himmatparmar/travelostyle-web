@@ -55,6 +55,31 @@ function addTripToCompare(trip) {
   window.location.assign("/comparison");
 }
 
+// Shared card shell.
+//
+// The ticket-shaped backdrop is the card's own ::before layer, drawn with
+// border-image rather than a plain background.
+//
+// /Union-it.svg is a 420x670 canvas whose visible ticket is only 390x640
+// (x=15..405, y=5..645); the rest is transparent room for the drop shadow
+// (feOffset dy=10 + 7.5 blur). Its bottom edge is a row of ~11.5px scallops
+// on a 35.5px pitch. A stretched `background-size: 100% 100%` therefore fails
+// twice: the shape lands ~4% inside the card so content near the edges falls
+// off the white, and the scallops squash vertically — badly on the shorter
+// mobile card, whose height is nowhere near the SVG's 640.
+//
+// border-image fixes both: the 9-slice keeps the corners and the scalloped
+// bottom band at their native size while only the flat middle stretches, so
+// the edge looks identical at 293px and 390px and at any height. The slices
+// (20/30/40) cover the shadow margin plus the corner radius, plus the scallop
+// band on the bottom; border-width matches the slices so nothing rescales.
+// The layer is bled out by the shadow margin on the sides and top, but sits
+// flush at the bottom so the scalloped edge stays inside the card box.
+const CARD_BASE =
+  "relative isolate flex w-[293px] min-w-[293px] shrink-0 cursor-pointer flex-col px-[14px] pt-2 pb-4 max-md:snap-center md:min-h-[585px] md:pt-3 md:pb-11 " +
+  "before:pointer-events-none before:absolute before:-top-[5px] before:-left-[15px] before:-right-[15px] before:bottom-0 before:-z-10 before:content-[''] " +
+  "before:border-solid before:[border-width:20px_30px_40px] before:[border-image:url('/Union-it.svg')_20_30_40_fill_stretch]";
+
 // Single journey card used across the site (home carousel, journey-type
 // listing grids, "other destinations" rail). `variant` only changes the
 // outer sizing/background so it drops into either a horizontal scroller
@@ -77,21 +102,12 @@ export default function JourneyCard({ trip, variant = "carousel", onCompare }) {
 
   return (
     <div
-      className={
+      className={`${CARD_BASE} ${
         variant === "carousel"
-          ? "relative isolate flex w-[293px] min-w-[293px] shrink-0 cursor-pointer flex-col px-[14px] pt-2 pb-4 max-md:snap-center md:w-[390px] md:min-w-[390px] md:min-h-[585px] md:px-8 md:pt-3 md:pb-11"
-          : "relative isolate flex w-[293px] min-w-[293px] shrink-0 cursor-pointer flex-col px-[14px] pt-2 pb-4 max-md:snap-center md:w-full md:min-w-0 md:max-w-[390px] md:min-h-[585px] md:px-6 md:pt-3 md:pb-11"
-      }
+          ? "md:w-[390px] md:min-w-[390px] md:px-8"
+          : "md:w-full md:min-w-0 md:max-w-[390px] md:px-6"
+      }`}
     >
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[106.01%] md:h-full"
-        style={{
-          backgroundImage: "url(/Union-it.svg)",
-          backgroundSize: "100% 100%",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
-
       <div className="mb-2 flex min-h-[16px] flex-wrap gap-2 md:mb-3 md:min-h-[28px] md:gap-2">
         {trip.tags?.map((tag) => (
           <span
@@ -112,10 +128,10 @@ export default function JourneyCard({ trip, variant = "carousel", onCompare }) {
           {trip.title}
         </h3>
 
-        <p className="mt-2 line-clamp-3 h-[48px] text-[10px] font-light leading-[16px] tracking-[0.05em] text-ink md:mt-2 md:line-clamp-2 md:h-auto md:min-h-[3.1em] md:text-[11px] md:font-normal md:leading-[1.55] md:tracking-normal md:text-[#666666]">
+        <p className="mt-2 line-clamp-3 h-[48px] text-[10px] font-light leading-[16px] tracking-[0.05em] text-ink md:mt-2 md:line-clamp-2 md:h-auto md:min-h-[3.1em] md:text-[14px] md:font-normal md:leading-[1.55] md:tracking-normal md:text-[#666666]">
           {trip.desc}
         </p>
-        <div className="mt-3 flex h-[44px] flex-col gap-2 text-[10px] leading-[16px] tracking-[0.05em] text-ink md:mt-3 md:h-auto md:flex-row md:items-center md:gap-4 md:text-[8px] md:tracking-normal md:text-[#717171]">
+        <div className="mt-3 flex h-[44px] flex-col gap-2 text-[10px] leading-[16px] tracking-[0.05em] text-ink md:mt-3 md:h-auto md:flex-row md:items-center md:gap-4 md:text-[14px] md:tracking-normal md:text-[#717171]">
           <div className="flex items-center gap-2 md:gap-1">
             <CalendarDays size={16} strokeWidth={1.8} className="md:size-3" />
             {trip.days}

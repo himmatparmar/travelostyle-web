@@ -237,7 +237,7 @@ export default function SearchBar({ destinations = [] }) {
       {/* Header + Quote + Search */}
       <div className="bg-[#FAFAFA] px-4 md:px-14 py-2">
         {/* Nav row */}
-        <div className="relative flex items-center justify-between border-b border-gray-300 pb-4">
+        <div className="relative flex items-center justify-between border-b-2 border-[#1A1A1A] pb-8 md:pb-4">
           <button onClick={() => setMenuOpen(true)} className="block md:hidden">
             <Image src="/MenuToggle.svg" alt="Menu" width={20} height={20} />
           </button>

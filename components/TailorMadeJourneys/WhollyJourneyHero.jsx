@@ -3,11 +3,19 @@ import CraftJourneyButton from "../CraftJourneyButton";
 
 const PLACEHOLDER_IMAGE = "/placeholder-image.svg";
 
-function stripHtml(html) {
+// Drupal sends field_description as rich text — the tailor-made hero copy is
+// authored as two <p> blocks. Stripping the tags outright would run the
+// sentences together ("...outward from there.That's what..."), so break on the
+// block-level tags first and keep the paragraphs separate, per the design.
+function stripHtmlToParagraphs(html) {
   return (html || "")
+    .replace(/<\s*br\s*\/?\s*>/gi, "\n")
+    .replace(/<\/\s*(p|div|h[1-6]|li)\s*>/gi, "\n")
     .replace(/<[^>]*>/g, "")
     .replace(/&nbsp;/gi, " ")
-    .trim();
+    .split(/\n+/)
+    .map((line) => line.trim())
+    .filter(Boolean);
 }
 
 async function getTailorMadeHero() {
@@ -19,7 +27,7 @@ async function getTailorMadeHero() {
   const { block, included } = result;
   return {
     heading: block.attributes?.field_heading || "",
-    description: stripHtml(block.attributes?.field_description?.value || ""),
+    paragraphs: stripHtmlToParagraphs(block.attributes?.field_description?.value || ""),
     image: resolveMediaImage(block, included, "field_image"),
   };
 }
@@ -27,7 +35,7 @@ async function getTailorMadeHero() {
 export default async function WhollyJourneyHero() {
   const hero = await getTailorMadeHero();
   const heading = hero?.heading || "Coming Soon";
-  const description = hero?.description || "";
+  const paragraphs = hero?.paragraphs || [];
   const image = hero?.image || PLACEHOLDER_IMAGE;
 
   return (
@@ -40,14 +48,16 @@ export default async function WhollyJourneyHero() {
         />
         <div className="absolute inset-0 bg-black/30 md:bg-black/25" />
       </div>
-      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 w-full">
+      <div className="relative z-10 mx-auto w-full max-w-[1704px]" style={{ paddingInline: "clamp(16px, 3.6vw, 69px)" }}>
         <div className="max-w-2xl text-white">
           <h1 className="text-3xl sm:text-4xl lg:text-[45px] font-bold leading-[1.1] mb-6 tracking-normal drop-shadow-md">
             {heading}
           </h1>
 
           <div className="flex flex-col gap-y-5 text-base lg:text-[18px] text-white/95 font-normal leading-snug drop-shadow">
-            <p>{description}</p>
+            {paragraphs.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
           </div>
           <div className="mt-8 sm:mt-10">
               <CraftJourneyButton />
@@ -55,11 +65,14 @@ export default async function WhollyJourneyHero() {
         </div>
       </div>
 
-      {/* <div className="absolute bottom-4 right-6 z-10">
-        <span className="text-[11px] sm:text-xs text-white/80 tracking-wide font-light drop-shadow-sm">
+      {/* Per Figma: Nohemi 400, 14px/28px, 5% tracking, #FAFAFA, bottom-right
+          over the hero image. leading-trim CAP_HEIGHT has no CSS equivalent,
+          so the 28px line-height carries the vertical rhythm as authored. */}
+      <div className="absolute bottom-4 right-6 z-10">
+        <span className="font-[Nohemi] text-[14px] font-normal leading-[28px] tracking-[0.05em] text-[#FAFAFA] drop-shadow-sm">
           Images are only for representation purposes
         </span>
-      </div> */}
+      </div>
     </section>
   );
 }

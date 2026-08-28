@@ -59,9 +59,9 @@ export default function PopularRegions() {
   }, []);
 
   return (
-    <div className="bg-white px-4 sm:px-8 lg:px-16 max-w-7xl mx-auto">
+    <div className="bg-white max-w-[1704px] mx-auto" style={{ paddingInline: "clamp(16px, 3.6vw, 69px)" }}>
       {" "}
-      <h3 className="text-black font-bold text-center text-[21px] leading-[28px] w-[244px] mx-auto  tracking-tight mb-6 sm:mb-8">
+      <h3 className="text-black font-bold text-[21px] leading-[28px]  tracking-tight mb-6 sm:mb-8">
         Explore some of our popular regions!
       </h3>
       {loading ? (

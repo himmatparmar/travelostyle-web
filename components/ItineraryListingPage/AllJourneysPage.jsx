@@ -447,7 +447,22 @@ offer: item.attributes.field_offer_message || "",
           <span className="text-ink font-medium">All Journeys</span>
         </nav>
 
-        <div className="mt-3 flex items-center justify-between">
+        {/* Script heading with the beige highlight sitting behind each line
+            (per Figma). inline decoration-clone keeps the band tight to the
+            glyphs and wrapping onto three lines, rather than one flat block. */}
+        <h1 className="mt-5 max-w-[290px] font-taprom text-[40px] relative z-0 font-normal leading-[46px] tracking-[0.02em] text-ink">
+          <span className="inline-block sub-title-bg feel hear md:px-[6px] mx-auto">
+            Hear from those 
+          </span>
+            <span className="block sub-title-bg feel who md:px-[6px] mx-auto">
+            who&apos;ve travelled 
+            </span>
+            <span className="inline-block sub-title-bg feel with md:px-[6px] mx-auto">
+            with us
+            </span>
+        </h1>
+
+        <div className="mt-[48px] md:mt-6 flex items-center justify-between border-b-2 border-ink pb-3">
           <span className="text-sm text-[#888]">
             {filteredJourneys.length} trips found
           </span>
@@ -455,7 +470,7 @@ offer: item.attributes.field_offer_message || "",
           {hasActiveFilters && (
             <button
               onClick={clearAllFilters}
-              className="text-sm font-medium text-[#2f2d89]"
+              className="text-sm font-medium text-ink underline underline-offset-4"
             >
               Clear All Filters
             </button>
@@ -497,21 +512,24 @@ offer: item.attributes.field_offer_message || "",
 
         <div className="flex-1 min-w-0">
         {filteredJourneys.length === 0 && hasActiveFilters ? (
-            <div className="flex flex-col gap-2 items-center justify-center py-12 md:py-[6vw] text-center">
+            <div className="flex flex-col gap-2 items-start md:items-center justify-center py-12 md:py-[6vw] text-left md:text-center">
               <img
                 src="/no-results.svg"
                 alt="No journeys found"
-                className="mb-8 w-40 md:w-[18vw] h-auto "
+                className="mb-8 w-40 md:w-[18vw] h-auto mx-auto"
               />
 
-              <h3 className="font-[Nohemi] font-medium text-xl md:text-[32px] leading-[1.3] md:leading-[40px] tracking-[0.05em] text-center text-ink mt-4 md:mt-8">
-                Sorry! We were unable to find the <br /> trip you requested.
+              <h3 className="font-[Nohemi] font-medium text-[20px] md:text-[32px] leading-[28px] md:leading-[40px] tracking-[0.05em] text-left md:text-center text-ink mt-4 md:mt-8">
+                Sorry! We were unable to find the{" "}
+                <br className="hidden md:inline" />the trip you requested.
               </h3>
-              <p className="mt-4 max-w-[520px] font-normal text-sm md:text-[16px] leading-[1.4] md:leading-[100%] tracking-[0.05em] text-center text-ink md:mt-2">
-                Please adjust your filters to find a trip that fits you
+              <p className="max-w-[520px] font-normal text-[14px] md:text-[16px] leading-[22px] md:leading-[100%] tracking-[0.05em] text-left md:text-center text-ink md:mt-2">
+                Please adjust your filters to find a trip 
+                <br />
+                that fits you
               </p>
 
-              <div className="my-4 font-normal text-sm md:text-[16px] leading-[100%] tracking-[0.05em] text-center text-ink md:mt-2">
+              <div className="my-4 font-normal text-[14px] md:text-[16px] leading-[100%] tracking-[0.05em] text-left md:text-center text-ink md:mt-2">
                 OR
               </div>
 

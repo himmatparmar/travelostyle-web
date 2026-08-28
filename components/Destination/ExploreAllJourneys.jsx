@@ -12,7 +12,7 @@ export default function ExploreAllJourneys() {
         <div className="grid grid-cols-1 lg:grid-cols-[50%_50%]">
 
           {/* LEFT SIDE */}
-          <div className="flex items-center justify-center px-6 py-10 lg:min-h-[888px] lg:px-10">
+          <div className="flex items-center justify-center px-6 pt-[71px] pb-10 lg:min-h-[888px] lg:px-10">
             <div className="w-full max-w-[776px]">
 
               {/* Desktop Heading */}
@@ -31,20 +31,20 @@ export default function ExploreAllJourneys() {
               </h2>
 
               {/* Mobile Heading */}
-              <h2 className="block lg:hidden font-[Taprom] text-[40px] leading-[48px] tracking-[0.05em] text-ink text-center">
-                <span className="block w-fit mx-auto bg-[#F2E2DA] mb-[15px]">
+              <h2 className="block lg:hidden font-[Taprom] relative z-0 text-[40px] leading-[48px] tracking-[0.05em] text-ink text-center">
+                <span className="block sub-title-bg des mb-[15px]">
                   There’s a version of
                 </span>
 
-                <span className="block w-fit mx-auto bg-[#F2E2DA] mb-[15px]">
+                <span className="block sub-title-bg des mb-[15px]">
                   the world out there
                 </span>
 
-                <span className="block w-fit mx-auto bg-[#F2E2DA] mb-[15px]">
+                <span className="block sub-title-bg des mb-[15px]">
                   that has your name
                 </span>
 
-                <span className="block w-fit mx-auto bg-[#F2E2DA]">
+                <span className="block sub-title-bg des-on">
                   on it.
                 </span>
               </h2>

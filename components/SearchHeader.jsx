@@ -12,7 +12,7 @@ export default function SearchHeader({
 }) {
   return (
     <>
-      <div className="flex items-center justify-between bg-[#2E2787] px-4 md:px-14 py-2 text-[10px] md:text-[11px] text-white">
+      <div className="flex items-center justify-between bg-[#2E2787] px-4 md:px-28 py-2 text-[10px] md:text-[11px] text-white">
         <p className="truncate">
           Speak to our travel advisor (773) 983-8067 | open 10am-7pm CST
         </p>
@@ -30,7 +30,7 @@ export default function SearchHeader({
       />
 
       <div className="border-b border-[#636363]">
-      <div className="px-4 md:px-14 py-3">
+      <div className="px-4 md:px-28 py-3">
       <div className="relative flex items-center justify-between pb-4">
           <button
             onClick={() => setMenuOpen(true)}
