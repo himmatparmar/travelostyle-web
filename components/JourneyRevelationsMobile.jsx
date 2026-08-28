@@ -22,9 +22,9 @@ export default function GroupRevelationsSectionMobile({
   const isHex = (val) => typeof val === "string" && val.startsWith("#");
 
   return (
-    <div className="block md:hidden w-full px-4 py-8 font-sans antialiased select-none">
+    <div className="block md:hidden w-full px-4 py-2 font-sans antialiased select-none">
       <section
-        className={`w-full max-w-[336px] mx-auto rounded-xl border overflow-hidden flex flex-col shadow-sm ${
+        className={`w-full max-w-[336px] mx-auto rounded-[10px] border-2 overflow-hidden flex flex-col shadow-sm ${
           !isHex(borderStyle) ? borderStyle : ""
         } ${!isHex(cardBgStyle) ? cardBgStyle : ""}`}
         style={{
@@ -34,18 +34,18 @@ export default function GroupRevelationsSectionMobile({
       >
         {(badgeText || titleText) && (
           <div
-            className={`p-5 border-b ${!isHex(borderStyle) ? borderStyle : ""}`}
+            className={`p-5 border-b-2 ${!isHex(borderStyle) ? borderStyle : ""}`}
             style={{
               borderColor: isHex(borderStyle) ? borderStyle : undefined,
             }}
           >
             {badgeText && (
-              <h4 className="font-serif italic text-base text-[#3c3c3c] tracking-wide mb-2">
+              <h4 className="font-taprom italic font-normal text-[21px] leading-[24px] tracking-[0.05em] text-[#1A1A1A] mb-2 max-w-[307px]">
                 {badgeText}
               </h4>
             )}
             {titleText && (
-              <h2 className="text-[20px] font-bold text-[#111111] leading-[1.3] tracking-tight">
+              <h2 className="font-nohemi text-[21px] font-semibold leading-[28px] tracking-[0.05em] text-[#1A1A1A] max-w-[296px]">
                 {titleText}
               </h2>
             )}
@@ -69,7 +69,7 @@ export default function GroupRevelationsSectionMobile({
                 />
               </div>
               {item.description && (
-                <p className="text-[13px] text-[#2c2c2c] leading-relaxed font-normal">
+                <p className="font-nohemi max-w-[265px] text-[16px] font-normal leading-[24px] tracking-[0.05em] text-[#1A1A1A]">
                   {item.description}
                 </p>
               )}
@@ -77,7 +77,7 @@ export default function GroupRevelationsSectionMobile({
           ))}
 
           {topIntroText && (
-            <p className="text-[13px] text-[#222222] font-normal leading-relaxed tracking-wide pt-2">
+            <p className="font-nohemi max-w-[289px] text-[18px] text-[#000000] font-normal leading-[32px] tracking-[0.05em] pt-2">
               {topIntroText}
             </p>
           )}
@@ -87,7 +87,7 @@ export default function GroupRevelationsSectionMobile({
           return (
             <div
               key={index}
-              className={`border-t ${!isHex(borderStyle) ? borderStyle : ""}`}
+              className={`border-t-2 ${!isHex(borderStyle) ? borderStyle : ""}`}
               style={{
                 borderColor: isHex(borderStyle) ? borderStyle : undefined,
               }}
@@ -101,7 +101,7 @@ export default function GroupRevelationsSectionMobile({
                 <span className="text-[13px] font-bold text-[#111111] tracking-wider text-left uppercase">
                   {row.label}
                 </span>
-                <div className="w-6 h-6 rounded-full border border-neutral-800 flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-full border-2 border-[#1A1A1A] flex items-center justify-center shrink-0">
                   {isOpen ? (
                     <svg
                       className="w-3.5 h-3.5 text-neutral-900"
@@ -131,12 +131,12 @@ export default function GroupRevelationsSectionMobile({
               </button>
               {isOpen && (
                 <div
-                  className={`p-4 border-t ${!isHex(borderStyle) ? borderStyle : ""}`}
+                  className={`p-4 border-t-2 ${!isHex(borderStyle) ? borderStyle : ""}`}
                   style={{
                     borderColor: isHex(borderStyle) ? borderStyle : undefined,
                   }}
                 >
-                  <p className="font-[Nohemi] text-[16px] font-normal leading-[28px] tracking-[0.05em] text-[#2a2a2a] [text-box-trim:cap] [text-box-edge:cap_alphabetic]">
+                  <p className="font-nohemi max-w-[289px] text-[16px] font-normal leading-[28px] tracking-[0.05em] text-[#000000]">
                     {row.text}
                   </p>
                 </div>
@@ -146,12 +146,12 @@ export default function GroupRevelationsSectionMobile({
         })}
         {footerText && (
           <div
-            className={`p-5 border-t ${!isHex(borderStyle) ? borderStyle : ""}`}
+            className={`p-5 border-t-2 ${!isHex(borderStyle) ? borderStyle : ""}`}
             style={{
               borderColor: isHex(borderStyle) ? borderStyle : undefined,
             }}
           >
-            <p className="text-[12.5px] text-[#111111] font-bold leading-relaxed">
+            <p className="font-nohemi max-w-[287px] text-[18px] font-semibold leading-[32px] tracking-[0.05em] text-[#000000]">
               {footerText}
             </p>
           </div>
