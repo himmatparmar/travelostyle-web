@@ -24,7 +24,7 @@ export default function TrustBar({ isInspirational = false }) {
       {/* Figma: 390x64 band at y=794, #F2E2DA, items 18px/600 starting at
           x=27 with the second item at x=288 — i.e. wider than the viewport,
           so the row scrolls horizontally instead of wrapping. */}
-      <div className="block h-[64px] w-full border-y-2 border-[#1A1A1A] bg-[#F2E2DA] md:hidden">
+      <div className="hidden h-[64px] w-full border-y-2 border-[#1A1A1A] bg-[#F2E2DA]">
         <div className="md:flex md:h-full items-center gap-[24px] overflow-x-auto px-[27px] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {mobileItems.map((label, i) => (
             <div key={i} className="flex shrink-0 items-center gap-[24px]">

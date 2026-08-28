@@ -118,11 +118,11 @@ function HotelCard({ hotel, onGalleryOpen }) {
         />
       </div>
 
-      <div className="flex flex-col flex-1 px-[0.8vw] pt-[0.7vw] pb-0">
+      <div className="flex flex-col flex-1 px-[0.8vw] pt-[0.7vw] pb-[0.8vw]">
         <p className="text-[0.82vw] font-semibold text-ink">
           {hotel.name}
         </p>
-        <p className="mt-[0.3vw] text-[0.7vw] leading-[1.5] text-[#555]">
+        <p className="mt-[0.3vw] mb-[0.6vw] text-[0.7vw] leading-[1.5] text-[#555]">
           {hotel.desc}
         </p>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
-import { CalendarDays, CirclePlus, Info, MapPinned } from "lucide-react";
+import Image from "next/image";
+import { CirclePlus, Info } from "lucide-react";
 import JourneyCardImage from "@/components/JourneyCardImage";
 
 const TAG_COLORS = {
@@ -133,12 +134,26 @@ export default function JourneyCard({ trip, variant = "carousel", onCompare }) {
         </p>
         <div className="mt-3 flex h-[44px] flex-col gap-2 text-[10px] leading-[16px] tracking-[0.05em] text-ink md:mt-3 md:h-auto md:flex-row md:items-center md:gap-4 md:text-[14px] md:tracking-normal md:text-[#717171]">
           <div className="flex items-center gap-2 md:gap-1">
-            <CalendarDays size={16} strokeWidth={1.8} className="md:size-3" />
+            {/* <CalendarDays size={16} strokeWidth={1.8} className="md:size-3" /> */}
+            <Image
+              src="/Calender.svg"
+              alt="Calendar"
+              height={16}
+              width={16}
+              className="w-[16px] h-[16px] md:w-[12px] md:h-[12px]"
+            />
             {trip.days}
           </div>
 
           <div className="flex items-center gap-2 md:gap-1">
-            <MapPinned size={16} strokeWidth={1.8} className="md:size-3" />
+            {/* <MapPinned size={16} strokeWidth={1.8} className="md:size-3" /> */}
+            <Image
+              src="/Destination.svg"
+              alt="Destination"
+              height={16}
+              width={16}
+              className="w-[16px] h-[16px] md:w-[12px] md:h-[12px]"
+            />
             {trip.destinations}
           </div>
         </div>
@@ -170,16 +185,19 @@ export default function JourneyCard({ trip, variant = "carousel", onCompare }) {
               <span className="md:text-[9px] md:leading-[1.15] md:text-[#7B7B7B]">
                 from
               </span>
-              <h4 className="md:text-[20px] md:font-semibold md:leading-none md:text-[#1D1D1D]">
-                ${Number(trip.price).toLocaleString()}*
-              </h4>
+              <div className="md:flex md:items-baseline md:gap-1">
+                <h4 className="md:text-[20px] md:font-semibold md:leading-none md:text-[#1D1D1D]">
+                  ${Number(trip.price).toLocaleString()}
+                  <span className="md:relative md:-top-[6px] md:text-[10px] md:align-top">*</span>
+                </h4>
+                <span className="md:text-[9px] md:leading-[1.15] md:text-[#7B7B7B]">
+                  /person
+                </span>
+              </div>
+              <span className="md:text-[9px] md:leading-[1.15] md:text-[#7B7B7B]">
+                double occupancy*
+              </span>
             </div>
-
-            <span className="hidden md:mb-[2px] md:block md:text-[8px] md:leading-[1.15] md:text-[#7B7B7B]">
-              /person
-              <br />
-              double occupancy*
-            </span>
           </div>
 
           <a

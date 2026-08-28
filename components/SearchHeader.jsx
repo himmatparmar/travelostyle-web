@@ -29,8 +29,8 @@ export default function SearchHeader({
         showAllJourneys={showAllJourneys}
       />
 
-      <div className="border-b border-[#636363]">
-      <div className="px-4 md:px-28 py-3">
+      <div className="bg-[#FAFAFA] border-b-2 border-[#1A1A1A] md:bg-transparent md:border-b md:border-[#636363]">
+      <div className="px-4 md:px-14 py-3">
       <div className="relative flex items-center justify-between pb-4">
           <button
             onClick={() => setMenuOpen(true)}

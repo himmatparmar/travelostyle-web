@@ -53,7 +53,7 @@ export default function Index({
             footerText={matrixContent.footerText}
             theme={{
               cardBg: "#eff3cf",
-              borderColor: "#444444",
+              borderColor: "#1A1A1A",
             }}
           />
         </>

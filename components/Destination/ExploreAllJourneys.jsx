@@ -17,22 +17,22 @@ export default function ExploreAllJourneys() {
 
               {/* Desktop Heading */}
               <h2 className="hidden lg:block font-[Taprom] text-[54px] leading-[1.2] text-ink">
-                <span className="block w-fit bg-[#F1E7E2] mb-4">
+                <span className="block w-fit bg-[#F2E2DA] mb-4">
                   There’s a version of the
                 </span>
 
-                <span className="block w-fit bg-[#F1E7E2] mb-4">
+                <span className="block w-fit bg-[#F2E2DA] mb-4">
                   world out there with your
                 </span>
 
-                <span className="block w-fit bg-[#F1E7E2]">
+                <span className="block w-fit bg-[#F2E2DA]">
                   name on it
                 </span>
               </h2>
 
               {/* Mobile Heading */}
-              <h2 className="block lg:hidden font-[Taprom] relative z-0 text-[40px] leading-[48px] tracking-[0.05em] text-ink text-center">
-                <span className="block sub-title-bg des mb-[15px]">
+              <h2 className="block lg:hidden font-[Taprom] font-normal max-w-[336px] mx-auto text-[40px] leading-[48px] tracking-[0.05em] text-[#000000] text-center">
+                <span className="block w-fit mx-auto bg-[#F2E2DA] mb-[15px]">
                   There’s a version of
                 </span>
 

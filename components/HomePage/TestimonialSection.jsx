@@ -169,11 +169,11 @@ export default function TestimonialSection({ testimonialData }) {
           </button>
         </div>
 
-        <div className="md:hidden overflow-x-scroll overflow-y-hidden snap-x snap-mandatory scrollbar-hide">
+        <div className="md:hidden overflow-x-scroll overflow-y-hidden snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           <div className="flex gap-4 px-4 items-start">
             {testimonials.map((item) => (
-              <div key={item.id} className="snap-start shrink-0 w-[230px]">
-                <div className="border-[2px] border-[#4c4b75] rounded-[4px] bg-white p-3">
+              <div key={item.id} className="snap-start shrink-0 w-[240px]">
+                <div className="border-[2px] border-[#2f2d89] rounded-[6px] bg-white p-3">
                   <div className="relative w-full h-[180px]">
                     <Image
                       src={item.image}
@@ -188,8 +188,8 @@ export default function TestimonialSection({ testimonialData }) {
                   </p>
                 </div>
 
-                <div className="relative mt-6">
-                  <span className="absolute -top-3 left-0">
+                <div className="relative mt-8">
+                  <span className="absolute -top-6 left-0">
                     <div className="relative w-[24px] h-[16.97px]">
                       <Image
                         src="/RightQuote.svg"
@@ -200,7 +200,7 @@ export default function TestimonialSection({ testimonialData }) {
                     </div>
                   </span>
 
-                  <p className="w-[242px] font-nohemi text-[14px] font-normal leading-[24px] tracking-[0.05em] text-[#1A1A1A]">
+                  <p className="w-full max-w-[220px] pt-2 font-nohemi text-[14px] font-normal leading-[24px] tracking-[0.05em] text-[#1A1A1A]">
                     {item.quote}
                   </p>
 

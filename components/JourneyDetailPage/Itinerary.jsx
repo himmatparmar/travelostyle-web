@@ -36,7 +36,7 @@ export default function MobileItinerary({
         Learn How Your Days Unfold
       </h2>
 
-      <div className="relative w-full h-52 bg-white border-2 border-neutral-800 rounded-xl overflow-hidden flex items-center justify-center mb-4 shadow-[1px_1px_0px_rgba(0,0,0,1)]">
+      <div className="relative w-full h-52 bg-white border-2 border-neutral-800 overflow-hidden flex items-center justify-center mb-4 shadow-[1px_1px_0px_rgba(0,0,0,1)]">
         {mapImage ? (
           <Image
             src={mapImage}
@@ -63,7 +63,7 @@ export default function MobileItinerary({
           return (
             <div
               key={item.day}
-              className="bg-white border-2 border-neutral-800 rounded-xl overflow-hidden shadow-[1px_1px_0px_rgba(0,0,0,1)] transition-all"
+              className="bg-white border-2 border-neutral-800 overflow-hidden shadow-[1px_1px_0px_rgba(0,0,0,1)] transition-all"
             >
               <button
                 onClick={() => toggleDay(item.day)}

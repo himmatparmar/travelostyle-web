@@ -40,17 +40,17 @@ export default function MobileStays({ onBack, StaysRecord }) {
           {staysData.map((stay, index) => (
             <div
               key={index}
-              className="bg-white border-2 border-neutral-800 rounded-lg overflow-hidden shadow-sm"
+              className="flex h-full flex-col bg-white border-2 border-neutral-800 rounded-lg overflow-hidden shadow-sm"
             >
               {/* Image Container */}
-              <div className="h-28 w-full relative overflow-hidden border-b-2 border-neutral-800">
+              <div className="h-28 w-full relative overflow-hidden border-b-2 border-neutral-800 shrink-0">
                 <img
                   src={stay.image}
                   alt={stay.name}
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="p-3">
+              <div className="flex-1 p-3">
                 <div>
                   <h2 className="font-bold text-[13px] leading-tight text-neutral-950 mb-1 line-clamp-2">
                     {stay.name}
@@ -62,7 +62,7 @@ export default function MobileStays({ onBack, StaysRecord }) {
               </div>
               <button
                 onClick={() => setSelectedStay(stay)}
-                className="w-full py-2 bg-white border-t-2 border-neutral-800 text-[11px] font-bold text-neutral-900 underline underline-offset-2 hover:bg-neutral-50 transition-colors"
+                className="w-full shrink-0 py-2 bg-white border-t-2 border-neutral-800 text-[11px] font-bold text-neutral-900 underline underline-offset-2 hover:bg-neutral-50 transition-colors"
               >
                 View Gallery
               </button>
