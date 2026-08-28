@@ -47,7 +47,7 @@ border-b-2
   key={item.title + index}
   className={`
     grid
-    grid-cols-[220px_1fr]
+    grid-cols-[240px_1fr]
     border-b-2
     ${current.border}
     last:border-b-0
@@ -93,7 +93,7 @@ border-r-2
             text-left
             text-[16px]
             leading-[20px]
-            break-words
+            whitespace-nowrap
             ${current.text}
           `}
                             >
@@ -169,6 +169,7 @@ function MobileInclusions({
                     className="
 w-full
 flex
+items-center
 justify-between
 bg-[#EFF3CF]
 px-4
@@ -179,8 +180,8 @@ font-bold
 
                     INCLUSIONS
 
-                    <span>
-                        {openInc ? "-" : "+"}
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-black bg-transparent font-mono text-sm font-bold text-black select-none">
+                        {openInc ? "−" : "+"}
                     </span>
 
                 </button>
@@ -194,16 +195,16 @@ font-bold
         key={index}
         className="p-4 border-t border-black"
       >
-        <div className="flex gap-3 font-bold text-sm">
+        <div className="flex items-center gap-3 font-bold text-sm">
           {item.icon && (
             <img
               src={item.icon}
               alt={item.title}
-              className="w-6 h-6 object-contain"
+              className="w-6 h-6 shrink-0 object-contain"
             />
           )}
 
-          <span>{item.title}</span>
+          <span className="whitespace-nowrap">{item.title}</span>
         </div>
 
         <p className="text-xs mt-2 text-black">
@@ -237,6 +238,7 @@ font-bold
                     className="
 w-full
 flex
+items-center
 justify-between
 bg-[#FADBD8]
 px-4
@@ -247,8 +249,8 @@ font-bold
 
                     EXCLUSIONS
 
-                    <span>
-                        {openExc ? "-" : "+"}
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-black bg-transparent font-mono text-sm font-bold text-black select-none">
+                        {openExc ? "−" : "+"}
                     </span>
 
                 </button>
@@ -263,16 +265,16 @@ font-bold
         key={index}
         className="p-4 border-t border-black"
       >
-        <div className="flex gap-3 font-bold text-sm">
+        <div className="flex items-center gap-3 font-bold text-sm">
           {item.icon && (
             <img
               src={item.icon}
               alt={item.title}
-              className="w-6 h-6 object-contain"
+              className="w-6 h-6 shrink-0 object-contain"
             />
           )}
 
-          <span>{item.title}</span>
+          <span className="whitespace-nowrap">{item.title}</span>
         </div>
 
         <p className="text-xs mt-2 text-black">

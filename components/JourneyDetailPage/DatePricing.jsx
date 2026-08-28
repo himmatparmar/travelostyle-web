@@ -328,9 +328,12 @@ export default function JourneyPricing({
                             {/* Show More / Less */}
                             <button
                                 onClick={() => toggleCard(index)}
-                                className="w-full border-t border-neutral-300 py-3 text-xs font-semibold flex justify-center items-center gap-2"
+                                className="w-full border-t-2 border-neutral-800 py-3 text-xs font-semibold flex justify-center items-center gap-2"
                             >
-                                {isExpanded ? "− Show less" : "+ Show more"}
+                                <span className="flex h-6 w-6 items-center justify-center rounded-full border border-neutral-400 bg-[#F3EBE6] font-mono text-sm font-bold text-neutral-700 select-none">
+                                    {isExpanded ? "−" : "+"}
+                                </span>
+                                {isExpanded ? "Show less" : "Show more"}
                             </button>
                         </div>
                     );
@@ -380,7 +383,7 @@ export default function JourneyPricing({
                                             <div className="flex items-start gap-3">
                                                 <div>
                                                     <div
-                                                        className="font-medium text-[16px] text-ink"
+                                                        className="font-bold text-[16px] text-ink"
                                                     >
                                                         {formatDate(trip.startDate)}
                                                     </div>
@@ -396,7 +399,7 @@ export default function JourneyPricing({
 
                                                 <div>
                                                     <div
-                                                        className="font-medium text-[16px] text-ink"
+                                                        className="font-bold text-[16px] text-ink"
                                                     >
                                                         {formatDate(trip.endDate)}
                                                     </div>

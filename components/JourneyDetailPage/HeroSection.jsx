@@ -168,10 +168,13 @@ export default function HeroSection({
       from
     </p>
 
-    {/* Offer Price */}
-    <p className="text-[1.15vw] font-bold leading-none text-[#1D1D1D]">
-      ${Number(journey.offerPrice).toLocaleString()}
-      <span className="text-[0.55vw]">*</span>
+    {/* Offer Price + per person */}
+    <p className="flex items-baseline gap-[0.3vw] text-[1.15vw] font-bold leading-none text-[#1D1D1D]">
+      <span>
+        ${Number(journey.offerPrice).toLocaleString()}
+        <span className="relative -top-[0.45vw] text-[0.55vw] align-top">*</span>
+      </span>
+      <span className="text-[0.55vw] font-normal text-[#777]">/person</span>
     </p>
 
     {/* Original Price */}
@@ -184,10 +187,8 @@ export default function HeroSection({
       </p>
     )}
 
-    {/* Per person */}
+    {/* Double occupancy */}
     <p className="mt-[0.12vw] text-[0.46vw] leading-[1.3] text-[#777]">
-      /person
-      <br />
       double occupancy*
     </p>
 
@@ -195,7 +196,7 @@ export default function HeroSection({
 
           {journey?.offer && (
   <span
-    className="cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
+    className="w-fit cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
     style={{
       backgroundColor: "#F2E2DA",
       color: "#000000",
@@ -253,7 +254,7 @@ export default function HeroSection({
 
      {/* ================= MOBILE DESIGN ================= */}
      <div className="block bg-[#F9F9F9] md:hidden">
-        <div className="px-[27px] text-[12px] font-light leading-[32px] tracking-[0.05em] text-[#1A1A1A]">
+        <div className="px-[27px] pt-[22px] pb-[18px] text-[12px] font-light leading-[20px] tracking-[0.05em] text-[#1A1A1A]">
           Home &gt; All Journeys &gt;
           <span> {journey.title}</span>
         </div>
@@ -300,15 +301,6 @@ export default function HeroSection({
                 </div>
               </div>
               <div className="mt-[18px] flex flex-wrap gap-[8px]">
-               {journey?.offer && (
-  <div className="flex w-full items-start gap-[6px] rounded-[2px] border border-[#D8D8D8] bg-[#F5DFC9] px-[10px] py-[8px]">
-    <Info size={14} className="mt-[1px] shrink-0 text-[#555]" />
-    <p className="text-[11px] font-light leading-[16px] tracking-[0.05em] text-[#555]">
-      {journey.offer}
-    </p>
-  </div>
-)}
-
                 {categories?.map((category) => (
                   <span
                     key={category}
@@ -342,24 +334,19 @@ export default function HeroSection({
   </p>
 
   {/* Offer Price */}
-  <div className="flex items-end gap-[6px]">
+  <div className="flex items-end gap-[2px]">
     <span className="text-[24px] font-semibold leading-[28px] tracking-[0.05em] text-[#1A1A1A] md:text-[28px] md:leading-[32px]">
-      ${Number(journey.offerPrice).toLocaleString()}*
+      ${Number(journey.offerPrice).toLocaleString()}
     </span>
 
-    <span className="mb-[3px] text-[11px] font-light leading-[14px] tracking-[0.05em] text-[#1A1A1A]">
+    <span className="mb-[3px] text-[11px] font-normal leading-[14px] tracking-[0.05em] text-[#000000]">
       /person
     </span>
   </div>
 
-  {/* SVG spec puts "double occupancy*" on its own line under the price. */}
-  <p className="text-[11px] font-light leading-[14px] tracking-[0.05em] text-[#1A1A1A]">
-    double occupancy*
-  </p>
-
-  {/* Original Price — not part of the mobile SVG spec, desktop only. */}
+  {/* Original Price */}
   {journey.originalPrice && (
-    <p className="hidden text-[12px] font-light leading-[16px] tracking-[0.05em] text-[#777] md:block">
+    <p className="text-[12px] font-light leading-[16px] tracking-[0.05em] text-[#777]">
       was{" "}
       <span className="line-through">
         ${Number(journey.originalPrice).toLocaleString()}
@@ -401,25 +388,24 @@ export default function HeroSection({
                 </div>
               </>
             ) : (
-              <div className="flex items-center justify-between gap-3 bg-[#FAFAFA] px-[27px] py-[9px] md:flex-col md:justify-center md:px-4 md:py-[12px] md:text-center">
+              <div className="flex flex-nowrap items-center gap-[10px] whitespace-nowrap bg-[#FAFAFA] px-[27px] py-[9px]">
                 <button
                   onClick={() => setActiveView("dates-pricing")}
-                  className="h-[31px] w-[138px] shrink-0 rounded-[15.5px] bg-[#2C3078] text-[16px] font-semibold tracking-[0.05em] text-[#FAFAFA] md:h-[37px] md:w-auto md:rounded-full md:px-6"
+                  className="h-[31px] w-[138px] shrink-0 rounded-[15.5px] bg-[#2C3078] text-[16px] font-semibold tracking-[0.05em] text-[#FAFAFA]"
                 >
                   Check Dates
                 </button>
 
-                <div className="text-[12px] font-light leading-[18px] tracking-[0.05em] text-[#1A1A1A] md:mt-1">
-                  <span className="hidden md:inline">
-                    Want to customize this itinerary?{" "}
-                  </span>
-                  <button
-                    onClick={() => setIsPrivateFormOpen(true)}
-                    className="font-normal text-[#1A1A1A] underline underline-offset-[3px] md:font-bold md:text-ink md:underline-offset-2"
-                  >
-                    Request A Private Journey
-                  </button>
-                </div>
+                <span className="shrink-0 text-[12px] font-medium tracking-[0.05em] text-[#999]">
+                  OR
+                </span>
+
+                <button
+                  onClick={() => setIsPrivateFormOpen(true)}
+                  className="shrink-0 text-[12px] font-bold text-ink underline underline-offset-[3px]"
+                >
+                  Request a Private Journey
+                </button>
               </div>
             )}
           </div>
