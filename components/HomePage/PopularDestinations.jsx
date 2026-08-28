@@ -2,6 +2,7 @@
 
 import { API_BASE_URL, buildFileUrl } from "@/lib/config";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -17,35 +18,7 @@ export default function PopularDestinations({
   const [slides, setSlides] = useState([]);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
-  // const popularJourneys = journeys.map((item) => {
-  //   const mediaId =
-  //     item.relationships?.field_journey_image?.data?.id;
-
-  //   const mediaEntity = included.find(
-  //     (inc) =>
-  //       inc.type === "media--image" &&
-  //       inc.id === mediaId
-  //   );
-
-  //   const fileId =
-  //     mediaEntity?.relationships?.field_media_image?.data?.id;
-
-  //   const fileEntity = included.find(
-  //     (inc) =>
-  //       inc.type === "file--file" &&
-  //       inc.id === fileId
-  //   );
-
-  //   const rawUrl = fileEntity?.attributes?.uri?.url;
-
-  //   return {
-  //     ...item,
-  //     image: buildFileUrl(rawUrl) || PLACEHOLDER_IMAGE,
-  //   };
-  // });
-  // API se Hero Slide Data fetch karna — field_hero_banner_image points
-  // straight to a file--file entity (no intermediate media entity, unlike
-  // field_journey_image), so it only needs one include level.
+  
   useEffect(() => {
     async function fetchSlideData() {
       try {
@@ -101,6 +74,9 @@ export default function PopularDestinations({
     slideAttributes?.field_button_text || "Explore Popular Destinations";
   const description =
     slideAttributes?.field_description || heroDescription || "";
+  const rawUri = slideAttributes?.field_button_link?.uri || "";
+  const isExternal = rawUri.startsWith("http");
+  const formattedLink = isExternal ? rawUri : rawUri.replace(/^internal:/, "");
 
   return (
     <div className="relative md:h-[700px]">
@@ -138,6 +114,23 @@ export default function PopularDestinations({
             >
               {btnExplorePopular}
             </button>
+            {isExternal ? (
+              <a
+                href={formattedLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 rounded-full bg-white px-5 py-2.5 text-[14px] font-semibold text-[#2E2787]"
+              >
+                {btnExplorePopular}
+              </a>
+            ) : (
+              <Link
+                href={formattedLink}
+                className="mt-5 rounded-full bg-white px-5 py-2.5 text-[14px] font-semibold text-[#2E2787]"
+              >
+                {btnExplorePopular}
+              </Link>
+            )}
           </div>
 
           <div className="absolute bottom-12 left-5 right-5 z-10 flex flex-col gap-3">
@@ -205,10 +198,23 @@ export default function PopularDestinations({
             <p className="mt-6 text-white/90 text-[14px] leading-[24px] max-w-[400px]">
               {description}
             </p>
-
-            <button className="mt-4 rounded-full bg-white px-6 py-3 text-[14px] font-semibold text-[#2E2787]">
-              {btnExplorePopular}
-            </button>
+            {isExternal ? (
+              <a
+                href={formattedLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-block rounded-full bg-white px-5 py-2.5 text-[14px] font-semibold text-[#2E2787]"
+              >
+                {btnExplorePopular}
+              </a>
+            ) : (
+              <Link
+                href={formattedLink}
+                className="mt-5 inline-block rounded-full bg-white px-5 py-2.5 text-[14px] font-semibold text-[#2E2787]"
+              >
+                {btnExplorePopular}
+              </Link>
+            )}
           </div>
 
           <div className="absolute bottom-[110px] left-[70px] right-[70px] z-10">

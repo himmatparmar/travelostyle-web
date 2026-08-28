@@ -2,6 +2,7 @@
 
 import { CalendarDays, CirclePlus, Info, MapPinned } from "lucide-react";
 import JourneyCardImage from "@/components/JourneyCardImage";
+import Image from "next/image";
 
 const TAG_COLORS = {
   "group journey": "bg-[#E1EEDB] text-[#1A1A1A]",
@@ -117,12 +118,26 @@ export default function JourneyCard({ trip, variant = "carousel", onCompare }) {
         </p>
         <div className="mt-3 flex h-[44px] flex-col gap-2 text-[10px] leading-[16px] tracking-[0.05em] text-ink md:mt-3 md:h-auto md:flex-row md:items-center md:gap-4 md:text-[8px] md:tracking-normal md:text-[#717171]">
           <div className="flex items-center gap-2 md:gap-1">
-            <CalendarDays size={16} strokeWidth={1.8} className="md:size-3" />
+            {/* <CalendarDays size={16} strokeWidth={1.8} className="md:size-3" /> */}
+            <Image
+              src="/Calender.svg"
+              alt="Calendar"
+              height={16}
+              width={16}
+              className="w-[16px] h-[16px] md:w-[12px] md:h-[12px]"
+            />
             {trip.days}
           </div>
 
           <div className="flex items-center gap-2 md:gap-1">
-            <MapPinned size={16} strokeWidth={1.8} className="md:size-3" />
+            {/* <MapPinned size={16} strokeWidth={1.8} className="md:size-3" /> */}
+            <Image
+              src="/Destination.svg"
+              alt="Destination"
+              height={16}
+              width={16}
+              className="w-[16px] h-[16px] md:w-[12px] md:h-[12px]"
+            />
             {trip.destinations}
           </div>
         </div>
