@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { CirclePlus, Info } from "lucide-react";
 import JourneyCardImage from "@/components/JourneyCardImage";
-import Image from "next/image";
 
 const TAG_COLORS = {
   "group journey": "bg-[#E1EEDB] text-[#1A1A1A]",
