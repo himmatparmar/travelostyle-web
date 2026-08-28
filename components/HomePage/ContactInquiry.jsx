@@ -468,7 +468,7 @@ export default function ContactInquiry() {
   Submit Inquiry
 </button>
 <p
-    className="mt-[15px] w-full h-[13px]
+    className="mt-[20px] w-full h-[13px]
     text-[13px] leading-[13px] text-white/70
     max-md:h-auto max-md:w-auto
     max-md:mt-2
