@@ -4,8 +4,8 @@ import React from "react";
 export default function CustomFromGroundUp() {
   return (
     <>
-      <section className="relative bg-white py-8 sm:py-16 px-6 sm:pl-12 lg:pl-20 sm:pr-0 overflow-hidden min-h-[480px]">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative">
+      <section className="relative bg-white py-8 sm:py-10 overflow-hidden" style={{ paddingInline: "clamp(16px, 3.6vw, 69px)" }}>
+        <div className="gap-8 items-start relative max-w-[1704px] mx-auto">
           <div className="md:col-span-7 space-y-6 md:pr-8 relative">
           
             <div className="block md:hidden relative pt-14">
@@ -43,14 +43,14 @@ export default function CustomFromGroundUp() {
                 />
               </div>
             </div>
-            <div className="hidden md:inline-block relative my-2">
-              <span className="absolute inset-y-1 inset-x-0 bg-[#F3E3DC] rounded-xs transform scale-y-75 sm:scale-y-80" />
-              <h2 className="relative z-10 font-taprom text-4xl sm:text-5xl md:text-[52px] text-[#111111] leading-none px-2 tracking-wide font-normal">
+            <div className="hidden md:inline-block relative w-fit my-0">
+              <span className="absolute inset-x-0 top-[0.18em] bottom-[0.16em] bg-[#F3E3DC] rounded-xs" />
+              <h2 className="relative z-10 font-taprom text-4xl sm:text-5xl md:text-[44px] text-[#111111] leading-[1.15] px-2 tracking-wide font-normal">
                 Custom, from the ground up
               </h2>
             </div>
 
-            <div className="space-y-6 mt-5 text-[#555555] text-xs sm:text-sm md:text-[15px] leading-relaxed relative z-10">
+            <div className="space-y-5 mt-4 text-black text-xs sm:text-sm md:text-[21px] leading-[1.85] max-w-[min(1052px,calc(100%-360px))] relative z-10">
               <p>
                 We start where you are, not where we like you to be or where the
                 average itinerary tends to go. We begin with your reality — your
@@ -74,13 +74,13 @@ export default function CustomFromGroundUp() {
               </p>
             </div>
           </div>
-          <div className="hidden md:flex md:col-span-5 justify-end items-start md:absolute md:right-0 md:top-2 lg:-top-6 z-10">
+          <div className="hidden md:flex md:col-span-5 justify-end items-start  md:absolute md:right-0 md:top-10 lg:-top-32 lg:right-0 2xl:-right-[125px] z-10">
             <Image
-              src="/DashedSwirlLine.svg"
+              src="/ground-up.png"
               alt="Dashed Swirl Line Journey Vector"
               width={450}
               height={200}
-              className="w-full max-w-[320px] sm:max-w-[420px] lg:max-w-[500px] h-auto object-contain translate-x-4 md:translate-x-8"
+              className="w-full max-w-[320px] sm:max-w-[400px] lg:max-w-[min(914px,48vw)] h-auto object-contain translate-x-0 md:-translate-x-4"
               priority
             />
           </div>

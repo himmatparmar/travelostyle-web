@@ -157,6 +157,43 @@ a,
 .font-taprom {
   font-family: "Taprom", cursive;
 }
+
+/*
+ * Nohemi. The .ttf files have always been in /public/fonts, and ~40 components
+ * ask for the family via `font-[Nohemi]`, but nothing ever declared it — so
+ * every one of those silently fell back to the default face. These @font-face
+ * rules register the four weights actually shipped (300/400/500/600); the
+ * `font-[Nohemi]` utility Tailwind emits as `font-family: Nohemi` matches the
+ * unquoted family name below.
+ */
+@font-face {
+  font-family: Nohemi;
+  src: url("/fonts/Nohemi-Light-BF6438cc5899919.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Nohemi;
+  src: url("/fonts/Nohemi-Regular-BF6438cc4d0e493.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Nohemi;
+  src: url("/fonts/Nohemi-Medium-BF6438cc5883899.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Nohemi;
+  src: url("/fonts/Nohemi-SemiBold-BF6438cc588a48a.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
 .leaflet-container {
   background: #f5f5f5;
 }
@@ -220,5 +257,38 @@ a,
   }
   .sub-title-bg:after{
     left: -2.4px;
+  }
+  .sub-title-bg.feel::after{
+    height: 34px;
+    top: 12px;
+  }
+
+  .sub-title-bg.supposed::after{
+    height: 34px;
+    top: 12px;
+  }
+  .sub-title-bg.des::after{
+    height: 28px;
+    top: 14px;
+  }
+  span.block.sub-title-bg.des-on::after{
+    top: 10px;
+    left: 36%;
+    width: 28%;
+  }
+  .sub-title-bg.feel.hear::after{
+  height: 30px;
+        top: 6px;
+        width: 103%;
+  }
+  .sub-title-bg.feel.who::after{
+          width: 87%;
+        height: 33px;
+        top: 7px;
+  }
+  .sub-title-bg.feel.with::after{
+    width: 105%;
+    height: 28px;
+    top: 13px;
   }
 }

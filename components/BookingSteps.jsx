@@ -25,7 +25,7 @@ export default function BookingSteps({ bookingRecords, showCraftButton = true })
           {mainHeading}
         </h2>
       </div>
-      <div className="flex flex-wrap justify-center gap-6 max-w-7xl mx-auto">
+      <div className="flex flex-wrap justify-center gap-6 max-w-7xl 2xl:max-w-[1704px] mx-auto">
         {steps?.map((step, index) => (
           <div
             key={index}

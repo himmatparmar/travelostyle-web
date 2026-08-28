@@ -22,7 +22,7 @@ export default function Index({ matrixContent, bookingStepsContent, hero }) {
             footerText={matrixContent.footerText}
             theme={{
               cardBg: "bg-[#f2d09f]",
-              borderColor: "#000000",
+              borderColor: "#444444",
             }}
           />
           <JourneyRevelationsMobile

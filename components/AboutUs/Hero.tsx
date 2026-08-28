@@ -4,19 +4,19 @@ export default function Hero() {
   return (
     <>
     {/* MOBILE HERO */}
-    <section className="lg:hidden px-5 pt-8 pb-10">
+    <section className="lg:hidden px-5 pt-[93px] md:pt-8 pb-10">
       <div className="relative">
         <img
           src="/about-hero-dots-mobile.svg"
           alt=""
           aria-hidden="true"
-          className="pointer-events-none absolute -left-[68px] md:-left-[52px] top-[128px] md:top-[34px] md:w-[150px] md:w-[62px] w-[155px] h-[70px] md:h-[126px] md:h-[72px]"
+          className="pointer-events-none absolute -left-[56px] md:-left-[52px] top-[118px] md:top-[34px] md:w-[150px] md:w-[62px] w-[155px] h-[80px] md:h-[126px] md:h-[72px]"
         />
 
-        <h1 className="font-taprom text-[40px] leading-[48px] tracking-[0.05em] text-black flex flex-col items-start gap-[14px]">
-          <span className="inline-block w-fit bg-[#F2E2DA] md:px-[6px]">Making travel feel</span>
-          <span className="inline-block w-fit bg-[#F2E2DA] md:px-[6px]">like it was always</span>
-          <span className="inline-block w-fit bg-[#F2E2DA] md:px-[6px] ml-[58px]">supposed to</span>
+        <h1 className="font-taprom text-[40px] z-0 relative leading-[48px] tracking-[0.05em] text-black flex flex-col items-start gap-[14px]">
+          <span className="inline-block sub-title-bg feel md:px-[6px] mx-auto">Making travel feel</span>
+          <span className="inline-block sub-title-bg feel md:px-[6px] mx-auto">like it was always</span>
+          <span className="inline-block sub-title-bg supposed md:px-[6px] mx-auto md:ml-[58px] ">supposed to</span>
         </h1>
       </div>
 

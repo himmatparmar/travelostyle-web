@@ -37,8 +37,7 @@ export default function Index({ matrixContent, whyTakeContent, bookingStepsConte
             footerText={matrixContent.footerText}
             theme={{
               cardBg: "bg-[#f1e2d7]",
-              labelBg: "bg-[#ebdcd1]/40",
-              borderColor: "#000000",
+              borderColor: "#444444",
             }}
           />
           <GroupRevelationsSectionMobile

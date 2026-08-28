@@ -16,7 +16,7 @@ export default function SearchBar({ destinations }) {
         setShowFindJourneyMobile={setShowFindJourneyMobile}
       />
 
-      <div className="hidden md:block px-4 md:px-14 py-2">
+      <div className="hidden md:block px-4 md:px-28 py-2">
         <TravelForm destinations={destinations} />
       </div>
 
