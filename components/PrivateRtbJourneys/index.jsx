@@ -38,6 +38,7 @@ export default function Index({ matrixContent, whyTakeContent, bookingStepsConte
             theme={{
               cardBg: "bg-[#f1e2d7]",
               labelBg: "bg-[#ebdcd1]/40",
+              borderColor: "#000000",
             }}
           />
           <GroupRevelationsSectionMobile

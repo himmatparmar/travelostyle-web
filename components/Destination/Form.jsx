@@ -160,7 +160,7 @@ export default function Form() {
   };
 
   return (
-    <section className="relative min-h-[900px] md:min-h-[700px] w-full overflow-hidden">
+    <section className="relative min-h-fit md:min-h-[700px] w-full overflow-hidden">
       <Image
         src={bgImage}
         alt="Background"
@@ -170,14 +170,14 @@ export default function Form() {
       />
 
       <div className="absolute inset-0 bg-black/45" />
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-20 py-6 md:py-12">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-20 py-19 md:py-12">
         <div className="flex flex-col lg:flex-row gap-8 md:gap-16">
           <div className="w-full lg:w-[40%]">
-            <h2 className="font-[Nohemi] font-semibold text-white text-[25px] md:text-[40px] leading-[24px] md:leading-[48px] max-w-[397px]">
+            <h2 className="font-[Nohemi] font-semibold text-[#FAFAFA] md:text-white text-[32px] md:text-[40px] leading-[40px] md:leading-[48px] tracking-[0.05em] md:tracking-normal max-w-[304px] md:max-w-[397px]">
               <span className="block">Can&apos;t decide</span>
               <span className="block">where to go?</span>
             </h2>
-            <p className="mt-3 w-[336px] max-w-full text-white text-[15px] leading-[20px] font-normal tracking-[0.02em] md:max-w-[360px] md:text-[18px] md:leading-[32px]">
+            <p className="font-nohemi mt-3 w-[336px] max-w-full text-[#FAFAFA] text-[16px] leading-[24px] font-normal tracking-[0.05em] md:max-w-[360px] md:text-[18px] md:leading-[32px]">
               Tell us what you&apos;re drawn to – your interests, how long you
               have, your budget, your group size and anything else – we&apos;ll
               come back with a curated list of destinations and journeys that
@@ -268,21 +268,23 @@ export default function Form() {
 
               {/* Contact Number */}
               <div className="mt-6">
-                <label className="mb-2 block font-normal text-[15px] md:text-[18px] leading-[18px] md:leading-[32px] tracking-[0.05em] text-white">
-                  Contact Number*
+                <label className="mb-[0.25vw] ml-[3px] block w-[180px] h-[13px] text-[0.9vw] max-md:w-auto max-md:h-auto max-md:text-[14px] text-[#FAFAFA]">
+                  <span className="hidden md:inline">Contact Number*</span>
+                  <span className="md:hidden">Contact Number / WhatsApp*</span>
                 </label>
 
-                <div className="flex gap-2 md:gap-3">
+                <div className="mt-[15px] flex items-center gap-[1vw]">
+                  {/* Country Code */}
                   <div
-                    className={`border-b ${
+                    className={`w-[48px] border-b ${
                       errors.countryCode ? "border-red-400" : "border-white/70"
-                    } pb-2`}
+                    } pb-[0.1vw]`}
                   >
                     <select
                       name="countryCode"
                       value={formData.countryCode}
                       onChange={handleChange}
-                      className="bg-transparent text-sm text-white focus:outline-none"
+                      className="w-full bg-transparent text-[0.72vw] max-md:text-[13px] text-white outline-none"
                     >
                       {countryCodes.map((item, index) => (
                         <option
@@ -296,16 +298,21 @@ export default function Form() {
                     </select>
                   </div>
 
-                  <input
-                    type="tel"
-                    name="contact"
-                    value={formData.contact}
-                    onChange={handleChange}
-                    placeholder="Your number"
-                    className={`flex-1 bg-transparent border-b ${
+                  {/* Phone Number */}
+                  <div
+                    className={`w-[500px] max-md:w-full max-md:flex-1 border-b ${
                       errors.contact ? "border-red-400" : "border-white/70"
-                    } pb-2 text-sm text-white placeholder:text-white/70 focus:outline-none`}
-                  />
+                    } pb-[0.1vw]`}
+                  >
+                    <input
+                      type="tel"
+                      name="contact"
+                      value={formData.contact}
+                      onChange={handleChange}
+                      placeholder="Your number"
+                      className="w-[100px] bg-transparent text-[0.72vw] max-md:text-[13px] text-white placeholder:text-white/70 focus:outline-none"
+                    />
+                  </div>
                 </div>
                 {(errors.countryCode || errors.contact) && (
                   <p className="mt-1 text-xs text-red-300">
@@ -315,7 +322,7 @@ export default function Form() {
               </div>
 
               <div className="mt-8">
-                <label className="mb-2 block font-normal text-[11px] md:text-[18px] leading-[18px] md:leading-[32px] tracking-[0.05em] text-white">
+                <label className="font-nohemi mb-2 block font-normal text-[16px] md:text-[18px] leading-[32px] tracking-[0.05em] text-[#FAFAFA] md:text-white">
                   Your Message*
                 </label>
                 <textarea
@@ -353,11 +360,6 @@ export default function Form() {
                 {errors.consent && (
                   <p className="mt-1 text-xs text-red-300">{errors.consent}</p>
                 )}
-
-                <p className="mt-4 font-normal text-[15px] md:text-[12px] leading-[20px] md:leading-[32px] max-w-[260px] md:max-w-[1125px] tracking-[0.05em] text-white/80">
-                  TravelOStyle typically responds within 48 hours. Your details are
-                  never shared with third parties.
-                </p>
               </div>
 
               {/* Submit Button */}
@@ -368,6 +370,11 @@ export default function Form() {
               >
                 {isSubmitting ? "Submitting..." : "Submit Inquiry"}
               </button>
+
+              <p className="font-nohemi mt-4 font-normal text-[16px] md:text-[12px] leading-[24px] md:leading-[32px] max-w-[334px] md:max-w-[1125px] tracking-[0.05em] text-[#FAFAFA] md:text-white/80">
+                TravelOStyle typically responds within 48 hours. Your details are
+                never shared with third parties.
+              </p>
             </form>
           </div>
         </div>

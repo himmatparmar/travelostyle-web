@@ -42,7 +42,7 @@ export default function Index({
             topIntroText={matrixContent.topIntroText}
             matrixRows={matrixContent.matrixRows}
             footerText={matrixContent.footerText}
-            theme={{ cardBg: "bg-[#edf2d0]" }}
+            theme={{ cardBg: "bg-[#edf2d0]", borderColor: "#000000" }}
           />
           <GroupRevelationsSectionMobile
             badgeText={matrixContent.badgeText}
