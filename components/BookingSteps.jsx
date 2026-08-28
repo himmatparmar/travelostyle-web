@@ -21,7 +21,7 @@ export default function BookingSteps({ bookingRecords, showCraftButton = true })
       <div className="max-w-6xl mx-auto text-left md:text-center mb-16">
       <p className="font-taprom whitespace-nowrap md:whitespace-normal text-[32px] md:text-xl font-normal text-[#1A1A1A] md:text-stone-600 mb-2 leading-[40px] md:leading-normal tracking-[0.05em] md:tracking-wide">
   {capitalizeFirstLetter(subheading)}
-</p>  <h2 className="font-nohemi whitespace-nowrap md:whitespace-normal text-[32px] sm:text-4xl md:text-5xl font-semibold md:font-bold leading-[40px] md:leading-tight tracking-[0.05em] md:tracking-tight text-[#1A1A1A] md:text-black">
+</p>  <h2 className="font-nohemi max-w-[336px] md:max-w-none md:whitespace-normal text-[32px] sm:text-4xl md:text-5xl font-semibold md:font-bold leading-[40px] md:leading-tight tracking-[0.05em] md:tracking-tight text-[#1A1A1A] md:text-black">
           {mainHeading}
         </h2>
       </div>
