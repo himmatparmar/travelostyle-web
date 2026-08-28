@@ -89,15 +89,17 @@ export default function Region() {
           Where are you headed to next?
         </h2>
         <p className="
+  font-nohemi
   w-full
   max-w-[339px] md:max-w-[646px]
   mt-4 md:mt-2
   md:px-4
+  font-normal
   text-[16px]
-  text-center
+  text-left md:text-center
   leading-[24px] md:leading-[32px]
   tracking-[0.05em] md:tracking-normal
-  text-black
+  text-[#000000]
 ">
           Begin with the part of the world that’s calling to you and narrow from there.
           Or wander freely. Either approach works.

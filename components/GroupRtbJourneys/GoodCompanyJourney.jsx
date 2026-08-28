@@ -58,37 +58,16 @@ export default function GoodCompaneyJourney({ heroHeading, heroDescription }) {
   return (
     <div className="hidden md:flex relative w-full min-h-screen bg-white px-4 py-16 md:py-24 overflow-hidden flex-col items-center select-none border-t-[2px] border-[#3f4284]">
       <div className="absolute inset-0 w-full h-full pointer-events-none z-0 hidden md:block">
-        <svg
-          className="w-full h-full"
-          viewBox="0 0 1440 900"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M 645,225 
-               C 740,140 960,15 1180,45 
-               C 1280,60 1350,150 1230,200
-               C 1140,230 1195,50 1300,40"
-            stroke="#1d2d5f"
-            strokeWidth="2"
-            strokeDasharray="8 8"
-            fill="none"
-          />
-          <path
-            d="M 560,345 C 490,420 420,500 280,630"
-            stroke="#1d2d5f"
-            strokeWidth="2"
-            strokeDasharray="8 8"
-            fill="none"
-          />
-          <path
-            d="M -20,740 L 80,725"
-            stroke="#1d2d5f"
-            strokeWidth="2"
-            strokeDasharray="8 8"
-            fill="none"
-          />
-        </svg>
+        <img
+          src="/group/DottedLine219.svg"
+          alt=""
+          className="absolute top-[40px] right-[90px] w-[35%] max-w-[671px] h-auto"
+        />
+        <img
+          src="/group/DottedLine218.svg"
+          alt=""
+          className="absolute bottom-[8%] left-[-35px] w-[70%] max-w-[700px] h-auto"
+        />
       </div>
       <div className="relative max-w-4xl w-full text-center z-10 flex flex-col items-center mt-6">
         <h2 className="font-taprom text-[58px] leading-[1.1] tracking-[-0.02em] text-[#222] text-center bg-[#F3E4DC] px-4 py-1">

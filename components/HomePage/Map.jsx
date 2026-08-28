@@ -203,7 +203,6 @@ export default function TravelDestinationWidget() {
       }}
     >
       {isMobile ? (
-      
         <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
           {months.map((month) => {
             const isExpanded = month === selectedMonth;
@@ -222,7 +221,6 @@ export default function TravelDestinationWidget() {
                   transition: "background-color 0.2s ease",
                 }}
               >
-          
                 <div
                   onClick={() => setSelectedMonth(isExpanded ? "" : month)}
                   style={{
@@ -333,8 +331,17 @@ export default function TravelDestinationWidget() {
                               </div>
                             </div>
                           </div>
-
-                          <button className="shrink-0 cursor-pointer active:scale-95 transition">
+                        
+                          <button
+                            onClick={() => {
+                              if (item.countryCode) {
+                                router.push(
+                                  `/itinerary?country=${item.countryCode}`,
+                                );
+                              }
+                            }}
+                            className="shrink-0 cursor-pointer active:scale-95 transition"
+                          >
                             <Image
                               src="/arrow.png"
                               alt="Next"
@@ -365,7 +372,6 @@ export default function TravelDestinationWidget() {
           })}
         </div>
       ) : (
-      
         <div style={{ position: "relative" }}>
           <div
             style={{
