@@ -158,7 +158,7 @@ export default function JourneyCard({ trip, variant = "carousel", onCompare }) {
           </div>
         </div>
 
-        <div className="flex-1" />
+        <div className="flex-0" />
 
         <div className="mt-4 flex items-center justify-between md:items-end">
           <div className="flex flex-col items-start md:flex-row md:items-end md:gap-1">
@@ -169,13 +169,16 @@ export default function JourneyCard({ trip, variant = "carousel", onCompare }) {
             {/* Mobile (per Figma): "$3000*" and "/person" share a baseline,
                 with "double occupancy*" wrapping onto the line below. Desktop
                 keeps the original stacked-label + two-line-note arrangement. */}
-            <div className="flex items-baseline gap-1 md:hidden">
-              <h4 className="text-[16px] font-medium leading-[21px] tracking-[0.05em] text-ink">
-                ${Number(trip.price).toLocaleString()}*
-              </h4>
-              <span className="text-[10px] leading-[14px] tracking-[0.05em] text-ink">
-                /person
-              </span>
+            <div className="flex items-baseline gap-0 md:hidden">
+             <h4 className="text-[16px] font-medium leading-[21px] tracking-[0.05em] text-ink">
+    ${Number(trip.price).toLocaleString()}
+    <span className="relative -top-[3px] text-[10px] align-top">*</span>
+  </h4>
+
+  <span className="relative -top-[3px] text-[10px] leading-[14px] tracking-[0.05em] text-ink">
+    /person
+  </span>
+
             </div>
             <span className="text-[10px] leading-[14px] tracking-[0.05em] text-ink md:hidden">
               double occupancy*
@@ -185,12 +188,12 @@ export default function JourneyCard({ trip, variant = "carousel", onCompare }) {
               <span className="md:text-[9px] md:leading-[1.15] md:text-[#7B7B7B]">
                 from
               </span>
-              <div className="md:flex md:items-baseline md:gap-1">
+              <div className="md:flex md:items-baseline md:gap-0">
                 <h4 className="md:text-[20px] md:font-semibold md:leading-none md:text-[#1D1D1D]">
                   ${Number(trip.price).toLocaleString()}
-                  <span className="md:relative md:-top-[6px] md:text-[10px] md:align-top">*</span>
+                  <span className="md:relative md:-top-[0px] md:text-[12px] md:align-top">*</span>
                 </h4>
-                <span className="md:text-[9px] md:leading-[1.15] md:text-[#7B7B7B]">
+                <span className="md:relative md:-top-[8px] text-[10px] md:leading-[1.90] md:text-black">
                   /person
                 </span>
               </div>

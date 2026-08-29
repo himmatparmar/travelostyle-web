@@ -6,7 +6,7 @@ import MobileNavigationMenu from "./MobileNavigationMenu";
 import PrivateInquiryForm from "@/components/PrivateInquiryForm";
 import BuildYourJourneyForm from "@/components/BuildYourJourneyForm";
 import JourneyCardImage from "@/components/JourneyCardImage";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { pickPriorityDeparture } from "@/lib/departures";
 
 // Fixed badge colors matching the design (Figma) reference:
@@ -30,6 +30,17 @@ function resolveCategories(item, included) {
     })
     .filter(Boolean);
 }
+function trimByWords(text, maxWords = 25) {
+  if (!text) return "";
+
+  const words = text.trim().split(/\s+/);
+
+  if (words.length <= maxWords) {
+    return text.trim();
+  }
+
+  return words.slice(0, maxWords).join(" ") + "...";
+}
 
 const MOCK_CATEGORIES = ["Culture & Heritage", "Leisure"];
 
@@ -47,6 +58,11 @@ export default function HeroSection({
   const [activeView, setActiveView] = useState("menu");
   const [isPrivateFormOpen, setIsPrivateFormOpen] = useState(false);
   const [isCraftFormOpen, setIsCraftFormOpen] = useState(false);
+  useEffect(() => {
+  if (activeView !== "menu") {
+    window.scrollTo(0, 0);
+  }
+}, [activeView]);
   const categories = rawItem ? resolveCategories(rawItem, included) : MOCK_CATEGORIES;
   const isInspirational = Boolean(journey?.isInspirational);
   // Group journeys: "Request a Private Journey" from the summary card has
@@ -125,7 +141,7 @@ export default function HeroSection({
             {journey.title}
           </h1>
           <p className="mt-[0.5vw] text-[0.63vw] leading-[1.6] text-[#444]">
-            {journey.desc}
+           {trimByWords(journey.desc, 25)}
           </p>
           <div className="mt-[0.75vw] flex items-center gap-[1vw] text-[0.6vw] text-[#333]">
             <div className="flex items-center gap-[0.28vw]">
@@ -169,12 +185,12 @@ export default function HeroSection({
     </p>
 
     {/* Offer Price + per person */}
-    <p className="flex items-baseline gap-[0.3vw] text-[1.15vw] font-bold leading-none text-[#1D1D1D]">
+    <p className="flex items-baseline gap-0 text-[1.15vw] font-bold leading-none text-[#1D1D1D]">
       <span>
         ${Number(journey.offerPrice).toLocaleString()}
-        <span className="relative -top-[0.45vw] text-[0.55vw] align-top">*</span>
+        <span className="relative -top-[1px] text-[0.57vw] align-top">*</span>
       </span>
-      <span className="text-[0.55vw] font-normal text-[#777]">/person</span>
+      <span className="relative -top-[8px] text-[0.46vw] font-normal text-[black]">/person</span>
     </p>
 
     {/* Original Price */}
@@ -196,7 +212,7 @@ export default function HeroSection({
 
           {journey?.offer && (
   <span
-    className="w-fit cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.63vw] font-semibold tracking-[0.05em]"
+    className="w-fit cursor-pointer rounded-[5px] px-[12px] py-[8px] text-[0.4vw] font-semibold tracking-[0.08em]"
     style={{
       backgroundColor: "#F2E2DA",
       color: "#000000",
@@ -271,7 +287,7 @@ export default function HeroSection({
               </h1>
 
               <p className="mt-[10px] text-[12px] font-light leading-[18px] tracking-[0.05em] text-black">
-                {journey.desc}
+              {trimByWords(journey.desc, 25)}
               </p>
 
               <div className="mt-[14px] flex items-center gap-[16px] text-[12px] font-light leading-[18px] tracking-[0.05em] text-black">
@@ -358,7 +374,7 @@ export default function HeroSection({
 <div className="my-[8px] mr-[14px] w-[168px] shrink-0 self-start rounded-[2px] bg-[#F2E2DA] px-[10px] py-[8px] md:m-0 md:w-[52%] md:shrink md:self-auto md:rounded-none md:border-l-2 md:border-[#1A1A1A] md:px-[14px] md:py-[12px]">
   <div className="flex gap-[8px]">
     <Info size={16} strokeWidth={1.5} className="mt-[1px] shrink-0" />
-    <p className="text-[11px] font-light leading-[16px] tracking-[0.05em] text-black">
+    <p className="text-[8px] font-semi-bold leading-[16px] tracking-[0.05em] text-black">
       {journey.offer || "Early Bird Offers available"}
     </p>
   </div>
@@ -396,7 +412,7 @@ export default function HeroSection({
                   Check Dates
                 </button>
 
-                <span className="shrink-0 text-[12px] font-medium tracking-[0.05em] text-[#999]">
+                <span className="shrink-0 text-[12px] font-bold tracking-[0.05em] text-black">
                   OR
                 </span>
 
