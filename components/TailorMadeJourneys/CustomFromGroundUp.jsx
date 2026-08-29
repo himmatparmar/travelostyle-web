@@ -49,8 +49,8 @@ export default function CustomFromGroundUp() {
                 Custom, from the ground up
               </h2>
             </div>
-
-            <div className="space-y-5 mt-4 text-black text-xs sm:text-sm md:text-[21px] leading-[1.85] max-w-[min(1052px,calc(100%-360px))] relative z-10">
+            <div className="space-y-5 mt-4 text-black text-xs sm:text-sm md:text-[21px] leading-[1.85] max-w-[min(1052px,calc(100%-360px))] max-md:w-[calc(100vw-40px)] max-md:max-w-[337px] relative z-10">
+    
               <p>
                 We start where you are, not where we like you to be or where the
                 average itinerary tends to go. We begin with your reality — your

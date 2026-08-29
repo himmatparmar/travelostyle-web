@@ -162,7 +162,7 @@ export default function ContactInquiry() {
   };
 
   return (
-    <section className="w-full px-[1vw] py-[1vw] max-md:px-0 max-md:py-0 mt-8">
+  <section className="w-full px-0 py-0 max-md:px-0 max-md:py-0 mt-8">
       <div
         className="relative mx-auto h-[50vw] max-w-[200vw] overflow-hidden
         max-md:h-auto max-w-full max-md:min-h-screen"
@@ -185,9 +185,9 @@ export default function ContactInquiry() {
         >
           <div className="w-[28%] pt-[1vw] max-md:w-full max-md:pt-0">
           <h2
-  className="mt-[3px] mb-[2px] w-[250px] text-[2.1vw] font-semibold
-  leading-[1.05] tracking-[0.05em] text-[#FAFAFA]
-  max-md:w-full max-md:h-auto
+ className="mt-[3px] mb-[2px] w-[397px] text-[40px] font-semibold
+leading-[48px] tracking-[0.05em] text-[#FAFAFA]
+max-md:w-full max-md:h-auto
   max-md:text-[length:var(--fs-heading-nohemi-semibold)]
   max-md:leading-[length:var(--lh-heading-nohemi-semibold)]"
 >
@@ -195,11 +195,12 @@ export default function ContactInquiry() {
 </h2>
 
             <p
-  className="mt-[15px] max-w-[220px] text-[0.9vw]
-  leading-[1.25] tracking-[0.05em] text-[#FAFAFA]/80
-  max-md:max-w-full max-md:mt-3
-  max-md:text-[length:var(--fs-body-nohemi-regular-tight)]
-  max-md:leading-[length:var(--lh-body-nohemi-regular-tight)]"
+  className="mt-[15px] w-[395px] max-w-[395px] text-[18px]
+leading-[24px] font-normal tracking-[0.05em] text-[#FAFAFA]
+ max-md:w-[336px] max-md:max-w-[336px] max-md:mt-3
+      max-md:text-[16px]
+      max-md:leading-[24px]
+      max-md:tracking-[0.05em]"
 >
   We’re here to design the kind of travel<br className="hidden max-md:inline" /> that actually gives
   something back.

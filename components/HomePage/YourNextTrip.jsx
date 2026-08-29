@@ -4,7 +4,6 @@ import { useState } from "react";
 import JourneysWeLove from "./JourneysWeLove";
 
 export default function YourNextTrip({ initialJourneys = null }) {
-
   const [activeTab, setActiveTab] = useState("journeys");
 
   return (
@@ -16,65 +15,73 @@ export default function YourNextTrip({ initialJourneys = null }) {
           </h2>
 
           <p className="mt-2 max-w-[500px] font-nohemi text-[16px] font-light leading-[24px] tracking-[0.05em] text-[#1A1A1A] md:mt-3 md:max-w-[43vw] md:text-[0.92vw] md:font-normal md:leading-[1.8] md:tracking-normal md:text-[#6D6D6D]">
-            The journeys we know well, believe in genuinely, and can deliver on — <br className="hidden md:inline" />
+            The journeys we know well, believe in genuinely, and can deliver on —{" "}
+            <br className="hidden md:inline" />
             every single time.
           </p>
         </div>
 
         <div className="mt-6 md:mt-[4vw]">
-
-  <div className="mx-auto max-w-[1200px] overflow-x-auto border-b border-[#D8D8D8] px-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:overflow-x-visible md:px-0">
-    <div className="flex w-max items-center justify-start gap-10 whitespace-nowrap text-[21px] leading-[32px] tracking-[0.05em] md:w-full md:min-w-0 md:justify-center md:gap-[5vw] md:text-[1vw] md:leading-normal md:tracking-normal md:px-0">
-              <button
-                onClick={() => setActiveTab("journeys")}
-                className={`relative shrink-0 pb-3 transition-all duration-300 md:pb-[1vw] ${
-                  activeTab === "journeys"
-                    ? "font-semibold text-ink"
-                    : "font-normal text-[#707070]"
-                }`}
-              >
-                Journeys We Love
-                {activeTab === "journeys" && (
-                  <span className="absolute -bottom-px left-0 h-[3px] w-full bg-ink md:h-[1.5px]" />
-                )}
-              </button>
-
-              <button
-                onClick={() => setActiveTab("destinations")}
-                className={`relative shrink-0 pb-3 transition-all duration-300 md:pb-[1vw] ${
-                  activeTab === "destinations"
-                    ? "font-semibold text-ink"
-                    : "font-normal text-[#707070]"
-                }`}
-              >
-                Popular Destinations
-                {activeTab === "destinations" && (
-                  <span className="absolute -bottom-px left-0 h-[3px] w-full bg-ink md:h-[1.5px]" />
-                )}
-              </button>
-
-              <button
-                onClick={() => setActiveTab("deals")}
-                className={`relative shrink-0 pb-3 transition-all duration-300 md:pb-[1vw] ${
-                  activeTab === "deals"
-                    ? "font-semibold text-ink"
-                    : "font-normal text-[#707070]"
-                }`}
-              >
-                Exclusive Deals
-                {activeTab === "deals" && (
-                  <span className="absolute -bottom-px left-0 h-[3px] w-full bg-ink md:h-[1.5px]" />
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
+  <div className="mx-auto w-[calc(100%-32px)] max-w-[1416px] overflow-x-auto border-b border-#1A1A1A px-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:overflow-visible">
+    
+    <div className="flex w-max items-end whitespace-nowrap md:w-full md:min-w-0">
+      
+      <button
+        onClick={() => setActiveTab("journeys")}
+        className={`relative flex h-[48px] shrink-0 items-end justify-center px-2 pb-3 font-nohemi text-[21px] leading-[32px] tracking-[0.05em] transition-all duration-300 md:h-[52px] md:w-1/3 md:px-0 md:pb-[10px] md:text-[24px] md:leading-[32px] md:tracking-[0.05em] ${
+          activeTab === "journeys"
+            ? "font-semibold text-[#1A1A1A]"
+            : "font-light text-[#707070]"
+        }`}
+      >
+        Journeys We Love
 
         {activeTab === "journeys" && (
-      <JourneysWeLove initialJourneys={initialJourneys} />
+          <span className="absolute bottom-[-1px] left-0 z-10 h-[5px] w-full bg-[#1A1A1A]" />
         )}
-        {activeTab === "destinations" &&  <JourneysWeLove onlyPopular/>}
-        {activeTab === "deals" &&  <JourneysWeLove onlyWithOffer/>}
+      </button>
+
+      <button
+        onClick={() => setActiveTab("destinations")}
+        className={`relative flex h-[48px] shrink-0 items-end justify-center px-2 pb-3 font-nohemi text-[21px] leading-[32px] tracking-[0.05em] transition-all duration-300 md:h-[52px] md:w-1/3 md:px-0 md:pb-[10px] md:text-[24px] md:leading-[32px] md:tracking-[0.05em] ${
+          activeTab === "destinations"
+            ? "font-semibold text-[#1A1A1A]"
+            : "font-light text-[#707070]"
+        }`}
+      >
+        Popular Destinations
+
+        {activeTab === "destinations" && (
+          <span className="absolute bottom-[-1px] left-0 z-10 h-[5px] w-full bg-[#1A1A1A]" />
+        )}
+      </button>
+
+      <button
+        onClick={() => setActiveTab("deals")}
+        className={`relative flex h-[48px] shrink-0 items-end justify-center px-2 pb-3 font-nohemi text-[21px] leading-[32px] tracking-[0.05em] transition-all duration-300 md:h-[52px] md:w-1/3 md:px-0 md:pb-[10px] md:text-[24px] md:leading-[32px] md:tracking-[0.05em] ${
+          activeTab === "deals"
+            ? "font-semibold text-[#1A1A1A]"
+            : "font-light text-[#707070]"
+        }`}
+      >
+        Exclusive Deals
+
+        {activeTab === "deals" && (
+          <span className="absolute bottom-[-1px] left-0 z-10 h-[5px] w-full bg-[#1A1A1A]" />
+        )}
+      </button>
+
+    </div>
+  </div>
+</div>
+
+        {activeTab === "journeys" && (
+          <JourneysWeLove initialJourneys={initialJourneys} />
+        )}
+
+        {activeTab === "destinations" && <JourneysWeLove onlyPopular />}
+
+        {activeTab === "deals" && <JourneysWeLove onlyWithOffer />}
       </div>
     </section>
   );
