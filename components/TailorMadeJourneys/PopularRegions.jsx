@@ -61,7 +61,7 @@ export default function PopularRegions() {
   return (
     <div className="bg-white max-w-[1704px] mx-auto" style={{ paddingInline: "clamp(16px, 3.6vw, 69px)" }}>
       {" "}
-      <h3 className="text-black font-bold text-[21px] leading-[28px]  tracking-tight mb-6 sm:mb-8">
+      <h3 className="text-black font-bold text-[21px] leading-[30px] tracking-tight mb-6 sm:mb-8 max-md:text-center max-md:mx-auto md:text-[24px] md:leading-[32px]">
         Explore some of our popular regions!
       </h3>
       {loading ? (
