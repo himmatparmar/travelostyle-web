@@ -93,7 +93,7 @@ export default function JourneyPricing({
         button: isSoldOut
             ? "Request a Private Journey"
             : hasEarlyBirdOffer
-                ? "Claim Early Bird Offer"
+                ? "Claim Early Bird Call"
                 : "Enquire For This Date",
     };
 });
@@ -138,7 +138,7 @@ export default function JourneyPricing({
               onClick={() => setSelectedYear(year)}
               className={`px-6 py-2 ${
                 selectedYear === year
-                  ? "bg-[#F2E2DA]"
+                  ? "bg-[#F2E2DA] font-bold text-[#222222]"
                   : "bg-white"
               }`}
             >
@@ -214,11 +214,10 @@ export default function JourneyPricing({
                                 onClick={() => setSelectedYear(year)}
                                 className={`flex-1 flex items-center justify-center transition-colors duration-200
               ${selectedYear === year
-                                        ? "bg-[#F2E2DA] text-[#222222]"
+                                        ? "bg-[#F2E2DA] text-[#222222] font-bold"
                                         : "bg-white text-[#666666]"
                                     }`}
                                 style={{
-                                    fontWeight: 500,
                                     fontSize: "14px",
                                     lineHeight: "13px",
                                 }}
@@ -237,19 +236,21 @@ export default function JourneyPricing({
                     return (
                         <div
                             key={index}
-                            className="border border-black rounded-[8px] bg-white overflow-hidden"
+                            className="border-2 border-black rounded-[4px] bg-white overflow-hidden"
                         >
                             {/* Top Section - Always Visible */}
                             <div className="p-4">
                                 <div className="flex justify-between items-start">
                                     <div>
-                                        <p className="text-[12px] font-semibold">
-                                            Trip Start: {formatDate(trip.startDate)}
-                                        </p>
+                                      <p className="text-[12px]">
+    <span className="font-semibold">Trip Start:</span>{" "}
+    {formatDate(trip.startDate)}
+</p>
 
-                                        <p className="text-[12px] font-semibold mt-1">
-                                            Trip End: {formatDate(trip.endDate)}
-                                        </p>
+<p className="text-[12px] mt-1">
+    <span className="font-semibold">Trip End:</span>{" "}
+    {formatDate(trip.endDate)}
+</p>
 
                                         <div className="mt-2">
                                             {trip.statusType === "soldout" ? (
@@ -266,27 +267,31 @@ export default function JourneyPricing({
                                     </div>
 
                                     <div className="text-right">
-                                      <p className="text-[10px] text-[#757575]">
+                                      <p className="text-[10px] text-[#757575] text-left">
     from
 </p>
 
-<p className="text-[22px] font-bold">
-    {formatPrice(trip.discountedPrice)}
-</p>
-
-{trip.offerPercentage > 0 && (
-   <div className="text-[10px] text-[#9CA3AF]">
-    was{" "}
-    <span className="line-through">
-        {formatPrice(trip.originalPrice)}
+ <div className="flex items-baseline justify-end">
+    <span className="text-[22px] font-bold">
+      {formatPrice(trip.discountedPrice)}
     </span>
-</div>
+
+    <span className="mr-[5px] text-[10px] text-[#757575]">
+      /person
+    </span>
+  </div>
+
+
+ {trip.offerPercentage > 0 && (
+    <div className="text-[10px] text-[#9CA3AF] text-left">
+      was{" "}
+      <span className="line-through">
+        {formatPrice(trip.originalPrice)}
+      </span>
+    </div>
 )}
 
-<p className="text-[10px] text-[#757575]">
-    / person
-</p>
-                                    </div>
+                            </div>
                                 </div>
                             </div>
 
@@ -300,7 +305,7 @@ export default function JourneyPricing({
                                                     {trip.offerPercentage}% off
                                                 </p>
                                                 {trip.isEarlyBird && (
-                                                    <p className="mt-1 text-xs text-[#128914]">
+                                                    <p className="mt-1 text-xs text-black">
                                                         Early Bird Offer applied to price
                                                     </p>
                                                 )}
@@ -318,7 +323,7 @@ export default function JourneyPricing({
                                                 ? openPrivateForm(trip)
                                                 : openGroupForm(trip)
                                         }
-                                        className="w-full bg-[#2C3078] text-white rounded-full py-3 font-medium"
+                                        className="mx-auto block px-5 bg-[#2C3078] text-white rounded-full px-5 py-2 text-[12px] font-medium"
                                     >
                                         {trip.button}
                                     </button>
@@ -330,7 +335,7 @@ export default function JourneyPricing({
                                 onClick={() => toggleCard(index)}
                                 className="w-full border-t-2 border-neutral-800 py-3 text-xs font-semibold flex justify-center items-center gap-2"
                             >
-                                <span className="flex h-6 w-6 items-center justify-center rounded-full border border-neutral-400 bg-[#F3EBE6] font-mono text-sm font-bold text-neutral-700 select-none">
+                                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#F3EBE6] font-mono text-sm font-bold text-neutral-700 select-none">
                                     {isExpanded ? "−" : "+"}
                                 </span>
                                 {isExpanded ? "Show less" : "Show more"}
@@ -420,6 +425,7 @@ export default function JourneyPricing({
                                                     style={{ fontFamily: "Nohemi" }}
                                                 >
                                                     Journey Sold Out
+        
                                                 </div>
                                             ) : (
                                                 <div
@@ -438,11 +444,12 @@ export default function JourneyPricing({
     {/* Discounted price */}
     <div className="flex items-baseline gap-[2px]">
         <span className="text-[20px] font-semibold">
-            {formatPrice(trip.discountedPrice)}
+           {formatPrice(trip.discountedPrice)}
+<span className="relative -top-2 text-[13px]">*</span>
         </span>
 
-        <span className="text-[12px]">
-            / per person
+        <span className="relative -top-2 text-[13px]">
+            /person
         </span>
     </div>
 
@@ -463,7 +470,7 @@ export default function JourneyPricing({
                 {trip.offerPercentage}% off
             </div>
             {trip.isEarlyBird && (
-                <div className="mt-1 text-[12px] text-[#128914]">
+                <div className="mt-1 text-[12px] text-black">
                     Early Bird Offer applied to price
                 </div>
             )}
