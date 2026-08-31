@@ -2,7 +2,7 @@ import { getFilterOptions } from "@/lib/getFilterOptions";
 import SearchBarClient from "./SearchBarClient";
 
 export default async function SearchBar() {
-  const { destinations } = await getFilterOptions();
+  const { destinations, months } = await getFilterOptions();
 
-  return <SearchBarClient destinations={destinations} />;
+  return <SearchBarClient destinations={destinations} months={months} />;
 }

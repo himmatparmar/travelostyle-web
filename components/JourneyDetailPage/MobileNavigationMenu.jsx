@@ -39,7 +39,10 @@ export default function MobileNavigationMenu({
           {menuItems.map((item, index) => (
             <button
               key={index}
-              onClick={() => setActiveView(item.id)}
+              onClick={() => {
+                setActiveView(item.id);
+                window.scrollTo({ top: 0, behavior: "auto" });
+              }}
               className="flex h-[61px] w-full items-center justify-between border-b-2 border-[#1A1A1A] px-[27px] text-left transition active:bg-black/5"
             >
               <span className="text-[18px] font-normal leading-[36px] tracking-[0.05em] text-[#1A1A1A]">

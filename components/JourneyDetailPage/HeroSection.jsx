@@ -6,7 +6,7 @@ import MobileNavigationMenu from "./MobileNavigationMenu";
 import PrivateInquiryForm from "@/components/PrivateInquiryForm";
 import BuildYourJourneyForm from "@/components/BuildYourJourneyForm";
 import JourneyCardImage from "@/components/JourneyCardImage";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { pickPriorityDeparture } from "@/lib/departures";
 
 // Fixed badge colors matching the design (Figma) reference:
@@ -58,6 +58,24 @@ export default function HeroSection({
   const [activeView, setActiveView] = useState("menu");
   const [isPrivateFormOpen, setIsPrivateFormOpen] = useState(false);
   const [isCraftFormOpen, setIsCraftFormOpen] = useState(false);
+  // Remembers where the mobile menu list was scrolled to when a tab was
+  // opened, so the "back" button can return there instead of dumping the
+  // user back at the top of the page.
+  const menuScrollPositionRef = useRef(0);
+  const handleSetActiveView = (view) => {
+    if (view === "menu") {
+      setActiveView(view);
+      // Restore after the menu view has rendered.
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: menuScrollPositionRef.current, behavior: "auto" });
+      });
+      return;
+    }
+    if (activeView === "menu") {
+      menuScrollPositionRef.current = window.scrollY;
+    }
+    setActiveView(view);
+  };
   useEffect(() => {
   if (activeView !== "menu") {
     window.scrollTo(0, 0);
@@ -433,7 +451,7 @@ export default function HeroSection({
   activeView={activeView}
   inclusions={inclusions}
   exclusions={exclusions}
-  setActiveView={setActiveView}
+  setActiveView={handleSetActiveView}
 />
       {/* Inspirational: same as before — the generic "Inspirational
           Itineraries" webform, no specific departure attached. Group: the

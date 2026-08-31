@@ -2,17 +2,13 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import FindJourneyMobile from "@/components/HomePage/FindYourJourney/FindYourJourneyMobile";
+import { BUDGET_RANGES } from "@/lib/budgetRanges";
 
-const months = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
-];
-
-const budgets = ["$3,000 under", "$3,000 – $8,000", "$8,000 – $10,000", "$10,000+"];
-
-function ListingSearchForm({ destinations = [] }) {
+function ListingSearchForm({ destinations = [], months = [] }) {
+  const router = useRouter();
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [selectedDestinations, setSelectedDestinations] = useState([]);
   const [selectedMonths, setSelectedMonths] = useState([]);
@@ -41,7 +37,30 @@ function ListingSearchForm({ destinations = [] }) {
       (selectedMonths.length > 2 ? ` +${selectedMonths.length - 2}` : "")
     : "When do you want to travel?";
 
-  const budgetLabel = selectedBudget || "How much do you want to spend?";
+  const budgetLabel =
+    BUDGET_RANGES.find((b) => b.value === selectedBudget)?.label ||
+    "How much do you want to spend?";
+
+  // FilterSidebar (rendered by AllJourneysPage on /itinerary) already
+  // knows how to pick filters up from two places on mount: the `region`
+  // query param, and a "journeyData" sessionStorage payload for
+  // everything else — the same mechanism the homepage's TravelForm /
+  // FindJourneyMobile widgets use. Reusing it here (rather than inventing
+  // separate ?month=/?pricing= params nothing reads) is what makes
+  // "Find Your Journey" actually filter the results.
+  const handleFindJourney = () => {
+    sessionStorage.setItem(
+      "journeyData",
+      JSON.stringify({
+        region: selectedDestinations,
+        month: selectedMonths,
+        pricing: selectedBudget ? [selectedBudget] : [],
+      }),
+    );
+    setActiveDropdown(null);
+    const region = selectedDestinations.join(",");
+    router.push(`/itinerary${region ? `?region=${encodeURIComponent(region)}` : ""}`);
+  };
 
   return (
     <div className="border-2 border-ink rounded-xl px-6 py-4 my-6 bg-white">
@@ -80,7 +99,10 @@ function ListingSearchForm({ destinations = [] }) {
         </button>
 
         {/* CTA */}
-        <button className="h-[2.4vw] min-w-[10.5vw] rounded-full bg-[#2E348D] text-[0.85vw] text-white transition hover:bg-[#252b78] shrink-0">
+        <button
+          onClick={handleFindJourney}
+          className="h-[2.4vw] min-w-[10.5vw] rounded-full bg-[#2E348D] text-[0.85vw] text-white transition hover:bg-[#252b78] shrink-0"
+        >
           Find Your Journey
         </button>
       </div>
@@ -134,17 +156,17 @@ function ListingSearchForm({ destinations = [] }) {
         <div className="mt-3 rounded-lg border border-gray-200 bg-white p-4 shadow-md">
           <h3 className="mb-3 text-[0.85vw] font-semibold">Select Budget Range</h3>
           <div className="flex flex-wrap gap-2">
-            {budgets.map((b) => (
+            {BUDGET_RANGES.map((b) => (
               <button
-                key={b}
-                onClick={() => { setSelectedBudget(b); setActiveDropdown(null); }}
+                key={b.value}
+                onClick={() => { setSelectedBudget(b.value); setActiveDropdown(null); }}
                 className={`rounded-full border px-4 py-1 text-[0.72vw] transition-all ${
-                  selectedBudget === b
+                  selectedBudget === b.value
                     ? "border-[#2E348D] bg-[#F5EFE8] text-[#2E348D]"
                     : "border-gray-300 bg-white text-[#444]"
                 }`}
               >
-                {b}
+                {b.label}
               </button>
             ))}
           </div>
@@ -154,7 +176,7 @@ function ListingSearchForm({ destinations = [] }) {
   );
 }
 
-export default function SearchBar({ destinations = [] }) {
+export default function SearchBar({ destinations = [], months = [] }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showFindJourneyMobile, setShowFindJourneyMobile] = useState(false);
 
@@ -297,7 +319,7 @@ export default function SearchBar({ destinations = [] }) {
 
         {/* Desktop Search Form */}
         <div className="hidden md:block">
-          <ListingSearchForm destinations={destinations} />
+          <ListingSearchForm destinations={destinations} months={months} />
         </div>
       </div>
 
@@ -306,6 +328,7 @@ export default function SearchBar({ destinations = [] }) {
           <FindJourneyMobile
             onClose={() => setShowFindJourneyMobile(false)}
             destinations={destinations}
+            months={months}
           />
         </div>
       )}

@@ -335,8 +335,8 @@ export default function JourneyPricing({
                                 onClick={() => toggleCard(index)}
                                 className="w-full border-t-2 border-neutral-800 py-3 text-xs font-semibold flex justify-center items-center gap-2"
                             >
-                                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#F3EBE6] font-mono text-sm font-bold text-neutral-700 select-none">
-                                    {isExpanded ? "−" : "+"}
+                                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#F3EBE6] text-sm font-bold leading-none text-neutral-700 select-none">
+                                    <span className="relative -top-px">{isExpanded ? "−" : "+"}</span>
                                 </span>
                                 {isExpanded ? "Show less" : "Show more"}
                             </button>
