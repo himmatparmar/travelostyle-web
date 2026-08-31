@@ -2,6 +2,7 @@
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Plus, Minus, ChevronDown, ChevronUp, Check } from "lucide-react";
+import { BUDGET_RANGES, matchesBudget } from "@/lib/budgetRanges";
 
 const FilterSection = ({ title, children, defaultOpen = true, mobile = false }) => {
   const [open, setOpen] = useState(defaultOpen);
@@ -132,12 +133,15 @@ export default function FilterSidebar({
   useEffect(() => {
     const regionParam = searchParams.get("region");
 
-    if (regionParam) {
-      setFilters((prev) => ({
-        ...prev,
-        region: [regionParam],
-      }));
-    }
+    // Always sync from the URL (including clearing back to [] when the
+    // param is gone) so re-running "Find Your Journey" with no region
+    // selected doesn't leave a stale region filter from a previous search.
+    setFilters((prev) => ({
+      ...prev,
+      region: regionParam
+        ? regionParam.split(",").map((r) => r.trim()).filter(Boolean)
+        : [],
+    }));
   }, [searchParams, setFilters]);
 
   // ================= CLEAR =================
@@ -180,22 +184,10 @@ export default function FilterSidebar({
           return item.category?.includes(value);
 
         case "month":
-          return item.month === value;
+          return item.month?.includes(value);
 
         case "pricing":
-          if (value === "$3000 under") {
-            return item.price < 3000;
-          }
-
-          if (value === "$3,000-$8,000") {
-            return item.price >= 3000 && item.price <= 8000;
-          }
-
-          if (value === "$10,000+") {
-            return item.price >= 10000;
-          }
-
-          return false;
+          return matchesBudget(item.price, value);
 
         case "duration": {
           const days = parseInt(item.days?.split(" ")[0] || 0);
@@ -326,8 +318,20 @@ export default function FilterSidebar({
       });
     } catch (error) {
       console.error("Error reading journeyData from sessionStorage:", error);
+    } finally {
+      // Consume it — this effect re-runs on every `searchParams` change
+      // (needed so the on-page search bar's "Find Your Journey" click
+      // re-applies filters even without a remount) AND whenever
+      // filterOptions.style resolves. Without clearing the key here,
+      // either of those later re-runs would re-apply this same stale
+      // snapshot and silently stomp on any price/month checkbox the
+      // user had since toggled by hand in the sidebar — which is why
+      // pricing/month looked "stuck"/unresponsive after a search-bar
+      // search. Once applied, this seeds initial state; the sidebar's
+      // own checkboxes are the source of truth after that.
+      sessionStorage.removeItem("journeyData");
     }
-  }, [filterOptions.style, setFilters]);
+  }, [filterOptions.style, setFilters, searchParams]);
 
   useEffect(() => {
     const handleBeforeUnload = () => {
@@ -372,13 +376,13 @@ export default function FilterSidebar({
 
       {/* PRICING */}
       <FilterSection title="Pricing" mobile={mobile}>
-        {["$3000 under", "$3,000-$8,000", "$10,000+"].map((item) => (
+        {BUDGET_RANGES.map((range) => (
           <CheckboxItem
-            key={item}
-            label={item}
-            count={getCount("pricing", item)}
-            checked={filters.pricing.includes(item)}
-            onChange={() => toggleFilter("pricing", item)}
+            key={range.value}
+            label={range.label}
+            count={getCount("pricing", range.value)}
+            checked={filters.pricing.includes(range.value)}
+            onChange={() => toggleFilter("pricing", range.value)}
             mobile={mobile}
           />
         ))}
@@ -576,13 +580,13 @@ export default function FilterSidebar({
 
         {/* PRICING */}
         <FilterSection title="Pricing">
-          {["$3000 under", "$3,000-$8,000", "$10,000+"].map((item) => (
+          {BUDGET_RANGES.map((range) => (
             <CheckboxItem
-              key={item}
-              label={item}
-              count={getCount("pricing", item)}
-              checked={filters.pricing.includes(item)}
-              onChange={() => toggleFilter("pricing", item)}
+              key={range.value}
+              label={range.label}
+              count={getCount("pricing", range.value)}
+              checked={filters.pricing.includes(range.value)}
+              onChange={() => toggleFilter("pricing", range.value)}
             />
           ))}
         </FilterSection>

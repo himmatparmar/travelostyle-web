@@ -9,6 +9,7 @@ import Pagination from "./Pagination";
 import MobileFilters from "./MobileFilters";
 import { slugify } from "@/lib/slugify";
 import { API_BASE_URL, buildFileUrl } from "@/lib/config";
+import { matchesBudget } from "@/lib/budgetRanges";
 
 // Resolves the ISO country code from a journey's starting-location
 // reference (node--location -> field_address.country_code), used only
@@ -71,18 +72,34 @@ export default function AllJourneysPage() {
       try {
         setLoading(true);
 
-       const res = await fetch(
-  `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month,field_category,field_region,field_starts_in`
-);
+        // Drupal's JSON:API caps a single response at 50 resources by
+        // default. A one-shot fetch (the old code) silently drops every
+        // journey past that first page — on a dev/test site with a lot
+        // of seed content, newly-created journeys are exactly the ones
+        // most likely to land past that cutoff and vanish from every
+        // listing/filter with no error anywhere. Follow `links.next`
+        // until Drupal stops returning one, merging `data` + `included`
+        // from every page.
+        let nextUrl = `${API_BASE_URL}/jsonapi/node/journey?include=field_journey_image.field_media_image,field_journey_tag,field_month,field_category,field_region,field_starts_in`;
+        let allData = [];
+        let allIncluded = [];
 
+        while (nextUrl) {
+          const res = await fetch(nextUrl);
+          const pageJson = await res.json();
 
-        const json = await res.json();
-        
+          allData = allData.concat(pageJson.data || []);
+          allIncluded = allIncluded.concat(pageJson.included || []);
+          nextUrl = pageJson.links?.next?.href || null;
+        }
+
+        const json = { data: allData, included: allIncluded };
+
         console.log(
   "Relationships:",
   json.data?.[0]?.relationships
 );
-        console.log("Journey API:", json);
+        console.log("Journey API (all pages):", json.data.length, "journeys");
         const included = json.included || [];
         console.log(
   "Region terms:",
@@ -97,13 +114,28 @@ const drupalJourneys = (json.data || []).map((item, index) => {
           const mediaEntity = included.find(
             (inc) => inc.type === "media--image" && inc.id === mediaId,
           );
-          const monthId = item.relationships?.field_month?.data?.id;
+          // field_month can be a multi-value taxonomy reference (a
+          // journey may run across several months), so `.data` can be
+          // either a single relationship object or an array — reading it
+          // as `.data?.id` unconditionally (the old code) silently broke
+          // for any multi-value field: `.id` on an array is undefined,
+          // so monthId was always undefined and monthName was always ""
+          // for every journey, which made the month filter match nothing.
+          const monthRelationship = item.relationships?.field_month?.data;
+          const monthRefs = Array.isArray(monthRelationship)
+            ? monthRelationship
+            : monthRelationship
+              ? [monthRelationship]
+              : [];
 
-          const monthEntity = included.find(
-            (inc) => inc.type === "taxonomy_term--month" && inc.id === monthId,
-          );
-
-          const monthName = monthEntity?.attributes?.name || "";
+          const monthNames = monthRefs
+            .map((ref) => {
+              const monthEntity = included.find(
+                (inc) => inc.type === "taxonomy_term--month" && inc.id === ref.id,
+              );
+              return monthEntity?.attributes?.name || "";
+            })
+            .filter(Boolean);
           const fileId =
             mediaEntity?.relationships?.field_media_image?.data?.id;
 
@@ -252,7 +284,7 @@ offer: item.attributes.field_offer_message || "",
               included,
             ),
             category: categoryNames,
-            month: monthName,
+            month: monthNames,
 
             viewTripUrl,
             viewTripText: cta?.title || "View Trip",
@@ -355,19 +387,15 @@ offer: item.attributes.field_offer_message || "",
     }
 
     if (filters.month.length) {
-      data = data.filter((item) => filters.month.includes(item.month));
+      data = data.filter((item) =>
+        item.month?.some((m) => filters.month.includes(m)),
+      );
     }
 
     if (filters.pricing.length) {
-      data = data.filter((item) => {
-        return filters.pricing.some((range) => {
-          if (range === "$3000 under") return item.price < 3000;
-          if (range === "$3,000-$8,000")
-            return item.price >= 3000 && item.price <= 8000;
-          if (range === "$10,000+") return item.price >= 10000;
-          return true;
-        });
-      });
+      data = data.filter((item) =>
+        filters.pricing.some((range) => matchesBudget(item.price, range)),
+      );
     }
 
     if (filters.duration.length) {
