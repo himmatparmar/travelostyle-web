@@ -160,7 +160,7 @@ export default function JourneyCard({ trip, variant = "carousel", onCompare }) {
 
         <div className="flex-0" />
 
-        <div className="mt-4 flex items-center justify-between md:items-end">
+        <div className="mt-4 flex items-end justify-between">
           <div className="flex flex-col items-start md:flex-row md:items-end md:gap-1">
             <span className="text-[10px] leading-[21px] tracking-[0.05em] text-ink md:hidden">
               from

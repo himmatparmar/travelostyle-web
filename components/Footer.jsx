@@ -48,31 +48,31 @@ export default function Footer() {
 
   return (
     <footer
-      className="w-full overflow-hidden bg-[#2C3078] text-[#FAFAFA] px-6 md:px-[110px] py-12 md:py-[24px]"
+      className="w-full overflow-hidden bg-[#2C3078] text-[#FAFAFA] px-6 md:px-[110px] pt-4 pb-12 md:py-[24px]"
     >
-      <div className="flex flex-col items-center pt-2 max-w-xl mx-auto md:max-w-none">
-        <div className="flex items-center gap-4 md:gap-10 w-full justify-center">
-          <div className="w-[40px] md:w-[140px] h-[1px] bg-[#FAFAFA]" />
-          <span className="text-[14px] md:text-[18px] tracking-[0.05em] whitespace-nowrap">
+      <div className="flex flex-col items-center justify-center pt-2 w-[363px] max-w-full h-[114.52px] mx-auto md:w-[520px] md:h-auto md:max-w-none">
+        <div className="flex items-center justify-between w-full">
+          <div className="w-[100px] md:w-[140px] shrink-0 h-px border-t border-[#FAFAFA]" />
+          <span className="text-[12px] md:text-[18px] tracking-[0.05em] whitespace-nowrap text-center">
             ESTD. 2026
           </span>
-          <div className="w-[40px] md:w-[140px] h-[1px] bg-[#FAFAFA]" />
+          <div className="w-[100px] md:w-[140px] shrink-0 h-px border-t border-[#FAFAFA]" />
         </div>
 
-        <div className="mt-4 md:mt-6 flex justify-center w-full px-4">
+        <div className="mt-2 md:mt-6 flex justify-center w-[361.99px] h-[58.12px] max-w-full md:w-full md:overflow-visible">
           <img
             src="/travelostyle-logo.svg"
             alt="TravelOStyle"
-            className="w-full max-w-[280px] md:max-w-[520px] h-auto"
+            className="w-full h-full object-contain md:h-auto md:w-full md:scale-[1.45]"
           />
         </div>
 
-        <div className="flex items-center gap-4 md:gap-10 mt-4 w-full justify-center">
-          <div className="w-[40px] md:w-[140px] h-[1px] bg-[#FAFAFA]" />
-          <span className="text-[14px] md:text-[18px] tracking-[0.05em] whitespace-nowrap">
+        <div className="flex items-center justify-between mt-2 md:mt-6 w-full">
+          <div className="w-[100px] md:w-[140px] shrink-0 h-px border-t border-[#FAFAFA]" />
+          <span className="text-[12px] md:text-[18px] tracking-[0.05em] whitespace-nowrap text-center">
             JOURNEY BEYOND
           </span>
-          <div className="w-[40px] md:w-[140px] h-[1px] bg-[#FAFAFA]" />
+          <div className="w-[100px] md:w-[140px] shrink-0 h-px border-t border-[#FAFAFA]" />
         </div>
       </div>
 
