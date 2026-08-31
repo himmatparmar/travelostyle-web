@@ -77,7 +77,7 @@ export default function JourneysWeLove({
   };
 
   return (
-    <div className="mt-6 flex w-full items-center justify-center gap-[1.3vw] px-4 max-md:mt-4 md:mt-[4vw] md:px-0">
+    <div className="mt-6 flex w-full items-center justify-center gap-[1.3vw] px-4 max-md:mt-4 md:mt-[4vw] md:px-0 md:mx-auto md:max-w-[1416px] md:justify-between">
       <div onClick={scrollLeft} className="cursor-pointer max-md:hidden">
         <Image
           src={"/LeftArrow.svg"}

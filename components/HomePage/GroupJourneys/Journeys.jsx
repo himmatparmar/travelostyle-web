@@ -147,7 +147,7 @@ export default function Journey({
             />
           </div>
 
-          <p className="mt-3 mb-2 text-[21px] leading-5 text-[#2f2f2f] font-taprom">
+          <p className="mt-3 mb-2 max-w-full text-[21px] font-normal leading-[32px] tracking-[0.05em] text-[#1A1A1A] font-taprom">
             {imageQuote}
           </p>
         </div>
