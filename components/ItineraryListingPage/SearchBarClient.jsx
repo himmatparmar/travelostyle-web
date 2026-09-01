@@ -63,7 +63,7 @@ function ListingSearchForm({ destinations = [], months = [] }) {
   };
 
   return (
-    <div className="border-2 border-ink rounded-xl px-6 py-4 my-6 bg-white">
+    <div className="border-2 border-ink rounded-lg px-6 py-4 my-6 mx-2 md:-mx-4 bg-white">
       <div className="flex gap-4">
         {/* WHERE */}
         <button
@@ -302,7 +302,9 @@ export default function SearchBar({ destinations = [], months = [] }) {
           </button>
         </div>
 
-        {/* Hero Quote */}
+        {/* Hero Quote — desktop only. The mobile itinerary page shows this
+            same wording in its own script-styled heading (AllJourneysPage.jsx),
+            so repeating it here would duplicate it on mobile. */}
         <div className="hidden md:flex justify-center items-center py-8">
           <p
             className="text-center text-[2.2vw] leading-[1.5]"

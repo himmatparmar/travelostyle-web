@@ -480,13 +480,13 @@ offer: item.attributes.field_offer_message || "",
             glyphs and wrapping onto three lines, rather than one flat block. */}
         <h1 className="mt-5 max-w-[290px] font-taprom text-[40px] relative z-0 font-normal leading-[46px] tracking-[0.02em] text-ink">
           <span className="inline-block sub-title-bg feel hear md:px-[6px] mx-auto">
-            Hear from those 
+            The range is wide
           </span>
             <span className="block sub-title-bg feel who md:px-[6px] mx-auto">
-            who&apos;ve travelled 
+            because we&apos;ve never believed
             </span>
             <span className="inline-block sub-title-bg feel with md:px-[6px] mx-auto">
-            with us
+            in a one-size-fits-all approach
             </span>
         </h1>
 
@@ -506,7 +506,7 @@ offer: item.attributes.field_offer_message || "",
         </div>
       </div>
 
-      <div className="hidden md:flex gap-[2vw] py-[0.8vw] items-baseline">
+      <div className="hidden md:flex gap-[2vw] py-[0.8vw] items-start">
         {/* Breadcrumb — aligns with filter sidebar column */}
         <div className="w-[300px] shrink-0">
           <nav className="text-[0.72vw] text-[#888]">

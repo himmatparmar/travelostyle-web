@@ -2,13 +2,8 @@
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import {
-  CalendarDays,
-  CheckCircle2,
-  CirclePlus,
-  Info,
-  MapPinned,
-} from "lucide-react";
+import Image from "next/image";
+import { CheckCircle2, CirclePlus, Info } from "lucide-react";
 import JourneyCardImage from "@/components/JourneyCardImage";
 
 const TAG_COLORS = {
@@ -132,12 +127,29 @@ existingTrips.push(trip);
 
         <div className="mt-3 flex h-[44px] flex-col gap-2 text-[10px] leading-[16px] tracking-[0.05em] text-ink md:mt-3 md:h-auto md:flex-row md:items-center md:gap-4 md:text-[8px] md:tracking-normal md:text-[#717171]">
           <div className="flex items-center gap-2 md:gap-1">
-            <CalendarDays size={16} strokeWidth={1.8} className="md:size-3" />
+            {/* Same /Calender.svg + /Destination.svg pair components/JourneyCard.jsx
+                (the homepage card) uses — swapped in for the generic lucide
+                CalendarDays/MapPinned icons this card had, which didn't
+                visually match (different weight/style from each other and
+                from the rest of the site's card icons). */}
+            <Image
+              src="/Calender.svg"
+              alt="Calendar"
+              height={16}
+              width={16}
+              className="w-[16px] h-[16px] md:w-[12px] md:h-[12px]"
+            />
             {trip.days}
           </div>
 
           <div className="flex items-center gap-2 md:gap-1">
-            <MapPinned size={16} strokeWidth={1.8} className="md:size-3" />
+            <Image
+              src="/Destination.svg"
+              alt="Destination"
+              height={16}
+              width={16}
+              className="w-[16px] h-[16px] md:w-[12px] md:h-[12px]"
+            />
             {trip.destinations}
           </div>
         </div>
@@ -145,23 +157,25 @@ existingTrips.push(trip);
         <div className="flex-1" />
 
         <div className="mt-4 flex items-center justify-between md:items-end">
-          <div className="flex flex-col items-start md:flex-row md:items-end md:gap-1">
+          <div className="flex flex-col items-start">
             <span className="text-[10px] leading-[21px] tracking-[0.05em] text-ink md:hidden">
               from
             </span>
 
-            {/* Mobile (per Figma): "$3000*" and "/person" share a baseline,
-                with "double occupancy*" wrapping onto the line below. Desktop
-                keeps the original stacked-label + two-line-note arrangement. */}
-            <div className="flex items-baseline gap-1 md:hidden">
+            {/* Mobile (per Figma): price and "/person" share a baseline,
+                with "double occupancy" wrapping onto the line below. Desktop
+                mirrors the same stacked arrangement: from price with person
+                inline, then double occupancy directly below it. */}
+            <div className="flex items-baseline gap-0 md:hidden">
               <h4 className="text-[16px] font-medium leading-[21px] tracking-[0.05em] text-ink">
-                ${Number(trip.price).toLocaleString()}*
+                ${Number(trip.price).toLocaleString()}
+                <span className="relative -top-[2px] text-[12px] align-top">*</span>
               </h4>
-              <span className="text-[10px] leading-[14px] tracking-[0.05em] text-ink">
+              <span className="relative -top-[2px] text-[12px] leading-[14px] tracking-[0.05em] text-ink">
                 /person
               </span>
             </div>
-            <span className="text-[10px] leading-[14px] tracking-[0.05em] text-ink md:hidden">
+            <span className="-mt-1 text-[10px] leading-[14px] tracking-[0.05em] text-ink md:hidden">
               double occupancy*
             </span>
 
@@ -169,9 +183,14 @@ existingTrips.push(trip);
               <span className="md:text-[9px] md:leading-[1.15] md:text-[#7B7B7B]">
                 from
               </span>
-              <h4 className="md:text-[20px] md:font-semibold md:leading-none md:text-[#1D1D1D]">
-                ${Number(trip.price).toLocaleString()}*
-              </h4>
+              <div className="md:flex md:items-baseline md:gap-0">
+                <h4 className="md:text-[20px] md:font-semibold md:leading-none md:text-[#1D1D1D]">
+                  ${Number(trip.price).toLocaleString()}*
+                </h4>
+                <span className="md:text-[15px] md:leading-[1.15] md:text-[#7B7B7B]">
+                  /person
+                </span>
+              </div>
               {trip.originalPrice > trip.price && (
                 <span className="md:mt-[2px] md:text-[11px] md:leading-none md:text-[#7B7B7B]">
                   was{" "}
@@ -180,13 +199,10 @@ existingTrips.push(trip);
                   </span>
                 </span>
               )}
+              <span className="md:mt-[2px] md:text-[12px] md:leading-[1.15] md:text-[#7B7B7B]">
+                double occupancy*
+              </span>
             </div>
-
-            <span className="hidden md:mb-[2px] md:block md:text-[8px] md:leading-[1.15] md:text-[#7B7B7B]">
-              /person
-              <br />
-              double occupancy*
-            </span>
           </div>
 
           <a
