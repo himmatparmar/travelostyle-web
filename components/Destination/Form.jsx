@@ -170,14 +170,14 @@ export default function Form() {
       />
 
       <div className="absolute inset-0 bg-black/45" />
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-20 py-19 md:py-12">
+      <div className="relative z-10 w-full px-6 md:px-20 py-19 md:py-12">
         <div className="flex flex-col lg:flex-row gap-8 md:gap-16">
           <div className="w-full lg:w-[40%]">
-            <h2 className="font-[Nohemi] font-semibold text-[#FAFAFA] md:text-white text-[32px] md:text-[40px] leading-[40px] md:leading-[48px] tracking-[0.05em] md:tracking-normal max-w-[304px] md:max-w-[397px]">
+            <h2 className="font-[Nohemi] font-semibold text-[#FAFAFA] text-[32px] md:text-[40px] leading-[40px] md:leading-[48px] tracking-[0.05em] max-w-[304px] md:max-w-[397px]">
               <span className="block">Can&apos;t decide</span>
               <span className="block">where to go?</span>
             </h2>
-            <p className="font-nohemi mt-3 w-[336px] max-w-full text-[#FAFAFA] text-[16px] leading-[24px] font-normal tracking-[0.05em] md:max-w-[360px] md:text-[18px] md:leading-[32px]">
+            <p className="font-nohemi mt-3 w-[336px] max-w-full text-[#FAFAFA] text-[16px] leading-[24px] font-normal tracking-[0.05em] md:max-w-[395px] md:text-[18px] md:leading-[32px]">
               Tell us what you&apos;re drawn to – your interests, how long you
               have, your budget, your group size and anything else – we&apos;ll
               come back with a curated list of destinations and journeys that
@@ -185,7 +185,7 @@ export default function Form() {
             </p>
           </div>
 
-          <div className="w-full lg:w-[60%]">
+          <div className="w-full lg:w-[60%] lg:-mt-7">
             <form onSubmit={handleSubmit} className="text-white" noValidate>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
