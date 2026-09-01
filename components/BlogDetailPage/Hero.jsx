@@ -17,7 +17,7 @@ export default function Hero({ blog, categories }) {
             px-[16px]
             shrink-0
             whitespace-nowrap
-            bg-[#F2E2DA]
+            bg-transparent md:bg-[#F2E2DA]
             border
             border-ink
             rounded-full
