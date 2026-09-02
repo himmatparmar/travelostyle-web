@@ -258,8 +258,11 @@ export default function SearchBar({ destinations = [], months = [] }) {
 
       {/* Header + Quote + Search */}
       <div className="bg-[#FAFAFA] px-4 md:px-14 py-2">
-        {/* Nav row */}
-        <div className="relative flex items-center justify-between border-b-2 border-[#1A1A1A] pb-8 md:pb-4">
+        {/* Nav row — fixed height on mobile so the icons (centered via
+            items-center) and the logo (centered via top-1/2/-translate-y-1/2)
+            both center against the exact same band, from just under the
+            FAQ bar down to this row's own border line. */}
+        <div className="relative flex h-14 items-center justify-between border-b-2 border-[#1A1A1A] md:h-auto md:pb-5">
           <button onClick={() => setMenuOpen(true)} className="block md:hidden">
             <Image src="/MenuToggle.svg" alt="Menu" width={20} height={20} />
           </button>
@@ -267,7 +270,7 @@ export default function SearchBar({ destinations = [], months = [] }) {
   <img
     src="/TravelOStyleBlack.svg"
     alt="TravelOStyle"
-    className="h-auto w-[140px] md:w-[309px] md:static absolute left-1/2 -translate-x-1/2 md:translate-x-0 cursor-pointer"
+    className="h-auto w-[140px] md:w-[309px] md:static absolute inset-x-0 top-1/2 mx-auto -translate-y-1/2 md:top-auto md:mx-0 md:translate-y-0 cursor-pointer"
   />
 </Link>
           <div className="hidden md:flex items-center gap-9 text-[14px] font-medium text-[#1E1E1E]">
