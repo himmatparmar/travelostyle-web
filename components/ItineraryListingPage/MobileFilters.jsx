@@ -265,10 +265,10 @@ export default function MobileFilters({
         <div className="fixed inset-0 z-50">
           <div className="absolute inset-0 bg-black/40" onClick={close} />
 
-          <div className="absolute bottom-0 left-0 right-0 flex h-[85vh] flex-col overflow-hidden rounded-t-1xl bg-white">
+          <div className="absolute bottom-0 left-0 right-0 flex h-[92vh] flex-col overflow-hidden rounded-t-1xl bg-white">
             {/* HEADER */}
-            <div className="flex items-center justify-between border-b border-[#E8E8E8] px-4 py-3">
-              <span className="flex items-center gap-2 text-base font-semibold">
+            <div className="flex items-center justify-between border-b border-[#E8E8E8] px-4 py-2">
+              <span className="flex items-center gap-2 text-sm font-semibold">
                 <ListFilter size={15} />
                 Filters {activeFilterCount > 0 ? `(${activeFilterCount})` : ""}
               </span>
@@ -288,8 +288,8 @@ export default function MobileFilters({
 
             {/* BODY: left tab list + right content pane */}
             <div className="flex min-h-0 flex-1 overflow-hidden">
-              <div className="no-scrollbar min-h-0 w-[38%] shrink-0 overflow-y-auto bg-[#F2D5C4] pt-2">
-                <label className="flex cursor-pointer items-center gap-2 border-b border-[#B08968] px-3 py-3 text-left text-sm text-[#444]">
+              <div className="no-scrollbar h-full min-h-0 w-[38%] shrink-0 overflow-y-auto bg-[#F2D5C4] pt-2">
+                <label className="flex cursor-pointer items-start gap-2 border-b border-[#B08968] px-3 py-1.5 text-left text-xl text-[#444]">
                   <input
                     type="checkbox"
                     checked={filters.displayAllOffers}
@@ -299,9 +299,9 @@ export default function MobileFilters({
                         displayAllOffers: e.target.checked,
                       }))
                     }
-                    className="h-4 w-4 cursor-pointer accent-[#2f2d89]"
+                    className="mt-0.5 h-3.5 w-3.5 shrink-0 cursor-pointer accent-[#2f2d89]"
                   />
-                  <span className="text-sm text-[#444]">
+                  <span className="max-w-[62px] text-xs leading-tight text-[#444]">
                     Display all offers
                   </span>
                 </label>
@@ -310,7 +310,7 @@ export default function MobileFilters({
                   <button
                     key={tab.key}
                     onClick={() => setActiveTab(tab.key)}
-                    className={`block w-full border-b border-[#B08968] px-3 py-3 text-left text-sm ${
+                    className={`block w-full border-b border-[#B08968] px-3 py-2 text-left text-xs ${
                       activeTab === tab.key
                         ? "bg-white font-semibold text-ink"
                         : "text-[#444]"
