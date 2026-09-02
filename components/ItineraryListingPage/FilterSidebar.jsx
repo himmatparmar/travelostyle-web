@@ -4,14 +4,24 @@ import { useState, useEffect } from "react";
 import { Plus, Minus, ChevronDown, ChevronUp, Check } from "lucide-react";
 import { BUDGET_RANGES, matchesBudget } from "@/lib/budgetRanges";
 
-const FilterSection = ({ title, children, defaultOpen = true, mobile = false }) => {
+const FilterSection = ({ title, children, defaultOpen = true, mobile = false, last = false }) => {
   const [open, setOpen] = useState(defaultOpen);
 
 
   return (
 
 
-    <div className={mobile ? "border-b border-[#E5E5E5] py-4" : "border-b border-[#E5E5E5] py-[1.4vw]"}>
+    <div
+      className={
+        mobile
+          ? last
+            ? "py-4"
+            : "border-b-2 border-ink py-4"
+          : last
+          ? "py-[1.4vw]"
+          : "border-b-2 border-ink py-[1.4vw]"
+      }
+    >
       <button
         onClick={() => setOpen(!open)}
         className="flex w-full items-center justify-between"
@@ -34,7 +44,7 @@ const FilterSection = ({ title, children, defaultOpen = true, mobile = false }) 
   );
 };
 
-const CheckboxItem = ({ label, checked, onChange, count = 0, mobile = false }) => {
+export const CheckboxItem = ({ label, checked, onChange, count = 0, mobile = false }) => {
   if (mobile) {
     return (
       <label className="flex items-center gap-3 py-2 cursor-pointer">
@@ -82,7 +92,7 @@ const CheckboxItem = ({ label, checked, onChange, count = 0, mobile = false }) =
   );
 };
 
-const MonthPill = ({ label, active, onClick, mobile = false }) => {
+export const MonthPill = ({ label, active, onClick, mobile = false }) => {
   if (mobile) {
     return (
       <button
@@ -113,6 +123,60 @@ const MonthPill = ({ label, active, onClick, mobile = false }) => {
     </button>
   );
 };
+export const DURATION_OPTIONS = ["5–8 Days", "8–15 Days", "15–25 Days", "25+ Days"];
+
+// Shared with MobileFilters.jsx (the tabbed mobile filter/sort sheet) so both
+// surfaces compute "(count)" badges identically without duplicating the
+// switch logic.
+export function getFilterCount(journeys, key, value) {
+  return journeys.filter((item) => {
+    switch (key) {
+      case "region":
+        return item.region === value;
+
+      case "style":
+        return item.tags?.includes(value);
+
+      case "offer":
+        return item.offer === value;
+
+      case "category":
+        return item.category?.includes(value);
+
+      case "month":
+        return item.month?.includes(value);
+
+      case "pricing":
+        return matchesBudget(item.price, value);
+
+      case "duration": {
+        const days = parseInt(item.days?.split(" ")[0] || 0);
+
+        if (value === "5–8 Days") {
+          return days >= 5 && days <= 8;
+        }
+
+        if (value === "8–15 Days") {
+          return days >= 8 && days <= 15;
+        }
+
+        if (value === "15–25 Days") {
+          return days >= 15 && days <= 25;
+        }
+
+        if (value === "25+ Days") {
+          return days >= 25;
+        }
+
+        return false;
+      }
+
+      default:
+        return false;
+    }
+  }).length;
+}
+
 export default function FilterSidebar({
   filters,
   setFilters,
@@ -168,54 +232,7 @@ export default function FilterSidebar({
         : [...prev[key], value],
     }));
   };
-  const getCount = (key, value) => {
-    return journeys.filter((item) => {
-      switch (key) {
-        case "region":
-          return item.region === value;
-
-        case "style":
-          return item.tags?.includes(value);
-
-        case "offer":
-          return item.offer === value;
-
-        case "category":
-          return item.category?.includes(value);
-
-        case "month":
-          return item.month?.includes(value);
-
-        case "pricing":
-          return matchesBudget(item.price, value);
-
-        case "duration": {
-          const days = parseInt(item.days?.split(" ")[0] || 0);
-
-          if (value === "5–8 Days") {
-            return days >= 5 && days <= 8;
-          }
-
-          if (value === "8–15 Days") {
-            return days >= 8 && days <= 15;
-          }
-
-          if (value === "15–25 Days") {
-            return days >= 15 && days <= 25;
-          }
-
-          if (value === "25+ Days") {
-            return days >= 25;
-          }
-
-          return false;
-        }
-
-        default:
-          return false;
-      }
-    }).length;
-  };
+  const getCount = (key, value) => getFilterCount(journeys, key, value);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -319,17 +336,22 @@ export default function FilterSidebar({
     } catch (error) {
       console.error("Error reading journeyData from sessionStorage:", error);
     } finally {
-      // Consume it — this effect re-runs on every `searchParams` change
-      // (needed so the on-page search bar's "Find Your Journey" click
-      // re-applies filters even without a remount) AND whenever
-      // filterOptions.style resolves. Without clearing the key here,
-      // either of those later re-runs would re-apply this same stale
-      // snapshot and silently stomp on any price/month checkbox the
-      // user had since toggled by hand in the sidebar — which is why
-      // pricing/month looked "stuck"/unresponsive after a search-bar
-      // search. Once applied, this seeds initial state; the sidebar's
-      // own checkboxes are the source of truth after that.
-      sessionStorage.removeItem("journeyData");
+      // Only consume once filterOptions.style has actually loaded. The
+      // homepage's TravelForm / FindJourneyMobile widgets stash a
+      // `travelType` (e.g. "Private Journey") in this same payload,
+      // matched against filterOptions.style above — but filterOptions.style
+      // starts out as [] until its own fetch resolves, so the *first* time
+      // this effect fires (often before that fetch finishes) the match
+      // legitimately fails. `filterOptions.style` is in this effect's
+      // dependency array specifically so it retries once real data is in —
+      // clearing sessionStorage unconditionally (an earlier version of
+      // this fix) deleted the payload before that retry could happen,
+      // which is what broke the homepage search's style/travel-type
+      // filter. Gate the clear on filterOptions.style being populated so
+      // the retry always gets to run at least once before we consume it.
+      if ((filterOptions.style?.length ?? 0) > 0) {
+        sessionStorage.removeItem("journeyData");
+      }
     }
   }, [filterOptions.style, setFilters, searchParams]);
 
@@ -390,7 +412,7 @@ export default function FilterSidebar({
 
       {/* DURATION */}
       <FilterSection title="Duration" mobile={mobile}>
-        {["5–8 Days", "8–15 Days", "15–25 Days", "25+ Days"].map((item) => (
+        {DURATION_OPTIONS.map((item) => (
           <CheckboxItem
             key={item}
             label={item}
@@ -452,7 +474,7 @@ export default function FilterSidebar({
       </FilterSection>
 
       {/* MONTH */}
-      <FilterSection title="Month" mobile={mobile}>
+      <FilterSection title="Month" mobile={mobile} last>
         <div className={mobile ? "flex flex-wrap gap-2" : "flex flex-wrap gap-[0.4vw]"}>
           {(filterOptions.month || []).map((month) => (
             <MonthPill
@@ -530,8 +552,8 @@ export default function FilterSidebar({
       </div>
 
       {/* DISPLAY ALL OFFERS */}
-      <div className="py-[1vw] mb-[1vw]">
-        <label className="flex cursor-pointer items-center gap-[0.6vw] rounded-[0.4vw] border border-[#2f2d89] px-[0.7vw] py-[0.45vw]">
+      <div className="py-[1vw] ">
+        <label className="flex cursor-pointer items-center gap-[0.6vw] rounded-[0.3vw] border-2 border-black px-[0.7vw] py-[0.45vw]">
           <input
             type="checkbox"
             checked={filters.displayAllOffers}
@@ -551,7 +573,7 @@ export default function FilterSidebar({
       </div>
 
       {/* MAIN FILTER WRAPPER */}
-      <div className="rounded-[1vw] border border-[#000000] px-[1vw] py-[0.3vw]">
+      <div className="rounded-[0.2vw] border-2 border-[#000000] px-[1vw] py-[0.3vw]">
         {/* REGION (Drupal: country) */}
         <FilterSection title="Region">
           {(filterOptions.region || []).map((item) => (
@@ -593,7 +615,7 @@ export default function FilterSidebar({
 
         {/* DURATION */}
         <FilterSection title="Duration">
-          {["5–8 Days", "8–15 Days", "15–25 Days", "25+ Days"].map((item) => (
+          {DURATION_OPTIONS.map((item) => (
             <CheckboxItem
               key={item}
               label={item}
@@ -652,7 +674,7 @@ export default function FilterSidebar({
         </FilterSection>
 
         {/* MONTH */}
-        <FilterSection title="Month">
+        <FilterSection title="Month" last>
           <div className="flex flex-wrap gap-[0.4vw]">
             {(filterOptions.month || []).map((month) => (
               <MonthPill

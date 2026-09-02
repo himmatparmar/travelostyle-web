@@ -9,7 +9,7 @@ export default function PrivateJourneysLuxury() {
           src="/Ship.svg"
           alt="Private Journey"
           fill
-          className="object-cover"
+          className="object-cover object-bottom"
         />
         <div className="absolute inset-0 " />
         <div className="absolute inset-0 flex items-start pt-[6vw] md:pt-[5vw] lg:pt-[4vw]">

@@ -77,7 +77,7 @@ export default function SortBar({
       </div>
 
       {/* Divider */}
-      <div className="border-b border-[#E0E0E0]" />
+      <div className="border-b-2 border-ink" />
 
       {/* Row 2: active filter chips */}
       {hasActiveFilters && (

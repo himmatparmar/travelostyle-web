@@ -88,14 +88,14 @@ export default function NotSureWhereToBegin() {
 
   return (
     <div className="min-h-screen py-16 max-w-[1704px] mx-auto font-sans" style={{ paddingInline: "clamp(16px, 3.6vw, 69px)" }}>
-      <div className="max-w-[800px] mx-auto mb-12">
-        {/* <p className="font-taprom text-[32px] font-normal leading-[40px] tracking-[0.05em] text-black [text-box-trim:cap] [text-box-edge:cap_alphabetic]">
+      <div className="max-w-[800px] mx-auto mb-12 text-left md:text-center">
+        <p className="md:hidden mb-3 font-taprom text-[24px] font-normal leading-[28px] tracking-[0.05em] text-black [text-box-trim:cap] [text-box-edge:cap_alphabetic]">
           get inspired
-        </p> */}
-        <h2 className="mb-5 text-[32px] lg:text-[26px] xl:text-[32px] text-center font-semibold leading-[40px] lg:leading-[34px] xl:leading-[40px] tracking-[0.05em] text-black [text-box-trim:cap] [text-box-edge:cap_alphabetic]">
+        </p>
+        <h2 className="mb-5 text-[32px] lg:text-[26px] xl:text-[32px] text-left md:text-center font-semibold leading-[40px] lg:leading-[34px] xl:leading-[40px] tracking-[0.05em] text-black [text-box-trim:cap] [text-box-edge:cap_alphabetic]">
           Not sure where to begin? Start here
         </h2>
-        <p className="text-black text-center text-[16px] sm:text-base leading-relaxed max-w-[720px] mx-auto font-normal">
+        <p className="font-nohemi text-[#000000] text-left md:text-center text-[16px] sm:text-base leading-[28px] md:leading-relaxed tracking-[0.05em] md:tracking-normal max-w-[335px] md:max-w-[720px] md:mx-auto font-normal">
           Explore our collection of inspirational itineraries – journey ideas
           across regions and travel styles that work as a starting point. Think
           of them as conversation starters. We’ll take it from there.

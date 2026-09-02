@@ -292,6 +292,13 @@ a,
     top: 13px;
   }
 }
-
-/* Custom CSS */
-@import "./cust.css";
+/* Hide scrollbars on scrollable panes that still need to scroll (the
+   mobile filter sheet's tab list and content pane) — used instead of
+   letting the browser's default gray scrollbar track show up. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
