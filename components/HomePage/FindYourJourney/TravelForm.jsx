@@ -46,7 +46,7 @@ const durations = ["5–8 Days", "8–15 Days", "15–25 Days", "25+ Days"];
 export default function TravelForm() {
   const [selectedTravelType, setSelectedTravelType] =
     useState("Private Journey");
-     const router = useRouter();
+  const router = useRouter();
   const [activeDropdown, setActiveDropdown] = useState(null);
 
   const [selectedDestinations, setSelectedDestinations] = useState([]);
@@ -63,9 +63,9 @@ export default function TravelForm() {
       duration: selectedDuration,
     };
 
-   sessionStorage.setItem("journeyData", JSON.stringify(findYourJourneyData));
+    sessionStorage.setItem("journeyData", JSON.stringify(findYourJourneyData));
 
-  router.push(`/itinerary?region=${encodeURIComponent(selectedTravelType)}`);
+    router.push(`/itinerary?region=${encodeURIComponent(selectedTravelType)}`);
   };
 
   const handleDestinationSelect = (destination) => {
@@ -93,27 +93,34 @@ export default function TravelForm() {
   return (
     <div className="pt-3">
       <div className="flex gap-4">
-        <button
+          <button
           onClick={() =>
-            setActiveDropdown(activeDropdown === "travel" ? null : "travel")
+            setActiveDropdown(activeDropdown === "date" ? null : "date")
           }
-className="flex h-[42px] w-[496px] items-center justify-between rounded border-[1.5px] border-gray-400 bg-white px-4"        >
-          <span className="text-[0.7vw]">{selectedTravelType}</span>
+          className="flex h-[42px] w-[470px] items-center justify-between rounded border-[1.5px] border-gray-400 bg-white px-4"
+        >
+          <span className="truncate text-[0.7vw]">
+            {selectedMonths.length || selectedDuration
+              ? `${selectedMonths.join(", ")}${
+                  selectedMonths.length && selectedDuration ? ", " : ""
+                }${selectedDuration}`
+              : "When do you want to travel?"}
+          </span>
 
-          {activeDropdown === "travel" ? (
+          {activeDropdown === "date" ? (
             <ChevronUp size={18} />
           ) : (
             <ChevronDown size={18} />
           )}
         </button>
-
         <button
           onClick={() =>
             setActiveDropdown(
               activeDropdown === "destination" ? null : "destination",
             )
           }
-className="flex h-[42px] w-[410px] items-center justify-between rounded border-[1.5px] border-gray-400 bg-white px-4"        >
+          className="flex h-[42px] w-[410px] items-center justify-between rounded border-[1.5px] border-gray-400 bg-white px-4"
+        >
           <span className="truncate text-[0.7vw]">
             {selectedDestinations.length
               ? selectedDestinations.length > 3
@@ -131,32 +138,27 @@ className="flex h-[42px] w-[410px] items-center justify-between rounded border-[
           )}
         </button>
 
-        <button
+       <button
           onClick={() =>
-            setActiveDropdown(activeDropdown === "date" ? null : "date")
+            setActiveDropdown(activeDropdown === "travel" ? null : "travel")
           }
-className="flex h-[42px] w-[470px] items-center justify-between rounded border-[1.5px] border-gray-400 bg-white px-4"        >
-          <span className="truncate text-[0.7vw]">
-            {selectedMonths.length || selectedDuration
-              ? `${selectedMonths.join(", ")}${
-                  selectedMonths.length && selectedDuration ? ", " : ""
-                }${selectedDuration}`
-              : "When do you want to travel?"}
-          </span>
+          className="flex h-[42px] w-[496px] items-center justify-between rounded border-[1.5px] border-gray-400 bg-white px-4"
+        >
+          <span className="text-[0.7vw]">{selectedTravelType}</span>
 
-          {activeDropdown === "date" ? (
+          {activeDropdown === "travel" ? (
             <ChevronUp size={18} />
           ) : (
             <ChevronDown size={18} />
           )}
         </button>
 
-     <button
-  onClick={handleFindJourney}
-  className="mb-3 w-[220px] h-[45px] px-[21px] py-3 bg-[#2F2E8B] text-white text-[14px] font-medium rounded-[100px] flex items-center justify-center gap-[10px]"
->
-  Find Your Journey 
-</button>
+        <button
+          onClick={handleFindJourney}
+          className="mb-3 w-[220px] h-[45px] px-[21px] py-3 bg-[#2F2E8B] text-white text-[14px] font-medium rounded-[100px] flex items-center justify-center gap-[10px]"
+        >
+          Find Your Journey
+        </button>
       </div>
       {/* <div className="mt-3 h-[1px] bg-[#2C3078] mx-[-60px]"></div> */}
       {activeDropdown === "travel" && (
@@ -216,11 +218,7 @@ className="flex h-[42px] w-[470px] items-center justify-between rounded border-[
                 className="h-4 w-4 accent-[#2E348D]"
               />
 
-              <a
-                className={`text-[0.7vw] `}
-              >
-                I&apos;m open to possibilities!
-              </a>
+              <a className={`text-[0.7vw] `}>I&apos;m open to possibilities!</a>
             </label>
           </div>
         </div>
