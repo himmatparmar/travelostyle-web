@@ -97,7 +97,7 @@ export default function TravelForm() {
           onClick={() =>
             setActiveDropdown(activeDropdown === "travel" ? null : "travel")
           }
-className="flex h-[42px] w-[496px] items-center justify-between rounded border-[1.5px] border-gray-400 bg-white px-4"        >
+className="flex h-[42px] w-[33%] items-center justify-between rounded border-[1.5px] border-gray-400 bg-white px-4"        >
           <span className="text-[0.7vw]">{selectedTravelType}</span>
 
           {activeDropdown === "travel" ? (
@@ -113,7 +113,7 @@ className="flex h-[42px] w-[496px] items-center justify-between rounded border-[
               activeDropdown === "destination" ? null : "destination",
             )
           }
-className="flex h-[42px] w-[410px] items-center justify-between rounded border-[1.5px] border-gray-400 bg-white px-4"        >
+className="flex h-[42px] w-[33%] items-center justify-between rounded border-[1.5px] border-gray-400 bg-white px-4"        >
           <span className="truncate text-[0.7vw]">
             {selectedDestinations.length
               ? selectedDestinations.length > 3
@@ -135,7 +135,7 @@ className="flex h-[42px] w-[410px] items-center justify-between rounded border-[
           onClick={() =>
             setActiveDropdown(activeDropdown === "date" ? null : "date")
           }
-className="flex h-[42px] w-[470px] items-center justify-between rounded border-[1.5px] border-gray-400 bg-white px-4"        >
+className="flex h-[42px] w-[33%] items-center justify-between rounded border-[1.5px] border-gray-400 bg-white px-4"        >
           <span className="truncate text-[0.7vw]">
             {selectedMonths.length || selectedDuration
               ? `${selectedMonths.join(", ")}${
